@@ -5,3 +5,4 @@
 
 [node name="Map1" unique_id=432367283 instance=ExtResource("1_3krmt")]
 script = ExtResource("2_e1fi2")
+map_name = "Map 1"

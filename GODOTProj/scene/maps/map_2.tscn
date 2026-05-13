@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bvuksbwbu41h"]
+
+[ext_resource type="PackedScene" uid="uid://byt6v0d8cx5y8" path="res://scene/maps/base_map.tscn" id="1_orbi7"]
+[ext_resource type="Script" uid="uid://c0gde8boogsom" path="res://scene/maps/map_2.gd" id="2_orbi7"]
+
+[node name="Map2" unique_id=432367283 instance=ExtResource("1_orbi7")]
+script = ExtResource("2_orbi7")

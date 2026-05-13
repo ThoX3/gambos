@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ba05sh5m0lvdi"]
 
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://d3fsod54u517y" path="res://scene/player/player.tscn" id="1_itxqv"]
 [ext_resource type="Script" uid="uid://hpi2wtg80dss" path="res://scene/enemy/enemy.gd" id="1_wp4xf"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="3_brvut"]
@@ -21,3 +22,10 @@ stats = ExtResource("4_brvut")
 [node name="Enemy2" parent="Map1" unique_id=477129775 instance=ExtResource("3_brvut")]
 position = Vector2(640, 115)
 stats = ExtResource("5_0ha60")
+=======
+[ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="1_itxqv"]
+
+[node name="Main" type="Node2D" unique_id=1767589913]
+
+[node name="Map1" parent="." unique_id=300879186 instance=ExtResource("1_itxqv")]
+>>>>>>> origin/main

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://byt6v0d8cx5y8"]
+
+[ext_resource type="Script" uid="uid://bflm33qvv7r7u" path="res://scene/maps/base_map.gd" id="1_l25f6"]
+
+[node name="BaseMap" type="Node2D" unique_id=432367283]
+script = ExtResource("1_l25f6")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1600340743]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Environment" type="TileMapLayer" parent="." unique_id=400006671]
+
+[node name="Obstacles" type="Node2D" parent="." unique_id=2006341987]
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="." unique_id=1151205714]
+
+[node name="CameraLimits" type="Node2D" parent="." unique_id=26522366]

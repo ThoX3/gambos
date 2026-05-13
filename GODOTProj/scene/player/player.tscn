@@ -42,3 +42,6 @@ light_mask = 2
 visibility_layer = 2
 shape = SubResource("CircleShape2D_6smn3")
 debug_color = Color(0.61960787, 0.53333336, 0, 0.07058824)
+
+[node name="Camera" type="Camera2D" parent="." unique_id=998837227]
+position_smoothing_enabled = true

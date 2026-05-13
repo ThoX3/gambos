@@ -4,13 +4,13 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 
-var direction = -1 
-var start_x = 0.0
+var player = null
 
 func _ready():
 	if stats:
 		setup_enemy()
-		start_x = global_position.x
+		player = get_parent().find_child("Player")
+		print(player)
 	else:
 		push_error("No stats assigned!")
 
@@ -20,15 +20,14 @@ func setup_enemy():
 	sprite.modulate = stats.aura_color
 
 func _physics_process(delta):
-	if not stats:
+	if not stats or not player:
 		return
 
-	velocity.x = direction * stats.movement_speed
+	var direction = (player.global_position - global_position).normalized()
+
+	velocity = direction * stats.movement_speed
+	
 	move_and_slide()
 
-	var current_distance = abs(global_position.x - start_x)
-
-	if current_distance >= stats.patrol_distance or is_on_wall():
-		direction *= -1
-		
-		sprite.flip_h = (direction > 0)
+	if velocity.x != 0:
+		sprite.flip_h = velocity.x > 0

@@ -7,3 +7,4 @@
 [node name="Map1" type="Node2D" parent="." unique_id=388306378]
 
 [node name="Player" parent="Map1" unique_id=1617224567 instance=ExtResource("1_itxqv")]
+position = Vector2(292, 223)

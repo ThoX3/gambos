@@ -9,7 +9,7 @@ script = ExtResource("1_l25f6")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Environment" type="TileMapLayer" parent="." unique_id=400006671]
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=400006671]
 
 [node name="Obstacles" type="Node2D" parent="." unique_id=2006341987]
 

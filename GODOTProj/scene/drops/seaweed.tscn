@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://csw7httmtku5k"]
+
+[ext_resource type="Texture2D" uid="uid://d07hot0lhu341" path="res://assets/sprites/collectibles/SeaweedXP_Idle1.png" id="1_mqw3s"]
+[ext_resource type="Script" uid="uid://bx2pcw8vpak3e" path="res://scene/drops/seaweed.gd" id="1_ukf3m"]
+[ext_resource type="Texture2D" uid="uid://d3cwg3igwrpcj" path="res://assets/sprites/collectibles/SeaweedXP_Idle2.png" id="2_ukf3m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jfboy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mqw3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ukf3m")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 1.5
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4d7"]
+radius = 18.0
+height = 60.0
+
+[node name="Area2D" type="Area2D" unique_id=179977108]
+light_mask = 3
+visibility_layer = 3
+script = ExtResource("1_ukf3m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1353562369]
+sprite_frames = SubResource("SpriteFrames_jfboy")
+animation = &"Idle"
+frame_progress = 0.74085957
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1596006280]
+shape = SubResource("CapsuleShape2D_ct4d7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,54 +1,59 @@
 extends Node2D
 class_name BaseMap
 
-# Map settings
-@export_group("Map settings")
-@export var map_name: String = "Unknown Zone"
-@export var map_music: AudioStream
-
-# Limits and looping
-@export_group("Limits")
-## If true, creates invisible walls and locks the camera.
-@export var has_hard_borders: bool = true
-## The size of the playable area in pixels.
+# --- MAP SETTINGS ---
+@export_group("General Settings")
+@export var map_name: String = "New Map"
+@export var background_music: AudioStream
+## The core playable area of the map in pixels
 @export var map_size: Vector2 = Vector2(4000, 4000)
 
-@export_group("Looping")
-## Warps the player to the other side when crossing horizontal bounds.
+# --- TOPOLOGY / LOOPING ---
+@export_group("Looping Settings")
+## Check to make the map loop left-to-right (Cylinder)
 @export var loop_horizontally: bool = false
-## Warps the player to the other side when crossing vertical bounds.
+## Check to make the map loop top-to-bottom
 @export var loop_vertically: bool = false
 
-# Internal references
-var player: CharacterBody2D
-var camera: Camera2D
+# --- NODE REFERENCES ---
+@onready var bgm_player: AudioStreamPlayer = $BGMPlayer
 
-func _ready():
-	# 1. Play the specific music for this map
-	if map_music and has_node("MusicPlayer"):
-		$MusicPlayer.stream = map_music
-		$MusicPlayer.play()
-		
-	# 2. Wait for the end of the frame to ensure the Player is fully loaded
+var player: CharacterBody2D
+
+func _ready() -> void:
+	# 1. Start the music immediately if one is assigned
+	if background_music:
+		bgm_player.stream = background_music
+		bgm_player.play()
+	
+	# 2. Wait exactly one frame to ensure the Player has spawned into the level
 	call_deferred("_initialize_map")
 
-func _initialize_map():
-	# Find the player using Godot's Group system
+func _initialize_map() -> void:
+	# Grab the player using Godot groups (Make sure your Player is in the "player" group!)
 	player = get_tree().get_first_node_in_group("player")
 	
-	if player:
-		# Search the player's children for the Camera2D
-		for child in player.get_children():
-			if child is Camera2D:
-				camera = child
-				break
-				
-	# Setup the map logic based on export toggles
-	if has_hard_borders:
-		setup_borders()
+	# Route to the correct setup based on your Inspector toggles
+	if loop_horizontally or loop_vertically:
+		_setup_holograms()
+	else:
+		_setup_hard_borders()
 
-func setup_borders():
-	# --- 1. Set Camera Limits ---
+func _physics_process(_delta: float) -> void:
+	# Only run the shifting logic if we have a player and the map loops
+	if player and (loop_horizontally or loop_vertically):
+		_check_universe_shift()
+
+func _setup_hard_borders() -> void:
+	# --- 1. SET CAMERA LIMITS ---
+	# Find the Camera2D attached to the player
+	var camera: Camera2D = null
+	for child in player.get_children():
+		if child is Camera2D:
+			camera = child
+			break
+			
+	# If a camera was found, lock its viewing boundaries to the map size
 	if camera:
 		camera.limit_left = 0
 		camera.limit_top = 0
@@ -56,15 +61,21 @@ func setup_borders():
 		camera.limit_bottom = int(map_size.y)
 		camera.limit_smoothed = true
 
-	# --- 2. Generate Physics Walls ---
-	# Instead of manually drawing collision boxes, we generate them via code!
+	# --- 2. GENERATE PHYSICS WALLS ---
 	var border_body = StaticBody2D.new()
 	border_body.name = "GeneratedBorders"
-	add_child(border_body)
 	
-	var wall_thickness = 100
+	# Keep the Scene Tree clean by putting it in the Entities node if you made one
+	if has_node("Entities"):
+		$Entities.add_child(border_body)
+	else:
+		add_child(border_body)
+		
+	# Make the walls thick! If they are too thin, players moving at very high speeds 
+	# might "tunnel" or phase through them between physics frames.
+	var wall_thickness = 200.0 
 	
-	# Helper function to create a wall
+	# An inline helper function to quickly generate the 4 walls without repeating code
 	var create_wall = func(pos: Vector2, extents: Vector2):
 		var shape = CollisionShape2D.new()
 		var rect = RectangleShape2D.new()
@@ -73,46 +84,23 @@ func setup_borders():
 		shape.position = pos
 		border_body.add_child(shape)
 
-	# Top Wall
-	create_wall.call(Vector2(map_size.x / 2, -wall_thickness / 2), Vector2(map_size.x, wall_thickness))
-	# Bottom Wall
-	create_wall.call(Vector2(map_size.x / 2, map_size.y + wall_thickness / 2), Vector2(map_size.x, wall_thickness))
-	# Left Wall
-	create_wall.call(Vector2(-wall_thickness / 2, map_size.y / 2), Vector2(wall_thickness, map_size.y + wall_thickness * 2))
-	# Right Wall
-	create_wall.call(Vector2(map_size.x + wall_thickness / 2, map_size.y / 2), Vector2(wall_thickness, map_size.y + wall_thickness * 2))
-
-func _physics_process(_delta):
-	# If we are looping, constantly check the player's position
-	if player and (loop_horizontally or loop_vertically):
-		handle_looping()
-
-func handle_looping():
-	var pos = player.global_position
-	var did_warp = false
+	# Build the Top Wall
+	create_wall.call(Vector2(map_size.x / 2.0, -wall_thickness / 2.0), Vector2(map_size.x, wall_thickness))
 	
-	# Pac-Man style screen wrapping
-	if loop_horizontally:
-		if pos.x < 0:
-			pos.x += map_size.x
-			did_warp = true
-		elif pos.x > map_size.x:
-			pos.x -= map_size.x
-			did_warp = true
-			
-	if loop_vertically:
-		if pos.y < 0:
-			pos.y += map_size.y
-			did_warp = true
-		elif pos.y > map_size.y:
-			pos.y -= map_size.y
-			did_warp = true
-			
-	# Apply the warp
-	if did_warp:
-		player.global_position = pos
-		
-		# CRITICAL: Reset the camera smoothing so it snaps instantly
-		# Otherwise, the camera will quickly slide across the entire map
-		if camera:
-			camera.reset_smoothing()
+	# Build the Bottom Wall
+	create_wall.call(Vector2(map_size.x / 2.0, map_size.y + wall_thickness / 2.0), Vector2(map_size.x, wall_thickness))
+	
+	# Build the Left Wall
+	create_wall.call(Vector2(-wall_thickness / 2.0, map_size.y / 2.0), Vector2(wall_thickness, map_size.y + wall_thickness * 2.0))
+	
+	# Build the Right Wall
+	create_wall.call(Vector2(map_size.x + wall_thickness / 2.0, map_size.y / 2.0), Vector2(wall_thickness, map_size.y + wall_thickness * 2.0))
+
+func _setup_holograms() -> void:
+	# TODO: Duplicate the FloorLayer to surround the map (1x3 or 3x3 grid)
+	pass
+
+func _check_universe_shift() -> void:
+	# TODO: Check if the player crossed a threshold. 
+	# If yes, shift the player, enemies, and camera backward.
+	pass

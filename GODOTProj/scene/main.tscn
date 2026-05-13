@@ -1,17 +1,7 @@
 [gd_scene format=3 uid="uid://ba05sh5m0lvdi"]
 
-[ext_resource type="PackedScene" uid="uid://d3fsod54u517y" path="res://scene/player/player.tscn" id="1_itxqv"]
-[ext_resource type="Texture2D" uid="uid://ctcl7je6y7ffm" path="res://icon.svg" id="2_v0l8b"]
+[ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="1_itxqv"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 
-[node name="Map1" type="Node2D" parent="." unique_id=388306378]
-
-[node name="Player" parent="Map1" unique_id=1617224567 instance=ExtResource("1_itxqv")]
-position = Vector2(292, 223)
-
-[node name="TextureRect" type="TextureRect" parent="Map1" unique_id=157498310]
-offset_right = 1280.0
-offset_bottom = 720.0
-texture = ExtResource("2_v0l8b")
-stretch_mode = 1
+[node name="Map1" parent="." unique_id=300879186 instance=ExtResource("1_itxqv")]

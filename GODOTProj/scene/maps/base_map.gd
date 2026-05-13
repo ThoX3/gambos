@@ -16,7 +16,7 @@ class_name BaseMap
 @export var loop_vertically: bool = false
 
 # --- NODE REFERENCES ---
-@onready var bgm_player: AudioStreamPlayer = $BGMPlayer
+@onready var bgm_player: AudioStreamPlayer2D = $Audio
 
 var player: CharacterBody2D
 
@@ -30,8 +30,8 @@ func _ready() -> void:
 	call_deferred("_initialize_map")
 
 func _initialize_map() -> void:
-	# Grab the player using Godot groups (Make sure your Player is in the "player" group!)
-	player = get_tree().get_first_node_in_group("player")
+	# Grab the player using Godot groups 
+	player = get_tree().get_first_node_in_group("Player")
 	
 	# Route to the correct setup based on your Inspector toggles
 	if loop_horizontally or loop_vertically:

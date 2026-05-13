@@ -2,7 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://byt6v0d8cx5y8" path="res://scene/maps/base_map.tscn" id="1_3krmt"]
 [ext_resource type="Script" uid="uid://tpisd0fpjh5t" path="res://scene/maps/map_1.gd" id="2_e1fi2"]
+[ext_resource type="Texture2D" uid="uid://ctcl7je6y7ffm" path="res://icon.svg" id="3_hetmj"]
 
 [node name="Map1" unique_id=432367283 instance=ExtResource("1_3krmt")]
 script = ExtResource("2_e1fi2")
 map_name = "Map 1"
+
+[node name="Background" parent="." index="0" unique_id=1600340743]
+texture = ExtResource("3_hetmj")
+stretch_mode = 1

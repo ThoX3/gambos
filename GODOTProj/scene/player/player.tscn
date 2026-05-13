@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3fsod54u517y"]
 
-[ext_resource type="Script" path="res://scene/player/player.gd" id="1_v7pse"]
+[ext_resource type="Script" uid="uid://cqjaeec73uadf" path="res://scene/player/player.gd" id="1_v7pse"]
 [ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_6smn3"]
 [ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_5lop3"]
 

@@ -10,7 +10,6 @@ func _ready():
 	if stats:
 		setup_enemy()
 		player = get_parent().find_child("Player")
-		print(player)
 	else:
 		push_error("No stats assigned!")
 

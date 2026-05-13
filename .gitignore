@@ -1,3 +1,29 @@
+# macOS-specific ignores (boilerplate)
+# See: https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
+# System files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \\r
+Icon\r
+
+# Files that might appear on external disks
+.Spotlight-V100/
+.Trashes/
+.TemporaryItems/
+
+# Time Machine
+.fseventsd/
+.DocumentRevisions-V100/
+
+# Finder metadata
+._*
+.VolumeIcon.icns
+
+# Apple Disk Images
+.apdisk
+
 # Godot 4+ specific ignores
 .godot/
 .nomedia
@@ -15,3 +41,4 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+

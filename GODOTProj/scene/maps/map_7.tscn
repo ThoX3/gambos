@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dnafjqdfurv1d"]
+
+[ext_resource type="PackedScene" uid="uid://byt6v0d8cx5y8" path="res://scene/maps/base_map.tscn" id="1_mpht5"]
+[ext_resource type="Script" uid="uid://boqwq8rhvaq68" path="res://scene/maps/map_7.gd" id="2_sthdv"]
+
+[node name="Map7" unique_id=432367283 instance=ExtResource("1_mpht5")]
+script = ExtResource("2_sthdv")

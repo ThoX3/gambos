@@ -1,19 +1,34 @@
 extends CharacterBody2D
 
-var speed = 150.0
+@export var stats: EnemyData 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var sprite = $Sprite2D
 
+var direction = -1 
+var start_x = 0.0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _ready():
+	if stats:
+		setup_enemy()
+		start_x = global_position.x
+	else:
+		push_error("No stats assigned!")
+
+func setup_enemy():
+	if stats.texture:
+		sprite.texture = stats.texture
+	sprite.modulate = stats.aura_color
 
 func _physics_process(delta):
-	# On définit une direction vers la gauche par défaut
-	velocity.x = -speed
-	
-	# move_and_slide utilise la variable velocity pour déplacer le perso
+	if not stats:
+		return
+
+	velocity.x = direction * stats.movement_speed
 	move_and_slide()
+
+	var current_distance = abs(global_position.x - start_x)
+
+	if current_distance >= stats.patrol_distance or is_on_wall():
+		direction *= -1
+		
+		sprite.flip_h = (direction > 0)

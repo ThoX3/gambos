@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cpcw4jetkxuqo"]
+
+[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://scene/enemy/EnemyData.gd" id="1_7jw3c"]
+[ext_resource type="Texture2D" uid="uid://ctcl7je6y7ffm" path="res://icon.svg" id="2_prgte"]
+
+[resource]
+script = ExtResource("1_7jw3c")
+texture = ExtResource("2_prgte")
+max_hp = 180
+armor = 15
+movement_speed = 80.0
+patrol_distance = 200.0
+attack_damage = 25
+attack_range = 60.0
+attack_cooldown = 2.0
+aura_color = Color(0.7058824, 0, 0, 1)
+metadata/_custom_type_script = "uid://41pu5w8i8y3b"

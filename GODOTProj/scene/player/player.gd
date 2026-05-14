@@ -7,6 +7,7 @@ extends CharacterBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	$AnimatedSprite2D.play("walk")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,15 +28,17 @@ func _physics_process(delta):
 func gainXP(value: int):
 	Stats.currentXp += value
 	
-	if Stats.currentXp >= Stats.RequiredXp:
+	if Stats.currentXp >= Stats.requiredXp:
 		levelUp()
+	
+	GameManager.xp_changed.emit()
 
 func levelUp():
 	# Augmentation du niveau
 	Stats.level += 1
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
-	Stats.currentXp -= Stats.RequiredXp
-	Stats.RequiredXp = 10*(Stats.level**2)
+	Stats.currentXp -= Stats.requiredXp
+	Stats.requiredXp = 10*(Stats.level**2)
 	
 	

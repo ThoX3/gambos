@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://hshk24osyj5f" path="res://scene/main.gd" id="1_itxqv"]
 [ext_resource type="PackedScene" uid="uid://d3fsod54u517y" path="res://scene/player/player.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="3_wp4xf"]
+[ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
+[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_0ha60"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 script = ExtResource("1_itxqv")
@@ -11,4 +13,42 @@ starting_map = ExtResource("3_wp4xf")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=918581251]
 
+[node name="Hud" parent="UI" unique_id=375714786 instance=ExtResource("4_brvut")]
+
 [node name="World" type="Node2D" parent="." unique_id=1424555751]
+
+[node name="Area2D" parent="." unique_id=179977108 instance=ExtResource("5_0ha60")]
+position = Vector2(287, 368)
+
+[node name="Area2D6" parent="." unique_id=2131740694 instance=ExtResource("5_0ha60")]
+position = Vector2(315, 307)
+
+[node name="Area2D7" parent="." unique_id=1668604542 instance=ExtResource("5_0ha60")]
+position = Vector2(389, 350)
+
+[node name="Area2D8" parent="." unique_id=953686185 instance=ExtResource("5_0ha60")]
+position = Vector2(357, 421)
+
+[node name="Area2D9" parent="." unique_id=2096892119 instance=ExtResource("5_0ha60")]
+position = Vector2(297, 422)
+
+[node name="Area2D10" parent="." unique_id=1118822183 instance=ExtResource("5_0ha60")]
+position = Vector2(417, 394)
+
+[node name="Area2D11" parent="." unique_id=1872493990 instance=ExtResource("5_0ha60")]
+position = Vector2(645, 383)
+
+[node name="Area2D12" parent="." unique_id=1027936418 instance=ExtResource("5_0ha60")]
+position = Vector2(610, 423)
+
+[node name="Area2D2" parent="." unique_id=437547343 instance=ExtResource("5_0ha60")]
+position = Vector2(231, 366)
+
+[node name="Area2D3" parent="." unique_id=1291321020 instance=ExtResource("5_0ha60")]
+position = Vector2(341, 359)
+
+[node name="Area2D4" parent="." unique_id=682206555 instance=ExtResource("5_0ha60")]
+position = Vector2(399, 285)
+
+[node name="Area2D5" parent="." unique_id=209174427 instance=ExtResource("5_0ha60")]
+position = Vector2(454, 335)

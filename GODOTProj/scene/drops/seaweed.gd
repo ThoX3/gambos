@@ -3,6 +3,7 @@ extends Area2D
 @export var valeur_xp : int = 1
 @export var vitesse_aspiration = 400
 var cible = null
+var isCollected = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,7 +18,8 @@ func _process(delta: float) -> void:
 		
 		global_position += direction * vitesse_aspiration * delta
 		
-		if global_position.distance_to(cible.global_position) < 10:
+		if global_position.distance_to(cible.global_position) < 10 and !isCollected:
+			isCollected = true
 			collect()
 
 

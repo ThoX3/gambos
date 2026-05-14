@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d3fsod54u517y"]
 
 [ext_resource type="Script" uid="uid://cqjaeec73uadf" path="res://scene/player/player.gd" id="1_v7pse"]
+[ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="2_5lop3"]
 [ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_6smn3"]
 [ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_5lop3"]
 
@@ -22,10 +23,11 @@ animations = [{
 radius = 22.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6smn3"]
-radius = 87.0919
+radius = 169.00296
 
 [node name="Player" type="CharacterBody2D" unique_id=1617224567 groups=["Player"]]
 script = ExtResource("1_v7pse")
+Stats = ExtResource("2_5lop3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
 position = Vector2(3, -2)
@@ -37,11 +39,11 @@ frame_progress = 0.02095084
 [node name="PlayerHitBox" type="CollisionShape2D" parent="." unique_id=801343924]
 shape = SubResource("CircleShape2D_v7pse")
 
-[node name="PlayerCollectRadius" type="CollisionShape2D" parent="." unique_id=913173834]
-light_mask = 2
-visibility_layer = 2
-shape = SubResource("CircleShape2D_6smn3")
-debug_color = Color(0.61960787, 0.53333336, 0, 0.07058824)
-
 [node name="Camera" type="Camera2D" parent="." unique_id=998837227]
 position_smoothing_enabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=952308138 groups=["Player"]]
+
+[node name="PlayerCollectRadius" type="CollisionShape2D" parent="Area2D" unique_id=913173834]
+shape = SubResource("CircleShape2D_6smn3")
+debug_color = Color(0.61960787, 0.53333336, 0, 0.07058824)

@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
+@export var Stats = Resource
 @export var speed = 300.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,3 +23,19 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, speed)
 
 	move_and_slide()
+
+func gainXP(value: int):
+	Stats.currentXp += value
+	
+	if Stats.currentXp >= Stats.RequiredXp:
+		levelUp()
+
+func levelUp():
+	# Augmentation du niveau
+	Stats.level += 1
+	
+	# Mise a jour de l'xp et du nouveau montant nécéssaire
+	Stats.currentXp -= Stats.RequiredXp
+	Stats.RequiredXp = 10*(Stats.level**2)
+	
+	

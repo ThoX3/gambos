@@ -4,6 +4,15 @@
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="2_5lop3"]
 [ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_6smn3"]
 [ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_5lop3"]
+[ext_resource type="Texture2D" uid="uid://c8s67k7ce2nk8" path="res://assets/sprites/HUD/Level_up/Particle1.png" id="5_p3aiu"]
+[ext_resource type="Texture2D" uid="uid://b0y63fcaklrtf" path="res://assets/sprites/HUD/Level_up/Particle2.png" id="6_f5r2w"]
+[ext_resource type="Texture2D" uid="uid://by7j4jjhopq81" path="res://assets/sprites/HUD/Level_up/Particle3.png" id="7_oen5c"]
+[ext_resource type="Texture2D" uid="uid://dc36a4fq1saoj" path="res://assets/sprites/HUD/Level_up/Particle4.png" id="8_5g408"]
+[ext_resource type="Texture2D" uid="uid://mikbrh3av0wx" path="res://assets/sprites/HUD/Level_up/Particle5.png" id="9_sc4n2"]
+[ext_resource type="Texture2D" uid="uid://nd1y7ndka68o" path="res://assets/sprites/HUD/Level_up/Particle6.png" id="10_lrcci"]
+[ext_resource type="Texture2D" uid="uid://c7y3xmnuu2qla" path="res://assets/sprites/HUD/Level_up/Particle7.png" id="11_fspl2"]
+[ext_resource type="Texture2D" uid="uid://ub2m8ak6j44s" path="res://assets/sprites/HUD/Level_up/Particle8.png" id="12_eeiom"]
+[ext_resource type="Texture2D" uid="uid://mci5x4xob34n" path="res://assets/sprites/HUD/Level_up/background.png" id="13_gt2ev"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ajqqa"]
 animations = [{
@@ -25,12 +34,44 @@ radius = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6smn3"]
 radius = 169.00296
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_aoq8s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_p3aiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f5r2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_oen5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5g408")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_sc4n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lrcci")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_fspl2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eeiom")
+}],
+"loop": false,
+"name": &"Level up",
+"speed": 10.0
+}]
+
 [node name="Player" type="CharacterBody2D" unique_id=1617224567 groups=["Player"]]
 script = ExtResource("1_v7pse")
 Stats = ExtResource("2_5lop3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
-position = Vector2(3, -2)
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_ajqqa")
 animation = &"walk"
 frame = 1
@@ -47,3 +88,17 @@ position_smoothing_enabled = true
 [node name="PlayerCollectRadius" type="CollisionShape2D" parent="Area2D" unique_id=913173834]
 shape = SubResource("CircleShape2D_6smn3")
 debug_color = Color(0.61960787, 0.53333336, 0, 0.07058824)
+
+[node name="LevelUpOver" type="AnimatedSprite2D" parent="." unique_id=1484382929]
+z_index = 2
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_aoq8s")
+animation = &"Level up"
+frame = 4
+frame_progress = 0.31523007
+
+[node name="LevelUpUnder" type="Sprite2D" parent="." unique_id=644746724]
+scale = Vector2(2, 2)
+texture = ExtResource("13_gt2ev")
+
+[connection signal="animation_finished" from="LevelUpOver" to="." method="_on_level_up_over_animation_finished"]

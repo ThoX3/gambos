@@ -37,6 +37,7 @@ position = Vector2(417, 394)
 
 [node name="Area2D11" parent="." unique_id=1872493990 instance=ExtResource("5_0ha60")]
 position = Vector2(645, 383)
+valeur_xp = 10
 
 [node name="Area2D12" parent="." unique_id=1027936418 instance=ExtResource("5_0ha60")]
 position = Vector2(610, 423)

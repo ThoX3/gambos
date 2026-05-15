@@ -16,3 +16,5 @@ func _update_progres_bar():
 	$TextureProgressBar.max_value = Stats.requiredXp
 	$TextureProgressBar.value = Stats.currentXp
 	
+	$Level.text = str(Stats.level)
+	

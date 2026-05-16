@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://di4pipi568uix"]
+
+[ext_resource type="Script" uid="uid://eqgpug3rmy8c" path="res://scene/ui/upgrade.gd" id="1_6hck6"]
+
+[node name="Control" type="Control" unique_id=681599716]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6hck6")
+
+[node name="Button" type="Button" parent="." unique_id=1344790575]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Button" unique_id=1568372637]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Monter de niveau"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

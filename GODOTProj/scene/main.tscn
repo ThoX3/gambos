@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="3_wp4xf"]
 [ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_0ha60"]
+[ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 script = ExtResource("1_itxqv")
@@ -14,6 +15,10 @@ starting_map = ExtResource("3_wp4xf")
 [node name="UI" type="CanvasLayer" parent="." unique_id=918581251]
 
 [node name="Hud" parent="UI" unique_id=375714786 instance=ExtResource("4_brvut")]
+offset_top = -7.0
+offset_bottom = -367.0
+
+[node name="Control" parent="UI" unique_id=681599716 instance=ExtResource("5_4j5ol")]
 
 [node name="World" type="Node2D" parent="." unique_id=1424555751]
 

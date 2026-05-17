@@ -15,8 +15,10 @@ var blink_timer: float = 0.0
 func _ready() -> void:
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
 	$AnimatedSprite2D.play("walk")
-	
+	$LevelUpOver.hide()
+	$LevelUpUnder.hide()
 	GameManager.initialize.connect(_on_initialize)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -59,9 +61,16 @@ func levelUp():
 	# Augmentation du niveau
 	Stats.level += 1
 	
+	$LevelUpOver.show()
+	$LevelUpOver.play("Level up")
+	$LevelUpUnder.show()
+	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
 	Stats.requiredXp = 10*(Stats.level**2)
+	
+	GameManager.level_up.emit()
+	
 	
 func start_invincibility():
 	is_invincible = true
@@ -85,3 +94,9 @@ func _on_initialize():
 	Stats.requiredXp = 10
 	Stats.currentXp = 0
 	Stats.collectRadius = 200
+
+
+func _on_level_up_over_animation_finished() -> void:
+	$LevelUpOver.hide()
+	$LevelUpOver.stop()
+	$LevelUpUnder.hide()

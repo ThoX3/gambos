@@ -3,9 +3,46 @@
 [ext_resource type="Texture2D" uid="uid://d07hot0lhu341" path="res://assets/sprites/collectibles/SeaweedXP_Idle1.png" id="1_mqw3s"]
 [ext_resource type="Script" uid="uid://bx2pcw8vpak3e" path="res://scene/drops/seaweed.gd" id="1_ukf3m"]
 [ext_resource type="Texture2D" uid="uid://d3cwg3igwrpcj" path="res://assets/sprites/collectibles/SeaweedXP_Idle2.png" id="2_ukf3m"]
+[ext_resource type="Texture2D" uid="uid://cpuwv8yjdduov" path="res://assets/sprites/collectibles/CollectedXp1.png" id="2_w6tqi"]
+[ext_resource type="Texture2D" uid="uid://cj7k874we0c1x" path="res://assets/sprites/collectibles/CollectedXp2.png" id="3_m26ir"]
+[ext_resource type="Texture2D" uid="uid://ddo3rova5pid7" path="res://assets/sprites/collectibles/CollectedXp3.png" id="4_vmyug"]
+[ext_resource type="Texture2D" uid="uid://b1t3gr5xrht8j" path="res://assets/sprites/collectibles/CollectedXp4.png" id="5_o1ksr"]
+[ext_resource type="Texture2D" uid="uid://dx6kdn5pvu3y8" path="res://assets/sprites/collectibles/CollectedXp5.png" id="6_ogduw"]
+[ext_resource type="Texture2D" uid="uid://b6w34qqqxbjug" path="res://assets/sprites/collectibles/CollectedXp6.png" id="7_t3dbc"]
+[ext_resource type="Texture2D" uid="uid://d4gejqasr7vy4" path="res://assets/sprites/collectibles/CollectedXp7.png" id="8_orml4"]
+[ext_resource type="Texture2D" uid="uid://blpu3kl1ofkuj" path="res://assets/sprites/collectibles/CollectedXp8.png" id="9_s3pmc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jfboy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w6tqi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_m26ir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vmyug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o1ksr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ogduw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t3dbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_orml4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_s3pmc")
+}],
+"loop": false,
+"name": &"Collecte",
+"speed": 20.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_mqw3s")
@@ -25,14 +62,16 @@ height = 60.0
 [node name="Area2D" type="Area2D" unique_id=179977108]
 light_mask = 3
 visibility_layer = 3
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_ukf3m")
+vitesse_aspiration = 500
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1353562369]
 sprite_frames = SubResource("SpriteFrames_jfboy")
 animation = &"Idle"
-frame_progress = 0.74085957
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1596006280]
 shape = SubResource("CapsuleShape2D_ct4d7")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

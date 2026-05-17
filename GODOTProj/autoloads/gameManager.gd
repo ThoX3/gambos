@@ -1,0 +1,16 @@
+extends Node
+
+signal xp_changed()
+signal health_changed()
+signal initialize()
+signal start_game()
+signal level_up()
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass

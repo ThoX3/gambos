@@ -20,6 +20,8 @@ func _ready() -> void:
 		start_game(starting_map)
 	else:
 		push_error("Main: Missing Player or Starting Map in the Inspector!")
+		
+	GameManager.start_game.connect(_on_start)
 
 func start_game(map_to_load: PackedScene) -> void:
 	_clear_world()
@@ -31,6 +33,9 @@ func start_game(map_to_load: PackedScene) -> void:
 	# 2. Instantiate and add the Player
 	current_player = player_scene.instantiate()
 	game_world.add_child(current_player)
+	
+	if current_player.has_signal("health_depleted"):
+		current_player.health_depleted.connect(_on_player_health_depleted)
 	
 	# The GameWorld now holds both the Player and the Map side-by-side!
 
@@ -53,3 +58,10 @@ func _clear_world() -> void:
 		current_player.queue_free()
 	if current_map:
 		current_map.queue_free()
+		
+func _on_player_health_depleted():
+	%GameOver/LayerGameOver.visible = true
+	get_tree().paused = true
+	
+func _on_start():
+	start_game(starting_map)

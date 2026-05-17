@@ -8,3 +8,5 @@ class_name PlayerStat
 
 # Character Stat
 @export var collectRadius : int = 200
+@export var max_health : float = 10.0
+@export var current_health : float = max_health

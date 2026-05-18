@@ -7,12 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
-[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="6_p1hux"]
-[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://scene/enemy/EnemyData.gd" id="7_of57s"]
-
-[sub_resource type="Resource" id="Resource_b5f6u"]
-script = ExtResource("7_of57s")
-metadata/_custom_type_script = "uid://41pu5w8i8y3b"
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 script = ExtResource("1_itxqv")
@@ -68,7 +62,3 @@ position = Vector2(399, 285)
 
 [node name="Area2D5" parent="." unique_id=209174427 instance=ExtResource("5_0ha60")]
 position = Vector2(454, 335)
-
-[node name="Enemy" parent="." unique_id=730657589 instance=ExtResource("6_p1hux")]
-position = Vector2(979, 310)
-stats = SubResource("Resource_b5f6u")

@@ -17,3 +17,7 @@ texture = ExtResource("1_yijav")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_nytjq")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1330727448]
+avoidance_enabled = true
+radius = 32.0

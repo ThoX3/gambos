@@ -28,17 +28,17 @@ func _ready() -> void:
 func start_game(map_to_load: PackedScene) -> void:
 	_clear_world()
 	
-	# 1. Instantiate and add the Map
-	current_map = map_to_load.instantiate()
-	game_world.add_child(current_map)
-	
-	# 2. Instantiate and add the Player
+	# 1. Instantiate and add the Player
 	current_player = player_scene.instantiate()
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
 	if current_player.has_signal("health_depleted"):
 		current_player.health_depleted.connect(_on_player_health_depleted)
+	
+	# 2. Instantiate and add the Map 
+	current_map = map_to_load.instantiate()
+	game_world.add_child(current_map)
 	
 	# The GameWorld now holds both the Player and the Map side-by-side!
 

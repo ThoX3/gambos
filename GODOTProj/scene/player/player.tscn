@@ -86,7 +86,7 @@ shape = SubResource("CircleShape2D_v7pse")
 [node name="Camera" type="Camera2D" parent="." unique_id=998837227]
 position_smoothing_enabled = true
 
-[node name="Area2D" type="Area2D" parent="." unique_id=952308138]
+[node name="Area2D" type="Area2D" parent="." unique_id=952308138 groups=["Player"]]
 
 [node name="PlayerCollectRadius" type="CollisionShape2D" parent="Area2D" unique_id=913173834]
 shape = SubResource("CircleShape2D_6smn3")

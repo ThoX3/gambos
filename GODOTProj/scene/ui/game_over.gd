@@ -8,6 +8,7 @@ func _on_replay_pressed():
 	get_tree().paused = false
 	%LayerGameOver.visible = false
 	GameManager.initialize.emit()
+	get_tree().reload_current_scene()
 	GameManager.start_game.emit()
 	
 

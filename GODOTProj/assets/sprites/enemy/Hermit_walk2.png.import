@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d28mt2uafna6q"
-path="res://.godot/imported/Crab_walk1.png-e1317b1e54e2c91297a8e8d5df5d428b.ctex"
+uid="uid://dk3u3kbc77wgh"
+path="res://.godot/imported/Hermit_walk2.png-aa880f600ea185151c82e09f1755aaa9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ennemie/Crab_walk1.png"
-dest_files=["res://.godot/imported/Crab_walk1.png-e1317b1e54e2c91297a8e8d5df5d428b.ctex"]
+source_file="res://assets/sprites/enemy/Hermit_walk2.png"
+dest_files=["res://.godot/imported/Hermit_walk2.png-aa880f600ea185151c82e09f1755aaa9.ctex"]
 
 [params]
 

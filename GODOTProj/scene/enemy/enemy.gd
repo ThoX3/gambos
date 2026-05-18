@@ -40,7 +40,9 @@ func _physics_process(_delta):
 
 	var next_path_position = nav_agent.get_next_path_position()
 	var direction = (next_path_position - global_position).normalized() * stats.movement_speed
-
+	
+	sprite.flip_h = direction.x < 0
+	
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(direction)
 	else:

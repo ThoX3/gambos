@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bvdy5tri0grgw"]
+
+[ext_resource type="Texture2D" uid="uid://chtf001kigbsy" path="res://assets/sprites/enemy/Hermit_walk1.png" id="1_4h2yf"]
+[ext_resource type="Texture2D" uid="uid://dk3u3kbc77wgh" path="res://assets/sprites/enemy/Hermit_walk2.png" id="2_pgji4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4h2yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pgji4")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

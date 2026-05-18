@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dld1vcm0rrril"]
 
 [ext_resource type="Script" uid="uid://hpi2wtg80dss" path="res://scene/enemy/enemy.gd" id="1_nytjq"]
-[ext_resource type="Texture2D" uid="uid://ctcl7je6y7ffm" path="res://icon.svg" id="1_yijav"]
+[ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://scene/enemy/stats/Crab.tres" id="2_nytjq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 74.10803
@@ -10,10 +10,9 @@ radius = 74.10803
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_nytjq")
+stats = ExtResource("2_nytjq")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1951099653]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_yijav")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)

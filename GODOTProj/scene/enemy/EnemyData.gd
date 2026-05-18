@@ -2,7 +2,7 @@ extends Resource
 class_name EnemyData
 
 @export_group("Identity")
-@export var texture: Texture2D
+@export var texture: SpriteFrames
 
 @export_group("HP & Defense")
 @export var max_hp: int
@@ -17,6 +17,3 @@ class_name EnemyData
 @export var attack_range: float
 @export var attack_cooldown: float
 @export var projectile_type: PackedScene
-
-@export_group("Effects")
-@export var aura_color: Color

@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://8dvcbb6otss5"]
+
+[ext_resource type="Texture2D" uid="uid://d28mt2uafna6q" path="res://assets/sprites/ennemie/Crab_walk1.png" id="1_ddhl7"]
+[ext_resource type="Texture2D" uid="uid://ekdesg314dk8" path="res://assets/sprites/ennemie/Crab_walk2.png" id="2_dlwmb"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ddhl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dlwmb")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

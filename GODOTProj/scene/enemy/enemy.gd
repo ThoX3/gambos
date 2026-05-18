@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var stats: EnemyData 
 
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 @onready var nav_agent = $NavigationAgent2D
 
 var player = null
@@ -21,8 +21,8 @@ func _ready():
 
 func setup_enemy():
 	if stats.texture:
-		sprite.texture = stats.texture
-	sprite.modulate = stats.aura_color
+		sprite.sprite_frames = stats.texture
+		sprite.play("walk")
 
 func _physics_process(_delta):
 	if not stats:
@@ -34,17 +34,12 @@ func _physics_process(_delta):
 
 	nav_agent.target_position = player.global_position
 	
-	print("Position Joueur: ", player.global_position, " | Ma Position: ", global_position)
-	print("Est-ce que la cible est atteinte ? ", nav_agent.is_navigation_finished())
-
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
 
 	var next_path_position = nav_agent.get_next_path_position()
 	var direction = (next_path_position - global_position).normalized() * stats.movement_speed
-
-	print("Prochain point: ", next_path_position, " | Direction: ", direction)
 
 	if nav_agent.avoidance_enabled:
 		nav_agent.set_velocity(direction)

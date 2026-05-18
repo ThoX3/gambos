@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-@export var stats: EnemyData 
+@export var stats: EnemyData
+@onready var attack_damage = stats.attack_damage
 
 @onready var sprite = $AnimatedSprite2D
 @onready var nav_agent = $NavigationAgent2D

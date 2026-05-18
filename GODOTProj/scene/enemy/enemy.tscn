@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dld1vcm0rrril"]
 
 [ext_resource type="Script" uid="uid://hpi2wtg80dss" path="res://scene/enemy/enemy.gd" id="1_nytjq"]
-[ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://scene/enemy/stats/Crab.tres" id="2_nytjq"]
+[ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/stats/Crab.tres" id="2_nytjq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 74.10803

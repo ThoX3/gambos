@@ -36,12 +36,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	const DAMAGE_RATE = 5.0 # Dans l'idéal, les dégats dépendent de l'ennemi
 	if is_invincible:
 		_handle_blinking(delta)
+		
 	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+	
 	if overlapping_mobs.size() > 0 and not is_invincible:
-		Stats.current_health -= DAMAGE_RATE 
+		Stats.current_health -= overlapping_mobs[0].attack_damage
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false

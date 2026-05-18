@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bflm33qvv7r7u" path="res://scene/maps/base_map.gd" id="1_l25f6"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="2_klpxr"]
-[ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://scene/enemy/stats/hermit.tres" id="4_axg8h"]
+[ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/stats/hermit.tres" id="4_axg8h"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l25f6"]
 vertices = PackedVector2Array(2614, 14.9921875, 2614, 1459, 11.9765625, 1459, 9.0234375, 13)

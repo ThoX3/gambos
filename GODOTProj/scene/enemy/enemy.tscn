@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dld1vcm0rrril"]
 
-[ext_resource type="Script" uid="uid://hpi2wtg80dss" path="res://scene/enemy/Enemy.gd" id="1_0e4lg"]
+[ext_resource type="Script" uid="uid://b7y1xk1twkbbu" path="res://scene/enemy/enemy.gd" id="1_0e4lg"]
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="2_l70os"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]

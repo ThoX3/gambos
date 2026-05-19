@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="1_ebfmd"]
 [ext_resource type="Script" uid="uid://qc6jgv5gamy5" path="res://scene/enemy/enemy_spawn.gd" id="2_hfeek"]
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="3_wnvbo"]
-[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/Enemy.tscn" id="4_ndq8y"]
+[ext_resource type="PackedScene" uid="uid://kpxhdqt8iq3f" path="res://scene/enemy/Enemy.tscn" id="4_ndq8y"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="5_wnvbo"]
 
 [sub_resource type="Resource" id="Resource_md3m2"]

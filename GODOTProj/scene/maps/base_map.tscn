@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://byt6v0d8cx5y8"]
 
 [ext_resource type="Script" uid="uid://bflm33qvv7r7u" path="res://scene/maps/base_map.gd" id="1_l25f6"]
-[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/Enemy.tscn" id="2_klpxr"]
-[ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="4_axg8h"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l25f6"]
 vertices = PackedVector2Array(2614, 14.9921875, 2614, 1459, 11.9765625, 1459, 9.0234375, 13)
@@ -27,10 +25,3 @@ offset_bottom = 40.0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1080557867]
 navigation_polygon = SubResource("NavigationPolygon_l25f6")
-
-[node name="Enemy" parent="NavigationRegion2D" unique_id=730657589 instance=ExtResource("2_klpxr")]
-position = Vector2(1360, 376)
-
-[node name="Enemy2" parent="NavigationRegion2D" unique_id=489324098 instance=ExtResource("2_klpxr")]
-position = Vector2(648, 528)
-stats = ExtResource("4_axg8h")

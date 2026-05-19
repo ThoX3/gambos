@@ -9,6 +9,7 @@ radius = 74.10803
 [node name="Enemy" type="CharacterBody2D" unique_id=730657589]
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_nytjq")
 stats = ExtResource("2_msiye")
 
@@ -17,7 +18,3 @@ stats = ExtResource("2_msiye")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_nytjq")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1330727448]
-avoidance_enabled = true
-radius = 0.01

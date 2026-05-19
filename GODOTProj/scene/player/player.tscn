@@ -70,6 +70,8 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1617224567 groups=["Player"]]
+collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_v7pse")
 Stats = ExtResource("2_5lop3")
 
@@ -94,7 +96,6 @@ debug_color = Color(0.61960787, 0.53333336, 0, 0.07058824)
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=527553212]
 unique_name_in_owner = true
-collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=157521488]

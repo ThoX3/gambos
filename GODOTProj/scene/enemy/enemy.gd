@@ -5,19 +5,14 @@ class_name Enemy_Base
 @onready var attack_damage = stats.attack_damage
 
 @onready var sprite = $AnimatedSprite2D
-@onready var nav_agent = $NavigationAgent2D
 
 var player = null
 
 func _ready():
 	if stats:
 		setup_enemy()
+		# On récupère le joueur via le groupe au démarrage
 		player = get_tree().get_first_node_in_group("Player")
-		
-		nav_agent.path_desired_distance = 4.0
-		nav_agent.target_desired_distance = 4.0
-		
-		nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	else:
 		push_error("No stats assigned!")
 
@@ -30,28 +25,19 @@ func _physics_process(_delta):
 	if not stats:
 		return
 		
-	if not player:
+	if not player or not is_instance_valid(player):
 		print("DÉBOGAGE: Je ne trouve pas le joueur ! Vérifie le groupe 'Player'")
 		return
 
-	nav_agent.target_position = player.global_position
+	# 1. Calcul de la direction directe vers le joueur (Méthode GDQuest)
+	var direction = global_position.direction_to(player.global_position)
 	
-	if nav_agent.is_navigation_finished():
-		velocity = Vector2.ZERO
-		return
+	# 2. Retournement du sprite selon l'axe X
+	if direction.x != 0:
+		sprite.flip_h = direction.x < 0
+	
+	# 3. Application de la vitesse brute sur le vecteur directionnel
+	velocity = direction * stats.movement_speed
 
-	var next_path_position = nav_agent.get_next_path_position()
-	var direction = (next_path_position - global_position).normalized() * stats.movement_speed
-	
-	sprite.flip_h = direction.x < 0
-	
-	if nav_agent.avoidance_enabled:
-		nav_agent.set_velocity(direction)
-	else:
-		# Si l'évitement est coupé, on bouge normalement
-		_on_navigation_agent_2d_velocity_computed(direction)
-
-# Ce signal est déclenché par Godot dès que le calcul d'évitement entre ennemis est prêt
-func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
-	velocity = safe_velocity
+	# 4. Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
 	move_and_slide()

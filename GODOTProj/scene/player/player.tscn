@@ -4,6 +4,8 @@
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="2_5lop3"]
 [ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_6smn3"]
 [ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_5lop3"]
+[ext_resource type="Resource" uid="uid://4y7sf3ctnil1" path="res://ressources/projectile/default_projectile.tres" id="3_oen5c"]
+[ext_resource type="PackedScene" uid="uid://d0edwafabgfqd" path="res://scene/projectile/projectile.tscn" id="4_5g408"]
 [ext_resource type="Texture2D" uid="uid://c8s67k7ce2nk8" path="res://assets/sprites/HUD/Level_up/Particle1.png" id="5_p3aiu"]
 [ext_resource type="Texture2D" uid="uid://b0y63fcaklrtf" path="res://assets/sprites/HUD/Level_up/Particle2.png" id="6_f5r2w"]
 [ext_resource type="Texture2D" uid="uid://by7j4jjhopq81" path="res://assets/sprites/HUD/Level_up/Particle3.png" id="7_oen5c"]
@@ -74,6 +76,8 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_v7pse")
 Stats = ExtResource("2_5lop3")
+projectile_data = ExtResource("3_oen5c")
+projectile_scene = ExtResource("4_5g408")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
 z_index = 1

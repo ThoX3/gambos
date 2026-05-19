@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://d0edwafabgfqd"]
+
+[ext_resource type="Script" uid="uid://cmci1qf7kj2wn" path="res://scene/projectile/projectile.gd" id="1_h6pdv"]
+[ext_resource type="SpriteFrames" uid="uid://c12cc8avn357m" path="res://assets/sprites/projectile/projectile.tres" id="2_6ehn6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mudio"]
+
+[node name="Area2D" type="Area2D" unique_id=1901111718]
+script = ExtResource("1_h6pdv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=179488071]
+sprite_frames = ExtResource("2_6ehn6")
+animation = &"move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499238672]
+shape = SubResource("CircleShape2D_mudio")

@@ -13,6 +13,7 @@ func _ready():
 		setup_enemy()
 		# On récupère le joueur via le groupe au démarrage
 		player = get_tree().get_first_node_in_group("Player")
+		add_to_group("Enemy")
 	else:
 		push_error("No stats assigned!")
 

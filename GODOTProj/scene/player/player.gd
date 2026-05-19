@@ -5,10 +5,13 @@ signal health_depleted
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
 @export var speed: float = 300.0
+@export var projectile_data: ProjectileData
+@export var projectile_scene: PackedScene
 
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false
 var blink_timer: float = 0.0
+var _fire_timer: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -49,6 +52,15 @@ func _physics_process(delta):
 			health_depleted.emit()
 		else:
 			start_invincibility() 
+	
+	# --- Tir automatique ---
+	if projectile_data and projectile_scene:
+		_fire_timer += delta
+		if _fire_timer >= 1.0 / projectile_data.fire_rate:
+			_fire_timer = 0.0
+			var target = _get_nearest_enemy()
+			if target:
+				_shoot(target)
 
 func gainXP(value: int):
 	Stats.currentXp += value
@@ -101,3 +113,25 @@ func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
 	$LevelUpOver.stop()
 	$LevelUpUnder.hide()
+
+func _get_nearest_enemy() -> Enemy_Base:
+	var enemies = get_tree().get_nodes_in_group("Enemy")
+	var nearest: Enemy_Base = null
+	var nearest_dist: float = projectile_data.range
+
+	for enemy in enemies:
+		if not is_instance_valid(enemy):
+			continue
+		var dist = global_position.distance_to(enemy.global_position)
+		if dist <= nearest_dist:
+			nearest_dist = dist
+			nearest = enemy
+
+	return nearest
+
+func _shoot(target: Enemy_Base) -> void:
+	var projectile: Projectile = projectile_scene.instantiate()
+	get_parent().add_child(projectile)
+	projectile.global_position = global_position
+	var dir = global_position.direction_to(target.global_position)
+	projectile.setup(projectile_data, dir)

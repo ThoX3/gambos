@@ -6,6 +6,7 @@ class_name EnemyData
 
 @export_group("HP & Defense")
 @export var max_hp: int
+@export var hp: int
 @export var armor: int
 
 @export_group("Movement")

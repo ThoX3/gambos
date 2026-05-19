@@ -11,6 +11,7 @@ var player = null
 func _ready():
 	if stats:
 		setup_enemy()
+		stats.hp = stats.max_hp
 		# On récupère le joueur via le groupe au démarrage
 		player = get_tree().get_first_node_in_group("Player")
 		add_to_group("Enemy")
@@ -42,3 +43,9 @@ func _physics_process(_delta):
 
 	# 4. Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
 	move_and_slide()
+
+func take_damage(amount: int) -> void:
+	stats.hp -= amount
+	print(stats.hp)
+	if stats.hp <= 0:
+		queue_free()

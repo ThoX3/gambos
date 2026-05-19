@@ -3,6 +3,7 @@ class_name Enemy_Base
 
 @export var stats: EnemyData
 @onready var attack_damage = stats.attack_damage
+@onready var hp = stats.max_hp
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -11,7 +12,6 @@ var player = null
 func _ready():
 	if stats:
 		setup_enemy()
-		stats.hp = stats.max_hp
 		# On récupère le joueur via le groupe au démarrage
 		player = get_tree().get_first_node_in_group("Player")
 		add_to_group("Enemy")
@@ -45,7 +45,6 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func take_damage(amount: int) -> void:
-	stats.hp -= amount
-	print(stats.hp)
-	if stats.hp <= 0:
+	hp -= amount
+	if hp <= 0:
 		queue_free()

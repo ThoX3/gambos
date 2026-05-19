@@ -42,7 +42,6 @@ sources/0 = SubResource("TileSetAtlasSource_s5sgl")
 [node name="Map1" unique_id=432367283 instance=ExtResource("1_3krmt")]
 script = ExtResource("2_e1fi2")
 map_name = "Map 1"
-map_size = Vector2(2624, 1472)
 
 [node name="Background" parent="." index="0" unique_id=1600340743]
 offset_right = 1281.0

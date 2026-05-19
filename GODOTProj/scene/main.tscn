@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
+[ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
+[ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
+[ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave.tres" id="9_tqoya"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 script = ExtResource("1_itxqv")
@@ -24,7 +27,13 @@ unique_name_in_owner = true
 
 [node name="LevelUp" parent="UI" unique_id=681599716 instance=ExtResource("5_4j5ol")]
 
-[node name="World" type="Node2D" parent="." unique_id=1424555751]
+[node name="World" type="Node2D" parent="." unique_id=1424555751 node_paths=PackedStringArray("conteneur_ennemis")]
+script = ExtResource("7_of57s")
+vagues = Array[ExtResource("8_b5f6u")]([ExtResource("9_tqoya")])
+conteneur_ennemis = NodePath("EnemyContainer")
+
+[node name="EnemyContainer" type="Node2D" parent="World" unique_id=14065966]
+z_index = 10
 
 [node name="Area2D" parent="." unique_id=179977108 instance=ExtResource("5_0ha60")]
 position = Vector2(287, 368)

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Enemy_Base
 
 @export var stats: EnemyData
 @onready var attack_damage = stats.attack_damage

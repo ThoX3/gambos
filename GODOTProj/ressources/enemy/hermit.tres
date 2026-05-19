@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource("1_57rjx")
 texture = ExtResource("2_lwf1n")
-max_hp = 180
+max_hp = 6
 armor = 15
-movement_speed = 300.0
+movement_speed = 200.0
 patrol_distance = 200.0
 attack_damage = 3
 attack_range = 60.0

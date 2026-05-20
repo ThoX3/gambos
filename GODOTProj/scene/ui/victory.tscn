@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://c13yhsca82ys0"]
+
+[ext_resource type="Script" uid="uid://bd7ebs10p140x" path="res://scene/ui/victory.gd" id="1_y2pk4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvkam"]
+bg_color = Color(0.26666668, 0.13333334, 0.019607844, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2pk4"]
+bg_color = Color(0.3882353, 0.13333334, 0.019607844, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.83137256, 0.32941177, 0.10980392, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnmtd"]
+bg_color = Color(0.26666668, 0.13333334, 0.019607844, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_if58a"]
+bg_color = Color(0.3882353, 0.13333334, 0.019607844, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.83028394, 0.33027446, 0.108552836, 1)
+border_blend = true
+
+[node name="Victory" type="Control" unique_id=1407948990]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y2pk4")
+
+[node name="LayerVictory" type="CanvasLayer" parent="." unique_id=245886949]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LayerVictory" unique_id=304868381]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.31764707)
+
+[node name="Label" type="Label" parent="LayerVictory/ColorRect" unique_id=1669002339]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Victory !"
+uppercase = true
+
+[node name="Replay" type="Button" parent="LayerVictory/ColorRect" unique_id=271036575]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = 43.0
+offset_right = 51.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_mvkam")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y2pk4")
+action_mode = 0
+text = "Rejouer"
+
+[node name="Quit" type="Button" parent="LayerVictory/ColorRect" unique_id=962807860]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 104.0
+offset_right = 48.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_gnmtd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_if58a")
+action_mode = 0
+text = "Quitter
+"

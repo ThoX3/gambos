@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://d3fsod54u517y" path="res://scene/player/player.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="3_wp4xf"]
 [ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
-[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_0ha60"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
-[ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave.tres" id="9_tqoya"]
+[ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]
+[ext_resource type="Resource" uid="uid://r113dlri0u01" path="res://ressources/waves/Wave2.tres" id="10_tqoya"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 script = ExtResource("1_itxqv")
@@ -27,47 +27,12 @@ unique_name_in_owner = true
 
 [node name="LevelUp" parent="UI" unique_id=681599716 instance=ExtResource("5_4j5ol")]
 
-[node name="World" type="Node2D" parent="." unique_id=1424555751 node_paths=PackedStringArray("conteneur_ennemis")]
+[node name="World" type="Node2D" parent="." unique_id=1424555751]
+
+[node name="WaveManager" type="Node2D" parent="World" unique_id=1263149827 node_paths=PackedStringArray("conteneur_ennemis")]
 script = ExtResource("7_of57s")
-vagues = Array[ExtResource("8_b5f6u")]([ExtResource("9_tqoya")])
+vagues = Array[ExtResource("8_b5f6u")]([ExtResource("9_tqoya"), ExtResource("10_tqoya")])
 conteneur_ennemis = NodePath("EnemyContainer")
 
-[node name="EnemyContainer" type="Node2D" parent="World" unique_id=14065966]
+[node name="EnemyContainer" type="Node2D" parent="World/WaveManager" unique_id=14065966]
 z_index = 10
-
-[node name="Area2D" parent="." unique_id=179977108 instance=ExtResource("5_0ha60")]
-position = Vector2(287, 368)
-
-[node name="Area2D6" parent="." unique_id=2131740694 instance=ExtResource("5_0ha60")]
-position = Vector2(315, 307)
-
-[node name="Area2D7" parent="." unique_id=1668604542 instance=ExtResource("5_0ha60")]
-position = Vector2(389, 350)
-
-[node name="Area2D8" parent="." unique_id=953686185 instance=ExtResource("5_0ha60")]
-position = Vector2(357, 421)
-
-[node name="Area2D9" parent="." unique_id=2096892119 instance=ExtResource("5_0ha60")]
-position = Vector2(297, 422)
-
-[node name="Area2D10" parent="." unique_id=1118822183 instance=ExtResource("5_0ha60")]
-position = Vector2(417, 394)
-
-[node name="Area2D11" parent="." unique_id=1872493990 instance=ExtResource("5_0ha60")]
-position = Vector2(645, 383)
-valeur_xp = 10
-
-[node name="Area2D12" parent="." unique_id=1027936418 instance=ExtResource("5_0ha60")]
-position = Vector2(610, 423)
-
-[node name="Area2D2" parent="." unique_id=437547343 instance=ExtResource("5_0ha60")]
-position = Vector2(231, 366)
-
-[node name="Area2D3" parent="." unique_id=1291321020 instance=ExtResource("5_0ha60")]
-position = Vector2(341, 359)
-
-[node name="Area2D4" parent="." unique_id=682206555 instance=ExtResource("5_0ha60")]
-position = Vector2(399, 285)
-
-[node name="Area2D5" parent="." unique_id=209174427 instance=ExtResource("5_0ha60")]
-position = Vector2(454, 335)

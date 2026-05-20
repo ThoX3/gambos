@@ -9,6 +9,8 @@ class_name Enemy_Base
 
 var player = null
 
+const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
+
 func _ready():
 	if stats:
 		setup_enemy()
@@ -47,4 +49,13 @@ func _physics_process(_delta):
 func take_damage(amount: int) -> void:
 	hp -= amount
 	if hp <= 0:
+		_drop_experience()
 		queue_free()
+		
+func _drop_experience() -> void:
+	var new_seaweed = SEAWEED_SCENE.instantiate()
+	
+	new_seaweed.xp_amount = stats.xp_drop
+	new_seaweed.global_position = self.global_position
+	
+	get_parent().add_child(new_seaweed)

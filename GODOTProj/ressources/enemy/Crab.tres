@@ -13,4 +13,5 @@ patrol_distance = 200.0
 attack_damage = 6
 attack_range = 60.0
 attack_cooldown = 2.0
+xp_drop = 4
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

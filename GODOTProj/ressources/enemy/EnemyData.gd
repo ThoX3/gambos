@@ -17,3 +17,7 @@ class_name EnemyData
 @export var attack_range: float
 @export var attack_cooldown: float
 @export var projectile_type: PackedScene
+
+@export_group("Loot")
+@export var xp_drop: int
+@export var pearl_drop: int

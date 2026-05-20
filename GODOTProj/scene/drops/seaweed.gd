@@ -1,14 +1,15 @@
 extends Area2D
 
-@export var valeur_xp : int = 1
+@export var xp_amount : int = 1
 @export var vitesse_aspiration = 400
+
 var cible = null
 var isCollected = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimatedSprite2D.play("Idle")
-	scale = Vector2(valeur_xp/20.0+0.5, valeur_xp/20.0+0.5)
+	scale = Vector2(xp_amount/20.0+0.5, xp_amount/20.0+0.5)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,7 +29,7 @@ func _on_area_entered(area: Area2D) -> void:
 		cible = area.get_parent()
 
 func collect():
-	cible.gainXP(valeur_xp)
+	cible.gainXP(xp_amount)
 	vitesse_aspiration = 0
 	$AnimatedSprite2D.play("Collecte")
 

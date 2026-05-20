@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://cmm4r5t37vl71"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_xwsox"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_hfbqf"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_0gigr"]
+
+[sub_resource type="Resource" id="Resource_4i6ur"]
+script = ExtResource("1_xwsox")
+value = 10
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[resource]
+script = ExtResource("2_hfbqf")
+name = "More HP"
+description = "Add 10 HP"
+capacities_effects = Array[ExtResource("1_xwsox")]([SubResource("Resource_4i6ur")])

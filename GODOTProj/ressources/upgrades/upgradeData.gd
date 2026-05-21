@@ -8,7 +8,7 @@ enum available_skill {DASH, MORE_PROJECTILE}
 
 @export_group("Infos")
 @export var name: String
-@export var icon: Image
+@export var icon: Texture
 @export var description: String
 @export var rarity: rarityType
 

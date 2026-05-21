@@ -10,6 +10,7 @@ class_name Enemy_Base
 var player = null
 
 const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
+const DAMAGE_TEXT_SCENE = preload("res://scene/ui/Damage/damage_text.tscn")
 
 func _ready():
 	if stats:
@@ -51,6 +52,13 @@ func take_damage(amount: int) -> void:
 	if hp <= 0:
 		_drop_experience()
 		queue_free()
+	
+	# Affichage des dégâts
+	_creer_texte_degats(amount)
+	
+	sprite.modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	sprite.modulate = Color.WHITE
 		
 func _drop_experience() -> void:
 	var new_seaweed = SEAWEED_SCENE.instantiate()
@@ -58,4 +66,13 @@ func _drop_experience() -> void:
 	new_seaweed.xp_amount = stats.xp_drop
 	new_seaweed.global_position = self.global_position
 	
-	get_parent().add_child(new_seaweed)
+	get_parent().call_deferred("add_child", new_seaweed)
+
+func _creer_texte_degats(montant: int) -> void:
+	var texte_instance = DAMAGE_TEXT_SCENE.instantiate()
+	
+	texte_instance.global_position = self.global_position + Vector2(-20, -40)
+	
+	get_parent().add_child(texte_instance)
+	
+	texte_instance.afficher_degats(montant)

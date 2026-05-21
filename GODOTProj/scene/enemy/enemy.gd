@@ -10,7 +10,8 @@ class_name Enemy_Base
 var player = null
 
 const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
-const DAMAGE_TEXT_SCENE = preload("res://scene/ui/Damage/damage_text.tscn")
+const DAMAGE_TEXT_SCENE = preload("res://scene/ui/enemy/damage_text.tscn")
+const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/DeathSplash.tscn")
 
 func _ready():
 	if stats:
@@ -34,22 +35,23 @@ func _physics_process(_delta):
 		print("DÉBOGAGE: Je ne trouve pas le joueur ! Vérifie le groupe 'Player'")
 		return
 
-	# 1. Calcul de la direction directe vers le joueur (Méthode GDQuest)
+	# Calcul de la direction directe vers le joueur (Méthode GDQuest)
 	var direction = global_position.direction_to(player.global_position)
 	
-	# 2. Retournement du sprite selon l'axe X
+	# Retournement du sprite selon l'axe X
 	if direction.x != 0:
 		sprite.flip_h = direction.x < 0
 	
-	# 3. Application de la vitesse brute sur le vecteur directionnel
+	# Application de la vitesse brute sur le vecteur directionnel
 	velocity = direction * stats.movement_speed
 
-	# 4. Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
+	# Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
 	move_and_slide()
 
 func take_damage(amount: int) -> void:
 	hp -= amount
 	if hp <= 0:
+		_creer_splash_mort()
 		_drop_experience()
 		queue_free()
 	
@@ -76,3 +78,10 @@ func _creer_texte_degats(montant: int) -> void:
 	get_parent().add_child(texte_instance)
 	
 	texte_instance.afficher_degats(montant)
+
+func _creer_splash_mort() -> void:
+	var splash = SPLASH_EFFECT_SCENE.instantiate()
+	
+	splash.global_position = self.global_position
+	
+	get_parent().call_deferred("add_child", splash)

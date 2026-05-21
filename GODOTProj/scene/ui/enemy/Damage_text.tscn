@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://oxw7t0wu6bdu"]
 
-[ext_resource type="Script" uid="uid://ce55t7ikgp1y2" path="res://scene/ui/Damage/damage_text.gd" id="1_eck3t"]
+[ext_resource type="Script" uid="uid://ce55t7ikgp1y2" path="res://scene/ui/enemy/damage_text.gd" id="1_eck3t"]
 
 [node name="Label" type="Label" unique_id=903615833]
 offset_right = 40.0

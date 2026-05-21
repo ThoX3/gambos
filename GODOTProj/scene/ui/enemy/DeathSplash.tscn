@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://d2dwwikk38b7i"]
+
+[ext_resource type="Script" uid="uid://7pcduujy1jnt" path="res://scene/ui/enemy/death_splash.gd" id="1_a4ktn"]
+[ext_resource type="Texture2D" uid="uid://78rlt7ifnca2" path="res://assets/sprites/enemy/corps.png" id="1_xvf0o"]
+
+[sub_resource type="Curve" id="Curve_xvf0o"]
+_data = [Vector2(0, 0.99999994), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.9950035, 0.0, 0, 0]
+point_count = 2
+
+[node name="DeathSplash" type="CPUParticles2D" unique_id=174697442]
+emitting = false
+amount = 15
+texture = ExtResource("1_xvf0o")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angle_min = -90.0
+angle_max = 90.0
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_xvf0o")
+script = ExtResource("1_a4ktn")

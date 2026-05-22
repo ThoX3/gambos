@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://oxw7t0wu6bdu"]
+
+[ext_resource type="Script" uid="uid://ce55t7ikgp1y2" path="res://scene/ui/enemy/damage_text.gd" id="1_eck3t"]
+
+[node name="Label" type="Label" unique_id=903615833]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+script = ExtResource("1_eck3t")

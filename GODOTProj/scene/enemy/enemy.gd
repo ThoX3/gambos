@@ -10,6 +10,7 @@ class_name Enemy_Base
 var player = null
 
 const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
+const PEARL_SCENE = preload("res://scene/drops/pearl.tscn")
 const DAMAGE_TEXT_SCENE = preload("res://scene/ui/enemy/damage_text.tscn")
 const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/DeathSplash.tscn")
 
@@ -53,6 +54,7 @@ func take_damage(amount: int) -> void:
 	if hp <= 0:
 		_creer_splash_mort()
 		_drop_experience()
+		_drop_pearl()
 		queue_free()
 	
 	# Affichage des dégâts
@@ -69,6 +71,14 @@ func _drop_experience() -> void:
 	new_seaweed.global_position = self.global_position
 	
 	get_parent().call_deferred("add_child", new_seaweed)
+	
+func _drop_pearl() -> void:
+	if randf() <= stats.pearl_drop_probability:
+		var new_pearl = PEARL_SCENE.instantiate()
+		
+		new_pearl.global_position = self.global_position
+		
+		get_parent().call_deferred("add_child", new_pearl)
 
 func _creer_texte_degats(montant: int) -> void:
 	var texte_instance = DAMAGE_TEXT_SCENE.instantiate()

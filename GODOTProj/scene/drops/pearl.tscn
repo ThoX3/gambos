@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bdqwjtcn8s213"]
+
+[ext_resource type="Script" uid="uid://dmsbctca5ps7o" path="res://scene/drops/pearl.gd" id="1_75s6r"]
+[ext_resource type="Texture2D" uid="uid://cracqvhcwhta3" path="res://assets/sprites/collectibles/pearl.png" id="1_l4deq"]
+[ext_resource type="Texture2D" uid="uid://cpuwv8yjdduov" path="res://assets/sprites/collectibles/CollectedXp1.png" id="2_vfrbx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_75s6r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vfrbx")
+}],
+"loop": false,
+"name": &"Collecte",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l4deq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vfrbx"]
+radius = 32.0
+height = 64.0
+
+[node name="Pearl" type="Area2D" unique_id=444506821]
+script = ExtResource("1_75s6r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=513763095]
+sprite_frames = SubResource("SpriteFrames_75s6r")
+animation = &"Collecte"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=574799411]
+shape = SubResource("CapsuleShape2D_vfrbx")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

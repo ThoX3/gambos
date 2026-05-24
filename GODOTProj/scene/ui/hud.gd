@@ -23,8 +23,9 @@ func _update_progres_bar():
 	%XP_Bar.value = Stats.currentXp
 
 func _update_health_bar():
-	# %HP_Bar.max_value = Stats.max_health
+	%HP_Bar.max_value = Stats.max_health
 	%HP_Bar.value = Stats.current_health
+	%HP.text = str(int(Stats.current_health)) + " / " + str(int(Stats.max_health))
 	
 func _update_level():
 	$Level.text = str(Stats.level)
@@ -33,3 +34,4 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
+	

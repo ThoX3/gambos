@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://c2ssbgdtx0kvl"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_h7ljn"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_j2wgu"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_m0fgu"]
+
+[sub_resource type="Resource" id="Resource_h7ljn"]
+script = ExtResource("1_h7ljn")
+targetCapacity = 2
+value = 15
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[sub_resource type="Resource" id="Resource_j2wgu"]
+script = ExtResource("1_h7ljn")
+value = -10
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[resource]
+script = ExtResource("2_j2wgu")
+name = "Frénésie de la crevette"
+description = "Tape plus fort mais devient plus fragile"
+rarity = 3
+capacities_effects = Array[ExtResource("1_h7ljn")]([SubResource("Resource_h7ljn"), SubResource("Resource_j2wgu")])
+metadata/_custom_type_script = "uid://da80dcqxba25s"

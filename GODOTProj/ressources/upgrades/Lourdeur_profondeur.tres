@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://bpo1youynqffb"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_jgdji"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_08uog"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_wytux"]
+
+[sub_resource type="Resource" id="Resource_jgdji"]
+script = ExtResource("1_jgdji")
+targetCapacity = 2
+value = 10
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[sub_resource type="Resource" id="Resource_08uog"]
+script = ExtResource("1_jgdji")
+targetCapacity = 4
+value = 20
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[sub_resource type="Resource" id="Resource_wytux"]
+script = ExtResource("1_jgdji")
+targetCapacity = 3
+value = -20
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[resource]
+script = ExtResource("2_08uog")
+name = "Lourdeur des profondeurs"
+description = "Tu vois tout, tu frappe fort mais la pression de l'eau ralentit tes mouvements"
+rarity = 3
+capacities_effects = Array[ExtResource("1_jgdji")]([SubResource("Resource_jgdji"), SubResource("Resource_08uog"), SubResource("Resource_wytux")])
+metadata/_custom_type_script = "uid://da80dcqxba25s"

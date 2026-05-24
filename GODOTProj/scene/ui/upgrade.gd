@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 func _on_level_update():
 	get_tree().paused = true
 	%CanvasLayer.visible = true
-	var random_cards = UpgradeManager.get_random_upgrades(1)
+	var random_cards = UpgradeManager.get_random_upgrades(3)
 	display_upgrades(random_cards)
 
 func display_upgrades(cards: Array[upgradeData]):
@@ -24,7 +24,16 @@ func display_upgrades(cards: Array[upgradeData]):
 		%Card2.setup(cards[1])
 	if cards.size() >= 3:
 		%Card3.setup(cards[2])
+	if not %Card.selected.is_connected(_on_card_selected):
+		%Card.selected.connect(_on_card_selected)
+	if not %Card2.selected.is_connected(_on_card_selected):
+		%Card2.selected.connect(_on_card_selected)
+	if not %Card3.selected.is_connected(_on_card_selected):
+		%Card3.selected.connect(_on_card_selected)
 
-func _on_button_pressed() -> void:
-	hide()
+func _on_card_selected(data: upgradeData):
+	var player = get_tree().get_first_node_in_group("Player")
+	if player:
+		player.apply_upgrade(data)
+	%CanvasLayer.visible = false
 	get_tree().paused = false

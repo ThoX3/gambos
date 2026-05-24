@@ -35,27 +35,35 @@ grow_vertical = 2
 
 [node name="Title" type="Label" parent="TextureButton/VBoxContainer" unique_id=1411579087]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
-clip_text = true
+autowrap_mode = 2
 
 [node name="Icon" type="TextureRect" parent="TextureButton/VBoxContainer" unique_id=1901432286]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 1
 
 [node name="Description" type="Label" parent="TextureButton/VBoxContainer" unique_id=77085915]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+autowrap_mode = 2
 clip_text = true
 
 [node name="Rarity" type="Label" parent="TextureButton/VBoxContainer" unique_id=865929680]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
 vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

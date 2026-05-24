@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://crpwvor4f11q3"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_gl52h"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_sknuu"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_rur6f"]
+
+[sub_resource type="Resource" id="Resource_x12x2"]
+script = ExtResource("1_gl52h")
+targetCapacity = 2
+value = 2
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[resource]
+script = ExtResource("2_sknuu")
+name = "A la vie, a la mort"
+description = "Augmente ta dévotion envers Naïade et devient plus fort"
+rarity = 1
+capacities_effects = Array[ExtResource("1_gl52h")]([SubResource("Resource_x12x2")])
+metadata/_custom_type_script = "uid://da80dcqxba25s"

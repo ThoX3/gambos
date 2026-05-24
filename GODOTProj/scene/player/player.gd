@@ -21,7 +21,8 @@ func _ready() -> void:
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	GameManager.initialize.connect(_on_initialize)
-
+	if projectile_data:
+		projectile_data = projectile_data.duplicate()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -130,8 +131,44 @@ func _get_nearest_enemy() -> Enemy_Base:
 	return nearest
 
 func _shoot(target: Enemy_Base) -> void:
-	var projectile: Projectile = projectile_scene.instantiate()
-	get_parent().add_child(projectile)
-	projectile.global_position = global_position
-	var dir = global_position.direction_to(target.global_position)
-	projectile.setup(projectile_data, dir)
+	for i in range(projectile_data.projectile_count):
+		var projectile: Projectile = projectile_scene.instantiate()
+		get_parent().add_child(projectile)
+		var angle_offset = (i - (projectile_data.projectile_count - 1) / 2.0 ) * 0.2
+		var dir = global_position.direction_to(target.global_position).rotated(angle_offset)
+		projectile.global_position = global_position
+		projectile.setup(projectile_data, dir)
+	
+func apply_upgrade(data: upgradeData) -> void:
+	if data.typeEffects == upgradeData.effectsType.CAPACITY:
+		for effect in data.capacities_effects:
+			_apply_capacity_effect(effect)
+	elif data.typeEffects == upgradeData.effectsType.SKILL_ADD:
+		_add_new_skill(data.skill_add_effects)
+	elif data.typeEffects == upgradeData.effectsType.SKILL_UPGRADE:
+		for skill in data.skill_upgrade:
+			_upgrade_existing_skill(skill, data.skill_upgrade[skill])
+			
+func _apply_capacity_effect(effect: capacityEffectData) -> void:
+	match effect.targetCapacity:
+		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
+			Stats.max_health += effect.value
+			Stats.current_health += effect.value # A voir si on soigne le montant ajouté
+			GameManager.health_changed.emit()
+		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
+			speed += effect.value
+		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
+			Stats.collectRadius += effect.value
+			$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+		capacityEffectData.TargetCapacityEffect.PLAYER_DAMAGE:
+			projectile_data.damage += effect.value
+		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
+			projectile_data.fire_rate += effect.value
+		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
+			projectile_data.range += effect	.value
+
+func _add_new_skill(effect: upgradeData.available_skill) -> void:
+	print("En cours")
+
+func _upgrade_existing_skill(skill, value) -> void:
+	print("En cours")

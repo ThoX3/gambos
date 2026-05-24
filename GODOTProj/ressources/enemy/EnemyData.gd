@@ -20,4 +20,4 @@ class_name EnemyData
 
 @export_group("Loot")
 @export var xp_drop: int
-@export var pearl_drop: int
+@export var pearl_drop_probability: float

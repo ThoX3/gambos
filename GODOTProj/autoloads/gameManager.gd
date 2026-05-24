@@ -2,6 +2,7 @@ extends Node
 
 signal xp_changed()
 signal health_changed()
+signal pearls_changed()
 signal initialize()
 signal start_game()
 signal level_up()

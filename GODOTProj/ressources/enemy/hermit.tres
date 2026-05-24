@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_57rjx"]
 [ext_resource type="SpriteFrames" uid="uid://bvdy5tri0grgw" path="res://assets/sprites/enemy/hermit.tres" id="2_lwf1n"]
-[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="2_mol10"]
 
 [resource]
 script = ExtResource("1_57rjx")
@@ -15,5 +14,4 @@ attack_damage = 3
 attack_range = 60.0
 attack_cooldown = 2.0
 xp_drop = 2
-seaweed_Scene = ExtResource("2_mol10")
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

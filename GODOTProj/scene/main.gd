@@ -13,9 +13,15 @@ extends Node
 var current_player: CharacterBody2D = null
 var current_map: Node2D = null
 
+# --- SAVES ---
+const SAVE_PATH = "user://gambos/save.tres"
+var current_save: SaveData
+
 var center: Vector2 = Vector2(1312.0, 736.0)
 
 func _ready() -> void:
+	load_game()
+	
 	# For now, immediately launch into the game.
 	# Later, you will replace this with a function that shows the Main Menu.
 	if starting_map and player_scene:
@@ -64,7 +70,26 @@ func _clear_world() -> void:
 		
 func _on_player_health_depleted():
 	%GameOver/LayerGameOver.visible = true
+	current_save.pearls += current_player.Stats.collected_pearls
+	save_game()
 	get_tree().paused = true
 	
 func _on_start():
 	start_game(starting_map)
+	
+func save_game() -> void:
+	var result = ResourceSaver.save(current_save, SAVE_PATH)
+	
+	if result == OK:
+		print("Game saved successfully!")
+	else:
+		push_error("Failed to save game.")
+
+func load_game() -> void:
+	if ResourceLoader.exists(SAVE_PATH):
+		current_save = ResourceLoader.load(SAVE_PATH) as SaveData
+		print("Save loaded! Peals: ", current_save.pearls)
+	else:
+		current_save = SaveData.new()
+		print("No save found. Created new save profile.")
+		

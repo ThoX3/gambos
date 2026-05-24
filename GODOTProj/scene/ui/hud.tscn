@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
+[ext_resource type="Texture2D" uid="uid://cracqvhcwhta3" path="res://assets/sprites/collectibles/pearl.png" id="8_gll67"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qxikp"]
 font_size = 19
@@ -43,10 +44,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = 116.5
-offset_right = 127.0
-offset_bottom = 148.5
+offset_left = -0.5
+offset_top = 119.5
+offset_right = 127.5
+offset_bottom = 151.5
 grow_vertical = 2
 texture_under = ExtResource("6_vgic2")
 texture_progress = ExtResource("7_nja0l")
@@ -63,3 +64,26 @@ offset_bottom = -4.0
 grow_vertical = 0
 text = "1"
 label_settings = SubResource("LabelSettings_qxikp")
+
+[node name="Pearls" type="HBoxContainer" parent="." unique_id=1668351231]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -29.0
+offset_right = -8.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Count" type="Label" parent="Pearls" unique_id=1718761183]
+layout_mode = 2
+text = "0"
+
+[node name="Icon" type="TextureRect" parent="Pearls" unique_id=1478263408]
+layout_mode = 2
+texture = ExtResource("8_gll67")
+expand_mode = 3

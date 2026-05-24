@@ -76,7 +76,7 @@ func _drop_pearl() -> void:
 	if randf() <= stats.pearl_drop_probability:
 		var new_pearl = PEARL_SCENE.instantiate()
 		
-		new_pearl.global_position = self.global_position
+		new_pearl.global_position = self.global_position + 15 * Vector2(2 * randf() - 1, 2 * randf() - 1)
 		
 		get_parent().call_deferred("add_child", new_pearl)
 

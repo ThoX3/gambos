@@ -87,7 +87,7 @@ func levelUp():
 func gainPearl(amount: int):
 	Stats.collected_pearls += amount
 	
-	GameManager.pearl_changed.emit()
+	GameManager.pearls_changed.emit()
 	
 	
 func start_invincibility():

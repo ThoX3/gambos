@@ -51,7 +51,7 @@ func _on_area_entered(area: Area2D) -> void:
 		cible = area.get_parent()
 
 func collect():
-	cible.gainXP(pearl_amount)
+	cible.gainPearl(pearl_amount)
 	vitesse_actuelle = 0 # Stop movement instantly
 	$AnimatedSprite2D.play("Collecte")
 

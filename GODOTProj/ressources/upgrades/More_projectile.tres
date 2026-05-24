@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://bqyww4vp18fmw"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_7133n"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_vq3o3"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_v1f0u"]
+
+[resource]
+script = ExtResource("2_vq3o3")
+name = "Ébullition Massive"
+description = "Ajoute 1 projectile"
+rarity = 3
+typeEffects = 1
+skill_add_effects = 1
+metadata/_custom_type_script = "uid://da80dcqxba25s"

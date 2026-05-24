@@ -51,12 +51,12 @@ func _on_pearls_changed():
 	pearl_tween = create_tween()
 	
 	pearl_box.visible = true
-	pearl_box.scale = Vector2(1.2, 1.2) # Starts slightly too big
+	pearl_box.scale = Vector2(1.2, 1.2) 
 		
 	pearl_tween.set_parallel(true)
 	pearl_tween.tween_property(pearl_box, "modulate:a", 1.0, 0.1)
 	pearl_tween.tween_property(pearl_box, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BOUNCE)
-	pearl_tween.set_parallel(false) # Turn parallel off for the next steps
+	pearl_tween.set_parallel(false) 
 	
 	pearl_tween.tween_interval(2.0)
 	

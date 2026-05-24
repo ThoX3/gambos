@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bw06oil5jikyp"]
+
+[ext_resource type="Script" uid="uid://nv768ihmjtxh" path="res://scene/ui/pearl_shop/pearl_shop_item.gd" id="1_onswu"]
+
+[node name="PearlShopItem" type="PanelContainer" unique_id=206465738]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_onswu")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=887269337]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=234506684]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1669272566]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UpgradeName"
+
+[node name="CurrentValue" type="Label" parent="MarginContainer/HBoxContainer" unique_id=979115324]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UpgradeLevel"
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer" unique_id=189363773]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Buy
+"

@@ -29,6 +29,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Gambos"
 
+[global_group]
+
+Main=""
+
 [input]
 
 move_left={

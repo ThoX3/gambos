@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://c074bjx3qiixv"]
+
+[ext_resource type="Script" uid="uid://bh8bpob3ax45x" path="res://scene/ui/pearl_shop/pearl_shop.gd" id="1_pj8rj"]
+[ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="1_pv3x0"]
+[ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="2_pj8rj"]
+[ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/PearlShopItem.tscn" id="3_a1qy5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cxirj"]
+font_size = 32
+outline_color = Color(0, 0, 0, 0)
+
+[node name="PearlShop" type="Control" unique_id=627456338]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pj8rj")
+
+[node name="Background" type="TextureRect" parent="." unique_id=14321263]
+modulate = Color(0.6052743, 0.6052743, 0.6052743, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_pv3x0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1813661169]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=945933410]
+layout_mode = 2
+theme_override_constants/separation = 29
+
+[node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1065693868]
+layout_mode = 2
+text = "Bienvenue au magasin !"
+label_settings = SubResource("LabelSettings_cxirj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=84580435]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=915679690]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
+layout_mode = 2
+texture = ExtResource("2_pj8rj")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+
+[node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=423753908]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Tu as 0 perles gros naze"
+horizontal_alignment = 1
+
+[node name="PearlShopItem1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=206465738 instance=ExtResource("3_a1qy5")]
+layout_mode = 2
+base_cost = 1
+
+[node name="PearlShopItem2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2049910537 instance=ExtResource("3_a1qy5")]
+layout_mode = 2
+upgrade_id = "damage"
+title_text = "Attaque"
+base_cost = 1
+
+[node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1881912387 instance=ExtResource("3_a1qy5")]
+layout_mode = 2
+upgrade_id = "speed"
+title_text = "Vitesse"
+base_cost = 2

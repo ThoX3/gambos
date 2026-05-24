@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]
 [ext_resource type="Resource" uid="uid://r113dlri0u01" path="res://ressources/waves/Wave2.tres" id="10_tqoya"]
 
-[node name="Main" type="Node2D" unique_id=1767589913]
+[node name="Main" type="Node2D" unique_id=1767589913 groups=["Main"]]
 texture_filter = 1
 script = ExtResource("1_itxqv")
 player_scene = ExtResource("2_v0l8b")

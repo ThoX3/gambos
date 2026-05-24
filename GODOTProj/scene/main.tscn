@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="3_wp4xf"]
 [ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
-[ext_resource type="PackedScene" uid="uid://d3eb3o8ici6rj" path="res://scene/ui/game_over.tscn" id="5_of57s"]
+[ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
 [ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]

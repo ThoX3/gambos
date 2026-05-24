@@ -1,15 +1,11 @@
-extends Node
+extends CPUParticles2D
 
-signal xp_changed()
-signal health_changed()
-signal pearls_changed()
-signal initialize()
-signal start_game()
-signal level_up()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	emitting = true
+	await get_tree().create_timer(lifetime + 0.1).timeout
+	queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

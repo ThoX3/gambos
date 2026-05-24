@@ -172,8 +172,10 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
 			projectile_data.range += effect	.value
 
-func _add_new_skill(effect: upgradeData.available_skill) -> void:
-	print("En cours")
+func _add_new_skill(skill: upgradeData.available_skill) -> void:
+	match skill:
+		upgradeData.available_skill.MORE_PROJECTILE:
+			projectile_data.projectile_count += 1
 
-func _upgrade_existing_skill(skill, value) -> void:
+func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: skillEffectData) -> void:
 	print("En cours")

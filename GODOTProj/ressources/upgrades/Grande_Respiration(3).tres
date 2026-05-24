@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="upgradeData" format=3 uid="uid://ca0rtejl4a708"]
+
+[ext_resource type="Script" uid="uid://bcprergp4upjn" path="res://ressources/upgrades/capacityEffectData.gd" id="1_0d0b0"]
+[ext_resource type="Script" uid="uid://da80dcqxba25s" path="res://ressources/upgrades/upgradeData.gd" id="2_5rhbp"]
+[ext_resource type="Script" uid="uid://bd02ox06i8xc8" path="res://ressources/upgrades/skillEffectData.gd" id="3_b3fyf"]
+
+[sub_resource type="Resource" id="Resource_x12x2"]
+script = ExtResource("1_0d0b0")
+targetCapacity = 1
+value = 70
+metadata/_custom_type_script = "uid://bcprergp4upjn"
+
+[resource]
+script = ExtResource("2_5rhbp")
+name = "Grande respiration"
+description = "Apprend à mieux respirer et cours plus vite"
+rarity = 2
+capacities_effects = Array[ExtResource("1_0d0b0")]([SubResource("Resource_x12x2")])
+metadata/_custom_type_script = "uid://da80dcqxba25s"

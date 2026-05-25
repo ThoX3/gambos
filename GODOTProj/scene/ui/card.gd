@@ -3,11 +3,19 @@ extends Control
 signal selected(data: upgradeData)
 
 const BACKGROUNDS = {
-	upgradeData.rarityType.COMMON: preload("res://assets/sprites/cards/background/Card1.png"),
-	upgradeData.rarityType.UNCOMMUN: preload("res://assets/sprites/cards/background/Card2.png"),
-	upgradeData.rarityType.RARE: preload("res://assets/sprites/cards/background/Card3.png"),
-	upgradeData.rarityType.LEGENDARY: preload("res://assets/sprites/cards/background/Card4.png"),
-	upgradeData.rarityType.MYTHIC: preload("res://assets/sprites/cards/background/Card5.png")
+	upgradeData.rarityType.COMMON: preload("res://assets/sprites/cards/background/Card2.png"),
+	upgradeData.rarityType.UNCOMMUN: preload("res://assets/sprites/cards/background/Card4.png"),
+	upgradeData.rarityType.RARE: preload("res://assets/sprites/cards/background/Card6.png"),
+	upgradeData.rarityType.LEGENDARY: preload("res://assets/sprites/cards/background/Card8.png"),
+	upgradeData.rarityType.MYTHIC: preload("res://assets/sprites/cards/background/Card10.png")
+}
+
+const HOVER = {
+	upgradeData.rarityType.COMMON: preload("res://assets/sprites/cards/background/Card3.png"),
+	upgradeData.rarityType.UNCOMMUN: preload("res://assets/sprites/cards/background/Card5.png"),
+	upgradeData.rarityType.RARE: preload("res://assets/sprites/cards/background/Card7.png"),
+	upgradeData.rarityType.LEGENDARY: preload("res://assets/sprites/cards/background/Card9.png"),
+	upgradeData.rarityType.MYTHIC: preload("res://assets/sprites/cards/background/Card11.png")
 }
 
 const STATS = {
@@ -35,8 +43,10 @@ func setup(data: upgradeData) -> void:
 			else :
 				%Stats.text += "- " + str(effet.value) + "\n"
 	%Rarity.text = upgradeData.rarityType.keys()[data.rarity]
-	var texture_to_use = BACKGROUNDS[data.rarity]
-	%TextureButton.texture_normal = texture_to_use
+	var texture_normal = BACKGROUNDS[data.rarity]
+	var texture_hover = HOVER[data.rarity]
+	%TextureButton.texture_normal = texture_normal
+	%TextureButton.texture_hover = texture_hover
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)

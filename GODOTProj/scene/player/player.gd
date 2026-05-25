@@ -81,7 +81,7 @@ func levelUp():
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10*(Stats.level**2)
+	Stats.requiredXp = 10 * (Stats.level ** 2)
 	
 	GameManager.level_up.emit()
 	
@@ -89,7 +89,6 @@ func gainPearl(amount: int):
 	Stats.collected_pearls += amount
 	
 	GameManager.pearls_changed.emit()
-	
 	
 func start_invincibility():
 	is_invincible = true
@@ -115,6 +114,14 @@ func _on_initialize():
 	Stats.collectRadius = 200
 	Stats.collected_pearls = 0
 
+func apply_pearl_upgrades(save: SaveData) -> void:
+	Stats.max_health += save.upgrade_health_level * 5.0
+	Stats.current_health = Stats.max_health
+	
+	speed += save.upgrade_speed_level * 20.0
+	
+	if projectile_data:
+		projectile_data.damage += save.upgrade_damage_level * 1
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -171,7 +178,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
 			projectile_data.fire_rate += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
-			projectile_data.range += effect	.value
+			projectile_data.range += effect.value
 
 func _add_new_skill(skill: upgradeData.available_skill) -> void:
 	match skill:

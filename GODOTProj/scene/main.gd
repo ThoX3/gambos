@@ -45,6 +45,9 @@ func start_game(map_to_load: PackedScene) -> void:
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
+	if current_save:
+		current_player.apply_pearl_upgrades(current_save)
+	
 	if current_player.has_signal("health_depleted"):
 		current_player.health_depleted.connect(_on_player_health_depleted)
 	

@@ -49,4 +49,5 @@ func hide_shop() -> void:
 	
 func reset_save():
 	main_manager.current_save = SaveData.new()
+	main_manager.save_game()
 	refresh_shop()

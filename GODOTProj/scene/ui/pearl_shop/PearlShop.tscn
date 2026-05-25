@@ -116,8 +116,14 @@ base_cost = 1
 [node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1881912387 instance=ExtResource("3_a1qy5")]
 layout_mode = 2
 upgrade_id = "speed"
-title_text = "Vitesse"
-base_cost = 2
+title_text = "Vitesse de déplacement"
+base_cost = 1
+
+[node name="PearlShopItem4" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1471535943 instance=ExtResource("3_a1qy5")]
+layout_mode = 2
+upgrade_id = "speed-damage"
+title_text = "Vitesse d'attaque"
+base_cost = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1820389118]
 layout_mode = 2

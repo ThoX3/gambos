@@ -5,7 +5,7 @@ signal health_depleted
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio = $AudioStreamPlayer2D
 @export var Stats: Resource
-@export var speed: float = 300.0
+@export var speed: float = 100
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 
@@ -125,6 +125,7 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	
 	if projectile_data:
 		projectile_data.damage += save.upgrade_damage_level * 1
+		projectile_data.fire_rate += save.upgrade_speed_damage_level * 0.1
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -171,6 +172,9 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			Stats.max_health += effect.value
 			Stats.current_health += effect.value # A voir si on soigne le montant ajouté
 			GameManager.health_changed.emit()
+			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
+				%HurtBox.monitoring = false
+				health_depleted.emit()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
 			speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:

@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_x12x2"]
 script = ExtResource("1_0d0b0")
 targetCapacity = 1
-value = 70
+value = 50.0
 metadata/_custom_type_script = "uid://bcprergp4upjn"
 
 [resource]

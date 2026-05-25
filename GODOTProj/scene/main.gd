@@ -77,7 +77,6 @@ func _on_player_health_depleted():
 	
 func _on_start():
 	start_game(starting_map)
-	$World/WaveManager._demarrer_vague(0) # à adapter
 
 func save_game() -> void:
 	# Write to disk

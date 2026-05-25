@@ -78,11 +78,6 @@ func _process(delta: float) -> void:
 		_Etat.FINI:
 			pass
 
-func start_waves() -> void:
-	_index_vague = 0
-	_timer_pause = 0.0
-	_etat = _Etat.PAUSE
-
 
 # ── Logique de vague ───────────────────────────
 

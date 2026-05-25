@@ -16,6 +16,7 @@ func _on_level_update():
 	%CanvasLayer.visible = true
 	var random_cards = UpgradeManager.get_random_upgrades(3)
 	display_upgrades(random_cards)
+	%Card.get_node("TextureButton").grab_focus()
 
 func display_upgrades(cards: Array[upgradeData]):
 	if cards.size() >= 1:

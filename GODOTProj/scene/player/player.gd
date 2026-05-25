@@ -8,6 +8,8 @@ signal health_depleted
 @export var speed: float = 100
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
+@export var knockback_force: float = 300.0
+var _knockback_velocity: Vector2 = Vector2.ZERO
 
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false
@@ -39,6 +41,10 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, speed)
 
+	# Ajout du knockback à la vélocité + amortissement progressif
+	velocity += _knockback_velocity
+	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, knockback_force * 5 * delta)
+
 	move_and_slide()
 	
 	if is_invincible:
@@ -48,6 +54,9 @@ func _physics_process(delta):
 	
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
+		# Calcul de la direction opposée à l'ennemi
+		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
+		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false

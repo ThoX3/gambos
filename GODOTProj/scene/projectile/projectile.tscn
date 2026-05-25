@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmci1qf7kj2wn" path="res://scene/projectile/projectile.gd" id="1_h6pdv"]
 [ext_resource type="SpriteFrames" uid="uid://c12cc8avn357m" path="res://assets/sprites/projectile/projectile.tres" id="2_6ehn6"]
-[ext_resource type="AudioStream" uid="uid://bl4g8xmnarjfv" path="res://assets/sounds/pop.mp3" id="3_ofce5"]
+[ext_resource type="AudioStream" uid="uid://bl4g8xmnarjfv" path="res://assets/sounds/effect/pop.mp3" id="3_ofce5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mudio"]
 

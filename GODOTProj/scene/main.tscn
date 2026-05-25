@@ -9,12 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
 [ext_resource type="PackedScene" uid="uid://c074bjx3qiixv" path="res://scene/ui/pearl_shop/PearlShop.tscn" id="7_k65ib"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
-[ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
-[ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]
-[ext_resource type="Resource" uid="uid://r113dlri0u01" path="res://ressources/waves/Wave2.tres" id="10_tqoya"]
-[ext_resource type="Resource" uid="uid://d2fhm1vkcckwl" path="res://ressources/waves/WaveBoss1.tres" id="11_k65ib"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
-[ext_resource type="Resource" uid="uid://2vadx410ox10" path="res://ressources/waves/WaveBoss2.tres" id="14_jcbur"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
 [ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="15_jcbur"]
 
@@ -44,9 +39,8 @@ unique_name_in_owner = true
 
 [node name="WaveManager" type="Node2D" parent="World" unique_id=1263149827 node_paths=PackedStringArray("conteneur_ennemis")]
 script = ExtResource("7_of57s")
-vagues = Array[ExtResource("8_b5f6u")]([ExtResource("14_jcbur"), ExtResource("9_tqoya"), ExtResource("10_tqoya"), ExtResource("11_k65ib")])
-config = ExtResource("14_v2gmf")
 spawn_config = ExtResource("15_jcbur")
+config = ExtResource("14_v2gmf")
 conteneur_ennemis = NodePath("EnemyContainer")
 scene_dialogue = ExtResource("12_wscrc")
 

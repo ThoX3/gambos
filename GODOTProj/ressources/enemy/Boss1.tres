@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_0pafs")
 texture = ExtResource("2_0pafs")
-max_hp = 15
+max_hp = 150
 armor = 15
 movement_speed = 100.0
 patrol_distance = 200.0

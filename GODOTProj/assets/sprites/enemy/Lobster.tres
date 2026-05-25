@@ -1,3 +1,25 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://o1j3416nu8kg"]
 
+[ext_resource type="Texture2D" uid="uid://ed8lj65ws1lb" path="res://assets/sprites/enemy/lobster_walk.png" id="1_6eqen"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwagu"]
+atlas = ExtResource("1_6eqen")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo1k3"]
+atlas = ExtResource("1_6eqen")
+region = Rect2(64, 0, 64, 64)
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rwagu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo1k3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

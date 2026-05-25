@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dy07fi4p1c0f7"]
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://jhsrfe6k6ui1"]
 
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_uce6x"]
-[ext_resource type="SpriteFrames" uid="uid://o1j3416nu8kg" path="res://assets/sprites/enemy/Lobster.tres" id="2_7qk45"]
+[ext_resource type="SpriteFrames" uid="uid://biry8w3ehivke" path="res://assets/sprites/enemy/Lobster.tres" id="2_7qk45"]
 
 [resource]
 script = ExtResource("1_uce6x")
@@ -11,4 +11,5 @@ movement_speed = 120.0
 attack_damage = 8
 xp_drop = 2
 pearl_drop_probability = 0.3
+cout = 3
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

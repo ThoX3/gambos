@@ -28,7 +28,7 @@ var _duree_vague_courante: float      = 30.0
 var _liste_spawn: Array               = []   # Array de SpawnConfig.EntreeEnnemi
 var _vague_procedurale: Wave          = null
 var _mode_infini_actif: bool          = false
-var _boss_courant: SpawnConfig.EntreeBoss = null
+var _boss_courant: EntreeBoss = null
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -204,7 +204,7 @@ func _spawner_depuis_liste() -> void:
 	conteneur_ennemis.add_child(ennemi)
 	_ennemis_spawnes += 1
 
-func _spawner_boss(vague: Wave, boss_entry: SpawnConfig.EntreeBoss) -> void:
+func _spawner_boss(vague: Wave, boss_entry: EntreeBoss) -> void:
 	for i in range(boss_entry.nb_ennemis):
 		var ennemi: Enemy_Base = boss_entry.scene.instantiate()
 		ennemi.stats = boss_entry.data

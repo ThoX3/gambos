@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cracqvhcwhta3"
-path="res://.godot/imported/pearl.png-d3fde31129b6a0daf9a3b4c79ee6e1ec.ctex"
+uid="uid://dy27j481qef2k"
+path="res://.godot/imported/pearl_sheet.png-b176d2b21cd27713421efddea85d6b34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/collectibles/pearl.png"
-dest_files=["res://.godot/imported/pearl.png-d3fde31129b6a0daf9a3b4c79ee6e1ec.ctex"]
+source_file="res://assets/sprites/collectibles/pearl_sheet.png"
+dest_files=["res://.godot/imported/pearl_sheet.png-b176d2b21cd27713421efddea85d6b34.ctex"]
 
 [params]
 

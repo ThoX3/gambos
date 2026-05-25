@@ -52,6 +52,7 @@ func _physics_process(_delta):
 func take_damage(amount: int) -> void:
 	hp -= amount
 	if hp <= 0:
+		$CollisionShape2D.disabled = true
 		_creer_splash_mort()
 		_drop_experience()
 		_drop_pearl()

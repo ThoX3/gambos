@@ -53,7 +53,4 @@ func _on_area_entered(area: Area2D) -> void:
 func collect():
 	cible.gainPearl(pearl_amount)
 	vitesse_actuelle = 0 # Stop movement instantly
-	$AnimatedSprite2D.play("Collecte")
-
-func _on_animated_sprite_2d_animation_finished() -> void:
 	queue_free()

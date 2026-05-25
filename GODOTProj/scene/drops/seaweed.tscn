@@ -60,8 +60,6 @@ radius = 18.0
 height = 60.0
 
 [node name="Area2D" type="Area2D" unique_id=179977108]
-light_mask = 3
-visibility_layer = 3
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_ukf3m")
 vitesse_aspiration = 500

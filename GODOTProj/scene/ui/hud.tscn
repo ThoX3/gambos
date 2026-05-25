@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
-[ext_resource type="Texture2D" uid="uid://cracqvhcwhta3" path="res://assets/sprites/collectibles/pearl.png" id="8_gll67"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qxikp"]
 font_size = 19

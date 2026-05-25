@@ -16,6 +16,9 @@ enum ZoneType {
  
 # ── Paramètres principaux ──────────────────────
  
+## Indique si la vague se termine uniquement à la mort de tous les ennemis
+@export var est_vague_de_boss: bool = false
+
 ## Durée totale de la vague (secondes)
 @export_range(1.0, 300.0, 0.5) var duree: float = 30.0
  

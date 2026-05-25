@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
 [ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]
 [ext_resource type="Resource" uid="uid://r113dlri0u01" path="res://ressources/waves/Wave2.tres" id="10_tqoya"]
+[ext_resource type="Resource" uid="uid://d2fhm1vkcckwl" path="res://ressources/waves/WaveBoss1.tres" id="11_k65ib"]
+[ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 
 [node name="Main" type="Node2D" unique_id=1767589913]
 texture_filter = 1
@@ -32,8 +34,9 @@ unique_name_in_owner = true
 
 [node name="WaveManager" type="Node2D" parent="World" unique_id=1263149827 node_paths=PackedStringArray("conteneur_ennemis")]
 script = ExtResource("7_of57s")
-vagues = Array[ExtResource("8_b5f6u")]([ExtResource("9_tqoya"), ExtResource("10_tqoya")])
+vagues = Array[ExtResource("8_b5f6u")]([ExtResource("9_tqoya"), ExtResource("10_tqoya"), ExtResource("11_k65ib")])
 conteneur_ennemis = NodePath("EnemyContainer")
+scene_dialogue = ExtResource("12_wscrc")
 
 [node name="EnemyContainer" type="Node2D" parent="World/WaveManager" unique_id=14065966]
 z_index = 10

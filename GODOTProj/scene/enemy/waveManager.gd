@@ -20,6 +20,8 @@ extends Node
 ## Conteneur parent des ennemis instanciés
 @export var conteneur_ennemis: Node
 
+@export var scene_dialogue: PackedScene
+
 
 # ── Signaux ────────────────────────────────────
 
@@ -49,6 +51,7 @@ var _intervalle_spawn: float = 1.0
 # ── Cycle de vie ───────────────────────────────
 
 func _ready() -> void:
+	await get_tree().process_frame
 	joueur = get_tree().get_first_node_in_group("Player")
 	
 	if vagues.is_empty():
@@ -108,6 +111,10 @@ func _demarrer_vague(index: int) -> void:
 	_etat             = _Etat.VAGUE
 
 	vague_demarree.emit(index, vague)
+	
+	if vague.est_vague_de_boss:
+		_spawner_ennemi(vague)
+		_lancer_dialogue_boss()
 
 
 func _terminer_vague() -> void:
@@ -218,3 +225,14 @@ func get_progression_vague() -> float:
 	if vagues.is_empty() or _etat != _Etat.VAGUE:
 		return 0.0
 	return clamp(_timer_vague / vagues[_index_vague].duree, 0.0, 1.0)
+
+func _lancer_dialogue_boss() -> void:
+	if scene_dialogue != null:
+		# 1. On fige le jeu (les ennemis et le timer s'arrêtent)
+		get_tree().paused = true 
+		
+		# 2. On crée la boîte de dialogue
+		var dialogue = scene_dialogue.instantiate()
+		get_tree().current_scene.add_child(dialogue)
+	else:
+		push_error("WaveManager : Tu as oublié d'assigner la scène de dialogue !")

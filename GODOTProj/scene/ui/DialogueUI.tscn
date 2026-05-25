@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://da8mgr6pgoucp"]
+
+[ext_resource type="Script" uid="uid://d4hvublox2d5f" path="res://scene/ui/dialogue_ui.gd" id="1_yy20y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yy20y"]
+font_size = 24
+
+[node name="DialogueUi" type="CanvasLayer" unique_id=327186326]
+script = ExtResource("1_yy20y")
+
+[node name="BoiteDialogue" type="Panel" parent="." unique_id=1900789580]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -172.0
+offset_right = -24.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Texte" type="Label" parent="BoiteDialogue" unique_id=637445931]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1212.0
+offset_bottom = 130.0
+text = "Blablabla je vais t'anéantir blablabla ce sera moi le roi des mers blablabla tu n'es qu'un gambas de pacotille blablabla que la pêche s'abate sur tout"
+label_settings = SubResource("LabelSettings_yy20y")
+autowrap_mode = 2

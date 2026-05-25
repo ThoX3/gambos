@@ -33,6 +33,13 @@ func get_random_upgrades(count: int) -> Array[upgradeData]:
 	for i in range (count):
 		if pool.is_empty(): break
 		var picked = pick_one_weighted(pool)
+		match i:
+			1:
+				while picked.name == str(selected_upgrades[0].name):
+					picked = pick_one_weighted(pool)
+			2:
+				while picked.name == str(selected_upgrades[0].name) or picked.name == str(selected_upgrades[1]):
+					picked = pick_one_weighted(pool)
 		if picked:
 			selected_upgrades.append(picked)
 			pool.erase(picked)

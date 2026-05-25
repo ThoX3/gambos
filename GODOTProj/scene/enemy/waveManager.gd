@@ -11,7 +11,7 @@ extends Node
 
 ## Active le mode infini : quand toutes les vagues définies sont épuisées,
 ## le jeu continue en générant des vagues procédurales de plus en plus dures.
-@export var mode_infini: bool = false
+@export var mode_infini: bool = true
 
 @export var joueur: Node2D
 @export var conteneur_ennemis: Node
@@ -40,6 +40,7 @@ var _intervalle_spawn: float     = 1.0
 var _duree_vague_courante: float = 30.0
 var _liste_spawn: Array[EnemySpawn] = []
 var _vague_procedurale: Wave = null
+var _mode_infini_actif: bool = false  # true dès qu'on dépasse les vagues définies
 
 
 # ── Cycle de vie ───────────────────────────────
@@ -57,10 +58,11 @@ func _ready() -> void:
 		push_error("WaveManager : conteneur_ennemis non assigné.")
 
 func start_waves() -> void:
-	_index_vague  = 0
-	_numero_vague = 0
-	_timer_pause  = 0.0
+	_index_vague       = 0
+	_numero_vague      = 0
+	_timer_pause       = 0.0
 	_vague_procedurale = null
+	_mode_infini_actif = false
 	_etat = _Etat.PAUSE
 
 
@@ -133,8 +135,8 @@ func _terminer_vague() -> void:
 
 	# Toutes les vagues définies sont épuisées
 	if mode_infini:
-		# _index_vague reste sur la dernière vague (gabarit de zone + types_ennemis)
-		# _numero_vague continue de croître → les équations génèrent des vagues de plus en plus dures
+		_mode_infini_actif = true
+		_vague_procedurale = null
 		_etat = _Etat.PAUSE
 	else:
 		_etat = _Etat.FINI
@@ -144,13 +146,20 @@ func _terminer_vague() -> void:
 # ── Résolution de la vague courante ───────────
 
 func _vague_courante() -> Wave:
-	if _index_vague < vagues.size():
+	if not _mode_infini_actif:
 		return vagues[_index_vague]
 
-	# Mode infini : copie légère de la dernière vague (zone + types_ennemis, jamais boss)
+	# Mode infini : copie légère de la dernière vague NORMALE comme gabarit
 	if _vague_procedurale == null:
-		var gabarit: Wave           = vagues[vagues.size() - 1]
-		_vague_procedurale          = Wave.new()
+		var gabarit: Wave = null
+		for i in range(vagues.size() - 1, -1, -1):
+			if not vagues[i].est_vague_de_boss:
+				gabarit = vagues[i]
+				break
+		if gabarit == null:
+			push_error("WaveManager : aucune vague normale trouvée comme gabarit !")
+			return vagues[vagues.size() - 1]
+		_vague_procedurale                   = Wave.new()
 		_vague_procedurale.est_vague_de_boss = false
 		_vague_procedurale.zone              = gabarit.zone
 		_vague_procedurale.marge_bords       = gabarit.marge_bords
@@ -279,7 +288,7 @@ func get_progression_vague() -> float:
 	return clampf(_timer_vague / _duree_vague_courante, 0.0, 1.0)
 
 func est_en_mode_infini() -> bool:
-	return mode_infini and _index_vague >= vagues.size() - 1
+	return _mode_infini_actif
 
 
 func _lancer_dialogue_boss() -> void:

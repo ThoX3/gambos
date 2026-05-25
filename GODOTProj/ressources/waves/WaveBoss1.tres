@@ -13,4 +13,5 @@ data = ExtResource("3_0b5jm")
 [resource]
 script = ExtResource("1_0b5jm")
 est_vague_de_boss = true
+duree = 1.0
 types_ennemis = Array[ExtResource("2_mhm3n")]([SubResource("Resource_jff2e")])

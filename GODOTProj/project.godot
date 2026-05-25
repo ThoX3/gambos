@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 GameManager="*uid://ddtwp7cwnbrva"
 UpgradeManager="*uid://cg5imskw71qwf"
 
+[debug]
+
+file_logging/enable_file_logging=true
+
 [display]
 
 window/size/viewport_width=1280

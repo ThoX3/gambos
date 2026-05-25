@@ -5,10 +5,12 @@ signal back_button_pressed
 @onready var pearl_count_label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
 @onready var item_list = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
+@onready var reset_button = $ResetPurchasesButton
 @onready var main_manager = get_tree().get_first_node_in_group("Main")
 
 func _ready() -> void:
 	back_button.pressed.connect(hide_shop)
+	reset_button.pressed.connect(reset_save)
 	
 	for card in item_list.get_children():
 		if card.has_signal("buy_requested"):
@@ -44,3 +46,7 @@ func _on_card_buy_requested(id: String, cost: int) -> void:
 func hide_shop() -> void:
 	self.visible = false
 	back_button_pressed.emit()
+	
+func reset_save():
+	main_manager.current_save = SaveData.new()
+	refresh_shop()

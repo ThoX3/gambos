@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal health_depleted
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio = $AudioStreamPlayer2D
 @export var Stats: Resource
 @export var speed: float = 300.0
 @export var projectile_data: ProjectileData
@@ -52,6 +53,8 @@ func _physics_process(delta):
 			%HurtBox.monitoring = false
 			health_depleted.emit()
 		else:
+			audio.pitch_scale = randf_range(0.8, 1.3)
+			audio.play()
 			start_invincibility() 
 	
 	# --- Tir automatique ---

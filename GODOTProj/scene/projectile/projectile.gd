@@ -9,6 +9,7 @@ var _distance_traveled: float = 0.0
 var _is_destroyed: bool = false  # Empêche les doubles impacts
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	_sprite.animation_finished.connect(_on_animation_finished)
@@ -37,6 +38,17 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if body is Enemy_Base:
 		body.take_damage(damage)
+		
+		audio.pitch_scale = randf_range(0.8, 1.3)
+		
+		var position_mort = global_position
+		remove_child(audio)
+		get_tree().current_scene.add_child(audio)
+		audio.global_position = position_mort
+		
+		audio.play()
+		audio.finished.connect(audio.queue_free)
+		
 		_destroy()
 
 func _destroy() -> void:

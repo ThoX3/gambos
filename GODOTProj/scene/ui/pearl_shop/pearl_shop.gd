@@ -2,7 +2,7 @@ extends Control
 
 signal back_button_pressed
 
-@onready var pearl_count_label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PearlsCount
+@onready var pearl_count_label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
 @onready var item_list = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
 @onready var main_manager = get_tree().get_first_node_in_group("Main")
@@ -16,7 +16,7 @@ func _ready() -> void:
 			
 func refresh_shop() -> void:
 	var current_pearls = main_manager.current_save.pearls
-	pearl_count_label.text = "Perles : " + str(current_pearls)
+	pearl_count_label.text = str(current_pearls)
 	
 	for card in item_list.get_children():
 		if card.has_method("update_card"):

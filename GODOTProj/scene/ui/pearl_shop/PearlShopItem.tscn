@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bw06oil5jikyp"]
 
 [ext_resource type="Script" uid="uid://nv768ihmjtxh" path="res://scene/ui/pearl_shop/pearl_shop_item.gd" id="1_onswu"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="2_8sc76"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="3_l6jtc"]
 
 [node name="PearlShopItem" type="PanelContainer" unique_id=206465738]
 anchors_preset = 15
@@ -23,16 +25,30 @@ layout_mode = 2
 [node name="Title" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1669272566]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_8sc76")
 text = "UpgradeName"
 
 [node name="CurrentValue" type="Label" parent="MarginContainer/HBoxContainer" unique_id=979115324]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_8sc76")
 text = "UpgradeLevel"
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer" unique_id=189363773]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Buy
-"
+theme_override_fonts/font = ExtResource("3_l6jtc")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Button" unique_id=1526415290]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false

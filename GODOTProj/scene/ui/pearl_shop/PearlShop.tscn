@@ -3,14 +3,13 @@
 [ext_resource type="Script" uid="uid://bh8bpob3ax45x" path="res://scene/ui/pearl_shop/pearl_shop.gd" id="1_pj8rj"]
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="1_pv3x0"]
 [ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="2_pj8rj"]
+[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_8v2je"]
 [ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/PearlShopItem.tscn" id="3_a1qy5"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_cxirj"]
-font_size = 32
-outline_color = Color(0, 0, 0, 0)
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="5_if8b3"]
+[ext_resource type="Texture2D" uid="uid://cracqvhcwhta3" path="res://assets/sprites/collectibles/pearl.png" id="6_fyunq"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="8_if8b3"]
 
 [node name="PearlShop" type="Control" unique_id=627456338]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,8 +46,9 @@ theme_override_constants/separation = 29
 
 [node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1065693868]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8v2je")
+theme_override_font_sizes/font_size = 36
 text = "Temple de Naïades"
-label_settings = SubResource("LabelSettings_cxirj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -77,11 +77,24 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 24
 
-[node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=423753908]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
 layout_mode = 2
-size_flags_vertical = 0
-text = "Tu as 0 perles gros naze"
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=423753908]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_if8b3")
+theme_override_font_sizes/font_size = 36
+text = "0"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PearlIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1805332699]
+layout_mode = 2
+texture = ExtResource("6_fyunq")
+expand_mode = 3
+stretch_mode = 3
 
 [node name="ShopItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=6723653]
 layout_mode = 2
@@ -107,4 +120,6 @@ base_cost = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("8_if8b3")
 text = "Retour"
+flat = true

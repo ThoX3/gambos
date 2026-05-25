@@ -1,3 +1,25 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bhl8oj6rulx46"]
 
+[ext_resource type="Texture2D" uid="uid://ctajalyt0a4rd" path="res://assets/sprites/enemy/woodlouse.png" id="1_eoryc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42igd"]
+atlas = ExtResource("1_eoryc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5hov"]
+atlas = ExtResource("1_eoryc")
+region = Rect2(64, 0, 64, 64)
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42igd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5hov")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

@@ -30,8 +30,13 @@ func _ready() -> void:
 	
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/PearlShop.back_button_pressed.connect(open_main_menu)
-	# Game is launched by MainMenu
-	open_main_menu()
+	%GameOver.quit_button_pressed.connect(game_over)
+	
+	if GameManager.skip_menu:
+		GameManager.skip_menu = false
+		_on_start()
+	else:
+		open_main_menu()
 
 func start_game(map_to_load: PackedScene) -> void:
 	_clear_world()
@@ -46,8 +51,17 @@ func start_game(map_to_load: PackedScene) -> void:
 	current_map = map_to_load.instantiate()
 	game_world.add_child(current_map)
 	
+	# Hide any left menu
+	for child in ui_layer.get_children():
+		if child is Control:
+			child.visible = false 
+			
+	# Refresh HUD
+	$UI/Hud._on_start()
 	$UI/Hud.visible = true
-	$World/WaveManager._etat = $World/WaveManager._Etat.PAUSE
+	
+	# Start WaveManager
+	$World/WaveManager.start_waves()
 
 func change_level(new_map_scene: PackedScene) -> void:
 	# 1. Remove the old map
@@ -77,7 +91,6 @@ func _on_player_health_depleted():
 	
 func _on_start():
 	start_game(starting_map)
-	$World/WaveManager._demarrer_vague(0) # à adapter
 
 func save_game() -> void:
 	# Write to disk
@@ -114,3 +127,9 @@ func open_pearl_shop() -> void:
 
 func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
+	
+func game_over():
+	# A ameliorer
+	save_game()
+	get_tree().paused = false
+	get_tree().reload_current_scene()

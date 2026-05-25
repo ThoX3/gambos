@@ -23,8 +23,7 @@ func _ready() -> void:
 	_on_initialize()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
-	$Camera.position_smoothing_enabled = true
-
+	call_deferred("enable_camera_smoothing")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -181,3 +180,6 @@ func _add_new_skill(skill: upgradeData.available_skill) -> void:
 
 func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: skillEffectData) -> void:
 	print("En cours")
+	
+func enable_camera_smoothing():
+	$Camera.position_smoothing_enabled = true

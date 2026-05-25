@@ -18,6 +18,4 @@ data = ExtResource("5_ebu2u")
 
 [resource]
 script = ExtResource("1_2vpcr")
-duree = 60.0
-nb_ennemis = 30
 types_ennemis = Array[ExtResource("2_fcoi1")]([SubResource("Resource_jff2e"), SubResource("Resource_csmsq")])

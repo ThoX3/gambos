@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://qc6jgv5gamy5"
 
 [resource]
 script = ExtResource("1_ebfmd")
-nb_ennemis = 10
 types_ennemis = Array[ExtResource("2_hfeek")]([SubResource("Resource_ndq8y")])
+budget_base = 30.0

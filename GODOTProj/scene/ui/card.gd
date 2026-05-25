@@ -47,6 +47,7 @@ func setup(data: upgradeData) -> void:
 	var texture_hover = HOVER[data.rarity]
 	%TextureButton.texture_normal = texture_normal
 	%TextureButton.texture_hover = texture_hover
+	%TextureButton.texture_focused = texture_hover
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)

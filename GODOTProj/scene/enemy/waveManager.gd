@@ -1,50 +1,42 @@
 class_name WaveManager
 extends Node
 
-@export var vagues: Array[Wave] = []
+@export var spawn_config: SpawnConfig        # ← le seul fichier de config
 @export var config: BalancingConfig
-@export var spawn_config: SpawnConfig          # ← nouveau
 @export_range(0.0, 30.0, 0.5) var pause_entre_vagues: float = 3.0
 @export var mode_infini: bool = true
 @export var joueur: Node2D
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
 
-signal vague_demarree(numero: int, vague: Wave)
+signal vague_demarree(numero: int)
 signal vague_terminee(numero: int)
 signal toutes_vagues_terminees
 
 enum _Etat { PAUSE, VAGUE, FINI }
 
-var _etat: _Etat                      = _Etat.FINI
-var _index_vague: int                 = 0
-var _numero_vague: int                = 0
-var _ennemis_spawnes: int             = 0
-var _timer_vague: float               = 0.0
-var _timer_spawn: float               = 0.0
-var _timer_pause: float               = 0.0
-var _intervalle_spawn: float          = 1.0
-var _duree_vague_courante: float      = 30.0
-var _liste_spawn: Array               = []   # Array de SpawnConfig.EntreeEnnemi
-var _vague_procedurale: Wave          = null
-var _mode_infini_actif: bool          = false
-var _boss_courant: EntreeBoss = null
+var _etat: _Etat                          = _Etat.FINI
+var _numero_vague: int                    = 0
+var _ennemis_spawnes: int                 = 0
+var _timer_vague: float                   = 0.0
+var _timer_spawn: float                   = 0.0
+var _timer_pause: float                   = 0.0
+var _intervalle_spawn: float              = 1.0
+var _duree_vague_courante: float          = 30.0
+var _liste_spawn: Array                   = []
+var _boss_courant: EntreeBoss             = null
 
 func _ready() -> void:
 	await get_tree().process_frame
 	joueur = get_tree().get_first_node_in_group("Player")
-	if vagues.is_empty():       push_warning("WaveManager : aucune vague configurée.")
-	if config == null:          push_error("WaveManager : aucun BalancingConfig assigné !")
-	if spawn_config == null:    push_error("WaveManager : aucun SpawnConfig assigné !")
-	if joueur == null:          push_error("WaveManager : joueur introuvable.")
+	if spawn_config == null: push_error("WaveManager : aucun SpawnConfig assigné !")
+	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
+	if joueur == null:       push_error("WaveManager : joueur introuvable.")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
 func start_waves() -> void:
-	_index_vague       = 0
 	_numero_vague      = 0
 	_timer_pause       = 0.0
-	_vague_procedurale = null
-	_mode_infini_actif = false
 	_boss_courant      = null
 	_etat = _Etat.PAUSE
 
@@ -80,18 +72,14 @@ func _demarrer_vague() -> void:
 	_timer_spawn     = 0.0
 	_boss_courant    = null
 
-	var vague := _vague_courante()
-
-	# Vérifier si un boss est prévu pour cette vague exacte
 	var boss_entry := spawn_config.get_boss_pour_vague(_numero_vague)
 	if boss_entry != null:
 		_boss_courant         = boss_entry
 		_liste_spawn          = []
 		_duree_vague_courante = boss_entry.duree
-		_intervalle_spawn     = boss_entry.duree
 		_etat = _Etat.VAGUE
-		vague_demarree.emit(_numero_vague, vague)
-		_spawner_boss(vague, boss_entry)
+		vague_demarree.emit(_numero_vague)
+		_spawner_boss(boss_entry)
 		_lancer_dialogue_boss()
 	else:
 		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
@@ -99,36 +87,18 @@ func _demarrer_vague() -> void:
 		_duree_vague_courante = _calculer_duree(_numero_vague)
 		_intervalle_spawn     = _duree_vague_courante / max(float(_liste_spawn.size()), 1.0)
 		_etat = _Etat.VAGUE
-		vague_demarree.emit(_numero_vague, vague)
+		vague_demarree.emit(_numero_vague)
 
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)
-	_vague_procedurale = null
-	_boss_courant      = null
+	_boss_courant = null
 
-	if _index_vague < vagues.size() - 1:
-		_index_vague += 1
-		_etat = _Etat.PAUSE
-		return
-
-	if mode_infini:
-		_mode_infini_actif = true
-		_etat = _Etat.PAUSE
-	else:
+	if not mode_infini and spawn_config.get_ennemis_disponibles(_numero_vague + 1).is_empty() \
+	and spawn_config.get_boss_pour_vague(_numero_vague + 1) == null:
 		_etat = _Etat.FINI
 		toutes_vagues_terminees.emit()
-
-func _vague_courante() -> Wave:
-	if not _mode_infini_actif:
-		return vagues[_index_vague]
-	if _vague_procedurale == null:
-		var gabarit: Wave = vagues[vagues.size() - 1]
-		_vague_procedurale      = Wave.new()
-		_vague_procedurale.zone          = gabarit.zone
-		_vague_procedurale.marge_bords   = gabarit.marge_bords
-		_vague_procedurale.rayon_cercle  = gabarit.rayon_cercle
-		_vague_procedurale.position_fixe = gabarit.position_fixe
-	return _vague_procedurale
+	else:
+		_etat = _Etat.PAUSE
 
 # ── Équations d'équilibrage ────────────────────
 
@@ -151,7 +121,7 @@ func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 	var budget := _calculer_budget(numero)
 	var ratio  := _tirer_ratio_intensite(numero)
 
-	print("WaveManager [vague %d] budget=%.1f | ratio_intensité=%.2f | ennemis_dispo=%d" \
+	print("WaveManager [vague %d] budget=%.1f | ratio=%.2f | dispo=%d" \
 		  % [numero, budget, ratio, disponibles.size()])
 
 	if disponibles.is_empty():
@@ -169,7 +139,6 @@ func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 		if abordables.is_empty():
 			break
 
-		# Le poids vient maintenant de EnemyData.poids, modulé par le ratio intensité
 		var poids_total := 0.0
 		var poids: Array[float] = []
 		for e in abordables:
@@ -179,7 +148,7 @@ func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 
 		var tirage := randf() * poids_total
 		var cumul  := 0.0
-		var choix = abordables[0]
+		var choix  = abordables[0]
 		for i in range(abordables.size()):
 			cumul += poids[i]
 			if tirage <= cumul:
@@ -197,25 +166,25 @@ func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 func _spawner_depuis_liste() -> void:
 	if _ennemis_spawnes >= _liste_spawn.size():
 		return
-	var entry = _liste_spawn[_ennemis_spawnes]
-	var ennemi: Enemy_Base = entry.scene.instantiate()
-	ennemi.stats = entry.data
-	ennemi.global_position = _calculer_position_spawn(_vague_courante())
+	var entry: EntreeEnnemi = _liste_spawn[_ennemis_spawnes]
+	var ennemi: Enemy_Base  = entry.scene.instantiate()
+	ennemi.stats            = entry.data
+	ennemi.global_position  = _calculer_position_spawn()
 	conteneur_ennemis.add_child(ennemi)
 	_ennemis_spawnes += 1
 
-func _spawner_boss(vague: Wave, boss_entry: EntreeBoss) -> void:
+func _spawner_boss(boss_entry: EntreeBoss) -> void:
 	for i in range(boss_entry.nb_ennemis):
 		var ennemi: Enemy_Base = boss_entry.scene.instantiate()
-		ennemi.stats = boss_entry.data
-		ennemi.global_position = _calculer_position_spawn(vague)
+		ennemi.stats           = boss_entry.data
+		ennemi.global_position = _calculer_position_spawn()
 		conteneur_ennemis.add_child(ennemi)
 
-func _calculer_position_spawn(vague: Wave) -> Vector2:
-	match vague.zone:
-		Wave.ZoneType.BORDS_ECRAN:          return _spawn_bords_ecran(vague.marge_bords)
-		Wave.ZoneType.CERCLE_AUTOUR_JOUEUR: return _spawn_cercle(joueur.global_position, vague.rayon_cercle)
-		Wave.ZoneType.POINT_FIXE:           return vague.position_fixe
+func _calculer_position_spawn() -> Vector2:
+	match spawn_config.zone:
+		SpawnConfig.ZoneType.BORDS_ECRAN:          return _spawn_bords_ecran(spawn_config.marge_bords)
+		SpawnConfig.ZoneType.CERCLE_AUTOUR_JOUEUR: return _spawn_cercle(joueur.global_position, spawn_config.rayon_cercle)
+		SpawnConfig.ZoneType.POINT_FIXE:           return spawn_config.position_fixe
 	return Vector2.ZERO
 
 func _spawn_bords_ecran(marge: float) -> Vector2:
@@ -236,20 +205,19 @@ func _spawn_cercle(centre: Vector2, rayon: float) -> Vector2:
 	var angle := randf() * TAU
 	return centre + Vector2(cos(angle), sin(angle)) * rayon
 
-
 # ── Accesseurs publics ─────────────────────────
 
-func get_index_vague() -> int:
+func get_numero_vague() -> int:
 	return _numero_vague
 
 func get_progression_vague() -> float:
-	if vagues.is_empty() or _etat != _Etat.VAGUE:
+	if _etat != _Etat.VAGUE:
 		return 0.0
 	return clampf(_timer_vague / _duree_vague_courante, 0.0, 1.0)
 
 func est_en_mode_infini() -> bool:
-	return _mode_infini_actif
-
+	# En mode infini il n'y a plus de fin définie, les vagues continuent indéfiniment
+	return mode_infini and _numero_vague > 0
 
 func _lancer_dialogue_boss() -> void:
 	if scene_dialogue == null:

@@ -46,6 +46,6 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [resource]
 script = ExtResource("1_dja2t")
-ennemis = Array[Resource]([SubResource("Resource_ud2lt"), SubResource("Resource_1utqh"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6")])
+ennemis = Array[ExtResource("1_vx4ej")]([SubResource("Resource_ud2lt"), SubResource("Resource_1utqh"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6")])
 boss = Array[ExtResource("1_uogjb")]([SubResource("Resource_mimtg")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

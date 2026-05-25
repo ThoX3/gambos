@@ -13,7 +13,6 @@ config_version=5
 config/name="Gambos"
 run/main_scene="uid://ba05sh5m0lvdi"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 

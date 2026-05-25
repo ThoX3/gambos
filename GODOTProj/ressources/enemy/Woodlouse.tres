@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://b4jxoqoj3ru60"]
+
+[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_fppg3"]
+[ext_resource type="SpriteFrames" uid="uid://bhl8oj6rulx46" path="res://assets/sprites/enemy/Woodlouse.tres" id="2_6xvqb"]
+
+[resource]
+script = ExtResource("1_fppg3")
+texture = ExtResource("2_6xvqb")
+max_hp = 1
+movement_speed = 80.0
+attack_damage = 2
+xp_drop = 1
+pearl_drop_probability = 0.05
+metadata/_custom_type_script = "uid://41pu5w8i8y3b"

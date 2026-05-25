@@ -25,7 +25,7 @@ func update_card(current_level: int, player_pearls: int) -> void:
 	current_cost = base_cost + int(base_cost * current_level * cost_multiplier)
 	
 	level_label.text = "Niveau : " + str(current_level)
-	var bbcode_string = "[center]Acheter pour " + str(current_cost) + "[img=32]res://assets/sprites/collectibles/pearl.png[/img][/center]"	
+	var bbcode_string = "[center]Acheter pour " + str(current_cost) + " [img=32]res://assets/sprites/collectibles/pearl_icon.png[/img][/center]"	
 	rich_text.text = bbcode_string
 	buy_button.disabled = player_pearls < current_cost
 	if buy_button.disabled:

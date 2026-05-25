@@ -6,6 +6,7 @@ class_name Enemy_Base
 @onready var hp = stats.max_hp
 
 @onready var sprite = $AnimatedSprite2D
+@onready var audio = $AudioStreamPlayer2D
 
 var player = null
 
@@ -52,10 +53,22 @@ func _physics_process(_delta):
 func take_damage(amount: int) -> void:
 	hp -= amount
 	if hp <= 0:
-		$CollisionShape2D.disabled = true
+		$CollisionShape2D.set_deferred("disabled", true)
 		_creer_splash_mort()
 		_drop_experience()
 		_drop_pearl()
+		
+		# 1. On configure le son
+		audio.pitch_scale = randf_range(0.8, 1.3)
+		
+		var position_mort = global_position
+		remove_child(audio)
+		get_tree().current_scene.add_child(audio)
+		audio.global_position = position_mort
+		
+		audio.play()
+		audio.finished.connect(audio.queue_free)
+		
 		queue_free()
 	
 	# Affichage des dégâts

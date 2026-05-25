@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal health_depleted
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio = $AudioStreamPlayer2D
 @export var Stats: Resource
 @export var speed: float = 300.0
 @export var projectile_data: ProjectileData
@@ -52,6 +53,8 @@ func _physics_process(delta):
 			%HurtBox.monitoring = false
 			health_depleted.emit()
 		else:
+			audio.pitch_scale = randf_range(0.8, 1.3)
+			audio.play()
 			start_invincibility() 
 	
 	# --- Tir automatique ---
@@ -177,6 +180,8 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			projectile_data.damage += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
 			projectile_data.fire_rate += effect.value
+			if projectile_data.fire_rate <= 0.0:
+				projectile_data.fire_rate = 0.5
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
 			projectile_data.range += effect.value
 

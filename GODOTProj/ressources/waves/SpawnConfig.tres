@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://bjiu7nnwxkwj5"]
+
+[ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="1_dja2t"]
+
+[sub_resource type="GDScript" id="GDScript_vx4ej"]
+
+[sub_resource type="GDScript" id="GDScript_tyx33"]
+
+[resource]
+script = ExtResource("1_dja2t")
+ennemis = Array[SubResource("GDScript_tyx33")]([null, null, null, null])
+boss = Array[SubResource("GDScript_vx4ej")]([null])
+metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

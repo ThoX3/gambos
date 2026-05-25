@@ -15,6 +15,7 @@ data = ExtResource("3_78bk4")
 script = ExtResource("2_fcoi1")
 scene = ExtResource("4_rkhwo")
 data = ExtResource("5_ebu2u")
+cout = 2
 
 [resource]
 script = ExtResource("1_2vpcr")

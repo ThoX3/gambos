@@ -1,61 +1,43 @@
 class_name WaveManager
 extends Node
 
-## ─────────────────────────────────────────────
-##  WaveManager.gd — Gestionnaire de vagues
-## ─────────────────────────────────────────────
-
 @export var vagues: Array[Wave] = []
 @export var config: BalancingConfig
+@export var spawn_config: SpawnConfig          # ← nouveau
 @export_range(0.0, 30.0, 0.5) var pause_entre_vagues: float = 3.0
-
-## Active le mode infini : quand toutes les vagues définies sont épuisées,
-## le jeu continue en générant des vagues procédurales de plus en plus dures.
 @export var mode_infini: bool = true
-
 @export var joueur: Node2D
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
-
-
-# ── Signaux ────────────────────────────────────
 
 signal vague_demarree(numero: int, vague: Wave)
 signal vague_terminee(numero: int)
 signal toutes_vagues_terminees
 
-
-# ── État interne ───────────────────────────────
-
 enum _Etat { PAUSE, VAGUE, FINI }
 
-var _etat: _Etat           = _Etat.FINI
-var _index_vague: int      = 0   # Position dans le tableau vagues[] (plafonnée en mode infini)
-var _numero_vague: int     = 0   # Numéro réel toujours croissant (passé aux équations)
-var _ennemis_spawnes: int  = 0
-var _timer_vague: float    = 0.0
-var _timer_spawn: float    = 0.0
-var _timer_pause: float    = 0.0
-var _intervalle_spawn: float     = 1.0
-var _duree_vague_courante: float = 30.0
-var _liste_spawn: Array[EnemySpawn] = []
-var _vague_procedurale: Wave = null
-var _mode_infini_actif: bool = false  # true dès qu'on dépasse les vagues définies
-
-
-# ── Cycle de vie ───────────────────────────────
+var _etat: _Etat                      = _Etat.FINI
+var _index_vague: int                 = 0
+var _numero_vague: int                = 0
+var _ennemis_spawnes: int             = 0
+var _timer_vague: float               = 0.0
+var _timer_spawn: float               = 0.0
+var _timer_pause: float               = 0.0
+var _intervalle_spawn: float          = 1.0
+var _duree_vague_courante: float      = 30.0
+var _liste_spawn: Array               = []   # Array de SpawnConfig.EntreeEnnemi
+var _vague_procedurale: Wave          = null
+var _mode_infini_actif: bool          = false
+var _boss_courant: SpawnConfig.EntreeBoss = null
 
 func _ready() -> void:
 	await get_tree().process_frame
 	joueur = get_tree().get_first_node_in_group("Player")
-	if vagues.is_empty():
-		push_warning("WaveManager : aucune vague configurée.")
-	if config == null:
-		push_error("WaveManager : aucun BalancingConfig assigné dans l'inspecteur !")
-	if joueur == null:
-		push_error("WaveManager : joueur introuvable.")
-	if conteneur_ennemis == null:
-		push_error("WaveManager : conteneur_ennemis non assigné.")
+	if vagues.is_empty():       push_warning("WaveManager : aucune vague configurée.")
+	if config == null:          push_error("WaveManager : aucun BalancingConfig assigné !")
+	if spawn_config == null:    push_error("WaveManager : aucun SpawnConfig assigné !")
+	if joueur == null:          push_error("WaveManager : joueur introuvable.")
+	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
 func start_waves() -> void:
 	_index_vague       = 0
@@ -63,8 +45,8 @@ func start_waves() -> void:
 	_timer_pause       = 0.0
 	_vague_procedurale = null
 	_mode_infini_actif = false
+	_boss_courant      = null
 	_etat = _Etat.PAUSE
-
 
 func _process(delta: float) -> void:
 	match _etat:
@@ -78,98 +60,77 @@ func _process(delta: float) -> void:
 		_Etat.FINI:
 			pass
 
-
-# ── Logique de vague ───────────────────────────
-
 func _tick_vague(delta: float) -> void:
 	_timer_vague += delta
 	_timer_spawn += delta
 
-	var vague := _vague_courante()
-
-	# Spawn des ennemis normaux depuis la liste pré-calculée
-	if not vague.est_vague_de_boss \
+	if _boss_courant == null \
 	and _ennemis_spawnes < _liste_spawn.size() \
 	and _timer_spawn >= _intervalle_spawn:
 		_timer_spawn = 0.0
-		_spawner_depuis_liste(vague)
+		_spawner_depuis_liste()
 
-	# Fin de vague quand la durée est écoulée
 	if _timer_vague >= _duree_vague_courante:
 		_terminer_vague()
-
 
 func _demarrer_vague() -> void:
 	_numero_vague   += 1
 	_ennemis_spawnes = 0
 	_timer_vague     = 0.0
 	_timer_spawn     = 0.0
+	_boss_courant    = null
 
 	var vague := _vague_courante()
 
-	if vague.est_vague_de_boss:
+	# Vérifier si un boss est prévu pour cette vague exacte
+	var boss_entry := spawn_config.get_boss_pour_vague(_numero_vague)
+	if boss_entry != null:
+		_boss_courant         = boss_entry
 		_liste_spawn          = []
-		_duree_vague_courante = vague.duree
-		_intervalle_spawn     = vague.duree   # inutilisé, mais propre
-		_etat                 = _Etat.VAGUE
+		_duree_vague_courante = boss_entry.duree
+		_intervalle_spawn     = boss_entry.duree
+		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague, vague)
-		_spawner_ennemi(vague)
+		_spawner_boss(vague, boss_entry)
 		_lancer_dialogue_boss()
 	else:
-		_liste_spawn          = _generer_liste_spawn(vague, _numero_vague)
+		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
+		_liste_spawn          = _generer_liste_spawn(disponibles, _numero_vague)
 		_duree_vague_courante = _calculer_duree(_numero_vague)
 		_intervalle_spawn     = _duree_vague_courante / max(float(_liste_spawn.size()), 1.0)
-		_etat                 = _Etat.VAGUE
+		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague, vague)
-
 
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)
 	_vague_procedurale = null
+	_boss_courant      = null
 
-	# Avance dans la liste tant qu'il reste des vagues définies
 	if _index_vague < vagues.size() - 1:
 		_index_vague += 1
 		_etat = _Etat.PAUSE
 		return
 
-	# Toutes les vagues définies sont épuisées
 	if mode_infini:
 		_mode_infini_actif = true
-		_vague_procedurale = null
 		_etat = _Etat.PAUSE
 	else:
 		_etat = _Etat.FINI
 		toutes_vagues_terminees.emit()
 
-
-# ── Résolution de la vague courante ───────────
-
 func _vague_courante() -> Wave:
 	if not _mode_infini_actif:
 		return vagues[_index_vague]
-
-	# Mode infini : copie légère de la dernière vague NORMALE comme gabarit
 	if _vague_procedurale == null:
-		var gabarit: Wave = null
-		for i in range(vagues.size() - 1, -1, -1):
-			if not vagues[i].est_vague_de_boss:
-				gabarit = vagues[i]
-				break
-		if gabarit == null:
-			push_error("WaveManager : aucune vague normale trouvée comme gabarit !")
-			return vagues[vagues.size() - 1]
-		_vague_procedurale                   = Wave.new()
-		_vague_procedurale.est_vague_de_boss = false
-		_vague_procedurale.zone              = gabarit.zone
-		_vague_procedurale.marge_bords       = gabarit.marge_bords
-		_vague_procedurale.rayon_cercle      = gabarit.rayon_cercle
-		_vague_procedurale.position_fixe     = gabarit.position_fixe
-		_vague_procedurale.types_ennemis     = gabarit.types_ennemis
+		var gabarit: Wave = vagues[vagues.size() - 1]
+		_vague_procedurale      = Wave.new()
+		_vague_procedurale.zone          = gabarit.zone
+		_vague_procedurale.marge_bords   = gabarit.marge_bords
+		_vague_procedurale.rayon_cercle  = gabarit.rayon_cercle
+		_vague_procedurale.position_fixe = gabarit.position_fixe
 	return _vague_procedurale
 
-
-# ── Équations de l'équilibrage ─────────────────
+# ── Équations d'équilibrage ────────────────────
 
 func _calculer_budget(numero: int) -> float:
 	var base     := config.budget_base * (1.0 + config.budget_facteur * pow(float(numero), config.budget_exposant))
@@ -184,40 +145,41 @@ func _tirer_ratio_intensite(numero: int) -> float:
 	var biais      := clampf(float(numero) / config.biais_vague_max, 0.0, 1.0) * config.biais_amplitude
 	return clampf(ratio_brut + (1.0 - ratio_brut) * biais, 0.0, 1.0)
 
-
 # ── Génération de la liste de spawn ───────────
 
-func _generer_liste_spawn(vague: Wave, numero: int) -> Array[EnemySpawn]:
+func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 	var budget := _calculer_budget(numero)
 	var ratio  := _tirer_ratio_intensite(numero)
 
-	print("WaveManager [vague %d] budget=%.1f | ratio_intensité=%.2f" % [numero, budget, ratio])
+	print("WaveManager [vague %d] budget=%.1f | ratio_intensité=%.2f | ennemis_dispo=%d" \
+		  % [numero, budget, ratio, disponibles.size()])
 
-	if vague.types_ennemis.is_empty():
-		push_warning("WaveManager : vague %d sans types_ennemis." % numero)
+	if disponibles.is_empty():
+		push_warning("WaveManager : aucun ennemi disponible pour la vague %d." % numero)
 		return []
 
-	var tries := vague.types_ennemis.duplicate()
-	tries.sort_custom(func(a, b): return a.cout < b.cout)
+	var tries := disponibles.duplicate()
+	tries.sort_custom(func(a, b): return a.data.cout < b.data.cout)
 
-	var resultat: Array[EnemySpawn] = []
+	var resultat: Array = []
 	var budget_restant := budget
 
 	while budget_restant > 0.0:
-		var abordables: Array = tries.filter(func(e): return float(e.cout) <= budget_restant)
+		var abordables: Array = tries.filter(func(e): return float(e.data.cout) <= budget_restant)
 		if abordables.is_empty():
 			break
 
+		# Le poids vient maintenant de EnemyData.poids, modulé par le ratio intensité
 		var poids_total := 0.0
 		var poids: Array[float] = []
 		for e in abordables:
-			var p := lerpf(1.0 / float(e.cout), float(e.cout), ratio)
+			var p := float(e.data.poids) * lerpf(1.0 / float(e.data.cout), float(e.data.cout), ratio)
 			poids.append(p)
 			poids_total += p
 
 		var tirage := randf() * poids_total
 		var cumul  := 0.0
-		var choix: EnemySpawn = abordables[0]
+		var choix = abordables[0]
 		for i in range(abordables.size()):
 			cumul += poids[i]
 			if tirage <= cumul:
@@ -225,31 +187,29 @@ func _generer_liste_spawn(vague: Wave, numero: int) -> Array[EnemySpawn]:
 				break
 
 		resultat.append(choix)
-		budget_restant -= float(choix.cout)
+		budget_restant -= float(choix.data.cout)
 
 	print("WaveManager [vague %d] → %d ennemis générés" % [numero, resultat.size()])
 	return resultat
 
-
 # ── Spawn ──────────────────────────────────────
 
-func _spawner_depuis_liste(vague: Wave) -> void:
+func _spawner_depuis_liste() -> void:
 	if _ennemis_spawnes >= _liste_spawn.size():
 		return
-	var cfg: EnemySpawn = _liste_spawn[_ennemis_spawnes]
-	var ennemi: Enemy_Base = cfg.scene.instantiate()
-	ennemi.stats = cfg.data
-	ennemi.global_position = _calculer_position_spawn(vague)
+	var entry = _liste_spawn[_ennemis_spawnes]
+	var ennemi: Enemy_Base = entry.scene.instantiate()
+	ennemi.stats = entry.data
+	ennemi.global_position = _calculer_position_spawn(_vague_courante())
 	conteneur_ennemis.add_child(ennemi)
 	_ennemis_spawnes += 1
 
-func _spawner_ennemi(vague: Wave) -> void:
-	var cfg: EnemySpawn = vague.types_ennemis[randi() % vague.types_ennemis.size()]
-	var ennemi: Enemy_Base = cfg.scene.instantiate()
-	ennemi.stats = cfg.data
-	ennemi.global_position = _calculer_position_spawn(vague)
-	conteneur_ennemis.add_child(ennemi)
-	_ennemis_spawnes += 1
+func _spawner_boss(vague: Wave, boss_entry: SpawnConfig.EntreeBoss) -> void:
+	for i in range(boss_entry.nb_ennemis):
+		var ennemi: Enemy_Base = boss_entry.scene.instantiate()
+		ennemi.stats = boss_entry.data
+		ennemi.global_position = _calculer_position_spawn(vague)
+		conteneur_ennemis.add_child(ennemi)
 
 func _calculer_position_spawn(vague: Wave) -> Vector2:
 	match vague.zone:

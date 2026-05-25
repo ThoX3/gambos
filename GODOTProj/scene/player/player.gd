@@ -177,6 +177,8 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			projectile_data.damage += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
 			projectile_data.fire_rate += effect.value
+			if projectile_data.fire_rate <= 0.0:
+				projectile_data.fire_rate = 0.5
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
 			projectile_data.range += effect.value
 

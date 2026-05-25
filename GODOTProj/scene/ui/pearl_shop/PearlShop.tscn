@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_8v2je"]
 [ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/PearlShopItem.tscn" id="3_a1qy5"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="5_if8b3"]
-[ext_resource type="Texture2D" uid="uid://cracqvhcwhta3" path="res://assets/sprites/collectibles/pearl.png" id="6_fyunq"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_if8b3"]
 [ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="8_if8b3"]
 
 [node name="PearlShop" type="Control" unique_id=627456338]
@@ -79,7 +79,7 @@ theme_override_constants/separation = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=423753908]
@@ -90,11 +90,14 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PearlIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1805332699]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1991384462]
 layout_mode = 2
-texture = ExtResource("6_fyunq")
+theme_override_constants/margin_bottom = 8
+
+[node name="PearlIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1805332699]
+layout_mode = 2
+texture = ExtResource("6_if8b3")
 expand_mode = 3
-stretch_mode = 3
 
 [node name="ShopItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=6723653]
 layout_mode = 2

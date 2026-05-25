@@ -20,9 +20,10 @@ func _ready() -> void:
 	$AnimatedSprite2D.play("walk")
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
-	GameManager.initialize.connect(_on_initialize)
+	_on_initialize()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
+	$Camera.position_smoothing_enabled = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -113,6 +114,7 @@ func _on_initialize():
 	Stats.requiredXp = 10
 	Stats.currentXp = 0
 	Stats.collectRadius = 200
+	Stats.collected_pearls = 0
 
 
 func _on_level_up_over_animation_finished() -> void:

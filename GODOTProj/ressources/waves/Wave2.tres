@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Wave" format=3 uid="uid://r113dlri0u01"]
 
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="1_2vpcr"]
-[ext_resource type="Script" path="res://scene/enemy/enemy_spawn.gd" id="2_fcoi1"]
+[ext_resource type="Script" uid="uid://qc6jgv5gamy5" path="res://scene/enemy/enemy_spawn.gd" id="2_fcoi1"]
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="3_78bk4"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="4_rkhwo"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="5_ebu2u"]

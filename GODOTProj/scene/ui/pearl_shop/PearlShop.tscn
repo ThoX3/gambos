@@ -10,6 +10,7 @@ font_size = 32
 outline_color = Color(0, 0, 0, 0)
 
 [node name="PearlShop" type="Control" unique_id=627456338]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +47,7 @@ theme_override_constants/separation = 29
 
 [node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1065693868]
 layout_mode = 2
-text = "Bienvenue au magasin !"
+text = "Temple de Naïades"
 label_settings = SubResource("LabelSettings_cxirj")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -74,6 +75,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 24
 
 [node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=423753908]
 layout_mode = 2
@@ -81,18 +83,28 @@ size_flags_vertical = 0
 text = "Tu as 0 perles gros naze"
 horizontal_alignment = 1
 
-[node name="PearlShopItem1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=206465738 instance=ExtResource("3_a1qy5")]
+[node name="ShopItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=6723653]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="PearlShopItem1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=206465738 instance=ExtResource("3_a1qy5")]
 layout_mode = 2
 base_cost = 1
 
-[node name="PearlShopItem2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2049910537 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=2049910537 instance=ExtResource("3_a1qy5")]
 layout_mode = 2
 upgrade_id = "damage"
 title_text = "Attaque"
 base_cost = 1
 
-[node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1881912387 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1881912387 instance=ExtResource("3_a1qy5")]
 layout_mode = 2
 upgrade_id = "speed"
 title_text = "Vitesse"
 base_cost = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1820389118]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Retour"

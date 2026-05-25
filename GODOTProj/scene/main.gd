@@ -23,19 +23,19 @@ var center: Vector2 = Vector2(1312.0, 736.0)
 func _ready() -> void:
 	load_game()
 	
-	# For now, immediately launch into the game.
-	# Later, you will replace this with a function that shows the Main Menu.
-	if starting_map and player_scene:
-		start_game(starting_map)
-	else:
+	if not (starting_map and player_scene):
 		push_error("Main: Missing Player or Starting Map in the Inspector!")
 		
 	GameManager.start_game.connect(_on_start)
+	
+	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
+	$UI/PearlShop.back_button_pressed.connect(open_main_menu)
+	# Game is launched by MainMenu
+	open_main_menu()
 
 func start_game(map_to_load: PackedScene) -> void:
 	_clear_world()
 	
-	# 1. Instantiate and add the Player
 	current_player = player_scene.instantiate()
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
@@ -43,11 +43,11 @@ func start_game(map_to_load: PackedScene) -> void:
 	if current_player.has_signal("health_depleted"):
 		current_player.health_depleted.connect(_on_player_health_depleted)
 	
-	# 2. Instantiate and add the Map 
 	current_map = map_to_load.instantiate()
 	game_world.add_child(current_map)
 	
-	# The GameWorld now holds both the Player and the Map side-by-side!
+	$UI/Hud.visible = true
+	$World/WaveManager._etat = $World/WaveManager._Etat.PAUSE
 
 func change_level(new_map_scene: PackedScene) -> void:
 	# 1. Remove the old map
@@ -71,16 +71,15 @@ func _clear_world() -> void:
 		
 func _on_player_health_depleted():
 	%GameOver/LayerGameOver.visible = true
+	current_save.pearls += current_player.Stats.collected_pearls
 	save_game()
 	get_tree().paused = true
 	
 func _on_start():
 	start_game(starting_map)
-	
-func save_game() -> void:
-	# Update fields
-	current_save.pearls += current_player.Stats.collected_pearls
+	$World/WaveManager._demarrer_vague(0) # à adapter
 
+func save_game() -> void:
 	# Write to disk
 	if not DirAccess.dir_exists_absolute(SAVE_DIR):
 		var err = DirAccess.make_dir_recursive_absolute(SAVE_DIR)
@@ -101,4 +100,17 @@ func load_game() -> void:
 	else:
 		current_save = SaveData.new()
 		print("No save found. Created new save profile.")
-		
+
+func show_menu(menu_to_show: Control) -> void:
+	for child in ui_layer.get_children():
+		if child is Control:
+			child.visible = false 
+			
+	menu_to_show.visible = true
+
+func open_pearl_shop() -> void:
+	show_menu($UI/PearlShop)
+	$UI/PearlShop.refresh_shop()
+
+func open_main_menu() -> void:
+	show_menu($UI/MainMenu)

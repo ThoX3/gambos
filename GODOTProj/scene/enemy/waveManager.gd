@@ -37,7 +37,7 @@ signal toutes_vagues_terminees
 
 enum _Etat { PAUSE, VAGUE, FINI }
 
-var _etat: _Etat = _Etat.PAUSE
+var _etat: _Etat = _Etat.FINI
 var _index_vague: int  = 0
 var _ennemis_spawnes: int = 0
 var _timer_vague: float  = 0.0
@@ -60,9 +60,6 @@ func _ready() -> void:
 	if conteneur_ennemis == null:
 		push_error("WaveManager : la référence 'conteneur_ennemis' n'est pas assignée.")
 		return
-
-	_demarrer_vague(0)
-
 
 func _process(delta: float) -> void:
 	match _etat:

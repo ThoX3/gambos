@@ -1,19 +1,19 @@
 extends Control
 
-@onready var pearl_count_label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PearlsCount
-@onready var item_list = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer
+signal back_button_pressed
 
-var main_manager = get_tree().get_first_node_in_group("main")
+@onready var pearl_count_label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PearlsCount
+@onready var item_list = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems
+@onready var back_button = $MarginContainer/VBoxContainer/BackButton
+@onready var main_manager = get_tree().get_first_node_in_group("Main")
 
 func _ready() -> void:
-	# back_button.pressed.connect(hide_shop)
+	back_button.pressed.connect(hide_shop)
 	
 	for card in item_list.get_children():
 		if card.has_signal("buy_requested"):
 			card.buy_requested.connect(_on_card_buy_requested)
 			
-	refresh_shop()
-
 func refresh_shop() -> void:
 	var current_pearls = main_manager.current_save.pearls
 	pearl_count_label.text = "Perles : " + str(current_pearls)
@@ -30,8 +30,8 @@ func refresh_shop() -> void:
 			card.update_card(level, current_pearls)
 
 func _on_card_buy_requested(id: String, cost: int) -> void:
-	if main_manager.current_save.total_gold >= cost:
-		main_manager.current_save.total_gold -= cost
+	if main_manager.current_save.pearls >= cost:
+		main_manager.current_save.pearls -= cost
 		
 		match id:
 			"health": main_manager.current_save.upgrade_health_level += 1
@@ -40,3 +40,7 @@ func _on_card_buy_requested(id: String, cost: int) -> void:
 			
 		main_manager.save_game()		
 		refresh_shop()
+		
+func hide_shop() -> void:
+	self.visible = false
+	back_button_pressed.emit()

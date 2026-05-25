@@ -4,8 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://d3fsod54u517y" path="res://scene/player/player.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="3_wp4xf"]
 [ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
+[ext_resource type="PackedScene" uid="uid://cggxevpadx4nt" path="res://scene/ui/main_menu.tscn" id="4_wscrc"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
+[ext_resource type="PackedScene" uid="uid://c074bjx3qiixv" path="res://scene/ui/pearl_shop/PearlShop.tscn" id="7_k65ib"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="8_b5f6u"]
 [ext_resource type="Resource" uid="uid://bghuafssbur28" path="res://ressources/waves/Wave1.tres" id="9_tqoya"]
@@ -19,7 +21,12 @@ starting_map = ExtResource("3_wp4xf")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=918581251]
 
+[node name="MainMenu" parent="UI" unique_id=1274161686 instance=ExtResource("4_wscrc")]
+
+[node name="PearlShop" parent="UI" unique_id=627456338 instance=ExtResource("7_k65ib")]
+
 [node name="Hud" parent="UI" unique_id=375714786 instance=ExtResource("4_brvut")]
+visible = false
 offset_top = -7.0
 offset_bottom = -367.0
 

@@ -20,7 +20,6 @@ func _ready() -> void:
 	_update_level()
 	pearl_box.modulate.a = 0
 	pearl_box.visible = false
-	show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

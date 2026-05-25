@@ -11,6 +11,7 @@ func _ready() -> void:
 	play_button.pressed.connect(play)
 	pearl_shop_button.pressed.connect(open_pearl_shop)
 	quit_button.pressed.connect(get_tree().quit)
+	play_button.grab_focus.call_deferred()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

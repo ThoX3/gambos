@@ -1,16 +1,6 @@
 [gd_resource type="Resource" script_class="Wave" format=3 uid="uid://bghuafssbur28"]
 
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="1_ebfmd"]
-[ext_resource type="Script" uid="uid://qc6jgv5gamy5" path="res://scene/enemy/enemy_spawn.gd" id="2_hfeek"]
-[ext_resource type="Resource" uid="uid://b4jxoqoj3ru60" path="res://ressources/enemy/Woodlouse.tres" id="3_otbne"]
-[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="4_ndq8y"]
-
-[sub_resource type="Resource" id="Resource_ndq8y"]
-script = ExtResource("2_hfeek")
-scene = ExtResource("4_ndq8y")
-data = ExtResource("3_otbne")
-metadata/_custom_type_script = "uid://qc6jgv5gamy5"
 
 [resource]
 script = ExtResource("1_ebfmd")
-types_ennemis = Array[ExtResource("2_hfeek")]([SubResource("Resource_ndq8y")])

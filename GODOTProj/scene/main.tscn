@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 [ext_resource type="Resource" uid="uid://2vadx410ox10" path="res://ressources/waves/WaveBoss2.tres" id="14_jcbur"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
+[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="15_jcbur"]
 
 [node name="Main" type="Node2D" unique_id=1767589913 groups=["Main"]]
 texture_filter = 1
@@ -45,6 +46,7 @@ unique_name_in_owner = true
 script = ExtResource("7_of57s")
 vagues = Array[ExtResource("8_b5f6u")]([ExtResource("14_jcbur"), ExtResource("9_tqoya"), ExtResource("10_tqoya"), ExtResource("11_k65ib")])
 config = ExtResource("14_v2gmf")
+spawn_config = ExtResource("15_jcbur")
 conteneur_ennemis = NodePath("EnemyContainer")
 scene_dialogue = ExtResource("12_wscrc")
 

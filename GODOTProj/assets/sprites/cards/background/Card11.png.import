@@ -2,16 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsvaeanxrqd3r"
-path="res://.godot/imported/Card10.PNG-a65408e2f2dd6777157869fcc12da473.ctex"
+<<<<<<< HEAD:GODOTProj/assets/sprites/cards/background/Card11.PNG.import
+uid="uid://bg7fpb10lc38y"
+path="res://.godot/imported/Card11.PNG-dad0cfd45844b5c943285e51f76316e8.ctex"
+=======
+uid="uid://ucrqovpqfu1u"
+path="res://.godot/imported/Card11.png-bd625c0fa2f23f0fb3ee93dc9cd705a0.ctex"
+>>>>>>> origin/main:GODOTProj/assets/sprites/cards/background/Card11.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/background/Card10.PNG"
-dest_files=["res://.godot/imported/Card10.PNG-a65408e2f2dd6777157869fcc12da473.ctex"]
+source_file="res://assets/sprites/cards/background/Card11.PNG"
+dest_files=["res://.godot/imported/Card11.PNG-dad0cfd45844b5c943285e51f76316e8.ctex"]
 
 [params]
 

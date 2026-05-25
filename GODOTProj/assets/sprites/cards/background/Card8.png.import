@@ -2,8 +2,13 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< HEAD:GODOTProj/assets/sprites/cards/background/Card8.PNG.import
 uid="uid://cq7svboykpv7p"
 path="res://.godot/imported/Card8.PNG-c990d65bfc23d60d61c883f052da2d0e.ctex"
+=======
+uid="uid://c50ijoyjs8kwj"
+path="res://.godot/imported/Card8.png-3c89d5fb6b79596e6ba57c5830e8b03e.ctex"
+>>>>>>> origin/main:GODOTProj/assets/sprites/cards/background/Card8.png.import
 metadata={
 "vram_texture": false
 }

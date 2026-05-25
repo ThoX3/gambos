@@ -23,8 +23,7 @@ func _ready() -> void:
 	_on_initialize()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
-	$Camera.position_smoothing_enabled = true
-
+	call_deferred("enable_camera_smoothing")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -82,7 +81,7 @@ func levelUp():
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10*(Stats.level**2)
+	Stats.requiredXp = 10 * (Stats.level ** 2)
 	
 	GameManager.level_up.emit()
 	
@@ -90,7 +89,6 @@ func gainPearl(amount: int):
 	Stats.collected_pearls += amount
 	
 	GameManager.pearls_changed.emit()
-	
 	
 func start_invincibility():
 	is_invincible = true
@@ -116,6 +114,14 @@ func _on_initialize():
 	Stats.collectRadius = 200
 	Stats.collected_pearls = 0
 
+func apply_pearl_upgrades(save: SaveData) -> void:
+	Stats.max_health += save.upgrade_health_level * 5.0
+	Stats.current_health = Stats.max_health
+	
+	speed += save.upgrade_speed_level * 20.0
+	
+	if projectile_data:
+		projectile_data.damage += save.upgrade_damage_level * 1
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -171,8 +177,10 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			projectile_data.damage += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
 			projectile_data.fire_rate += effect.value
+			if projectile_data.fire_rate <= 0.0:
+				projectile_data.fire_rate = 0.5
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
-			projectile_data.range += effect	.value
+			projectile_data.range += effect.value
 
 func _add_new_skill(skill: upgradeData.available_skill) -> void:
 	match skill:
@@ -181,3 +189,6 @@ func _add_new_skill(skill: upgradeData.available_skill) -> void:
 
 func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: skillEffectData) -> void:
 	print("En cours")
+	
+func enable_camera_smoothing():
+	$Camera.position_smoothing_enabled = true

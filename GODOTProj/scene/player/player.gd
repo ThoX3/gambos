@@ -171,6 +171,9 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			Stats.max_health += effect.value
 			Stats.current_health += effect.value # A voir si on soigne le montant ajouté
 			GameManager.health_changed.emit()
+			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
+				%HurtBox.monitoring = false
+				health_depleted.emit()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
 			speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:

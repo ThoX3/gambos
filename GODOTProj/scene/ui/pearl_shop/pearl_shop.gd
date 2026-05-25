@@ -28,6 +28,7 @@ func refresh_shop() -> void:
 				"health": level = main_manager.current_save.upgrade_health_level
 				"damage": level = main_manager.current_save.upgrade_damage_level
 				"speed":  level = main_manager.current_save.upgrade_speed_level
+				"speed-damage": level = main_manager.current_save.upgrade_speed_damage_level
 				
 			card.update_card(level, current_pearls)
 
@@ -39,6 +40,7 @@ func _on_card_buy_requested(id: String, cost: int) -> void:
 			"health": main_manager.current_save.upgrade_health_level += 1
 			"damage": main_manager.current_save.upgrade_damage_level += 1
 			"speed":  main_manager.current_save.upgrade_speed_level += 1
+			"speed-damage": main_manager.current_save.upgrade_speed_damage_level += 1
 			
 		main_manager.save_game()		
 		refresh_shop()

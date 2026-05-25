@@ -5,7 +5,7 @@ signal health_depleted
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio = $AudioStreamPlayer2D
 @export var Stats: Resource
-@export var speed: float = 300.0
+@export var speed: float = 100
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 

@@ -4,7 +4,7 @@ class_name Projectile
 var direction: Vector2 = Vector2.RIGHT
 var speed: float = 400.0
 var range: float = 500.0
-var damage: int = 2
+var damage: int = 1
 var _distance_traveled: float = 0.0
 var _is_destroyed: bool = false  # Empêche les doubles impacts
 

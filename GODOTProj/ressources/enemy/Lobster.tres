@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_uce6x")
 texture = ExtResource("2_7qk45")
-max_hp = 15
+max_hp = 40
 movement_speed = 120.0
 attack_damage = 8
 xp_drop = 2

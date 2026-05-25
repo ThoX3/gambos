@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq7svboykpv7p"
-path="res://.godot/imported/Card8.png-3c89d5fb6b79596e6ba57c5830e8b03e.ctex"
+uid="uid://inj1a7pt6ygx"
+path="res://.godot/imported/godess.png-18a7724005fd63f124ea27a5b30f8b85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/background/Card8.png"
-dest_files=["res://.godot/imported/Card8.png-3c89d5fb6b79596e6ba57c5830e8b03e.ctex"]
+source_file="res://assets/sprites/pearl_shop/godess.png"
+dest_files=["res://.godot/imported/godess.png-18a7724005fd63f124ea27a5b30f8b85.ctex"]
 
 [params]
 

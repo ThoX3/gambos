@@ -15,4 +15,5 @@ attack_range = 60.0
 attack_cooldown = 2.0
 xp_drop = 4
 pearl_drop_probability = 0.2
+cout = 3
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

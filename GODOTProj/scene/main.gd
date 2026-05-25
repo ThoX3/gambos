@@ -129,7 +129,6 @@ func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
 	
 func game_over():
-	# A ameliorer
 	save_game()
 	get_tree().paused = false
 	get_tree().reload_current_scene()

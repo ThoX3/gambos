@@ -12,7 +12,7 @@ var player = null
 const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
 const PEARL_SCENE = preload("res://scene/drops/pearl.tscn")
 const DAMAGE_TEXT_SCENE = preload("res://scene/ui/enemy/damage_text.tscn")
-const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/DeathSplash.tscn")
+const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/deathSplash.tscn")
 
 func _ready():
 	if stats:

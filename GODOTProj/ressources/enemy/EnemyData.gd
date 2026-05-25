@@ -21,3 +21,9 @@ class_name EnemyData
 @export_group("Loot")
 @export var xp_drop: int
 @export var pearl_drop_probability: float
+
+@export_group("Spawn")
+## Coût en budget de difficulté
+@export_range(1, 20) var cout: int = 1
+## Poids de tirage aléatoire (plus élevé = apparaît plus souvent)
+@export_range(1, 100) var poids: int = 10

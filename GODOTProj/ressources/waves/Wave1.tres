@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Wave" format=3 uid="uid://bghuafssbur28"]
 
 [ext_resource type="Script" uid="uid://djam2v4okipcy" path="res://ressources/waves/WaveData.gd" id="1_ebfmd"]
-[ext_resource type="Script" path="res://scene/enemy/enemy_spawn.gd" id="2_hfeek"]
+[ext_resource type="Script" uid="uid://qc6jgv5gamy5" path="res://scene/enemy/enemy_spawn.gd" id="2_hfeek"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="4_ndq8y"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="5_wnvbo"]
 
@@ -13,5 +13,5 @@ metadata/_custom_type_script = "uid://qc6jgv5gamy5"
 
 [resource]
 script = ExtResource("1_ebfmd")
-nb_ennemis = 10
 types_ennemis = Array[ExtResource("2_hfeek")]([SubResource("Resource_ndq8y")])
+budget_base = 30.0

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="BalancingConfig" format=3 uid="uid://bqqieftyh5wfv"]
+
+[ext_resource type="Script" uid="uid://c1iaqc10q47pj" path="res://ressources/waves/BalancingConfig.gd" id="1_alvd0"]
+
+[resource]
+script = ExtResource("1_alvd0")

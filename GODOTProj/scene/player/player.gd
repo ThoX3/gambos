@@ -92,7 +92,7 @@ func levelUp():
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10 * (Stats.level ** 2)
+	Stats.requiredXp = 10 + (Stats.level ** 2) * 2
 	
 	GameManager.level_up.emit()
 	

@@ -3,8 +3,6 @@ extends BossAttack
 func _init() -> void:
 	id = "broyage"
 	portee_max = 150.0
-	poids = 50.0
-	cooldown_attaque = 3.0
 
 func executer(boss) -> void:
 	var rayon_original = boss.collision_physique.shape.radius

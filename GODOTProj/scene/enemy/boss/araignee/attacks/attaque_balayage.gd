@@ -2,10 +2,8 @@ extends BossAttack
 
 func _init() -> void:
 	id = "balayage"
-	portee_min = 0.0
+	portee_min = 200.0
 	portee_max = 500.0
-	poids = 40.0
-	cooldown_attaque = 2.0
 	combo_suivant_id = "broyage"
 	
 func executer(boss) -> void:
@@ -27,13 +25,15 @@ func executer(boss) -> void:
 			boss.sprite.flip_h = direction_originale
 			
 		# --- PHASE 2 : Le Dash ---
-		if frame_actuelle >= 8 and frame_actuelle <= 9:
-			var vitesse_dash = 1200.0 
+		# On ne garde que la frame 8 (au lieu de >= 8 and <= 9)
+		if frame_actuelle == 8:
+			var vitesse_dash = 2500.0 # Vitesse augmentée car l'action est plus courte
 			var delta = boss.get_process_delta_time()
 			boss.global_position = boss.global_position.move_toward(boss.player.global_position, vitesse_dash * delta)
 			
-			# On mémorise la position du joueur pour le futur tir
-			if frame_actuelle == 9:
+		# On mémorise la position du joueur à la frame 9 (le boss est maintenant immobile)
+		if frame_actuelle == 9:
+			if position_joueur_frame_9 == Vector2.ZERO: # Petite sécurité
 				position_joueur_frame_9 = boss.player.global_position
 			
 		# --- PHASE 3 : Le tir du projectile et le cône ---

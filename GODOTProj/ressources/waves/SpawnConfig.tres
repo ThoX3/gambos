@@ -15,7 +15,7 @@
 script = ExtResource("1_uogjb")
 scene = ExtResource("2_ka2uf")
 data = ExtResource("1_ka2uf")
-vague_exacte = 1
+vague_exacte = 20
 duree = 30.0
 
 [sub_resource type="Resource" id="Resource_ud2lt"]

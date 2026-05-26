@@ -1,17 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cqb5hsm2bn2v"]
+[gd_resource type="Resource" script_class="BossData" format=3 uid="uid://cqb5hsm2bn2v"]
 
-[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_eenuc"]
+[ext_resource type="Script" uid="uid://daqti2f86wa3p" path="res://scene/enemy/boss/araignee/attacks/attack_broyage.gd" id="1_0q8vp"]
+[ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/BossData.gd" id="1_eenuc"]
+[ext_resource type="Script" uid="uid://bosh0w0xm27l8" path="res://scene/enemy/boss/araignee/attacks/attaque_balayage.gd" id="2_brdxm"]
 [ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="2_eenuc"]
+[ext_resource type="Script" uid="uid://dtcafnpjj30rd" path="res://scene/enemy/boss/araignee/attacks/attaque_embuscade.gd" id="3_oleib"]
 
 [resource]
 script = ExtResource("1_eenuc")
+attack_scripts = Array[Script]([ExtResource("3_oleib"), ExtResource("2_brdxm"), ExtResource("1_0q8vp")])
 texture = ExtResource("2_eenuc")
-max_hp = 150
-armor = 15
-movement_speed = 100.0
-patrol_distance = 200.0
-attack_damage = 6
-attack_range = 60.0
-attack_cooldown = 2.0
-xp_drop = 4
+max_hp = 500
+movement_speed = 5.0
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

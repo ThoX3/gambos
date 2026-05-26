@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deiy6gh852o1c"
-path="res://.godot/imported/Card10.png-aa662aa4f236b350ab3eb02175665d78.ctex"
+uid="uid://rjsjmw7y6yvx"
+path="res://.godot/imported/Boss2Attack2.png-7e2d7df5bc17c74e57fc27f47f8f3336.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/background/Card10.png"
-dest_files=["res://.godot/imported/Card10.png-aa662aa4f236b350ab3eb02175665d78.ctex"]
+source_file="res://assets/sprites/enemy/Boss2Attack2.png"
+dest_files=["res://.godot/imported/Boss2Attack2.png-7e2d7df5bc17c74e57fc27f47f8f3336.ctex"]
 
 [params]
 

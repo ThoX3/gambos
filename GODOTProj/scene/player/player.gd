@@ -70,9 +70,10 @@ func _physics_process(delta):
 		_fire_timer += delta
 		if _fire_timer >= 1.0 / projectile_data.fire_rate:
 			_fire_timer = 0.0
-			var target = _get_nearest_enemy()
-			if target:
-				_shoot(target)
+			var targets = _get_nearest_enemies(projectile_data.projectile_count)
+			for target in targets:
+				_shoot_single(target)
+
 
 func gainXP(value: int):
 	Stats.currentXp += value
@@ -134,35 +135,38 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	if projectile_data:
 		projectile_data.damage += save.upgrade_damage_level * 1
 		projectile_data.fire_rate += save.upgrade_speed_damage_level * 0.1
+		projectile_data.projectile_count += save.upgrade_projectile_level
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
 	$LevelUpOver.stop()
 	$LevelUpUnder.hide()
 
-func _get_nearest_enemy() -> Enemy_Base:
+func _get_nearest_enemies(count: int) -> Array:
 	var enemies = get_tree().get_nodes_in_group("Enemy")
-	var nearest: Enemy_Base = null
-	var nearest_dist: float = projectile_data.range
-
+	
+	# Filtrer par portée et validité
+	var in_range: Array = []
 	for enemy in enemies:
 		if not is_instance_valid(enemy):
 			continue
-		var dist = global_position.distance_to(enemy.global_position)
-		if dist <= nearest_dist:
-			nearest_dist = dist
-			nearest = enemy
+		if global_position.distance_to(enemy.global_position) <= projectile_data.range:
+			in_range.append(enemy)
+	
+	# Trier par distance croissante
+	in_range.sort_custom(func(a, b):
+		return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+	
+	# Retourner les N plus proches
+	return in_range.slice(0, count)
 
-	return nearest
-
-func _shoot(target: Enemy_Base) -> void:
-	for i in range(projectile_data.projectile_count):
-		var projectile: Projectile = projectile_scene.instantiate()
-		get_parent().add_child(projectile)
-		var angle_offset = (i - (projectile_data.projectile_count - 1) / 2.0 ) * 0.2
-		var dir = global_position.direction_to(target.global_position).rotated(angle_offset)
-		projectile.global_position = global_position
-		projectile.setup(projectile_data, dir)
+func _shoot_single(target: Enemy_Base) -> void:
+	var projectile: Projectile = projectile_scene.instantiate()
+	get_parent().add_child(projectile)
+	var dir = global_position.direction_to(target.global_position)
+	projectile.global_position = global_position
+	projectile.setup(projectile_data, dir)
 	
 func apply_upgrade(data: upgradeData) -> void:
 	if data.typeEffects == upgradeData.effectsType.CAPACITY:

@@ -125,6 +125,12 @@ upgrade_id = "speed-damage"
 title_text = "Vitesse d'attaque"
 base_cost = 1
 
+[node name="PearlShopItem5" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=303747147 instance=ExtResource("3_a1qy5")]
+layout_mode = 2
+upgrade_id = "projectile-number"
+title_text = "Nombre de projectile"
+base_cost = 5
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1820389118]
 layout_mode = 2
 size_flags_horizontal = 4

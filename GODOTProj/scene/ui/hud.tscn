@@ -25,6 +25,22 @@ scale = Vector2(2, 2)
 script = ExtResource("4_73u6w")
 Stats = ExtResource("5_qxikp")
 
+[node name="Wave" type="HBoxContainer" parent="." unique_id=1235224074]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 3.5
+offset_right = 633.0
+offset_bottom = 30.5
+
+[node name="Wave" type="Label" parent="Wave" unique_id=2019747774]
+layout_mode = 2
+text = "Vague"
+label_settings = SubResource("LabelSettings_qxikp")
+
+[node name="Count" type="Label" parent="Wave" unique_id=1033153350]
+layout_mode = 2
+text = "0"
+
 [node name="XP_Bar" type="TextureProgressBar" parent="." unique_id=1485470852]
 unique_name_in_owner = true
 layout_mode = 1

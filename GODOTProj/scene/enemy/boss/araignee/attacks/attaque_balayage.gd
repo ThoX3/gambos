@@ -9,5 +9,19 @@ func _init() -> void:
 	combo_suivant_id = "broyage"
 	
 func executer(boss) -> void:
-	boss.sprite.play("attack3")
-	await boss.sprite.animation_finished
+	var direction_originale = boss.sprite.flip_h
+	
+	boss.sprite.play("attack3")	
+	
+	while boss.sprite.is_playing() and boss.sprite.animation == "attack3":
+		var frame_actuelle = boss.sprite.frame
+		
+		if frame_actuelle >= 3 and frame_actuelle <= 7:
+			boss.sprite.flip_h = not direction_originale
+		else:
+			boss.sprite.flip_h = direction_originale
+			
+		await boss.get_tree().process_frame
+					
+	# Sécurité à la fin de l'attaque
+	boss.sprite.flip_h = direction_originale

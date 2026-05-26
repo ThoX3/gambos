@@ -213,3 +213,23 @@ func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: sk
 	
 func enable_camera_smoothing():
 	$Camera.position_smoothing_enabled = true
+
+func take_damage(degats: float) -> void:
+	# Si le joueur clignote déjà, il esquive le coup !
+	if is_invincible:
+		return
+		
+	# On retire les PV et on met à jour l'interface
+	Stats.current_health -= degats
+	GameManager.health_changed.emit()
+	
+	print("Ouch ! PV restants : ", Stats.current_health)
+	
+	# Vérification de la mort
+	if Stats.current_health <= 0.0:
+		%HurtBox.monitoring = false
+		health_depleted.emit()
+	else:
+		# S'il survit, on joue ton son et on lance l'invincibilité
+		AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
+		start_invincibility()

@@ -75,3 +75,19 @@ func _fade_in(nom: String) -> void:
 	if p == null or p.volume_db >= VOL_MAX:
 		return   # Introuvable ou déjà active
 	create_tween().tween_property(p, "volume_db", VOL_MAX, FADE_DURATION)
+
+func stop_music() -> void:
+	for p in _players.values():
+		var player := p as AudioStreamPlayer
+		create_tween().tween_property(player, "volume_db", VOL_MIN, FADE_DURATION)
+	# Arrêt réel après le fade
+	await get_tree().create_timer(FADE_DURATION).timeout
+	for p in _players.values():
+		(p as AudioStreamPlayer).stop()
+
+func reset_music() -> void:
+	for p in _players.values():
+		var player := p as AudioStreamPlayer
+		player.volume_db = VOL_MIN
+		player.play()
+	_activer_couches(0)

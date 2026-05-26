@@ -6,6 +6,7 @@ signal pearls_changed()
 signal initialize()
 signal start_game()
 signal level_up()
+signal GameOver()
 
 var skip_menu: bool = false
 

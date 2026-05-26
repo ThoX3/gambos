@@ -1,4 +1,3 @@
-class_name WaveManager
 extends Node
 
 @export var spawn_config: SpawnConfig        # ← le seul fichier de config

@@ -4,7 +4,7 @@ class_name Projectile
 var direction: Vector2 = Vector2.RIGHT
 var speed: float = 400.0
 var range: float = 500.0
-var damage: int = 2
+var damage: int = 1
 var _distance_traveled: float = 0.0
 var _is_destroyed: bool = false  # Empêche les doubles impacts
 
@@ -39,16 +39,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Enemy_Base:
 		body.take_damage(damage)
 		
-		audio.pitch_scale = randf_range(0.8, 1.3)
-		
-		var position_mort = global_position
-		remove_child(audio)
-		get_tree().current_scene.add_child(audio)
-		audio.global_position = position_mort
-		
-		audio.play()
-		audio.finished.connect(audio.queue_free)
-		
+		AudioManager.play_sound_2d("projectile_pop", global_position)
 		_destroy()
 
 func _destroy() -> void:

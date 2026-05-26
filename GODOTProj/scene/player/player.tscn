@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c7y3xmnuu2qla" path="res://assets/sprites/HUD/Level_up/Particle7.png" id="11_fspl2"]
 [ext_resource type="Texture2D" uid="uid://ub2m8ak6j44s" path="res://assets/sprites/HUD/Level_up/Particle8.png" id="12_eeiom"]
 [ext_resource type="Texture2D" uid="uid://mci5x4xob34n" path="res://assets/sprites/HUD/Level_up/background.png" id="13_gt2ev"]
-[ext_resource type="AudioStream" uid="uid://bha2f7rtpg77x" path="res://assets/sounds/Gambos_hurt.mp3" id="16_5g408"]
+[ext_resource type="AudioStream" uid="uid://bha2f7rtpg77x" path="res://assets/sounds/effect/Gambos_hurt.mp3" id="16_5g408"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ajqqa"]
 animations = [{
@@ -32,13 +32,13 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7pse"]
-radius = 22.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6smn3"]
 radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5lop3"]
-radius = 23.0
+radius = 22.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aoq8s"]
 animations = [{

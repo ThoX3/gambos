@@ -37,7 +37,7 @@ unique_name_in_owner = true
 
 [node name="World" type="Node2D" parent="." unique_id=1424555751]
 
-[node name="WaveManager" type="Node2D" parent="World" unique_id=1263149827 node_paths=PackedStringArray("conteneur_ennemis")]
+[node name="WaveManager" type="Node2D" parent="World" unique_id=1263149827 node_paths=PackedStringArray("conteneur_ennemis") groups=["wave_manager"]]
 script = ExtResource("7_of57s")
 spawn_config = ExtResource("15_jcbur")
 config = ExtResource("14_v2gmf")

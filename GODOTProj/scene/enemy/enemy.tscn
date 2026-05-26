@@ -18,5 +18,3 @@ stats = ExtResource("2_msiye")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_nytjq")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=710470670]

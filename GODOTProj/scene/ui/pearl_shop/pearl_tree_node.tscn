@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://dkv6fq8xal7rk"]
+
+[ext_resource type="Script" uid="uid://ck4qnaun1j26p" path="res://scene/ui/pearl_shop/pearl_tree_node.gd" id="1_pc3ls"]
+[ext_resource type="Texture2D" uid="uid://bt55bhjspafhr" path="res://assets/sprites/pearl_shop/round64.png" id="2_fipoj"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_fgmap"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
+[ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
+
+[node name="PearlTreeNode" type="Control" unique_id=1910061887]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_pc3ls")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=150037157]
+modulate = Color(0.86036915, 0.8603692, 0.8603692, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_fipoj")
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=812178132]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1233662898]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_fgmap")
+theme_override_font_sizes/font_size = 16
+text = "Attaque"
+horizontal_alignment = 1
+
+[node name="Level" type="Label" parent="VBoxContainer" unique_id=89424670]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ncogy")
+theme_override_font_sizes/font_size = 24
+text = "0/1"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=705119453]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Price" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=168061550]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_urf48")
+theme_override_font_sizes/font_size = 19
+text = "1"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1638615447]
+layout_mode = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PearlIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer" unique_id=42789190]
+layout_mode = 2
+texture = ExtResource("6_vccej")
+expand_mode = 3

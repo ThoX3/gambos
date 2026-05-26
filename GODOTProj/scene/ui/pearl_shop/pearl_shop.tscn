@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://c074bjx3qiixv"]
 
-[ext_resource type="Script" uid="uid://bh8bpob3ax45x" path="res://scene/ui/pearl_shop/pearl_shop.gd" id="1_pj8rj"]
-[ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="1_pv3x0"]
-[ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="2_pj8rj"]
-[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_8v2je"]
-[ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/PearlShopItem.tscn" id="3_a1qy5"]
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="5_if8b3"]
-[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_if8b3"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="8_if8b3"]
+[ext_resource type="Script" uid="uid://bh8bpob3ax45x" path="res://scene/ui/pearl_shop/pearl_shop.gd" id="1_2taua"]
+[ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_mr4gn"]
+[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_exegu"]
+[ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="4_qnxp0"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="5_m310l"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_1i7y0"]
+[ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/pearl_shop_item.tscn" id="7_171hh"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="8_b2ds4"]
 
 [node name="PearlShop" type="Control" unique_id=627456338]
 layout_mode = 3
@@ -16,7 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_pj8rj")
+script = ExtResource("1_2taua")
 
 [node name="Background" type="TextureRect" parent="." unique_id=14321263]
 modulate = Color(0.6052743, 0.6052743, 0.6052743, 1)
@@ -26,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_pv3x0")
+texture = ExtResource("2_mr4gn")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1813661169]
 layout_mode = 1
@@ -46,7 +46,7 @@ theme_override_constants/separation = 29
 
 [node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1065693868]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_8v2je")
+theme_override_fonts/font = ExtResource("3_exegu")
 theme_override_font_sizes/font_size = 36
 text = "Temple de Naïades"
 horizontal_alignment = 1
@@ -67,7 +67,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
 layout_mode = 2
-texture = ExtResource("2_pj8rj")
+texture = ExtResource("4_qnxp0")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]
@@ -84,7 +84,7 @@ alignment = 1
 
 [node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=423753908]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("5_if8b3")
+theme_override_fonts/font = ExtResource("5_m310l")
 theme_override_font_sizes/font_size = 36
 text = "0"
 horizontal_alignment = 1
@@ -96,30 +96,30 @@ theme_override_constants/margin_bottom = 8
 
 [node name="PearlIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1805332699]
 layout_mode = 2
-texture = ExtResource("6_if8b3")
+texture = ExtResource("6_1i7y0")
 expand_mode = 3
 
 [node name="ShopItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=6723653]
 layout_mode = 2
 theme_override_constants/separation = 11
 
-[node name="PearlShopItem1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=206465738 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=206465738 instance=ExtResource("7_171hh")]
 layout_mode = 2
 base_cost = 1
 
-[node name="PearlShopItem2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=2049910537 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=2049910537 instance=ExtResource("7_171hh")]
 layout_mode = 2
 upgrade_id = "damage"
 title_text = "Attaque"
 base_cost = 1
 
-[node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1881912387 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem3" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1881912387 instance=ExtResource("7_171hh")]
 layout_mode = 2
 upgrade_id = "speed"
 title_text = "Vitesse de déplacement"
 base_cost = 1
 
-[node name="PearlShopItem4" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1471535943 instance=ExtResource("3_a1qy5")]
+[node name="PearlShopItem4" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/ShopItems" unique_id=1471535943 instance=ExtResource("7_171hh")]
 layout_mode = 2
 upgrade_id = "speed-damage"
 title_text = "Vitesse d'attaque"
@@ -129,7 +129,7 @@ base_cost = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("8_if8b3")
+theme_override_fonts/font = ExtResource("8_b2ds4")
 text = "Retour"
 flat = true
 
@@ -146,7 +146,7 @@ offset_right = -14.0
 offset_bottom = -9.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("5_if8b3")
+theme_override_fonts/font = ExtResource("5_m310l")
 theme_override_font_sizes/font_size = 8
 text = "Supprimer la sauvegarde"
 flat = true

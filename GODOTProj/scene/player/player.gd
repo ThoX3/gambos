@@ -7,6 +7,8 @@ signal health_depleted
 @export var speed: float = 100
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
+@export var knockback_force: float = 300.0
+var _knockback_velocity: Vector2 = Vector2.ZERO
 
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false
@@ -32,11 +34,17 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
+	# Velocity de mouvement normal
+	var move_velocity = Vector2.ZERO
 	if direction:
-		velocity = direction * speed
+		move_velocity = direction * speed
 		animated_sprite_2d.flip_h = direction.x > 0
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, speed)
+
+	# Amortissement du knockback (indépendant de la velocity de déplacement)
+	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, knockback_force * 2 * delta)
+
+	# On combine les deux
+	velocity = move_velocity + _knockback_velocity
 
 	move_and_slide()
 	
@@ -47,6 +55,9 @@ func _physics_process(delta):
 	
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
+		# Calcul de la direction opposée à l'ennemi
+		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
+		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
@@ -61,9 +72,10 @@ func _physics_process(delta):
 		_fire_timer += delta
 		if _fire_timer >= 1.0 / projectile_data.fire_rate:
 			_fire_timer = 0.0
-			var target = _get_nearest_enemy()
-			if target:
-				_shoot(target)
+			var targets = _get_nearest_enemies(projectile_data.projectile_count)
+			for target in targets:
+				_shoot_single(target)
+
 
 func gainXP(value: int):
 	Stats.currentXp += value
@@ -83,7 +95,7 @@ func levelUp():
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10 * (Stats.level ** 2)
+	Stats.requiredXp = 10 + (Stats.level ** 2) * 2
 	
 	GameManager.level_up.emit()
 	
@@ -125,35 +137,38 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	if projectile_data:
 		projectile_data.damage += save.upgrade_damage_level * 1
 		projectile_data.fire_rate += save.upgrade_speed_damage_level * 0.1
+		projectile_data.projectile_count += save.upgrade_projectile_level
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
 	$LevelUpOver.stop()
 	$LevelUpUnder.hide()
 
-func _get_nearest_enemy() -> Enemy_Base:
+func _get_nearest_enemies(count: int) -> Array:
 	var enemies = get_tree().get_nodes_in_group("Enemy")
-	var nearest: Enemy_Base = null
-	var nearest_dist: float = projectile_data.range
-
+	
+	# Filtrer par portée et validité
+	var in_range: Array = []
 	for enemy in enemies:
 		if not is_instance_valid(enemy):
 			continue
-		var dist = global_position.distance_to(enemy.global_position)
-		if dist <= nearest_dist:
-			nearest_dist = dist
-			nearest = enemy
+		if global_position.distance_to(enemy.global_position) <= projectile_data.range:
+			in_range.append(enemy)
+	
+	# Trier par distance croissante
+	in_range.sort_custom(func(a, b):
+		return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+	
+	# Retourner les N plus proches
+	return in_range.slice(0, count)
 
-	return nearest
-
-func _shoot(target: Enemy_Base) -> void:
-	for i in range(projectile_data.projectile_count):
-		var projectile: Projectile = projectile_scene.instantiate()
-		get_parent().add_child(projectile)
-		var angle_offset = (i - (projectile_data.projectile_count - 1) / 2.0 ) * 0.2
-		var dir = global_position.direction_to(target.global_position).rotated(angle_offset)
-		projectile.global_position = global_position
-		projectile.setup(projectile_data, dir)
+func _shoot_single(target: Enemy_Base) -> void:
+	var projectile: Projectile = projectile_scene.instantiate()
+	get_parent().add_child(projectile)
+	var dir = global_position.direction_to(target.global_position)
+	projectile.global_position = global_position
+	projectile.setup(projectile_data, dir)
 	
 func apply_upgrade(data: upgradeData) -> void:
 	if data.typeEffects == upgradeData.effectsType.CAPACITY:
@@ -198,3 +213,23 @@ func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: sk
 	
 func enable_camera_smoothing():
 	$Camera.position_smoothing_enabled = true
+
+func take_damage(degats: float) -> void:
+	# Si le joueur clignote déjà, il esquive le coup !
+	if is_invincible:
+		return
+		
+	# On retire les PV et on met à jour l'interface
+	Stats.current_health -= degats
+	GameManager.health_changed.emit()
+	
+	print("Ouch ! PV restants : ", Stats.current_health)
+	
+	# Vérification de la mort
+	if Stats.current_health <= 0.0:
+		%HurtBox.monitoring = false
+		health_depleted.emit()
+	else:
+		# S'il survit, on joue ton son et on lance l'invincibilité
+		AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
+		start_invincibility()

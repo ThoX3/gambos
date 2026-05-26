@@ -4,7 +4,7 @@ extends Resource
 ## La scène du boss
 @export var scene: PackedScene
 ## Les stats du boss
-@export var data: EnemyData
+@export var data: BossData
 ## À quelle vague exacte ce boss apparaît
 @export_range(1, 999) var vague_exacte: int = 5
 ## Durée de la vague boss (secondes)

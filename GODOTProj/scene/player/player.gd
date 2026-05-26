@@ -62,6 +62,7 @@ func _physics_process(delta):
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
 			health_depleted.emit()
+			GameManager.GameOver.emit()
 		else:
 			
 			AudioManager.play_sound_2d("GAMBOS_hurt", global_position)

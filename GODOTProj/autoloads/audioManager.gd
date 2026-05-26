@@ -32,6 +32,7 @@ var _players: Dictionary = {}   # "bass" → AudioStreamPlayer
 func _ready():
 	await get_tree().process_frame
 	GameManager.start_game.connect(_init_music)
+	GameManager.GameOver.connect(stop_music)
 	
 # ── Sons spatialisés (inchangé) ─────────────────────────────
 func play_sound_2d(nom_du_son: String, position: Vector2) -> void:
@@ -57,6 +58,7 @@ func _init_music() -> void:
 		p.volume_db = VOL_MIN
 		add_child(p)
 		p.play()
+		p.finished.connect(p.play)
 		_players[nom] = p
 
 	_activer_couches(0)   # Couches de départ (vague 0)
@@ -90,4 +92,5 @@ func reset_music() -> void:
 		var player := p as AudioStreamPlayer
 		player.volume_db = VOL_MIN
 		player.play()
+		player.finished.connect(p.play)
 	_activer_couches(0)

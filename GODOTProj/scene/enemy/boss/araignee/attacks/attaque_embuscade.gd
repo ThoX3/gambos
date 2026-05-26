@@ -3,7 +3,7 @@ extends BossAttack
 func _init() -> void:
 	id = "embuscade" 
 	portee_min = 150.0
-	portee_max = 500.0
+	portee_max = 800.0
 	poids = 10.0
 	cooldown_attaque = 2.0
 

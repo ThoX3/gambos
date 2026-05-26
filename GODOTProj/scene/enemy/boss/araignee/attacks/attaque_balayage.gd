@@ -15,7 +15,7 @@ func executer(boss) -> void:
 	
 	boss.sprite.play("attack3")	
 	
-	while boss.sprite.is_playing() and boss.sprite.animation == "attack3":
+	while is_instance_valid(boss) and boss.is_inside_tree() and boss.sprite.is_playing() and boss.sprite.animation == "attack3":
 		var frame_actuelle = boss.sprite.frame
 		
 		# --- PHASE 1 : Animation classique ---
@@ -64,17 +64,18 @@ func executer(boss) -> void:
 		elif frame_actuelle > 12:
 			cone_active = false
 				
+		if not is_instance_valid(boss) or not boss.is_inside_tree():
+			return
+			
 		await boss.get_tree().process_frame
-					
-	# Remise à zéro à la fin de l'animation
-	boss.sprite.flip_h = direction_originale
-	if boss.has_node("ConeHitbox"):
-		boss.get_node("ConeHitbox").visible = false
-		boss.get_node("ConeHitbox/CollisionPolygon2D").set_deferred("disabled", true)
-
-# --- LA FONCTION QUI LANCE LE PROJECTILE ---
+		
+	if is_instance_valid(boss) and boss.is_inside_tree():
+		boss.sprite.flip_h = direction_originale
+		if boss.has_node("ConeHitbox"):
+			boss.get_node("ConeHitbox").visible = false
+			boss.get_node("ConeHitbox/CollisionPolygon2D").set_deferred("disabled", true)
+						
 func _lancer_projectile(boss, cible: Vector2) -> void:
-	# Si l'Araignée sait quel projectile lancer...
 	if boss.projectile_scene != null:
 		var proj = boss.projectile_scene.instantiate()
 		proj.global_position = boss.global_position
@@ -85,6 +86,5 @@ func _lancer_projectile(boss, cible: Vector2) -> void:
 			
 		boss.get_parent().add_child(proj)
 		print("✅ Projectile lancé !")
-	# Si la case du projectile est vide dans l'éditeur...
 	else:
 		push_error("❌ ERREUR : Tu as oublié de mettre la scène du projectile dans l'inspecteur du Boss !")

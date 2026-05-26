@@ -34,15 +34,17 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
+	# Velocity de mouvement normal
+	var move_velocity = Vector2.ZERO
 	if direction:
-		velocity = direction * speed
+		move_velocity = direction * speed
 		animated_sprite_2d.flip_h = direction.x > 0
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, speed)
 
-	# Ajout du knockback à la vélocité + amortissement progressif
-	velocity += _knockback_velocity
-	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, knockback_force * 5 * delta)
+	# Amortissement du knockback (indépendant de la velocity de déplacement)
+	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, knockback_force * 2 * delta)
+
+	# On combine les deux
+	velocity = move_velocity + _knockback_velocity
 
 	move_and_slide()
 	

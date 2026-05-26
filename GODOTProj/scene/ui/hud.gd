@@ -4,10 +4,10 @@ extends Control
 
 @onready var pearl_box = $Pearls
 @onready var pearl_label = $Pearls/Count
+@onready var wave_label = $Wave/Count  # ← ajoute cette ligne
 
 var pearl_tween: Tween
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameManager.xp_changed.connect(_update_progres_bar)
 	GameManager.level_up.connect(_update_level)
@@ -20,6 +20,20 @@ func _ready() -> void:
 	_update_level()
 	pearl_box.modulate.a = 0
 	pearl_box.visible = false
+
+func _on_start():
+	_update_health_bar()
+	_update_progres_bar()
+	_update_level()
+	wave_label.text = "1"  # ← remet à 1 au début de chaque partie
+	
+	# Connecte le signal du WaveManager
+	var wm = get_tree().get_first_node_in_group("wave_manager")
+	if wm and not wm.vague_demarree.is_connected(_on_vague_demarree):
+		wm.vague_demarree.connect(_on_vague_demarree)
+
+func _on_vague_demarree(numero: int) -> void:
+	wave_label.text = str(numero)  # ← met à jour le label à chaque nouvelle vague
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -35,13 +49,7 @@ func _update_health_bar():
 	%HP.text = str(max(int(Stats.current_health), 0)) + " / " + str(int(Stats.max_health))
 	
 func _update_level():
-	$Level.text = str(Stats.level)
-
-func _on_start():
-	_update_health_bar()
-	_update_progres_bar()
-	_update_level()
-	
+	$Level.text = str(Stats.level)	
 
 func _on_pearls_changed():
 	pearl_label.text = str(Stats.collected_pearls)

@@ -15,6 +15,13 @@ var is_invincible: bool = false
 var blink_timer: float = 0.0
 var _fire_timer: float = 0.0
 
+@export var projectile_sable_data: ProjectileDataSable
+@export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
+var _attaque_sable_debloquee: bool = false
+var _sable_fire_timer: float = 0.0
+
+const SAVE_PATH = "user://gambos/save.tres"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,9 +30,18 @@ func _ready() -> void:
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	_on_initialize()
+	# Charger l'état de débloquage depuis la sauvegarde
+	if ResourceLoader.exists(SAVE_PATH):
+		var save = ResourceLoader.load(SAVE_PATH) as SaveData
+		if save:
+			_attaque_sable_debloquee = save.boss_araignee_battu
+			
+	if projectile_sable_data:
+		projectile_sable_data = projectile_sable_data.duplicate()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
 	call_deferred("enable_camera_smoothing")
+	GameManager.boss_araignee_vaincu.connect(_on_boss_araignee_vaincu)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -76,6 +92,14 @@ func _physics_process(delta):
 			var targets = _get_nearest_enemies(projectile_data.projectile_count)
 			for target in targets:
 				_shoot_single(target)
+	
+	# --- Attaque sable (stick droit) ---
+	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
+		_sable_fire_timer -= delta
+		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
+			_sable_fire_timer = projectile_sable_data.cooldown
+			_tirer_sable(stick.normalized())
 
 
 func gainXP(value: int):
@@ -234,3 +258,19 @@ func take_damage(degats: float) -> void:
 		# S'il survit, on joue ton son et on lance l'invincibilité
 		AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
 		start_invincibility()
+
+func _tirer_sable(direction: Vector2) -> void:
+	var proj = projectile_sable_scene.instantiate()
+	get_parent().add_child(proj)
+	proj.global_position = global_position
+	proj.direction = direction
+	proj.appartient_au_joueur = true
+	proj.vitesse = projectile_sable_data.speed
+	proj.degats = projectile_sable_data.damage
+	# Correction des layers : le projectile joueur doit voir les ennemis (layer 2)
+	proj.collision_layer = 4   # même layer que le projectile normal du joueur
+	proj.collision_mask = 2    # détecte les ennemis (layer 2)
+
+func _on_boss_araignee_vaincu() -> void:
+	_attaque_sable_debloquee = true
+	print("🔓 Attaque sable débloquée en jeu !")

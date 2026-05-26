@@ -7,6 +7,7 @@ signal initialize()
 signal start_game()
 signal level_up()
 signal GameOver()
+signal boss_araignee_vaincu()
 
 var skip_menu: bool = false
 

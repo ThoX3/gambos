@@ -11,7 +11,7 @@
 script = ExtResource("5_6xhw8")
 attack_scripts = Array[Script]([ExtResource("1_0fmyw"), ExtResource("2_5l6c2"), ExtResource("3_vvrx3")])
 texture = ExtResource("6_qb5vh")
-max_hp = 500
+max_hp = 2000
 armor = 20
 movement_speed = 50.0
 patrol_distance = 10000.0

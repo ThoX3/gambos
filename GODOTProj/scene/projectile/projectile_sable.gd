@@ -44,7 +44,7 @@ func _on_body_entered(body: Node2D) -> void:
 			set_deferred("monitoring", false)
 			if body.is_in_group("Player"):
 				print("Sable dans les yeux ! Dégâts au joueur !")
-				body.take_damage(1)
+				body.take_damage(10)
 			sprite.play("destroy")
 			await sprite.animation_finished
 			queue_free()

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" format=3 uid="uid://fa6rnfhtkfxd"]
+[gd_resource type="Resource" script_class="BossData" format=3 uid="uid://fa6rnfhtkfxd"]
 
 [ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/boss/BossData.gd" id="1_0pafs"]
 [ext_resource type="SpriteFrames" uid="uid://bhh4gulg7kmv3" path="res://assets/sprites/enemy/Boss1.tres" id="2_0pafs"]

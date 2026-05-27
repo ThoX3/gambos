@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bh8bpob3ax45x" path="res://scene/ui/pearl_shop/pearl_shop.gd" id="1_pj8rj"]
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="1_pv3x0"]
-[ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="2_pj8rj"]
 [ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_8v2je"]
 [ext_resource type="PackedScene" uid="uid://bw06oil5jikyp" path="res://scene/ui/pearl_shop/PearlShopItem.tscn" id="3_a1qy5"]
+[ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_if8b3"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="5_if8b3"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_if8b3"]
 [ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="8_if8b3"]
@@ -67,7 +67,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
 layout_mode = 2
-texture = ExtResource("2_pj8rj")
+texture = ExtResource("4_if8b3")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]

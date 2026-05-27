@@ -12,6 +12,8 @@ func _on_replay_pressed():
 	GameManager.skip_menu = true
 	get_tree().reload_current_scene()
 	
+	GameManager.Retry.emit()
+	
 func _on_quit_pressed():
 	%LayerGameOver.visible = false
 	quit_button_pressed.emit()

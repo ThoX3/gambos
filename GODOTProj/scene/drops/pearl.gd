@@ -14,7 +14,8 @@ var sens_spirale = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimatedSprite2D.play("Idle")
-	scale = Vector2(pearl_amount/20.0+0.5, pearl_amount/20.0+0.5)
+	var final_scale : float = clamp(pearl_amount / 20.0 + 0.5, 0.5, 1.5)
+	scale = Vector2(final_scale, final_scale)
 	
 	# Pick a random spin direction (clockwise or counter-clockwise) for visual variety
 	sens_spirale = [1, -1].pick_random()

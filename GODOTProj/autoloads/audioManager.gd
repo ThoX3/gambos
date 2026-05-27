@@ -30,9 +30,11 @@ var _pistes := {
 var _players: Dictionary = {}   # "bass" → AudioStreamPlayer
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	await get_tree().process_frame
 	GameManager.start_game.connect(_init_music)
 	GameManager.GameOver.connect(stop_music)
+	GameManager.Retry.connect(_reset_music)
 	
 # ── Sons spatialisés (inchangé) ─────────────────────────────
 func play_sound_2d(nom_du_son: String, position: Vector2) -> void:
@@ -51,6 +53,7 @@ func _init_music() -> void:
 	# Attends que la scène de jeu soit chargée
 	var wm := get_tree().get_first_node_in_group("wave_manager")
 	wm.vague_demarree.connect(_on_vague_change)
+	
 	# Crée tous les lecteurs en silence dans une boucle
 	for nom in _pistes:
 		var p := AudioStreamPlayer.new()
@@ -61,7 +64,7 @@ func _init_music() -> void:
 		p.finished.connect(p.play)
 		_players[nom] = p
 
-	_activer_couches(0)   # Couches de départ (vague 0)
+		_activer_couches(0)   # Couches de départ (vague 0)
 
 func _on_vague_change(numero: int) -> void:
 	_activer_couches(numero)
@@ -87,7 +90,7 @@ func stop_music() -> void:
 	for p in _players.values():
 		(p as AudioStreamPlayer).stop()
 
-func reset_music() -> void:
+func _reset_music() -> void:
 	for p in _players.values():
 		var player := p as AudioStreamPlayer
 		player.volume_db = VOL_MIN

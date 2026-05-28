@@ -52,7 +52,7 @@ func _update_level():
 	$Level.text = str(Stats.level)	
 
 func _on_pearls_changed():
-	pearl_label.text = str(Stats.collected_pearls)
+	pearl_label.text = str(SaveManager.current_save.pearls + Stats.collected_pearls)
 	
 	if pearl_tween and pearl_tween.is_valid():
 		pearl_tween.kill()

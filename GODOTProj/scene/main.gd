@@ -66,9 +66,9 @@ func start_game(map_to_load: PackedScene) -> void:
 
 func _on_vague_terminee(numero: int) -> void:
 	# Met à jour la vague max si on bat le record
-	if current_save and numero > current_save.max_wave_reached:
-		current_save.max_wave_reached = numero
-		save_game()
+	if SaveManager.current_save and numero > SaveManager.current_save.max_wave_reached:
+		SaveManager.current_save.max_wave_reached = numero
+		SaveManager.save_game()
 		print("Nouveau record de vague : ", numero)
 
 func change_level(new_map_scene: PackedScene) -> void:
@@ -108,7 +108,7 @@ func open_main_menu() -> void:
 
 func open_bestiary() -> void:
 	show_menu($UI/Bestiary)
-	$UI/Bestiary.setup(current_save.max_wave_reached)
+	$UI/Bestiary.setup(SaveManager.current_save.max_wave_reached)
 	
 func game_over():
 	SaveManager.save_game()

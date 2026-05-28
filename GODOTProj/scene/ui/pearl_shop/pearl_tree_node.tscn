@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dkv6fq8xal7rk"]
+[gd_scene format=3 uid="uid://tv7ir00li1e2"]
 
 [ext_resource type="Script" uid="uid://ck4qnaun1j26p" path="res://scene/ui/pearl_shop/pearl_tree_node.gd" id="1_pc3ls"]
 [ext_resource type="Texture2D" uid="uid://bt55bhjspafhr" path="res://assets/sprites/pearl_shop/round64.png" id="2_fipoj"]
@@ -53,10 +53,12 @@ alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer" unique_id=1233662898]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_fgmap")
 theme_override_font_sizes/font_size = 16
 text = "Attaque"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Level" type="Label" parent="VBoxContainer" unique_id=89424670]
 layout_mode = 2

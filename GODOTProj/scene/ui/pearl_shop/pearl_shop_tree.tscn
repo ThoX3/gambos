@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bscjv8e8pfhhg"]
+[gd_scene format=3 uid="uid://4ycxxd0kyiod"]
 
 [ext_resource type="Script" uid="uid://qlv3py060nw0" path="res://scene/ui/pearl_shop/pearl_shop_tree.gd" id="1_iqugw"]
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_iqugw"]
@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_6ic84"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="3_j1qqk"]
 [ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="4_2e0tg"]
-[ext_resource type="PackedScene" uid="uid://dkv6fq8xal7rk" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
+[ext_resource type="PackedScene" uid="uid://tv7ir00li1e2" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_u6v75"]
 
 [node name="PearlShop" type="Control" unique_id=627456338]
@@ -96,6 +96,7 @@ alignment = 1
 [node name="SpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer" unique_id=1910061887 instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "speed"
+upgrade_name = "Vitesse"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=566447561]
 layout_mode = 2
@@ -114,11 +115,13 @@ alignment = 1
 [node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "damage"
+upgrade_name = "Attaque"
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
 [node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "attack_speed"
+upgrade_name = "Vigueur"
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=366298988]
@@ -129,11 +132,13 @@ alignment = 1
 [node name="RegenNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=832497797 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "regen"
+upgrade_name = "Soins"
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
 
 [node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "xp_gain"
+upgrade_name = "Sagesse"
 parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
@@ -144,11 +149,13 @@ alignment = 1
 [node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=734206904 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "luck"
+upgrade_name = "Chance"
 parent_node = NodePath("../../VBoxContainer4/RegenNode")
 
 [node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "skip_map"
+upgrade_name = "Avance initiale"
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]

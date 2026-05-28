@@ -1,32 +1,38 @@
 extends Control
 
-signal buy_requested(node: Control)
+signal buy_requested(id: String, cost: int)
 
 @export var upgrade_id: String = "health"
+@export var upgrade_name: String = "Vie"
 @export var max_level: int = 3
 @export var base_cost: int = 1
 @export var parent_node: Control 
-@export var arc_to_parent: Control
 
-var current_level: int = 0
+var current_level = 0
 var current_cost: int = 0
 var is_unlocked: bool = false
 
 @onready var buy_button = $TextureButton
 @onready var level_label = $VBoxContainer/Level
 @onready var price_label = $VBoxContainer/HBoxContainer/Price
+@onready var title_label = $VBoxContainer/Title
 
 
 func _ready():
-	buy_button.pressed.connect(func(): buy_requested.emit(self))
+	buy_button.pressed.connect(func(): buy_requested.emit(upgrade_id, current_cost))
+	title_label.text = upgrade_name
 
 func update_node() -> void:
 	# 1. Get current level from save data
 	current_level = SaveManager.current_save.get("upgrade_" + upgrade_id + "_level")
-	if current_level == null: current_level = 0 # Fallback
+	if current_level == null: 
+		push_error("Pearl shop: Can't find " + upgrade_id + " in save")
+		current_level = 0 # Fallback
 	
 	current_cost = base_cost + (current_level * 1) # Adjust your math here!
 	level_label.text = str(current_level) + "/" + str(max_level)
+	if price_label:
+		price_label.text = str(current_cost)
 	
 	# 2. Check Unlock Condition (Parent must be at least level 1)
 	if parent_node == null:

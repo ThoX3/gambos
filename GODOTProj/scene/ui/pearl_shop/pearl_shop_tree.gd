@@ -20,7 +20,7 @@ func _ready() -> void:
 			if node.has_signal("buy_requested"):
 				node.buy_requested.connect(_on_node_buy_requested)
 	
-	first_node.get_tree().root.grab_focus.call_deferred()
+	first_node.get_node("TextureButton").grab_focus.call_deferred()
 
 	refresh_shop()
 			
@@ -61,10 +61,12 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			"health": SaveManager.current_save.upgrade_health_level += 1
 			"damage": SaveManager.current_save.upgrade_damage_level += 1
 			"speed":  SaveManager.current_save.upgrade_speed_level += 1
-			"speed_damage": SaveManager.current_save.upgrade_speed_damage_level += 1
+			"attack_speed": SaveManager.current_save.upgrade_attack_speed_level += 1
 			"xp_gain": SaveManager.current_save.upgrade_xp_gain_level += 1
 			"luck": SaveManager.current_save.upgrade_luck_level += 1
 			"regen": SaveManager.current_save.upgrade_regen_level += 1
+			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
+			_: push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()		
 		refresh_shop()

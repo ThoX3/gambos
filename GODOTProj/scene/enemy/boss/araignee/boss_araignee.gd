@@ -97,7 +97,6 @@ func _declencher_nova() -> void:
 			
 		get_parent().add_child(proj)
 
-
 func take_damage(amount: int) -> void:
 	super.take_damage(amount)
 	if not is_instance_valid(self) or is_queued_for_deletion():
@@ -109,9 +108,7 @@ func _on_boss_mort() -> void:
 	SaveManager.save_game()
 	# Signal en temps réel pour débloquer sans relancer la partie
 	GameManager.boss_araignee_vaincu.emit()
-	print("✅ Boss araignée vaincu ! Attaque sable débloquée immédiatement.")
 
 func _sauvegarder_victoire() -> void:
 	SaveManager.current_save.boss_araignee_battu = true
 	SaveManager.save_game()
-	print("✅ Boss araignée battu ! Attaque sable débloquée.")

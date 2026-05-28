@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cggxevpadx4nt" path="res://scene/ui/main_menu.tscn" id="4_wscrc"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
 [ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
+[ext_resource type="PackedScene" path="res://scene/ui/bestiary/bestiary.tscn" id="6_mswub"]
 [ext_resource type="PackedScene" uid="uid://bscjv8e8pfhhg" path="res://scene/ui/pearl_shop/pearl_shop_tree.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
@@ -24,6 +25,8 @@ starting_map = ExtResource("3_wp4xf")
 [node name="MainMenu" parent="UI" unique_id=1274161686 instance=ExtResource("4_wscrc")]
 
 [node name="PearlShop" parent="UI" unique_id=627456338 instance=ExtResource("5_wscrc")]
+
+[node name="Bestiary" parent="UI" unique_id=847250004 instance=ExtResource("6_mswub")]
 
 [node name="Hud" parent="UI" unique_id=375714786 instance=ExtResource("4_brvut")]
 visible = false

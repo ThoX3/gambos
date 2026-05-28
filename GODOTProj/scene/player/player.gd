@@ -269,4 +269,4 @@ func _tirer_sable(direction: Vector2) -> void:
 
 func _on_boss_araignee_vaincu() -> void:
 	_attaque_sable_debloquee = true
-	print("🔓 Attaque sable débloquée en jeu !")
+	print("Attaque sable débloquée !")

@@ -22,7 +22,9 @@ func _ready() -> void:
 	GameManager.start_game.connect(_on_start)
 	
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
+	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/PearlShop.back_button_pressed.connect(open_main_menu)
+	$UI/Bestiary.back_button_pressed.connect(open_main_menu)
 	%GameOver.quit_button_pressed.connect(game_over)
 	
 	if GameManager.skip_menu:
@@ -56,24 +58,27 @@ func start_game(map_to_load: PackedScene) -> void:
 	$UI/Hud._on_start()
 	$UI/Hud.visible = true
 	
-	# Start WaveManager
-	$World/WaveManager.start_waves()
+	# Start WaveManager + connect vague_terminee pour la sauvegarde
+	var wm: Node = $World/WaveManager
+	wm.start_waves()
+	if not wm.vague_terminee.is_connected(_on_vague_terminee):
+		wm.vague_terminee.connect(_on_vague_terminee)
+
+func _on_vague_terminee(numero: int) -> void:
+	# Met à jour la vague max si on bat le record
+	if SaveManager.current_save and numero > SaveManager.current_save.max_wave_reached:
+		SaveManager.current_save.max_wave_reached = numero
+		SaveManager.save_game()
+		print("Nouveau record de vague : ", numero)
 
 func change_level(new_map_scene: PackedScene) -> void:
-	# 1. Remove the old map
 	if current_map:
 		current_map.queue_free()
-		
-	# 2. Load the new map
 	if new_map_scene:
 		current_map = new_map_scene.instantiate()
 		game_world.add_child(current_map)
-		
-	# Note: The player is completely untouched during this transition!
-	# You would likely reset their position to Vector2.ZERO here.
 
 func _clear_world() -> void:
-	# Wipes the game clean (useful for "Restarting" after a Game Over)
 	if current_player:
 		current_player.queue_free()
 	if current_map:
@@ -92,7 +97,6 @@ func show_menu(menu_to_show: Control) -> void:
 	for child in ui_layer.get_children():
 		if child is Control:
 			child.visible = false 
-			
 	menu_to_show.visible = true
 
 func open_pearl_shop() -> void:
@@ -101,6 +105,10 @@ func open_pearl_shop() -> void:
 
 func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
+
+func open_bestiary() -> void:
+	show_menu($UI/Bestiary)
+	$UI/Bestiary.setup(SaveManager.current_save.max_wave_reached)
 	
 func game_over():
 	SaveManager.save_game()

@@ -3,6 +3,7 @@ class_name EnemyData
 
 @export_group("Identity")
 @export var texture: SpriteFrames
+@export var name: String
 
 @export_group("HP & Defense")
 @export var max_hp: int

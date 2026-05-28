@@ -5,9 +5,16 @@
 [ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="2_irh2w"]
 [ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_6ic84"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="3_j1qqk"]
-[ext_resource type="Texture2D" uid="uid://inj1a7pt6ygx" path="res://assets/sprites/pearl_shop/godess.png" id="4_2e0tg"]
+[ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_w5y77"]
 [ext_resource type="PackedScene" uid="uid://tv7ir00li1e2" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_u6v75"]
+
+[sub_resource type="Gradient" id="Gradient_w5y77"]
+offsets = PackedFloat32Array(0, 0.07530121, 0.94578314, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iqugw"]
+gradient = SubResource("Gradient_w5y77")
 
 [node name="PearlShop" type="Control" unique_id=627456338]
 layout_mode = 3
@@ -60,15 +67,15 @@ alignment = 1
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=915679690]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
 layout_mode = 2
-texture = ExtResource("4_2e0tg")
+size_flags_horizontal = 4
+texture = ExtResource("4_w5y77")
 expand_mode = 3
+stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]
 layout_mode = 2
@@ -76,83 +83,100 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 24
 
-[node name="TreeScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=440297183]
+[node name="FadeMask" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515249060]
+clip_children = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_iqugw")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask" unique_id=356928227]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+
+[node name="TreeScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer" unique_id=440297183]
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll" unique_id=2127171886]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll" unique_id=2127171886]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=269666704]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=269666704]
 layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="SpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer" unique_id=1910061887 instance=ExtResource("5_w5y77")]
+[node name="SpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer" unique_id=1910061887 instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "speed"
 upgrade_name = "Vitesse"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=566447561]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=566447561]
 layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="HealthNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=563677094 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="HealthNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=563677094 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
 layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "damage"
 upgrade_name = "Attaque"
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
-[node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "attack_speed"
 upgrade_name = "Vigueur"
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=366298988]
+[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=366298988]
 layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="RegenNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=832497797 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="RegenNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=832497797 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "regen"
 upgrade_name = "Soins"
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
 
-[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "xp_gain"
 upgrade_name = "Sagesse"
 parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
+[node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
 layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=734206904 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=734206904 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "luck"
 upgrade_name = "Chance"
 parent_node = NodePath("../../VBoxContainer4/RegenNode")
 
-[node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "skip_map"
 upgrade_name = "Avance initiale"

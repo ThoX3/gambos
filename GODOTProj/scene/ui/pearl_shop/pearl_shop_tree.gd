@@ -3,9 +3,10 @@ extends Control
 signal back_button_pressed
 
 @onready var pearl_count_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
-@onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TreeScroll/HBoxContainer
+@onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer
 @onready var back_button: Button = $MarginContainer/VBoxContainer/BackButton
 @onready var reset_button: Button = $ResetPurchasesButton
+@onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
 
 func _ready() -> void:
 	back_button.pressed.connect(hide_shop)
@@ -19,7 +20,8 @@ func _ready() -> void:
 			if node.has_signal("buy_requested"):
 				node.buy_requested.connect(_on_node_buy_requested)
 	
-	visibility_changed.connect(_on_visibility_changed)	
+	first_node.get_tree().root.grab_focus.call_deferred()
+
 	refresh_shop()
 			
 func refresh_shop() -> void:
@@ -32,10 +34,6 @@ func refresh_shop() -> void:
 				node.update_node()
 
 	_request_redraw()
-
-func _on_visibility_changed() -> void:
-	if visible:
-		_request_redraw()
 
 func _request_redraw() -> void:
 	if is_inside_tree():

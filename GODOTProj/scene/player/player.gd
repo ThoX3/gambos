@@ -157,7 +157,7 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	
 	if projectile_data:
 		projectile_data.damage += save.upgrade_damage_level * 1
-		projectile_data.fire_rate += save.upgrade_speed_damage_level * 0.1
+		projectile_data.fire_rate += save.upgrade_attack_speed_level * 0.1
 		projectile_data.projectile_count += save.upgrade_projectile_level
 
 func _on_level_up_over_animation_finished() -> void:

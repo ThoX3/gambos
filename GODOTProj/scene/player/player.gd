@@ -15,6 +15,10 @@ var is_invincible: bool = false
 var blink_timer: float = 0.0
 var _fire_timer: float = 0.0
 
+var xp_multiplier: float = 1.0
+var regen_rate: float = 0.0
+var _regen_timer: float = 0.0
+
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
 var _attaque_sable_debloquee: bool = false
@@ -41,7 +45,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if regen_rate > 0 and Stats.current_health < Stats.max_health and Stats.current_health > 0:
+		_regen_timer += delta
+		if _regen_timer >= 1.0:
+			_regen_timer -= 1.0
+			Stats.current_health += regen_rate
+			if Stats.current_health > Stats.max_health:
+				Stats.current_health = Stats.max_health
+			GameManager.health_changed.emit()
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -99,7 +110,7 @@ func _physics_process(delta):
 
 
 func gainXP(value: int):
-	Stats.currentXp += value
+	Stats.currentXp += int(value * xp_multiplier)
 	
 	if Stats.currentXp >= Stats.requiredXp:
 		levelUp()
@@ -155,8 +166,11 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	
 	speed += save.upgrade_speed_level * 20.0
 	
+	xp_multiplier = 1.0 + (save.upgrade_xp_gain_level * 0.1)
+	regen_rate = save.upgrade_regen_level * 1.0
+	
 	if projectile_data:
-		projectile_data.damage += save.upgrade_damage_level * 1
+		projectile_data.damage += save.upgrade_damage_level * 1.0
 		projectile_data.fire_rate += save.upgrade_attack_speed_level * 0.1
 		projectile_data.projectile_count += save.upgrade_projectile_level
 

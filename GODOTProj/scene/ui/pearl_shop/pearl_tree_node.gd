@@ -88,3 +88,4 @@ func _set_labels_color(color: Color) -> void:
 	title_label.modulate = color
 	level_label.modulate = color
 	price_label.modulate = color
+			

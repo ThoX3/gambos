@@ -1,16 +1,18 @@
 extends Control
 
-signal back_button_pressed
+signal menu_button_pressed
 
 @onready var pearl_count_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
 @onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer
 @onready var tree_mask: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask
-@onready var back_button: Button = $MarginContainer/VBoxContainer/BackButton
+@onready var menu_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/MenuButton
+@onready var play_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/PlayButton
 @onready var reset_button: Button = $ResetPurchasesButton
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
 
 func _ready() -> void:
-	back_button.pressed.connect(hide_shop)
+	menu_button.pressed.connect(open_menu)
+	play_button.pressed.connect(play)
 	reset_button.pressed.connect(reset_save)
 	
 	tree_mask.clip_children = CLIP_CHILDREN_ONLY
@@ -49,7 +51,7 @@ func _on_tree_draw() -> void:
 				var start_pos = (node.global_position + node.size / 2.0) - tree.global_position
 				var end_pos = (node.parent_node.global_position + node.parent_node.size / 2.0) - tree.global_position
 				
-				var color = Color(0.9, 0.75, 0.1, 1.0) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
+				var color = Color(0.8156863, 0.73333335, 0.36862746) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
 				var width = 6.0 if node.is_unlocked else 4.0
 				
 				tree.draw_line(end_pos, start_pos, color, width, true)
@@ -73,11 +75,23 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 		SaveManager.save_game()		
 		refresh_shop()
 		
-func hide_shop() -> void:
+func open_menu() -> void:
 	self.visible = false
-	back_button_pressed.emit()
+	menu_button_pressed.emit()
+	
+func play() -> void:
+	self.visible = false
+	# ...
 	
 func reset_save():
 	SaveManager.current_save = SaveData.new()
 	SaveManager.save_game()
 	refresh_shop()
+
+func was_opened_from_game_over(param: bool):
+	if param:
+		play_button.visible = true
+		menu_button.text = "Menu principal"
+	else:
+		play_button.visible = false
+		menu_button.text = "Retour"

@@ -205,12 +205,26 @@ layout_mode = 2
 texture = ExtResource("6_u6v75")
 expand_mode = 3
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1820389118]
+[node name="NavigationButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1316592912]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=1820389118]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_irh2w")
 text = "Retour"
+flat = true
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=338214453]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_irh2w")
+text = "Rejouer
+"
 flat = true
 
 [node name="ResetPurchasesButton" type="Button" parent="." unique_id=60559786]

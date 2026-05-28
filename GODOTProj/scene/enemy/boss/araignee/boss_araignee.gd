@@ -97,8 +97,6 @@ func _declencher_nova() -> void:
 			
 		get_parent().add_child(proj)
 
-const SAVE_PATH = "user://gambos/save.tres"
-
 func take_damage(amount: int) -> void:
 	super.take_damage(amount)
 	if not is_instance_valid(self) or is_queued_for_deletion():
@@ -106,21 +104,11 @@ func take_damage(amount: int) -> void:
 
 func _on_boss_mort() -> void:
 	# Sauvegarde persistante
-	var save: SaveData
-	if ResourceLoader.exists(SAVE_PATH):
-		save = ResourceLoader.load(SAVE_PATH) as SaveData
-	else:
-		save = SaveData.new()
-	save.boss_araignee_battu = true
-	ResourceSaver.save(save, SAVE_PATH)
+	SaveManager.current_save.boss_araignee_battu = true
+	SaveManager.save_game()
 	# Signal en temps réel pour débloquer sans relancer la partie
 	GameManager.boss_araignee_vaincu.emit()
 
 func _sauvegarder_victoire() -> void:
-	var save: SaveData
-	if ResourceLoader.exists(SAVE_PATH):
-		save = ResourceLoader.load(SAVE_PATH) as SaveData
-	else:
-		save = SaveData.new()
-	save.boss_araignee_battu = true
-	ResourceSaver.save(save, SAVE_PATH)
+	SaveManager.current_save.boss_araignee_battu = true
+	SaveManager.save_game()

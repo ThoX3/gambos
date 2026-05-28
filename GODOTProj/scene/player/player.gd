@@ -20,8 +20,6 @@ var _fire_timer: float = 0.0
 var _attaque_sable_debloquee: bool = false
 var _sable_fire_timer: float = 0.0
 
-const SAVE_PATH = "user://gambos/save.tres"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,10 +29,8 @@ func _ready() -> void:
 	$LevelUpUnder.hide()
 	_on_initialize()
 	# Charger l'état de débloquage depuis la sauvegarde
-	if ResourceLoader.exists(SAVE_PATH):
-		var save = ResourceLoader.load(SAVE_PATH) as SaveData
-		if save:
-			_attaque_sable_debloquee = save.boss_araignee_battu
+	if SaveManager.current_save:
+		_attaque_sable_debloquee = SaveManager.current_save.boss_araignee_battu
 			
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()

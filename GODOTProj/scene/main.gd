@@ -13,16 +13,9 @@ extends Node
 var current_player: CharacterBody2D = null
 var current_map: Node2D = null
 
-# --- SAVES ---
-const SAVE_DIR = "user://gambos"
-const SAVE_PATH = "user://gambos/save.tres"
-var current_save: SaveData
-
 var center: Vector2 = Vector2(1312.0, 736.0)
 
 func _ready() -> void:
-	load_game()
-	
 	if not (starting_map and player_scene):
 		push_error("Main: Missing Player or Starting Map in the Inspector!")
 		
@@ -47,8 +40,8 @@ func start_game(map_to_load: PackedScene) -> void:
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
-	if current_save:
-		current_player.apply_pearl_upgrades(current_save)
+	if SaveManager.current_save:
+		current_player.apply_pearl_upgrades(SaveManager.current_save)
 	
 	if current_player.has_signal("health_depleted"):
 		current_player.health_depleted.connect(_on_player_health_depleted)
@@ -93,33 +86,12 @@ func _clear_world() -> void:
 		
 func _on_player_health_depleted():
 	%GameOver/LayerGameOver.visible = true
-	current_save.pearls += current_player.Stats.collected_pearls
-	save_game()
+	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.save_game()
 	get_tree().paused = true
 	
 func _on_start():
 	start_game(starting_map)
-
-func save_game() -> void:
-	if not DirAccess.dir_exists_absolute(SAVE_DIR):
-		var err = DirAccess.make_dir_recursive_absolute(SAVE_DIR)
-		if err != OK:
-			push_error("Failed to create save directory: ", err)
-			return
-
-	var result = ResourceSaver.save(current_save, SAVE_PATH)
-	if result == OK:
-		print("Game saved successfully!")
-	else:
-		push_error("Failed to save game. Error code: ", result)
-		
-func load_game() -> void:
-	if ResourceLoader.exists(SAVE_PATH):
-		current_save = ResourceLoader.load(SAVE_PATH) as SaveData
-		print("Save loaded! Pearls: ", current_save.pearls)
-	else:
-		current_save = SaveData.new()
-		print("No save found. Created new save profile.")
 
 func show_menu(menu_to_show: Control) -> void:
 	for child in ui_layer.get_children():
@@ -139,6 +111,6 @@ func open_bestiary() -> void:
 	$UI/Bestiary.setup(current_save.max_wave_reached)
 	
 func game_over():
-	save_game()
+	SaveManager.save_game()
 	get_tree().paused = false
 	get_tree().reload_current_scene()

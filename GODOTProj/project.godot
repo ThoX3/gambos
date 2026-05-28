@@ -20,6 +20,7 @@ config/icon="uid://ccsps854k8dns"
 GameManager="*uid://ddtwp7cwnbrva"
 UpgradeManager="*uid://cg5imskw71qwf"
 AudioManager="*uid://c7aps3wct67pj"
+SaveManager="*uid://bt7phbd00ot07"
 
 [debug]
 

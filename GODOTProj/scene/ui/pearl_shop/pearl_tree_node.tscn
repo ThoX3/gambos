@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://tv7ir00li1e2"]
 
 [ext_resource type="Script" uid="uid://ck4qnaun1j26p" path="res://scene/ui/pearl_shop/pearl_tree_node.gd" id="1_pc3ls"]
-[ext_resource type="Texture2D" uid="uid://bt55bhjspafhr" path="res://assets/sprites/pearl_shop/round64.png" id="2_fipoj"]
+[ext_resource type="Texture2D" uid="uid://c8a5v8mcxyuwf" path="res://assets/sprites/pearl_shop/normal.png" id="2_urf48"]
 [ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_fgmap"]
+[ext_resource type="Texture2D" uid="uid://drusnwbconaq4" path="res://assets/sprites/pearl_shop/normal_hovered.png" id="3_vccej"]
+[ext_resource type="Texture2D" uid="uid://d2f5qwetbil2q" path="res://assets/sprites/pearl_shop/too_expensive.png" id="4_dkipg"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
 [ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
+[ext_resource type="Texture2D" uid="uid://bibp1p2g7gx72" path="res://assets/sprites/pearl_shop/lock.png" id="7_fgmap"]
 
 [node name="PearlTreeNode" type="Control" unique_id=1910061887]
 custom_minimum_size = Vector2(128, 128)
@@ -33,7 +36,11 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("2_fipoj")
+texture_normal = ExtResource("2_urf48")
+texture_pressed = ExtResource("2_urf48")
+texture_hover = ExtResource("3_vccej")
+texture_disabled = ExtResource("4_dkipg")
+texture_focused = ExtResource("3_vccej")
 stretch_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=812178132]
@@ -83,9 +90,29 @@ text = "1"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1638615447]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="PearlIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer/MarginContainer" unique_id=42789190]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("6_vccej")
 expand_mode = 3
+
+[node name="LockOverlay" type="MarginContainer" parent="." unique_id=1226348214]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="TextureRect" type="TextureRect" parent="LockOverlay" unique_id=1791371933]
+self_modulate = Color(1, 1, 0.8392157, 1)
+layout_mode = 2
+texture = ExtResource("7_fgmap")
+stretch_mode = 5

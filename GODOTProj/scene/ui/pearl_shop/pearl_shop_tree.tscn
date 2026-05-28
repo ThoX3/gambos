@@ -10,8 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_u6v75"]
 
 [sub_resource type="Gradient" id="Gradient_w5y77"]
-offsets = PackedFloat32Array(0, 0.07530121, 0.94578314, 1)
+offsets = PackedFloat32Array(0, 0.06666667, 0.93333334, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 30
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iqugw"]
 gradient = SubResource("Gradient_w5y77")
@@ -84,7 +86,6 @@ size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 24
 
 [node name="FadeMask" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515249060]
-clip_children = 1
 layout_mode = 2
 size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_iqugw")

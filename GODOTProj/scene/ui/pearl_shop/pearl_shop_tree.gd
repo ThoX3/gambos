@@ -4,6 +4,7 @@ signal back_button_pressed
 
 @onready var pearl_count_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
 @onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer
+@onready var tree_mask: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask
 @onready var back_button: Button = $MarginContainer/VBoxContainer/BackButton
 @onready var reset_button: Button = $ResetPurchasesButton
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
@@ -12,6 +13,7 @@ func _ready() -> void:
 	back_button.pressed.connect(hide_shop)
 	reset_button.pressed.connect(reset_save)
 	
+	tree_mask.clip_children = CLIP_CHILDREN_ONLY
 	tree.draw.connect(_on_tree_draw)
 	tree.sort_children.connect(tree.queue_redraw)
 	

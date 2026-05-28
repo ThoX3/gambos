@@ -167,10 +167,10 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	speed += save.upgrade_speed_level * 20.0
 	
 	xp_multiplier = 1.0 + (save.upgrade_xp_gain_level * 0.1)
-	regen_rate = save.upgrade_regen_level * 1.0
+	regen_rate = save.upgrade_regen_level * 0.1
 	
 	if projectile_data:
-		projectile_data.damage += save.upgrade_damage_level * 1.0
+		projectile_data.damage += save.upgrade_damage_level * 1
 		projectile_data.fire_rate += save.upgrade_attack_speed_level * 0.1
 		projectile_data.projectile_count += save.upgrade_projectile_level
 

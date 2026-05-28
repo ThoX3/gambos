@@ -20,11 +20,12 @@ func load_upgrades():
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if file_name.ends_with(".tres"):
-				var resources = load(path_to_upgrade + file_name)
+			if file_name.ends_with(".tres") or file_name.ends_with(".tres.remap"):
+				var resources = load(path_to_upgrade + file_name.trim_suffix(".remap"))
 				if resources is upgradeData:
 					all_upgrades.append(resources)
 			file_name = dir.get_next()
+		dir.list_dir_end()
 	print("Upgrades chargées : ", all_upgrades.size())
 	
 func get_random_upgrades(count: int) -> Array[upgradeData]:

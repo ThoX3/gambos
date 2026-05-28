@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_alvd0")
-budget_base = 15.0
-budget_facteur = 1.0
+budget_exposant = 1.0
 budget_variance = 0.0
+duree_base = 10.0
 duree_par_vague = 0.0

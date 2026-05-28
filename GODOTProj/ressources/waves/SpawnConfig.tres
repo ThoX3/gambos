@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://bjiu7nnwxkwj5"]
 
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="1_dja2t"]
-[ext_resource type="Script" path="res://ressources/waves/EntreeBoss.gd" id="1_uogjb"]
-[ext_resource type="Script" path="res://ressources/waves/EntreeEnnemi.gd" id="1_vx4ej"]
-[ext_resource type="Resource" uid="uid://fa6rnfhtkfxd" path="res://ressources/enemy/Boss1.tres" id="2_ka2uf"]
+[ext_resource type="Resource" uid="uid://cqb5hsm2bn2v" path="res://ressources/enemy/boss/Boss_araignee.tres" id="1_ka2uf"]
+[ext_resource type="Script" uid="uid://dj14x25prjjx0" path="res://ressources/waves/EntreeBoss.gd" id="1_uogjb"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_vx4ej"]
+[ext_resource type="PackedScene" uid="uid://c53w7eej1fjlq" path="res://scene/enemy/boss/araignee/boss_araignee.tscn" id="2_ka2uf"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="3_76djd"]
 [ext_resource type="Resource" uid="uid://0585j1evwitf" path="res://ressources/enemy/Woodlouse.tres" id="4_yufnv"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="6_b1bdb"]
@@ -12,10 +13,10 @@
 
 [sub_resource type="Resource" id="Resource_mimtg"]
 script = ExtResource("1_uogjb")
-scene = ExtResource("3_76djd")
-data = ExtResource("2_ka2uf")
+scene = ExtResource("2_ka2uf")
+data = ExtResource("1_ka2uf")
+vague_exacte = 20
 duree = 30.0
-metadata/_custom_type_script = "uid://dj14x25prjjx0"
 
 [sub_resource type="Resource" id="Resource_ud2lt"]
 script = ExtResource("1_vx4ej")
@@ -27,20 +28,21 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 script = ExtResource("1_vx4ej")
 scene = ExtResource("3_76djd")
 data = ExtResource("6_b1bdb")
+vague_apparition = 5
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_qt35s"]
 script = ExtResource("1_vx4ej")
 scene = ExtResource("3_76djd")
 data = ExtResource("7_jf8vj")
-vague_apparition = 4
+vague_apparition = 10
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_bu5s6"]
 script = ExtResource("1_vx4ej")
 scene = ExtResource("3_76djd")
 data = ExtResource("8_ch6k0")
-vague_apparition = 6
+vague_apparition = 15
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [resource]

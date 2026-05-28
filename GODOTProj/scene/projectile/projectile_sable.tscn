@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d3yhcam5xqjel"]
+
+[ext_resource type="Script" path="res://scene/projectile/projectile_sable.gd" id="1_p60wn"]
+[ext_resource type="SpriteFrames" uid="uid://bdlln8ps8gqh0" path="res://assets/sprites/projectile/projectile_sable.tres" id="2_ttvui"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_praqp"]
+radius = 25.0
+
+[node name="ProjectileSable" type="Area2D" unique_id=1473282758]
+script = ExtResource("1_p60wn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1235412814]
+shape = SubResource("CircleShape2D_praqp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1529896253]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_ttvui")
+animation = &"create"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

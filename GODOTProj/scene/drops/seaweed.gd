@@ -9,7 +9,8 @@ var isCollected = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimatedSprite2D.play("Idle")
-	scale = Vector2(xp_amount/20.0+0.5, xp_amount/20.0+0.5)
+	var final_scale : float = clamp(xp_amount / 20.0 + 0.5, 0.5, 1.5)
+	scale = Vector2(final_scale, final_scale)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

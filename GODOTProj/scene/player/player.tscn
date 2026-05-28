@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_5lop3"]
 [ext_resource type="Resource" uid="uid://4y7sf3ctnil1" path="res://ressources/projectile/default_projectile.tres" id="3_oen5c"]
 [ext_resource type="PackedScene" uid="uid://d0edwafabgfqd" path="res://scene/projectile/projectile.tscn" id="4_5g408"]
+[ext_resource type="Resource" uid="uid://dwg2m2lxcqgv5" path="res://ressources/projectile/ProjectileDataSable.tres" id="5_lrcci"]
 [ext_resource type="Texture2D" uid="uid://c8s67k7ce2nk8" path="res://assets/sprites/HUD/Level_up/Particle1.png" id="5_p3aiu"]
 [ext_resource type="Texture2D" uid="uid://b0y63fcaklrtf" path="res://assets/sprites/HUD/Level_up/Particle2.png" id="6_f5r2w"]
+[ext_resource type="PackedScene" uid="uid://d3yhcam5xqjel" path="res://scene/projectile/projectile_sable.tscn" id="6_fspl2"]
 [ext_resource type="Texture2D" uid="uid://by7j4jjhopq81" path="res://assets/sprites/HUD/Level_up/Particle3.png" id="7_oen5c"]
 [ext_resource type="Texture2D" uid="uid://dc36a4fq1saoj" path="res://assets/sprites/HUD/Level_up/Particle4.png" id="8_5g408"]
 [ext_resource type="Texture2D" uid="uid://mikbrh3av0wx" path="res://assets/sprites/HUD/Level_up/Particle5.png" id="9_sc4n2"]
@@ -15,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c7y3xmnuu2qla" path="res://assets/sprites/HUD/Level_up/Particle7.png" id="11_fspl2"]
 [ext_resource type="Texture2D" uid="uid://ub2m8ak6j44s" path="res://assets/sprites/HUD/Level_up/Particle8.png" id="12_eeiom"]
 [ext_resource type="Texture2D" uid="uid://mci5x4xob34n" path="res://assets/sprites/HUD/Level_up/background.png" id="13_gt2ev"]
-[ext_resource type="AudioStream" uid="uid://bha2f7rtpg77x" path="res://assets/sounds/Gambos_hurt.mp3" id="16_5g408"]
+[ext_resource type="AudioStream" uid="uid://bha2f7rtpg77x" path="res://assets/sounds/effect/Gambos_hurt.mp3" id="16_5g408"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ajqqa"]
 animations = [{
@@ -79,6 +81,8 @@ script = ExtResource("1_v7pse")
 Stats = ExtResource("2_5lop3")
 projectile_data = ExtResource("3_oen5c")
 projectile_scene = ExtResource("4_5g408")
+projectile_sable_data = ExtResource("5_lrcci")
+projectile_sable_scene = ExtResource("6_fspl2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
 z_index = 1

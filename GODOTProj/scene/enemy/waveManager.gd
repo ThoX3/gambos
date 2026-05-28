@@ -1,4 +1,3 @@
-class_name WaveManager
 extends Node
 
 @export var spawn_config: SpawnConfig        # ← le seul fichier de config
@@ -8,6 +7,7 @@ extends Node
 @export var joueur: Node2D
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
+@export var multiplicateur_taille_boss: float = 2.0
 
 signal vague_demarree(numero: int)
 signal vague_terminee(numero: int)
@@ -175,9 +175,11 @@ func _spawner_depuis_liste() -> void:
 
 func _spawner_boss(boss_entry: EntreeBoss) -> void:
 	for i in range(boss_entry.nb_ennemis):
-		var ennemi: Enemy_Base = boss_entry.scene.instantiate()
+		var ennemi: Boss_Base = boss_entry.scene.instantiate() as Boss_Base
 		ennemi.stats           = boss_entry.data
 		ennemi.global_position = _calculer_position_spawn()
+		conteneur_ennemis.add_child(ennemi)
+		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
 		conteneur_ennemis.add_child(ennemi)
 
 func _calculer_position_spawn() -> Vector2:

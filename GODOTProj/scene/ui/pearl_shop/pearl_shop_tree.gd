@@ -9,11 +9,24 @@ signal menu_button_pressed
 @onready var play_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/PlayButton
 @onready var reset_button: Button = $ResetPurchasesButton
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
+@onready var node_infos_window = $NodeInfos
+
+var hover_timer: Timer
+var currently_focused_node: Control = null
 
 func _ready() -> void:
 	menu_button.pressed.connect(open_menu)
 	play_button.pressed.connect(play)
 	reset_button.pressed.connect(reset_save)
+	
+	menu_button.focus_entered.connect(_on_non_node_focus_entered)
+	play_button.focus_entered.connect(_on_non_node_focus_entered)
+	reset_button.focus_entered.connect(_on_non_node_focus_entered)
+	
+	hover_timer = Timer.new()
+	hover_timer.one_shot = true
+	hover_timer.timeout.connect(_show_node_infos_window)
+	add_child(hover_timer)
 	
 	tree_mask.clip_children = CLIP_CHILDREN_ONLY
 	tree.draw.connect(_on_tree_draw)
@@ -28,6 +41,8 @@ func _ready() -> void:
 	
 	visibility_changed.connect(_on_visibility_changed)
 
+	node_infos_window.visible = false
+
 	refresh_shop()
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
@@ -35,14 +50,42 @@ func _ready() -> void:
 func _on_visibility_changed() -> void:
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
+	else:
+		hover_timer.stop()
+		if node_infos_window:
+			node_infos_window.visible = false
+
+func _on_non_node_focus_entered() -> void:
+	currently_focused_node = null
+	hover_timer.stop()
+	node_infos_window.visible = false
 
 func _on_node_focus_entered(node: Control) -> void:
-	var scroll: ScrollContainer = tree.get_parent()
-	var node_center_in_tree = node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
-	var target_x = node_center_in_tree - (scroll.size.x / 2.0)
+	currently_focused_node = node
+	node_infos_window.visible = false
+	hover_timer.start(2.0)
 	
-	var tween = create_tween()
+	var scroll: ScrollContainer = tree.get_parent()
+	var node_center_in_tree := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
+	var target_x := node_center_in_tree - (scroll.size.x / 2.0)
+	
+	var tween := create_tween()
 	tween.tween_property(scroll, "scroll_horizontal", int(target_x), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _show_node_infos_window() -> void:
+	if currently_focused_node == null or not is_visible_in_tree():
+		return
+	
+	var description = currently_focused_node.upgrade_description if currently_focused_node.is_unlocked else "???"
+	var title = currently_focused_node.upgrade_name if currently_focused_node.is_unlocked else "???"
+	
+	node_infos_window.set_infos(title, description)
+	node_infos_window.visible = true
+	
+	var pos := currently_focused_node.global_position
+	var node_size := currently_focused_node.size
+	
+	node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
 			
 func refresh_shop() -> void:
 	var current_pearls = SaveManager.current_save.pearls

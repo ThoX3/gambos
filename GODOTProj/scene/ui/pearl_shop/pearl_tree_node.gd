@@ -4,6 +4,7 @@ signal buy_requested(id: String, cost: int)
 
 @export var upgrade_id: String = "health"
 @export var upgrade_name: String = "Vie"
+@export var upgrade_description: String = ""
 @export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
 @export var max_level: int = 3
 @export var base_cost: int = 1

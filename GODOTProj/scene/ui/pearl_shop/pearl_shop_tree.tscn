@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c0bnddu4twh7w" path="res://assets/sprites/pearl_shop/icons/xp_gain.png" id="10_r1ves"]
 [ext_resource type="Texture2D" uid="uid://cpb2ylgaenl0k" path="res://assets/sprites/pearl_shop/icons/luck.png" id="11_4wpf8"]
 [ext_resource type="Texture2D" uid="uid://6pxudlq3qkj0" path="res://assets/sprites/pearl_shop/icons/skip_map.png" id="12_qpv24"]
+[ext_resource type="PackedScene" uid="uid://bd4sq86hoarr6" path="res://scene/ui/pearl_shop/node_infos.tscn" id="16_jn2eo"]
 
 [sub_resource type="Gradient" id="Gradient_w5y77"]
 offsets = PackedFloat32Array(0, 0.06666667, 0.93333334, 1)
@@ -130,6 +131,7 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "speed"
 upgrade_name = "Vitesse"
+upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
 icon_texture = ExtResource("6_t1a07")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=566447561]
@@ -139,6 +141,7 @@ alignment = 1
 
 [node name="HealthNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=563677094 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
+upgrade_description = "Améliorer la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
 icon_texture = ExtResource("7_jn2eo")
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
@@ -151,12 +154,14 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "damage"
 upgrade_name = "Attaque"
+upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
 [node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "attack_speed"
 upgrade_name = "Vigueur"
+upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
 icon_texture = ExtResource("8_gipjf")
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
@@ -169,6 +174,7 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "regen"
 upgrade_name = "Soins"
+upgrade_description = "Améliore le processus de mue régéné-ratrice pour récupérer des points de vie au fil du temps."
 icon_texture = ExtResource("9_h5drw")
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
 
@@ -176,6 +182,7 @@ parent_node = NodePath("../../VBoxContainer3/DamageNode")
 layout_mode = 2
 upgrade_id = "xp_gain"
 upgrade_name = "Sagesse"
+upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
 icon_texture = ExtResource("10_r1ves")
 parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
 
@@ -188,6 +195,7 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "luck"
 upgrade_name = "Chance"
+upgrade_description = "Attire la bienveillance des divinités marines pour de meilleures améliorations en jeu."
 icon_texture = ExtResource("11_4wpf8")
 parent_node = NodePath("../../VBoxContainer4/RegenNode")
 
@@ -195,6 +203,7 @@ parent_node = NodePath("../../VBoxContainer4/RegenNode")
 layout_mode = 2
 upgrade_id = "skip_map"
 upgrade_name = "Avance initiale"
+upgrade_description = "Grâce à une meilleure connaissance des récifs, Gambos peut éviter les premières zones de danger."
 icon_texture = ExtResource("12_qpv24")
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
 
@@ -259,3 +268,13 @@ theme_override_fonts/font = ExtResource("3_j1qqk")
 theme_override_font_sizes/font_size = 8
 text = "Supprimer la sauvegarde"
 flat = true
+
+[node name="NodeInfos" parent="." unique_id=977595567 instance=ExtResource("16_jn2eo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 196.0
+offset_bottom = 202.0
+grow_horizontal = 1
+grow_vertical = 1

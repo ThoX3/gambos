@@ -67,6 +67,35 @@ text = "Shrimp"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ResumeSaveButton" type="Button" parent="VBoxContainer" unique_id=1948409511]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_k3dtv")
+theme_override_font_sizes/font_size = 24
+text = "Rependre la sauvegarde
+ "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ResumeSaveButton" unique_id=254101988]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -163.0
+offset_top = -24.0
+offset_right = 163.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("4_k3dtv")
+theme_override_font_sizes/normal_font_size = 19
+bbcode_enabled = true
+text = "[center]10 [img=24]res://assets/sprites/collectibles/pearl_icon.png[/img] ⋅ Map 2 ⋅ Niveau 13[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
 [node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1835074485]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -82,14 +111,28 @@ theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 24
 text = "Aller au temple"
 
-[node name="BestiaryButton" type="Button" parent="VBoxContainer"]
+[node name="BestiaryButton" type="Button" parent="VBoxContainer" unique_id=426550016]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 24
 text = "Bestiaire"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=299740571]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=839489443]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=299740571]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_e5dty")
+theme_override_font_sizes/font_size = 20
+text = "Paramètres"
+flat = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1640362949]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_e5dty")

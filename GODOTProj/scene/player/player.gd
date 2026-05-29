@@ -19,6 +19,8 @@ var xp_multiplier: float = 1.0
 var regen_rate: float = 0.0
 var _regen_timer: float = 0.0
 var thorns_damage: int = 0
+var thorns_interval: float = 0.0
+var _thorns_timer: float = 0.0
 
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
@@ -54,6 +56,16 @@ func _process(delta: float) -> void:
 			if Stats.current_health > Stats.max_health:
 				Stats.current_health = Stats.max_health
 			GameManager.health_changed.emit()
+			
+	if thorns_damage > 0:
+		_thorns_timer -= delta
+		if _thorns_timer <= 0.0:
+			var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+			if overlapping_mobs.size() > 0:
+				for mob in overlapping_mobs:
+					if mob.has_method("take_damage"):
+						mob.take_damage(thorns_damage)
+				_thorns_timer = thorns_interval
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -166,17 +178,20 @@ func _on_initialize():
 	Stats.collected_pearls = 0
 
 func apply_pearl_upgrades(save: SaveData) -> void:
-	Stats.max_health += UpgradeManager.get_pearl_upgrade_effect("health", save.upgrade_health_level)
+	Stats.max_health += UpgradeManager.get_effect_health(save.upgrade_health_level)
 	Stats.current_health = Stats.max_health
-	speed += UpgradeManager.get_pearl_upgrade_effect("speed", save.upgrade_speed_level)
-	xp_multiplier = 1.0 + UpgradeManager.get_pearl_upgrade_effect("xp_gain", save.upgrade_xp_gain_level)
-	regen_rate = UpgradeManager.get_pearl_upgrade_effect("regen", save.upgrade_regen_level)
-	thorns_damage = int(UpgradeManager.get_pearl_upgrade_effect("thorns", save.upgrade_thorns_level))
+	speed += UpgradeManager.get_effect_speed(save.upgrade_speed_level)
+	xp_multiplier = UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
+	regen_rate = UpgradeManager.get_effect_regen(save.upgrade_regen_level)
+	
+	var thorns_effects = UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)
+	thorns_damage = int(thorns_effects["damage"])
+	thorns_interval = thorns_effects["interval"]
 	
 	if projectile_data:
-		projectile_data.damage += UpgradeManager.get_pearl_upgrade_effect("damage", save.upgrade_damage_level)
-		projectile_data.fire_rate += UpgradeManager.get_pearl_upgrade_effect("attack_speed", save.upgrade_attack_speed_level)
-		projectile_data.projectile_count += int(UpgradeManager.get_pearl_upgrade_effect("projectile", save.upgrade_projectile_level))
+		projectile_data.damage += UpgradeManager.get_effect_damage(save.upgrade_damage_level)
+		projectile_data.fire_rate += UpgradeManager.get_effect_attack_speed(save.upgrade_attack_speed_level)
+		projectile_data.projectile_count += int(UpgradeManager.get_effect_projectile(save.upgrade_projectile_level))
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

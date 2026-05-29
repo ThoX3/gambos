@@ -57,3 +57,24 @@ func pick_one_weighted(list: Array[upgradeData]) -> upgradeData:
 		if random_value < current_sum:
 			return upgrade
 	return null
+
+func get_pearl_upgrade_cost(id: String, level: int) -> int:
+	# A customiser par id
+	var cost_multiplier = 2
+	var base_cost = 1
+	var cost = base_cost + (level * cost_multiplier)
+	return cost
+
+func get_pearl_upgrade_effect(id: String, level: int) -> float:
+	match id:
+		"health": return level * 5.0
+		"speed": return level * 20.0
+		"damage": return level * 1.0
+		"attack_speed": return level * 0.1
+		"xp_gain": return level * 0.1
+		"luck": return level * 1.0
+		"regen": return level * 0.1
+		"thorns": return level * 2.0
+		"skip_map": return level * 1.0
+		"projectile": return level * 1.0
+		_: return 0.0

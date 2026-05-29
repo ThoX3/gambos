@@ -166,19 +166,17 @@ func _on_initialize():
 	Stats.collected_pearls = 0
 
 func apply_pearl_upgrades(save: SaveData) -> void:
-	Stats.max_health += save.upgrade_health_level * 5.0
+	Stats.max_health += UpgradeManager.get_pearl_upgrade_effect("health", save.upgrade_health_level)
 	Stats.current_health = Stats.max_health
-	
-	speed += save.upgrade_speed_level * 20.0
-	
-	xp_multiplier = 1.0 + (save.upgrade_xp_gain_level * 0.1)
-	regen_rate = save.upgrade_regen_level * 0.1
-	thorns_damage = save.upgrade_thorns_level * 2
+	speed += UpgradeManager.get_pearl_upgrade_effect("speed", save.upgrade_speed_level)
+	xp_multiplier = 1.0 + UpgradeManager.get_pearl_upgrade_effect("xp_gain", save.upgrade_xp_gain_level)
+	regen_rate = UpgradeManager.get_pearl_upgrade_effect("regen", save.upgrade_regen_level)
+	thorns_damage = int(UpgradeManager.get_pearl_upgrade_effect("thorns", save.upgrade_thorns_level))
 	
 	if projectile_data:
-		projectile_data.damage += save.upgrade_damage_level * 1
-		projectile_data.fire_rate += save.upgrade_attack_speed_level * 0.1
-		projectile_data.projectile_count += save.upgrade_projectile_level
+		projectile_data.damage += UpgradeManager.get_pearl_upgrade_effect("damage", save.upgrade_damage_level)
+		projectile_data.fire_rate += UpgradeManager.get_pearl_upgrade_effect("attack_speed", save.upgrade_attack_speed_level)
+		projectile_data.projectile_count += int(UpgradeManager.get_pearl_upgrade_effect("projectile", save.upgrade_projectile_level))
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

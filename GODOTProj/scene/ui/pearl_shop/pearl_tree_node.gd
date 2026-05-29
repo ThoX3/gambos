@@ -48,7 +48,7 @@ func update_node() -> void:
 		push_error("Pearl shop: Can't find " + upgrade_id + " in save")
 		current_level = 0 
 	
-	current_cost = base_cost + (current_level * 2)
+	current_cost = UpgradeManager.get_pearl_upgrade_cost(upgrade_id, current_level)
 	level_label.text = str(current_level) + "/" + str(max_level)
 	if price_label:
 		price_label.text = str(current_cost)

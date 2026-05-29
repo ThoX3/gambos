@@ -23,10 +23,26 @@ func _ready() -> void:
 		for node in box.get_children():
 			if node.has_signal("buy_requested"):
 				node.buy_requested.connect(_on_node_buy_requested)
+			if node.has_node("TextureButton"):
+				node.get_node("TextureButton").focus_entered.connect(_on_node_focus_entered.bind(node))
 	
-	first_node.get_node("TextureButton").grab_focus.call_deferred()
+	visibility_changed.connect(_on_visibility_changed)
 
 	refresh_shop()
+	if visible:
+		first_node.get_node("TextureButton").grab_focus.call_deferred()
+
+func _on_visibility_changed() -> void:
+	if visible:
+		first_node.get_node("TextureButton").grab_focus.call_deferred()
+
+func _on_node_focus_entered(node: Control) -> void:
+	var scroll: ScrollContainer = tree.get_parent()
+	var node_center_in_tree = node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
+	var target_x = node_center_in_tree - (scroll.size.x / 2.0)
+	
+	var tween = create_tween()
+	tween.tween_property(scroll, "scroll_horizontal", int(target_x), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 			
 func refresh_shop() -> void:
 	var current_pearls = SaveManager.current_save.pearls
@@ -80,7 +96,8 @@ func open_menu() -> void:
 	menu_button_pressed.emit()
 	
 func play() -> void:
-	self.visible = false
+	pass
+	# self.visible = false
 	# ...
 	
 func reset_save():

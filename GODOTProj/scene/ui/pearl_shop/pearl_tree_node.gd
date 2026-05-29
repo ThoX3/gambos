@@ -29,8 +29,13 @@ const TEX_MAXED = preload("res://assets/sprites/pearl_shop/maxed.png")
 const TEX_MAXED_HOVERED = preload("res://assets/sprites/pearl_shop/maxed_hovered.png")
 
 func _ready():
-	buy_button.pressed.connect(func(): buy_requested.emit(upgrade_id, current_cost))
+	buy_button.pressed.connect(_on_buy_button_pressed)
 	title_label.text = upgrade_name
+
+func _on_buy_button_pressed():
+	if not is_unlocked or current_level >= max_level or SaveManager.current_save.pearls < current_cost:
+		return
+	buy_requested.emit(upgrade_id, current_cost)
 
 func update_node() -> void:
 	# 1. Get current level from save data
@@ -54,8 +59,9 @@ func update_node() -> void:
 	# 3. Visual Updates
 	modulate = Color.WHITE 
 	
+	buy_button.disabled = false
+	
 	if not is_unlocked:
-		buy_button.disabled = true
 		lock_overlay.visible = true
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
@@ -63,17 +69,14 @@ func update_node() -> void:
 		lock_overlay.visible = false
 		
 		if current_level >= max_level:
-			buy_button.disabled = true
 			level_label.text = "MAX"
 			_set_button_textures(TEX_MAXED, TEX_MAXED_HOVERED)
 			_set_labels_color(Color.WHITE)
 			price_label.visible = false
 		elif SaveManager.current_save.pearls < current_cost:
-			buy_button.disabled = true
 			_set_button_textures(TEX_TOO_EXPENSIVE, TEX_TOO_EXPENSIVE_HOVERED)
 			_set_labels_color(Color(0.75, 0.75, 0.75, 1.0))
 		else:
-			buy_button.disabled = false
 			_set_button_textures(TEX_NORMAL, TEX_NORMAL_HOVERED)
 			_set_labels_color(Color.WHITE)
 
@@ -88,4 +91,3 @@ func _set_labels_color(color: Color) -> void:
 	title_label.modulate = color
 	level_label.modulate = color
 	price_label.modulate = color
-			

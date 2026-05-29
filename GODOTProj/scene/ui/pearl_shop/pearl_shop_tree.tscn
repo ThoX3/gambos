@@ -105,6 +105,7 @@ theme_override_constants/margin_right = 64
 clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll" unique_id=2127171886]
 layout_mode = 2

@@ -129,6 +129,7 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			"luck": SaveManager.current_save.upgrade_luck_level += 1
 			"regen": SaveManager.current_save.upgrade_regen_level += 1
 			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
+			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
 			_: push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()		

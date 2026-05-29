@@ -18,6 +18,7 @@ var _fire_timer: float = 0.0
 var xp_multiplier: float = 1.0
 var regen_rate: float = 0.0
 var _regen_timer: float = 0.0
+var thorns_damage: int = 0
 
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
@@ -78,6 +79,10 @@ func _physics_process(delta):
 	
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
+		# Thorns damage
+		if thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+			overlapping_mobs[0].take_damage(thorns_damage)
+			
 		# Calcul de la direction opposée à l'ennemi
 		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
 		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
@@ -168,6 +173,7 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	
 	xp_multiplier = 1.0 + (save.upgrade_xp_gain_level * 0.1)
 	regen_rate = save.upgrade_regen_level * 0.1
+	thorns_damage = save.upgrade_thorns_level * 2
 	
 	if projectile_data:
 		projectile_data.damage += save.upgrade_damage_level * 1

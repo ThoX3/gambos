@@ -3,8 +3,8 @@ extends Control
 @export var Stats = Resource
 
 @onready var pearl_box = $Pearls
-@onready var pearl_label = $Pearls/Count
-@onready var wave_label = $Wave/Count  # ← ajoute cette ligne
+@onready var pearl_label = $Pearls/MarginContainer/Count
+@onready var wave_label = $Wave/Count 
 
 var pearl_tween: Tween
 
@@ -49,7 +49,7 @@ func _update_health_bar():
 	%HP.text = str(max(int(ceil(Stats.current_health)), 0)) + " / " + str(int(Stats.max_health))
 	
 func _update_level():
-	$Level.text = str(Stats.level)	
+	%Level.text = str(Stats.level)	
 
 func _on_pearls_changed():
 	pearl_label.text = str(SaveManager.current_save.pearls + Stats.collected_pearls)

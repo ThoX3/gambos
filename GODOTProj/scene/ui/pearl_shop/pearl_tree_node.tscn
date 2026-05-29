@@ -84,7 +84,7 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_fgmap")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "Attaque"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -92,7 +92,7 @@ autowrap_mode = 2
 [node name="Level" type="Label" parent="VBoxContainer" unique_id=89424670]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ncogy")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 27
 text = "0/1"
 horizontal_alignment = 1
 
@@ -105,7 +105,7 @@ alignment = 1
 [node name="Price" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=168061550]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_urf48")
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 18
 text = "1"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1638615447]

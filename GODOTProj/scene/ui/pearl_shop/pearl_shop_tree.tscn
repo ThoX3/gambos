@@ -262,6 +262,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_irh2w")
+theme_override_font_sizes/font_size = 18
 text = "Retour"
 flat = true
 
@@ -270,6 +271,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_irh2w")
+theme_override_font_sizes/font_size = 18
 text = "Rejouer
 "
 flat = true

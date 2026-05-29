@@ -133,6 +133,7 @@ upgrade_id = "speed"
 upgrade_name = "Vitesse"
 upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
 icon_texture = ExtResource("6_t1a07")
+max_level = 10
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=566447561]
 layout_mode = 2
@@ -143,6 +144,7 @@ alignment = 1
 layout_mode = 2
 upgrade_description = "Améliorer la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
 icon_texture = ExtResource("7_jn2eo")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
@@ -155,6 +157,7 @@ layout_mode = 2
 upgrade_id = "damage"
 upgrade_name = "Attaque"
 upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+max_level = 10
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
 [node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -163,6 +166,7 @@ upgrade_id = "attack_speed"
 upgrade_name = "Vigueur"
 upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
 icon_texture = ExtResource("8_gipjf")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=366298988]
@@ -176,6 +180,7 @@ upgrade_id = "regen"
 upgrade_name = "Soins"
 upgrade_description = "Améliore le processus de mue régéné-ratrice pour récupérer des points de vie au fil du temps."
 icon_texture = ExtResource("9_h5drw")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
 
 [node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -184,6 +189,7 @@ upgrade_id = "xp_gain"
 upgrade_name = "Sagesse"
 upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
 icon_texture = ExtResource("10_r1ves")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
@@ -197,6 +203,7 @@ upgrade_id = "luck"
 upgrade_name = "Chance"
 upgrade_description = "Attire la bienveillance des divinités marines pour de meilleures améliorations en jeu."
 icon_texture = ExtResource("11_4wpf8")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer4/RegenNode")
 
 [node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -205,6 +212,7 @@ upgrade_id = "skip_map"
 upgrade_name = "Avance initiale"
 upgrade_description = "Grâce à une meilleure connaissance des récifs, Gambos peut éviter les premières zones de danger."
 icon_texture = ExtResource("12_qpv24")
+max_level = 10
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
@@ -274,7 +282,9 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_right = 196.0
-offset_bottom = 202.0
+offset_left = -250.0
+offset_top = 297.0
+offset_right = -54.0
+offset_bottom = 499.0
 grow_horizontal = 1
 grow_vertical = 1

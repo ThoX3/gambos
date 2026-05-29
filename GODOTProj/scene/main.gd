@@ -101,6 +101,7 @@ func show_menu(menu_to_show: Control) -> void:
 
 func open_pearl_shop() -> void:
 	show_menu($UI/PearlShop)
+	$UI/PearlShop.was_opened_from_game_over(false)
 	$UI/PearlShop.refresh_shop()
 
 func open_main_menu() -> void:

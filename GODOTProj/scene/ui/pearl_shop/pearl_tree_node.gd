@@ -4,6 +4,7 @@ signal buy_requested(id: String, cost: int)
 
 @export var upgrade_id: String = "health"
 @export var upgrade_name: String = "Vie"
+@export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
 @export var max_level: int = 3
 @export var base_cost: int = 1
 @export var parent_node: Control
@@ -18,6 +19,7 @@ var is_unlocked: bool = false
 @onready var price_label = $VBoxContainer/HBoxContainer/Price
 @onready var title_label = $VBoxContainer/Title
 @onready var lock_overlay = $LockOverlay
+@onready var icon: TextureRect = $IconContainer/Icon
 
 const TEX_NORMAL = preload("res://assets/sprites/pearl_shop/normal.png")
 const TEX_NORMAL_HOVERED = preload("res://assets/sprites/pearl_shop/normal_hovered.png")
@@ -31,6 +33,7 @@ const TEX_MAXED_HOVERED = preload("res://assets/sprites/pearl_shop/maxed_hovered
 func _ready():
 	buy_button.pressed.connect(_on_buy_button_pressed)
 	title_label.text = upgrade_name
+	icon.texture = icon_texture
 
 func _on_buy_button_pressed():
 	if not is_unlocked or current_level >= max_level or SaveManager.current_save.pearls < current_cost:
@@ -63,6 +66,7 @@ func update_node() -> void:
 	
 	if not is_unlocked:
 		lock_overlay.visible = true
+		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
 	else:
@@ -73,12 +77,15 @@ func update_node() -> void:
 			_set_button_textures(TEX_MAXED, TEX_MAXED_HOVERED)
 			_set_labels_color(Color.WHITE)
 			price_label.visible = false
+			icon.modulate = Color(1, 1, 1, 0.3)
 		elif SaveManager.current_save.pearls < current_cost:
 			_set_button_textures(TEX_TOO_EXPENSIVE, TEX_TOO_EXPENSIVE_HOVERED)
 			_set_labels_color(Color(0.75, 0.75, 0.75, 1.0))
+			icon.modulate = Color(1, 1, 1, 0.2)
 		else:
 			_set_button_textures(TEX_NORMAL, TEX_NORMAL_HOVERED)
 			_set_labels_color(Color.WHITE)
+			icon.modulate = Color(1, 1, 1, 0.3)
 
 func _set_button_textures(base: Texture2D, hover: Texture2D) -> void:
 	buy_button.texture_normal = base

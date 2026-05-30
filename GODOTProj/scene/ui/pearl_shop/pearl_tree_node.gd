@@ -60,7 +60,7 @@ func play_unlock_anim(delay: float) -> void:
 	
 	tween.tween_callback(func(): lock_overlay.visible = false)
 
-func update_node(anim_delay: float = 0.0) -> void:
+func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void:
 	# 1. Get current level from save data
 	current_level = SaveManager.current_save.get("upgrade_" + upgrade_id + "_level")
 	if current_level == null: 
@@ -85,7 +85,7 @@ func update_node(anim_delay: float = 0.0) -> void:
 		
 	# Check for new unlock BEFORE setting UI
 	var is_newly_unlocked = false
-	if is_unlocked and not was_unlocked_preview:
+	if is_unlocked and not was_unlocked_preview and not is_initial_load:
 		is_newly_unlocked = true
 	
 	# Store the current unlock state for the next check

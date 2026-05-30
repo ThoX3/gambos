@@ -45,7 +45,7 @@ func _ready() -> void:
 
 	node_infos_window.visible = false
 
-	refresh_shop()
+	refresh_shop(true)
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
 		
@@ -96,7 +96,7 @@ func _show_node_infos_window() -> void:
 	
 	node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
 			
-func refresh_shop() -> void:
+func refresh_shop(is_initial_load: bool = false) -> void:
 	var current_pearls = SaveManager.current_save.pearls
 	pearl_count_label.text = str(current_pearls)
 	
@@ -106,8 +106,8 @@ func refresh_shop() -> void:
 		for node in box.get_children():
 			if node.has_method("update_node"):
 				# Determine if this node is about to be unlocked
-				var was_locked: bool = not node.is_unlocked
-				var will_be_unlocked := false
+				var was_locked = not node.is_unlocked
+				var will_be_unlocked = false
 				
 				if node.parent_node == null:
 					will_be_unlocked = true
@@ -115,11 +115,11 @@ func refresh_shop() -> void:
 					var parent_level = SaveManager.current_save.get("upgrade_" + node.parent_node.upgrade_id + "_level")
 					will_be_unlocked = (parent_level != null and parent_level >= node.parent_node_unlock_level)
 					
-				if was_locked and will_be_unlocked:
-					node.update_node(anim_delay)
-					anim_delay += 0.15 
+				if not is_initial_load and was_locked and will_be_unlocked:
+					node.update_node(anim_delay, false)
+					anim_delay += 0.15 # Add slight delay for the next node that might unlock
 				else:
-					node.update_node(0.0)
+					node.update_node(0.0, is_initial_load)
 
 	_request_redraw()
 

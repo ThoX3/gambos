@@ -167,9 +167,11 @@ func open_menu() -> void:
 	menu_button_pressed.emit()
 	
 func play() -> void:
-	pass
-	# self.visible = false
-	# ...
+	get_tree().paused = false
+	GameManager.skip_menu = true
+	get_tree().reload_current_scene()
+	
+	GameManager.Retry.emit()
 	
 func reset_save():
 	SaveManager.current_save = SaveData.new()

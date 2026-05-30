@@ -1,6 +1,6 @@
 extends Control
 
-signal pearl_shop_button_pressed
+signal pearl_shop_button_pressed(isFromMainMenu)
 signal bestiary_button_pressed
 signal settings_button_pressed
 
@@ -47,7 +47,7 @@ func play():
 	
 func open_pearl_shop():
 	AudioManager.play_music("shop")
-	pearl_shop_button_pressed.emit()
+	pearl_shop_button_pressed.emit(false)
 
 func open_bestiary():
 	bestiary_button_pressed.emit()

@@ -141,7 +141,7 @@ func play_sound_2d(nom: String, position: Vector2) -> void:
 	p.stream          = _sons_charges[nom]
 	p.pitch_scale     = randf_range(0.8, 1.3)
 	p.global_position = position
-	get_tree().current_scene.add_child(p)
+	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
 

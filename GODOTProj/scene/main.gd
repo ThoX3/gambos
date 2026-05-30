@@ -31,7 +31,11 @@ func _ready() -> void:
 		GameManager.skip_menu = false
 		_on_start()
 	else:
-		open_main_menu()
+		if GameManager.gotoshop:
+			GameManager.gotoshop = false
+			open_pearl_shop(true)
+		else:
+			open_main_menu()
 
 func start_game(map_to_load: PackedScene) -> void:
 	_clear_world()
@@ -85,10 +89,10 @@ func _clear_world() -> void:
 		current_map.queue_free()
 		
 func _on_player_health_depleted():
-	%GameOver/LayerGameOver.visible = true
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()
-	get_tree().paused = true
+	GameManager.gotoshop = true
+	get_tree().reload_current_scene()
 	
 func _on_start():
 	start_game(starting_map)
@@ -99,9 +103,10 @@ func show_menu(menu_to_show: Control) -> void:
 			child.visible = false 
 	menu_to_show.visible = true
 
-func open_pearl_shop() -> void:
+func open_pearl_shop(is_from_game_over : bool) -> void:
+	AudioManager.play_music("shop")
 	show_menu($UI/PearlShop)
-	$UI/PearlShop.was_opened_from_game_over(false)
+	$UI/PearlShop.was_opened_from_game_over(is_from_game_over)
 	$UI/PearlShop.refresh_shop()
 
 func open_main_menu() -> void:

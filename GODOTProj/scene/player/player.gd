@@ -277,15 +277,13 @@ func take_damage(degats: float) -> void:
 	Stats.current_health -= degats
 	GameManager.health_changed.emit()
 	
-	print("Ouch ! PV restants : ", Stats.current_health)
-	
 	# Vérification de la mort
 	if Stats.current_health <= 0.0:
 		%HurtBox.monitoring = false
 		health_depleted.emit()
 	else:
 		# S'il survit, on joue ton son et on lance l'invincibilité
-		AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
+		AudioManager.play_sound_2d("gambos_hurt", global_position)
 		start_invincibility()
 
 func _tirer_sable(direction: Vector2) -> void:

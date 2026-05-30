@@ -301,3 +301,16 @@ func _tirer_sable(direction: Vector2) -> void:
 func _on_boss_araignee_vaincu() -> void:
 	_attaque_sable_debloquee = true
 	print("Attaque sable débloquée !")
+	
+func get_player_stats() -> Dictionary:
+	var stats: Dictionary = {}
+	stats = {
+		"Niveau : " : Stats.level,
+		"Vie max : " : Stats.max_health,
+		"Vitesse de déplacement : " : speed,
+		"Portée de collect : " : Stats.collectRadius,
+		"Dégâts : " : projectile_data.damage,
+		"Vitesse d'attaque : " : projectile_data.fire_rate,
+		"Portée d'attaque : " : projectile_data.range
+	}
+	return stats

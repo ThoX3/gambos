@@ -1,9 +1,13 @@
 extends Control
 
+signal quit_button_pressed
+
 const STATS_FONT = preload("res://assets/fonts/depixel/DePixelBreit.ttf")
 
 func _ready() -> void:
 	hide()
+	%Resume.pressed.connect(_on_resume_pressed)
+	%Quit.pressed.connect(_on_quit_pressed)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
@@ -28,4 +32,9 @@ func update_stats_display():
 			label.text = category + str(stats[category])
 			label.add_theme_font_override("font", STATS_FONT)
 			%PlayerStats.add_child(label)
-		
+
+func _on_resume_pressed():
+	toggle_pause()
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

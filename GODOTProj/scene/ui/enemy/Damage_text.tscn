@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://oxw7t0wu6bdu"]
+[gd_scene format=3 uid="uid://b0ni17q05s5ii"]
 
 [ext_resource type="Script" uid="uid://ce55t7ikgp1y2" path="res://scene/ui/enemy/damage_text.gd" id="1_eck3t"]
 [ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="1_m0dl5"]

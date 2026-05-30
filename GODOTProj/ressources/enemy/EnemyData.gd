@@ -22,6 +22,7 @@ class_name EnemyData
 @export_group("Loot")
 @export var xp_drop: int
 @export var pearl_drop_probability: float
+@export var pearl_drop_range: Vector2i = Vector2i(1, 1)
 
 @export_group("Spawn")
 ## Coût en budget de difficulté

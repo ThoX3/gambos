@@ -37,7 +37,7 @@ func _physics_process(_delta):
 		return
 
 	# Calcul de la direction directe vers le joueur (Méthode GDQuest)
-	var direction = global_position.direction_to(player.global_position)
+	var direction := global_position.direction_to(player.global_position)
 	
 	# Retournement du sprite selon l'axe X
 	if direction.x != 0:
@@ -96,14 +96,15 @@ func _drop_experience() -> void:
 	
 func _drop_pearl() -> void:
 	if randf() <= stats.pearl_drop_probability:
-		var new_pearl = PEARL_SCENE.instantiate()
+		var pearl_count := randi_range(stats.pearl_drop_range.x, stats.pearl_drop_range.y)
 		
-		new_pearl.global_position = self.global_position + 15 * Vector2(2 * randf() - 1, 2 * randf() - 1)
-		
-		get_parent().call_deferred("add_child", new_pearl)
+		for __ in range(pearl_count):
+			var new_pearl = PEARL_SCENE.instantiate()
+			new_pearl.global_position = self.global_position + 15 * Vector2(2 * randf() - 1, 2 * randf() - 1)
+			get_parent().call_deferred("add_child", new_pearl)
 
 func _creer_texte_degats(montant: int) -> void:
-	var texte_instance = DAMAGE_TEXT_SCENE.instantiate()
+	var texte_instance := DAMAGE_TEXT_SCENE.instantiate()
 	
 	texte_instance.global_position = self.global_position + Vector2(-20, -40)
 	

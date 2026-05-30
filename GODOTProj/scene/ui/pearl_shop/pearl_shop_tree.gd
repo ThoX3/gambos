@@ -11,6 +11,8 @@ signal menu_button_pressed
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
 @onready var node_infos_window = $NodeInfos
 
+@onready var list_button = [menu_button, play_button, reset_button]
+
 var hover_timer: Timer
 var currently_focused_node: Control = null
 
@@ -46,6 +48,13 @@ func _ready() -> void:
 	refresh_shop()
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
+		
+	# ── Musique et son ─────────────────────────
+	for button in list_button:
+		button.focus_entered.connect(_on_navigation_menu)
+		button.mouse_entered.connect(_on_navigation_menu)
+	
+		button.pressed.connect(_on_validation_menu)
 
 func _on_visibility_changed() -> void:
 	if visible:
@@ -136,6 +145,7 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 		refresh_shop()
 		
 func open_menu() -> void:
+	AudioManager.play_music("main_menu")
 	self.visible = false
 	menu_button_pressed.emit()
 	
@@ -156,3 +166,9 @@ func was_opened_from_game_over(param: bool):
 	else:
 		play_button.visible = false
 		menu_button.text = "Retour"
+
+func _on_navigation_menu() -> void:
+	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
+
+func _on_validation_menu() -> void:
+	AudioManager.play_sound_2d("menu_press", Vector2.ZERO)

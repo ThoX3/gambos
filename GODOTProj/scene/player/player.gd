@@ -181,7 +181,7 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	Stats.max_health += UpgradeManager.get_effect_health(save.upgrade_health_level)
 	Stats.current_health = Stats.max_health
 	speed += UpgradeManager.get_effect_speed(save.upgrade_speed_level)
-	xp_multiplier = 1 + UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
+	xp_multiplier = UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
 	regen_rate = UpgradeManager.get_effect_regen(save.upgrade_regen_level)
 	
 	var thorns_effects = UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)

@@ -122,7 +122,7 @@ func get_effect_attack_speed(level: int) -> float:
 
 ## Calcule le multiplicateur de gain d'expérience en fonction du niveau.
 func get_effect_xp_gain(level: int) -> float:
-	return level * 0.1
+	return 1 + level * 0.1
 
 ## Calcule le bonus de chance en fonction du niveau.
 func get_effect_luck(level: int) -> float:

@@ -14,6 +14,7 @@ signal buy_requested(id: String, cost: int)
 var current_level = 0
 var current_cost: int = 0
 var is_unlocked: bool = false
+var was_unlocked_preview: bool = false
 
 @onready var buy_button = $TextureButton
 @onready var level_label = $VBoxContainer/Level
@@ -38,10 +39,28 @@ func _ready():
 
 func _on_buy_button_pressed():
 	if not is_unlocked or current_level >= max_level or SaveManager.current_save.pearls < current_cost:
+		AudioManager.play_sound_2d("menu_press", Vector2.ZERO)
 		return
 	buy_requested.emit(upgrade_id, current_cost)
 
-func update_node() -> void:
+func play_unlock_anim(delay: float) -> void:
+	AudioManager.play_sound_2d("pearl_shop_unlock", Vector2.ZERO)
+
+	if not lock_overlay.visible:
+		return
+		
+	var tween = create_tween()
+	# Optional small delay
+	if delay > 0:
+		tween.tween_interval(delay)
+		
+	# Drop and fade out parallel
+	tween.tween_property(lock_overlay, "modulate", Color(1, 1, 1, 0), 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(lock_overlay, "position:y", lock_overlay.position.y + 20, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	
+	tween.tween_callback(func(): lock_overlay.visible = false)
+
+func update_node(anim_delay: float = 0.0) -> void:
 	# 1. Get current level from save data
 	current_level = SaveManager.current_save.get("upgrade_" + upgrade_id + "_level")
 	if current_level == null: 
@@ -64,6 +83,14 @@ func update_node() -> void:
 		var parent_level = SaveManager.current_save.get("upgrade_" + parent_node.upgrade_id + "_level")
 		is_unlocked = (parent_level != null and parent_level >= parent_node_unlock_level)
 		
+	# Check for new unlock BEFORE setting UI
+	var is_newly_unlocked = false
+	if is_unlocked and not was_unlocked_preview:
+		is_newly_unlocked = true
+	
+	# Store the current unlock state for the next check
+	was_unlocked_preview = is_unlocked
+		
 	# 3. Visual Updates
 	modulate = Color.WHITE 
 	
@@ -71,11 +98,18 @@ func update_node() -> void:
 	
 	if not is_unlocked:
 		lock_overlay.visible = true
+		lock_overlay.modulate = Color.WHITE
+		lock_overlay.position.y = 0
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
 	else:
-		lock_overlay.visible = false
+		if is_newly_unlocked and lock_overlay.visible:
+			play_unlock_anim(anim_delay)
+		else:
+			lock_overlay.visible = false
+			lock_overlay.modulate = Color(1, 1, 1, 1)
+			lock_overlay.position.y = 0
 		
 		if current_level >= max_level:
 			level_label.text = "MAX"

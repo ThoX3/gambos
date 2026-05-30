@@ -53,7 +53,6 @@ func _ready() -> void:
 	for button in list_button:
 		button.focus_entered.connect(_on_navigation_menu)
 		button.mouse_entered.connect(_on_navigation_menu)
-	
 		button.pressed.connect(_on_validation_menu)
 
 func _on_visibility_changed() -> void:
@@ -70,6 +69,7 @@ func _on_non_node_focus_entered() -> void:
 	node_infos_window.visible = false
 
 func _on_node_focus_entered(node: Control) -> void:
+	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
 	currently_focused_node = node
 	node_infos_window.visible = false
 	hover_timer.start(2.0)
@@ -100,10 +100,26 @@ func refresh_shop() -> void:
 	var current_pearls = SaveManager.current_save.pearls
 	pearl_count_label.text = str(current_pearls)
 	
+	var anim_delay = 0.0
+	
 	for box in tree.get_children():
 		for node in box.get_children():
 			if node.has_method("update_node"):
-				node.update_node()
+				# Determine if this node is about to be unlocked
+				var was_locked: bool = not node.is_unlocked
+				var will_be_unlocked := false
+				
+				if node.parent_node == null:
+					will_be_unlocked = true
+				else:
+					var parent_level = SaveManager.current_save.get("upgrade_" + node.parent_node.upgrade_id + "_level")
+					will_be_unlocked = (parent_level != null and parent_level >= node.parent_node_unlock_level)
+					
+				if was_locked and will_be_unlocked:
+					node.update_node(anim_delay)
+					anim_delay += 0.15 
+				else:
+					node.update_node(0.0)
 
 	_request_redraw()
 
@@ -141,7 +157,8 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
 			_: push_warning("Unhandled upgrade id: ", id)
 			
-		SaveManager.save_game()		
+		SaveManager.save_game()
+		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)
 		refresh_shop()
 		
 func open_menu() -> void:

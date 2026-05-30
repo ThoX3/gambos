@@ -94,9 +94,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_precharger_sons()
 	await get_tree().process_frame
-	GameManager.start_game.connect(_on_start_game)
 	GameManager.GameOver.connect(stop_music)
-	GameManager.Retry.connect(reset_music)
 
 
 # ── API publique ─────────────────────────────────────────────────
@@ -189,13 +187,6 @@ func _fade_in(nom: String) -> void:
 
 
 # ── Connexions signaux ───────────────────────────────────────────
-
-func _on_start_game() -> void:
-	var wm := get_tree().get_first_node_in_group("wave_manager")
-	if wm:
-		wm.vague_demarree.connect(_on_vague_change)
-	play_music("map1")
-
 
 func _on_vague_change(numero: int) -> void:
 	_activer_couches(numero)

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bd4sq86hoarr6"]
+
+[ext_resource type="Texture2D" uid="uid://bmd4rfgpqv57u" path="res://assets/sprites/pearl_shop/node_infos_background.png" id="1_mv1ej"]
+[ext_resource type="Script" uid="uid://dlipl2x7ueoe2" path="res://scene/ui/pearl_shop/node_infos.gd" id="1_r6ld7"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_r6ld7"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_54lvh"]
+
+[node name="NodeInfos" type="Control" unique_id=977595567]
+custom_minimum_size = Vector2(98, 101)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1084.0
+offset_bottom = -518.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r6ld7")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1814181996]
+layout_mode = 0
+offset_right = 196.0
+offset_bottom = 202.0
+texture = ExtResource("1_mv1ej")
+
+[node name="Title" type="Label" parent="." unique_id=899816008]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99000007
+anchor_bottom = 0.15300001
+offset_right = -0.040008545
+offset_bottom = 0.093997955
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9, 0.86684996, 0.747, 1)
+theme_override_fonts/font = ExtResource("2_r6ld7")
+theme_override_font_sizes/font_size = 16
+text = "Attaque"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="." unique_id=182807908]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 38.0
+offset_right = 178.0
+offset_bottom = 184.0
+theme_override_colors/default_color = Color(0.18, 0.09096001, 0.08460001, 1)
+theme_override_fonts/normal_font = ExtResource("3_54lvh")
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = "Augmente la force de Gambos et les dégats de toutes ses attaques."
+fit_content = true
+scroll_active = false
+vertical_alignment = 1

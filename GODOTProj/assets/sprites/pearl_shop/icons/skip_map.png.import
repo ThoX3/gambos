@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt55bhjspafhr"
-path="res://.godot/imported/round64.png-a22cbc89b4732999c9ea9d00f6117177.ctex"
+uid="uid://6pxudlq3qkj0"
+path="res://.godot/imported/skip_map.png-3bbf1523cc74d5a81a5ec99100460a8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pearl_shop/round64.png"
-dest_files=["res://.godot/imported/round64.png-a22cbc89b4732999c9ea9d00f6117177.ctex"]
+source_file="res://assets/sprites/pearl_shop/icons/skip_map.png"
+dest_files=["res://.godot/imported/skip_map.png-3bbf1523cc74d5a81a5ec99100460a8f.ctex"]
 
 [params]
 

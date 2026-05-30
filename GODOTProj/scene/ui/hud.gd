@@ -3,8 +3,8 @@ extends Control
 @export var Stats = Resource
 
 @onready var pearl_box = $Pearls
-@onready var pearl_label = $Pearls/Count
-@onready var wave_label = $Wave/Count  # ← ajoute cette ligne
+@onready var pearl_label = $Pearls/MarginContainer/Count
+@onready var wave_label = $Wave/Count 
 
 var pearl_tween: Tween
 
@@ -25,7 +25,7 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
-	wave_label.text = "1"  # ← remet à 1 au début de chaque partie
+	wave_label.text = "1"  
 	
 	# Connecte le signal du WaveManager
 	var wm = get_tree().get_first_node_in_group("wave_manager")
@@ -46,10 +46,10 @@ func _update_progres_bar():
 func _update_health_bar():
 	%HP_Bar.max_value = Stats.max_health
 	%HP_Bar.value = Stats.current_health
-	%HP.text = str(max(int(Stats.current_health), 0)) + " / " + str(int(Stats.max_health))
+	%HP.text = str(max(int(ceil(Stats.current_health)), 0)) + " / " + str(int(Stats.max_health))
 	
 func _update_level():
-	$Level.text = str(Stats.level)	
+	%Level.text = str(Stats.level)	
 
 func _on_pearls_changed():
 	pearl_label.text = str(SaveManager.current_save.pearls + Stats.collected_pearls)

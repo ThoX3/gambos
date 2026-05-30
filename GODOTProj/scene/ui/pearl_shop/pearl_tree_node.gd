@@ -4,6 +4,8 @@ signal buy_requested(id: String, cost: int)
 
 @export var upgrade_id: String = "health"
 @export var upgrade_name: String = "Vie"
+@export var upgrade_description: String = ""
+@export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
 @export var max_level: int = 3
 @export var base_cost: int = 1
 @export var parent_node: Control
@@ -18,6 +20,7 @@ var is_unlocked: bool = false
 @onready var price_label = $VBoxContainer/HBoxContainer/Price
 @onready var title_label = $VBoxContainer/Title
 @onready var lock_overlay = $LockOverlay
+@onready var icon: TextureRect = $IconContainer/Icon
 
 const TEX_NORMAL = preload("res://assets/sprites/pearl_shop/normal.png")
 const TEX_NORMAL_HOVERED = preload("res://assets/sprites/pearl_shop/normal_hovered.png")
@@ -29,8 +32,14 @@ const TEX_MAXED = preload("res://assets/sprites/pearl_shop/maxed.png")
 const TEX_MAXED_HOVERED = preload("res://assets/sprites/pearl_shop/maxed_hovered.png")
 
 func _ready():
-	buy_button.pressed.connect(func(): buy_requested.emit(upgrade_id, current_cost))
+	buy_button.pressed.connect(_on_buy_button_pressed)
 	title_label.text = upgrade_name
+	icon.texture = icon_texture
+
+func _on_buy_button_pressed():
+	if not is_unlocked or current_level >= max_level or SaveManager.current_save.pearls < current_cost:
+		return
+	buy_requested.emit(upgrade_id, current_cost)
 
 func update_node() -> void:
 	# 1. Get current level from save data
@@ -39,7 +48,11 @@ func update_node() -> void:
 		push_error("Pearl shop: Can't find " + upgrade_id + " in save")
 		current_level = 0 
 	
-	current_cost = base_cost + (current_level * 2)
+	if UpgradeManager.has_method("get_cost_" + upgrade_id):
+		current_cost = UpgradeManager.call("get_cost_" + upgrade_id, current_level)
+	else:
+		current_cost = UpgradeManager.get_default_cost(current_level)
+		
 	level_label.text = str(current_level) + "/" + str(max_level)
 	if price_label:
 		price_label.text = str(current_cost)
@@ -54,28 +67,30 @@ func update_node() -> void:
 	# 3. Visual Updates
 	modulate = Color.WHITE 
 	
+	buy_button.disabled = false
+	
 	if not is_unlocked:
-		buy_button.disabled = true
 		lock_overlay.visible = true
+		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
 	else:
 		lock_overlay.visible = false
 		
 		if current_level >= max_level:
-			buy_button.disabled = true
 			level_label.text = "MAX"
 			_set_button_textures(TEX_MAXED, TEX_MAXED_HOVERED)
 			_set_labels_color(Color.WHITE)
 			price_label.visible = false
+			icon.modulate = Color(1, 1, 1, 0.3)
 		elif SaveManager.current_save.pearls < current_cost:
-			buy_button.disabled = true
 			_set_button_textures(TEX_TOO_EXPENSIVE, TEX_TOO_EXPENSIVE_HOVERED)
 			_set_labels_color(Color(0.75, 0.75, 0.75, 1.0))
+			icon.modulate = Color(1, 1, 1, 0.2)
 		else:
-			buy_button.disabled = false
 			_set_button_textures(TEX_NORMAL, TEX_NORMAL_HOVERED)
 			_set_labels_color(Color.WHITE)
+			icon.modulate = Color(1, 1, 1, 0.3)
 
 func _set_button_textures(base: Texture2D, hover: Texture2D) -> void:
 	buy_button.texture_normal = base

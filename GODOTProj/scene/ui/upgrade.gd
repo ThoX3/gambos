@@ -38,3 +38,9 @@ func _on_card_selected(data: upgradeData):
 		player.apply_upgrade(data)
 	%CanvasLayer.visible = false
 	get_tree().paused = false
+	
+	Engine.time_scale = 0.1
+	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.set_ignore_time_scale(true)
+	tween.tween_property(Engine, "time_scale", 1.0, 1.0).set_trans(Tween.TRANS_LINEAR)

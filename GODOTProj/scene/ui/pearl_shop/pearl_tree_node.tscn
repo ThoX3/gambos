@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2f5qwetbil2q" path="res://assets/sprites/pearl_shop/too_expensive.png" id="4_dkipg"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
 [ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
+[ext_resource type="Texture2D" uid="uid://drvt2lt6ni5xu" path="res://assets/sprites/pearl_shop/icons/damage.png" id="5_vccej"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
 [ext_resource type="Texture2D" uid="uid://bibp1p2g7gx72" path="res://assets/sprites/pearl_shop/lock.png" id="7_fgmap"]
 
@@ -43,6 +44,25 @@ texture_disabled = ExtResource("4_dkipg")
 texture_focused = ExtResource("3_vccej")
 stretch_mode = 0
 
+[node name="IconContainer" type="MarginContainer" parent="." unique_id=1579260415]
+modulate = Color(1, 1, 1, 0.3137255)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Icon" type="TextureRect" parent="IconContainer" unique_id=1479445187]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_vccej")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=812178132]
 layout_mode = 1
 anchors_preset = 8
@@ -64,7 +84,7 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_fgmap")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "Attaque"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -72,7 +92,7 @@ autowrap_mode = 2
 [node name="Level" type="Label" parent="VBoxContainer" unique_id=89424670]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ncogy")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 27
 text = "0/1"
 horizontal_alignment = 1
 
@@ -85,7 +105,7 @@ alignment = 1
 [node name="Price" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=168061550]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_urf48")
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 18
 text = "1"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1638615447]

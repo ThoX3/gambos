@@ -23,7 +23,7 @@ func _ready() -> void:
 	
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
-	$UI/PearlShop.back_button_pressed.connect(open_main_menu)
+	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
 	$UI/Bestiary.back_button_pressed.connect(open_main_menu)
 	%GameOver.quit_button_pressed.connect(game_over)
 	
@@ -101,6 +101,7 @@ func show_menu(menu_to_show: Control) -> void:
 
 func open_pearl_shop() -> void:
 	show_menu($UI/PearlShop)
+	$UI/PearlShop.was_opened_from_game_over(false)
 	$UI/PearlShop.refresh_shop()
 
 func open_main_menu() -> void:

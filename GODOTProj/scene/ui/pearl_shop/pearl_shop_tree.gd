@@ -1,17 +1,32 @@
 extends Control
 
-signal back_button_pressed
+signal menu_button_pressed
 
 @onready var pearl_count_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
 @onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer
 @onready var tree_mask: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask
-@onready var back_button: Button = $MarginContainer/VBoxContainer/BackButton
+@onready var menu_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/MenuButton
+@onready var play_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/PlayButton
 @onready var reset_button: Button = $ResetPurchasesButton
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
+@onready var node_infos_window = $NodeInfos
+
+var hover_timer: Timer
+var currently_focused_node: Control = null
 
 func _ready() -> void:
-	back_button.pressed.connect(hide_shop)
+	menu_button.pressed.connect(open_menu)
+	play_button.pressed.connect(play)
 	reset_button.pressed.connect(reset_save)
+	
+	menu_button.focus_entered.connect(_on_non_node_focus_entered)
+	play_button.focus_entered.connect(_on_non_node_focus_entered)
+	reset_button.focus_entered.connect(_on_non_node_focus_entered)
+	
+	hover_timer = Timer.new()
+	hover_timer.one_shot = true
+	hover_timer.timeout.connect(_show_node_infos_window)
+	add_child(hover_timer)
 	
 	tree_mask.clip_children = CLIP_CHILDREN_ONLY
 	tree.draw.connect(_on_tree_draw)
@@ -21,10 +36,56 @@ func _ready() -> void:
 		for node in box.get_children():
 			if node.has_signal("buy_requested"):
 				node.buy_requested.connect(_on_node_buy_requested)
+			if node.has_node("TextureButton"):
+				node.get_node("TextureButton").focus_entered.connect(_on_node_focus_entered.bind(node))
 	
-	first_node.get_node("TextureButton").grab_focus.call_deferred()
+	visibility_changed.connect(_on_visibility_changed)
+
+	node_infos_window.visible = false
 
 	refresh_shop()
+	if visible:
+		first_node.get_node("TextureButton").grab_focus.call_deferred()
+
+func _on_visibility_changed() -> void:
+	if visible:
+		first_node.get_node("TextureButton").grab_focus.call_deferred()
+	else:
+		hover_timer.stop()
+		if node_infos_window:
+			node_infos_window.visible = false
+
+func _on_non_node_focus_entered() -> void:
+	currently_focused_node = null
+	hover_timer.stop()
+	node_infos_window.visible = false
+
+func _on_node_focus_entered(node: Control) -> void:
+	currently_focused_node = node
+	node_infos_window.visible = false
+	hover_timer.start(2.0)
+	
+	var scroll: ScrollContainer = tree.get_parent()
+	var node_center_in_tree := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
+	var target_x := node_center_in_tree - (scroll.size.x / 2.0)
+	
+	var tween := create_tween()
+	tween.tween_property(scroll, "scroll_horizontal", int(target_x), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _show_node_infos_window() -> void:
+	if currently_focused_node == null or not is_visible_in_tree():
+		return
+	
+	var description = currently_focused_node.upgrade_description if currently_focused_node.is_unlocked else "???"
+	var title = currently_focused_node.upgrade_name if currently_focused_node.is_unlocked else "???"
+	
+	node_infos_window.set_infos(title, description)
+	node_infos_window.visible = true
+	
+	var pos := currently_focused_node.global_position
+	var node_size := currently_focused_node.size
+	
+	node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
 			
 func refresh_shop() -> void:
 	var current_pearls = SaveManager.current_save.pearls
@@ -49,7 +110,7 @@ func _on_tree_draw() -> void:
 				var start_pos = (node.global_position + node.size / 2.0) - tree.global_position
 				var end_pos = (node.parent_node.global_position + node.parent_node.size / 2.0) - tree.global_position
 				
-				var color = Color(0.9, 0.75, 0.1, 1.0) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
+				var color = Color(0.8156863, 0.73333335, 0.36862746) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
 				var width = 6.0 if node.is_unlocked else 4.0
 				
 				tree.draw_line(end_pos, start_pos, color, width, true)
@@ -68,16 +129,30 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			"luck": SaveManager.current_save.upgrade_luck_level += 1
 			"regen": SaveManager.current_save.upgrade_regen_level += 1
 			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
+			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
 			_: push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()		
 		refresh_shop()
 		
-func hide_shop() -> void:
+func open_menu() -> void:
 	self.visible = false
-	back_button_pressed.emit()
+	menu_button_pressed.emit()
+	
+func play() -> void:
+	pass
+	# self.visible = false
+	# ...
 	
 func reset_save():
 	SaveManager.current_save = SaveData.new()
 	SaveManager.save_game()
 	refresh_shop()
+
+func was_opened_from_game_over(param: bool):
+	if param:
+		play_button.visible = true
+		menu_button.text = "Menu principal"
+	else:
+		play_button.visible = false
+		menu_button.text = "Retour"

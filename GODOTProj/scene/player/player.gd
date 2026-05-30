@@ -18,6 +18,9 @@ var _fire_timer: float = 0.0
 var xp_multiplier: float = 1.0
 var regen_rate: float = 0.0
 var _regen_timer: float = 0.0
+var thorns_damage: int = 0
+var thorns_interval: float = 0.0
+var _thorns_timer: float = 0.0
 
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
@@ -53,6 +56,16 @@ func _process(delta: float) -> void:
 			if Stats.current_health > Stats.max_health:
 				Stats.current_health = Stats.max_health
 			GameManager.health_changed.emit()
+			
+	if thorns_damage > 0:
+		_thorns_timer -= delta
+		if _thorns_timer <= 0.0:
+			var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+			if overlapping_mobs.size() > 0:
+				for mob in overlapping_mobs:
+					if mob.has_method("take_damage"):
+						mob.take_damage(thorns_damage)
+				_thorns_timer = thorns_interval
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -78,6 +91,10 @@ func _physics_process(delta):
 	
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
+		# Thorns damage
+		if thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+			overlapping_mobs[0].take_damage(thorns_damage)
+			
 		# Calcul de la direction opposée à l'ennemi
 		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
 		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
@@ -161,18 +178,20 @@ func _on_initialize():
 	Stats.collected_pearls = 0
 
 func apply_pearl_upgrades(save: SaveData) -> void:
-	Stats.max_health += save.upgrade_health_level * 5.0
+	Stats.max_health += UpgradeManager.get_effect_health(save.upgrade_health_level)
 	Stats.current_health = Stats.max_health
+	speed += UpgradeManager.get_effect_speed(save.upgrade_speed_level)
+	xp_multiplier = UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
+	regen_rate = UpgradeManager.get_effect_regen(save.upgrade_regen_level)
 	
-	speed += save.upgrade_speed_level * 20.0
-	
-	xp_multiplier = 1.0 + (save.upgrade_xp_gain_level * 0.1)
-	regen_rate = save.upgrade_regen_level * 0.1
+	var thorns_effects = UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)
+	thorns_damage = int(thorns_effects["damage"])
+	thorns_interval = thorns_effects["interval"]
 	
 	if projectile_data:
-		projectile_data.damage += save.upgrade_damage_level * 1
-		projectile_data.fire_rate += save.upgrade_attack_speed_level * 0.1
-		projectile_data.projectile_count += save.upgrade_projectile_level
+		projectile_data.damage += UpgradeManager.get_effect_damage(save.upgrade_damage_level)
+		projectile_data.fire_rate += UpgradeManager.get_effect_attack_speed(save.upgrade_attack_speed_level)
+		projectile_data.projectile_count += int(UpgradeManager.get_effect_projectile(save.upgrade_projectile_level))
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

@@ -238,7 +238,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 			Stats.max_health += effect.value
-			Stats.current_health += effect.value # A voir si on soigne le montant ajouté
+			Stats.current_health += max(effect.value, 0) # A voir si on soigne le montant ajouté
 			GameManager.health_changed.emit()
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
 				%HurtBox.monitoring = false

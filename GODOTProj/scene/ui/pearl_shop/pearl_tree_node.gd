@@ -1,5 +1,7 @@
 extends Control
 
+class_name PearlTreeNode
+
 signal buy_requested(id: String, cost: int)
 
 @export var upgrade_id: String = "health"

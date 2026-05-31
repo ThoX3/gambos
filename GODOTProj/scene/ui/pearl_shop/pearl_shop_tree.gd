@@ -34,12 +34,11 @@ func _ready() -> void:
 	tree.draw.connect(_on_tree_draw)
 	tree.sort_children.connect(tree.queue_redraw)
 	
-	for box in tree.get_children():
-		for node in box.get_children():
-			if node.has_signal("buy_requested"):
-				node.buy_requested.connect(_on_node_buy_requested)
-			if node.has_node("TextureButton"):
-				node.get_node("TextureButton").focus_entered.connect(_on_node_focus_entered.bind(node))
+	for node in tree.find_children("*", "PearlTreeNode", true):
+		if node.has_signal("buy_requested"):
+			node.buy_requested.connect(_on_node_buy_requested)
+		if node.has_node("TextureButton"):
+			node.get_node("TextureButton").focus_entered.connect(_on_node_focus_entered.bind(node))
 	
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -114,24 +113,23 @@ func refresh_shop(is_initial_load: bool = false) -> void:
 	
 	var anim_delay = 0.0
 	
-	for box in tree.get_children():
-		for node in box.get_children():
-			if node.has_method("update_node"):
-				# Determine if this node is about to be unlocked
-				var was_locked = not node.is_unlocked
-				var will_be_unlocked = false
+	for node in tree.find_children("*", "PearlTreeNode", true):
+		if node.has_method("update_node"):
+			# Determine if this node is about to be unlocked
+			var was_locked = not node.is_unlocked
+			var will_be_unlocked = false
+			
+			if node.parent_node == null:
+				will_be_unlocked = true
+			else:
+				var parent_level = SaveManager.current_save.get("upgrade_" + node.parent_node.upgrade_id + "_level")
+				will_be_unlocked = (parent_level != null and parent_level >= node.parent_node_unlock_level)
 				
-				if node.parent_node == null:
-					will_be_unlocked = true
-				else:
-					var parent_level = SaveManager.current_save.get("upgrade_" + node.parent_node.upgrade_id + "_level")
-					will_be_unlocked = (parent_level != null and parent_level >= node.parent_node_unlock_level)
-					
-				if not is_initial_load and was_locked and will_be_unlocked:
-					node.update_node(anim_delay, false)
-					anim_delay += 0.15 # Add slight delay for the next node that might unlock
-				else:
-					node.update_node(0.0, is_initial_load)
+			if not is_initial_load and was_locked and will_be_unlocked:
+				node.update_node(anim_delay, false)
+				anim_delay += 0.15 # Add slight delay for the next node that might unlock
+			else:
+				node.update_node(0.0, is_initial_load)
 
 	_request_redraw()
 
@@ -141,16 +139,15 @@ func _request_redraw() -> void:
 		tree.queue_redraw()
 
 func _on_tree_draw() -> void:
-	for box in tree.get_children():
-		for node in box.get_children():
-			if node.has_method("update_node") and "parent_node" in node and node.parent_node != null:
-				var start_pos = (node.global_position + node.size / 2.0) - tree.global_position
-				var end_pos = (node.parent_node.global_position + node.parent_node.size / 2.0) - tree.global_position
-				
-				var color = Color(0.8156863, 0.73333335, 0.36862746) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
-				var width = 6.0 if node.is_unlocked else 4.0
-				
-				tree.draw_line(end_pos, start_pos, color, width, true)
+	for node in tree.find_children("*", "PearlTreeNode", true):
+		if node.has_method("update_node") and "parent_node" in node and node.parent_node != null:
+			var start_pos = (node.global_position + node.size / 2.0) - tree.global_position
+			var end_pos = (node.parent_node.global_position + node.parent_node.size / 2.0) - tree.global_position
+			
+			var color = Color(0.8156863, 0.73333335, 0.36862746) if node.is_unlocked else Color(0.25, 0.25, 0.25, 0.6)
+			var width = 6.0 if node.is_unlocked else 4.0
+			
+			tree.draw_line(end_pos, start_pos, color, width, true)
 
 
 func _on_node_buy_requested(id: String, cost: int) -> void:

@@ -14,6 +14,7 @@ class_name SaveData
 @export var upgrade_regen_level: int = 0
 @export var upgrade_skip_map_level: int = 0
 @export var upgrade_thorns_level: int = 0
+@export var upgrade_reroll_level: int = 0
 
 # Pearl weapon upgrades
 @export var upgrade_projectile_level: int = 0

@@ -45,6 +45,7 @@ func _ready() -> void:
 	node_infos_window.visible = false
 
 	refresh_shop(true)
+	
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
 		
@@ -53,7 +54,7 @@ func _ready() -> void:
 		button.focus_entered.connect(_on_navigation_menu)
 		button.mouse_entered.connect(_on_navigation_menu)
 		button.pressed.connect(_on_validation_menu)
-
+		
 func _on_visibility_changed() -> void:
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
@@ -74,11 +75,15 @@ func _on_node_focus_entered(node: Control) -> void:
 	hover_timer.start(2.0)
 	
 	var scroll: ScrollContainer = tree.get_parent()
-	var node_center_in_tree := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
-	var target_x := node_center_in_tree - (scroll.size.x / 2.0)
+	var node_center_in_tree_x := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
+	var target_x := node_center_in_tree_x - (scroll.size.x / 2.0)
+	
+	var node_center_in_tree_y := node.global_position.y + (node.size.y / 2.0) - tree.global_position.y
+	var target_y := node_center_in_tree_y - (scroll.size.y / 2.0)
 	
 	var tween := create_tween()
 	tween.tween_property(scroll, "scroll_horizontal", int(target_x), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(scroll, "scroll_vertical", int(target_y), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _show_node_infos_window() -> void:
 	if currently_focused_node == null or not is_visible_in_tree():

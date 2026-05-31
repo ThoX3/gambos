@@ -110,8 +110,11 @@ func _show_node_infos_window() -> void:
 	var pos := currently_focused_node.global_position
 	var node_size := currently_focused_node.size
 	
-	node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
-			
+	if pos.y <= 390:
+		node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
+	else:
+		node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, -218)
+
 func refresh_shop(is_initial_load: bool = false) -> void:
 	var current_pearls = SaveManager.current_save.pearls
 	pearl_count_label.text = str(current_pearls)

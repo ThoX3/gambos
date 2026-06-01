@@ -9,7 +9,6 @@ signal buy_requested(id: String, cost: int)
 @export var upgrade_description: String = ""
 @export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
 @export var max_level: int = 3
-@export var base_cost: int = 1
 @export var parent_node: Control
 @export var parent_node_unlock_level: int = 1
 

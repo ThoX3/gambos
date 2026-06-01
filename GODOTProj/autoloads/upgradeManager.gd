@@ -159,8 +159,8 @@ func get_effect_skip_map(level: int) -> float:
 	return level * 1.0
 
 ## Retourne le nombre de relances gratuites accordées.
-func get_effect_reroll(level: int) -> float:
-	return level * 1.0
+func get_effect_reroll(level: int) -> int:
+	return level * 1
 	
 ## Calcule le multiplicateur de rayon de collection.
 func get_effect_collection_radius(level: int) -> float:

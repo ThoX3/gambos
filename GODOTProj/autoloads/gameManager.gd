@@ -12,6 +12,7 @@ signal boss_araignee_vaincu()
 
 var skip_menu: bool = false
 var gotoshop: bool = false
+var in_game: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -113,8 +113,8 @@ func _physics_process(delta):
 		if _fire_timer >= 1.0 / projectile_data.fire_rate:
 			_fire_timer = 0.0
 			var targets = _get_nearest_enemies(projectile_data.projectile_count)
-			for target in targets:
-				_shoot_single(target)
+			if targets.size() > 0:
+				_shoot_multiple(targets)
 	
 	# --- Attaque sable (stick droit) ---
 	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
@@ -193,7 +193,6 @@ func _on_initialize():
 	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
 	
-	# Bubble Division might be used later? Leaving variable for when skill requires it
 	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
 	
 	# Determine thorns tick rate
@@ -204,6 +203,7 @@ func _on_initialize():
 	if projectile_data:
 		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
 		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
+		projectile_data.projectile_count = bubble_count
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -229,12 +229,27 @@ func _get_nearest_enemies(count: int) -> Array:
 	# Retourner les N plus proches
 	return in_range.slice(0, count)
 
-func _shoot_single(target: Enemy_Base) -> void:
-	var projectile: Projectile = projectile_scene.instantiate()
-	get_parent().add_child(projectile)
-	var dir = global_position.direction_to(target.global_position)
-	projectile.global_position = global_position
-	projectile.setup(projectile_data, dir)
+func _shoot_multiple(targets: Array) -> void:
+	for i in range(projectile_data.projectile_count):
+		# Wrap around targets if there are fewer enemies than projectiles
+		var target = targets[i % targets.size()]
+		var dir := global_position.direction_to(target.global_position)
+		
+		var projectile: Projectile = projectile_scene.instantiate()
+		get_parent().add_child(projectile)
+		projectile.global_position = global_position
+		
+		# Create a local copy of data to apply reduced damage
+		var p_data := projectile_data.duplicate()
+		p_data.damage = max(1, int(projectile_data.damage * pow(0.75, i)))
+		
+		# Add a tiny spread if shooting at the same target
+		var current_dir := dir
+		if i >= targets.size():
+			current_dir = dir.rotated(randf_range(-0.15, 0.15))
+			
+		projectile.setup(p_data, current_dir)
+		projectile.scale = Vector2.ONE * pow(0.75, i)
 	
 func apply_upgrade(data: upgradeData) -> void:
 	if data.typeEffects == upgradeData.effectsType.CAPACITY:

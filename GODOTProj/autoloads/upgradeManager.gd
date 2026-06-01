@@ -167,4 +167,4 @@ func get_effect_projectile(level: int) -> float:
 # --- Effets des armes ---
 ## Calcule le nombre de petites bulles générées
 func get_effect_bubble_division(level: int) -> int:
-	return level * 1
+	return 1 + level * 1

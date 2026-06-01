@@ -313,4 +313,22 @@ func get_player_stats() -> Dictionary:
 	return stats
 
 func death():
+	# ── Désactive tout comportement ──────────────────
+	set_process(false)
+	set_physics_process(false)
+	collision_layer = 0
+	collision_mask  = 0
+	$HurtBox.monitoring = false
+	$HurtBox.monitorable = false
+	z_index = 10
+
+	# ── Lance l'animation ────────────────────────────
+	$AnimatedSprite2D.play("death")
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(self, "position:y", position.y - 200.0, 2.0)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($AnimatedSprite2D, "modulate:a", 0.0, 2.0)\
+		.set_ease(Tween.EASE_IN)
+
+	await tween.finished
 	GameManager.GameOver.emit()

@@ -13,6 +13,8 @@ signal menu_button_pressed
 
 @onready var list_button = [menu_button, play_button, reset_button]
 
+@onready var fade_rect: ColorRect = $FadeRect
+
 var hover_timer: Timer
 var currently_focused_node: Control = null
 
@@ -198,6 +200,13 @@ func reset_save():
 
 func was_opened_from_game_over(param: bool):
 	if param:
+		# Fondu noir vers transparent
+		fade_rect.color   = Color(0, 0, 0, 1)  # repart toujours de transparent
+		fade_rect.visible = true
+		var tween := create_tween()
+		tween.tween_property(fade_rect, "color:a", 0, 1.5)
+		fade_rect.queue_free()
+		
 		play_button.visible = true
 		menu_button.text = "Menu principal"
 	else:

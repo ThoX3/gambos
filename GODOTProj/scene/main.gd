@@ -28,7 +28,6 @@ func _ready() -> void:
 	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
-	%GameOver.menu_button_pressed.connect(game_over)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false

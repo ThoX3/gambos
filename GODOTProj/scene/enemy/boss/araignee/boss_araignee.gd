@@ -13,6 +13,7 @@ var _attaque_forcee: BossAttack = null
 
 func _ready() -> void:
 	super._ready()
+	_lancer_transition_boss()
 	for script in stats.attack_scripts:
 		_attaques_instanciees.append(script.new())
 

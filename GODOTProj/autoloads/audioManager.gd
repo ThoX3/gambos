@@ -1,6 +1,6 @@
 extends Node
 
-const FADE_DURATION := 1.0
+const FADE_DURATION := 0.5
 const VOL_MIN       := -80.0
 const VOL_MAX       :=   0.0
 

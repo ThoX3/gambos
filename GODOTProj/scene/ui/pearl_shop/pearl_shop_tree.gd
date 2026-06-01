@@ -13,6 +13,8 @@ signal menu_button_pressed
 
 @onready var list_button = [menu_button, play_button, reset_button]
 
+@onready var fade_rect: ColorRect = $FadeRect
+
 var hover_timer: Timer
 var currently_focused_node: Control = null
 
@@ -72,7 +74,7 @@ func _on_node_focus_entered(node: Control) -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
 	currently_focused_node = node
 	node_infos_window.visible = false
-	hover_timer.start(2.0)
+	hover_timer.start(1.0)
 	
 	var scroll: ScrollContainer = tree.get_parent()
 	var node_center_in_tree_x := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
@@ -173,6 +175,8 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
 			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
 			"reroll": SaveManager.current_save.upgrade_reroll_level += 1
+			"collection_radius": SaveManager.current_save.upgrade_collection_radius_level += 1
+			"bubble_division": SaveManager.current_save.upgrade_bubble_division_level += 1
 			_: push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()
@@ -198,6 +202,12 @@ func reset_save():
 
 func was_opened_from_game_over(param: bool):
 	if param:
+		# Fondu noir vers transparent
+		fade_rect.color   = Color(0, 0, 0, 1)  # repart toujours de transparent
+		fade_rect.visible = true
+		var tween := create_tween()
+		tween.tween_property(fade_rect, "color:a", 0, 1.5)
+		
 		play_button.visible = true
 		menu_button.text = "Menu principal"
 	else:

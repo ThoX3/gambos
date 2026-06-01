@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d025r4ny7jvdq"
-path="res://.godot/imported/Background(blue2).png-0ba452277ed877c3ddb061f6c0c27722.ctex"
+uid="uid://b0ogk4q0apsn6"
+path="res://.godot/imported/clownfish_swim.png-e5e0c049bb4dcd093ecfbc21a5a01b60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/background/Background(blue2).png"
-dest_files=["res://.godot/imported/Background(blue2).png-0ba452277ed877c3ddb061f6c0c27722.ctex"]
+source_file="res://assets/sprites/enemy/clownfish_swim.png"
+dest_files=["res://.godot/imported/clownfish_swim.png-e5e0c049bb4dcd093ecfbc21a5a01b60.ctex"]
 
 [params]
 

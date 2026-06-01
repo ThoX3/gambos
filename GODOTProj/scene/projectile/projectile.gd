@@ -7,6 +7,9 @@ var range: float = 500.0
 var damage: int = 1
 var _distance_traveled: float = 0.0
 var _is_destroyed: bool = false  # Empêche les doubles impacts
+var _number_of_redirections_left := 0  # Nombre restant de rebondissements
+var _should_update_direction := false  # Redirection en cas de rebondissement
+var _last_hit_enemy: Node2D = null
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio = $AudioStreamPlayer2D
@@ -20,27 +23,40 @@ func _physics_process(delta: float) -> void:
 	if _is_destroyed:
 		return
 		
-	var movement = direction * speed * delta
+	var movement := direction * speed * delta
+	
 	global_position += movement
 	_distance_traveled += movement.length()
 	
 	if _distance_traveled >= range:
 		_destroy()
+		
+	if _should_update_direction:
+		_should_update_direction = false
+		update_direction()
 
 func setup(data: ProjectileData, target_direction: Vector2) -> void:
 	direction = target_direction.normalized()
 	speed = data.speed
 	range = data.range
 	damage = data.damage
+	_number_of_redirections_left = data.bounce_count
 
 func _on_body_entered(body: Node2D) -> void:
 	if _is_destroyed:
 		return
 	if body is Enemy_Base:
-		body.take_damage(damage)
+		_last_hit_enemy = body
+		var removed_hp: int = body.take_damage(damage)
 		
 		AudioManager.play_sound_2d("projectile_pop", global_position)
-		_destroy()
+		
+		if removed_hp < damage and _number_of_redirections_left > 0:
+			damage -= removed_hp
+			_number_of_redirections_left -= 1
+			_should_update_direction = true
+		else:
+			_destroy()
 
 func _destroy() -> void:
 	_is_destroyed = true
@@ -53,3 +69,30 @@ func _on_animation_finished() -> void:
 		_sprite.play("move")
 	elif _sprite.animation == "destroy":
 		queue_free()
+
+func _get_nearest_enemy() -> Enemy_Base:
+	var enemies = get_tree().get_nodes_in_group("Enemy")
+	
+	# Filtrer par portée et validité
+	var in_range: Array = []
+	for enemy in enemies:
+		if not is_instance_valid(enemy) or enemy == _last_hit_enemy:
+			continue
+		if global_position.distance_to(enemy.global_position) <= range:
+			in_range.append(enemy)
+			
+	if in_range.is_empty():
+		return null
+	
+	# Trier par distance croissante
+	in_range.sort_custom(func(a, b):
+		return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+	
+	# Retourner le plus proche
+	return in_range[0]
+
+func update_direction():
+	var target = _get_nearest_enemy()
+	if target:
+		direction = global_position.direction_to(target.global_position).normalized()

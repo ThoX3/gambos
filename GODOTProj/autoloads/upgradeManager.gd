@@ -100,28 +100,40 @@ func get_cost_skip_map(level: int) -> int:
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
 	return get_default_cost(level)
-	
+
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
 	return get_default_cost(level)
+	
+## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
+func get_cost_collection_radius(level: int) -> int:
+	return get_default_cost(level)
 
+## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
+func get_cost_bubble_division(level: int) -> int:
+	return get_default_cost(level)
 
+## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
+func get_cost_projectile_bounce(level: int) -> int:
+	return get_default_cost(level)
+	
+	
 # --- Logique des effets spécifiques aux améliorations ---
 ## Calcule le bonus de vie maximum en fonction du niveau.
 func get_effect_health(level: int) -> float:
-	return level * 5.0
+	return 10.0 + (level * 5.0)
 
 ## Calcule le bonus de vitesse de déplacement en fonction du niveau.
 func get_effect_speed(level: int) -> float:
-	return level * 20.0
+	return 100.0 + (level * 20.0)
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:
-	return level * 1.0
+	return 1.0 + (level * 1.0)
 
 ## Calcule le bonus de cadence de tir en fonction du niveau.
 func get_effect_attack_speed(level: int) -> float:
-	return level * 0.1
+	return 0.5 + (level * 0.1)
 
 ## Calcule le multiplicateur de gain d'expérience en fonction du niveau.
 func get_effect_xp_gain(level: int) -> float:
@@ -146,11 +158,28 @@ func get_effect_thorns(level: int) -> Dictionary:
 func get_effect_skip_map(level: int) -> float:
 	return level * 1.0
 
-## Calcule le nombre de projectiles supplémentaires ajoutés.
-func get_effect_projectile(level: int) -> float:
+## Retourne le nombre de relances gratuites accordées.
+func get_effect_reroll(level: int) -> float:
 	return level * 1.0
+	
+## Calcule le multiplicateur de rayon de collection.
+func get_effect_collection_radius(level: int) -> float:
+	return 200.0 + (level * 15.0)
 
 ## Calcule le nombre de reroll ajoutés.
 func get_effect_reroll(level: int) -> int:
 	return level
+	
+## Calcule le nombre de projectiles supplémentaires ajoutés.
+func get_effect_projectile(level: int) -> float:
+	return 1.0 + (level * 1.0)
+	
+# --- Effets des armes ---
+## Calcule le nombre de petites bulles générées
+func get_effect_bubble_division(level: int) -> int:
+	return 1 + level * 1
+
+## Calcule le nombre potentiel de rebonds des projectiles.
+func get_effect_projectile_bounce(level: int) -> int:
+	return level * 1
 	

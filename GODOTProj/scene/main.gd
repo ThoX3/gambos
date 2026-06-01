@@ -8,6 +8,7 @@ extends Node
 # --- NODE REFERENCES ---
 @onready var game_world: Node2D = $World
 @onready var ui_layer: CanvasLayer = $UI
+@onready var fade_rect: ColorRect = $UI/FadeRect
 
 # --- STATE TRACKING ---
 var current_player: CharacterBody2D = null
@@ -24,9 +25,11 @@ func _ready() -> void:
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
+	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
-	%GameOver.quit_button_pressed.connect(game_over)
+	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
+	$World/WorldManager.monde_change.connect(_on_monde_change)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false
@@ -45,11 +48,7 @@ func start_game(map_to_load: PackedScene) -> void:
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
-	if SaveManager.current_save:
-		current_player.apply_pearl_upgrades(SaveManager.current_save)
-	
-	if current_player.has_signal("health_depleted"):
-		current_player.health_depleted.connect(_on_player_health_depleted)
+	GameManager.GameOver.connect(_on_GameOver)
 	
 	current_map = map_to_load.instantiate()
 	game_world.add_child(current_map)
@@ -66,12 +65,19 @@ func start_game(map_to_load: PackedScene) -> void:
 	# Start WaveManager + connect vague_terminee pour la sauvegarde
 	var wm: Node = $World/WaveManager
 	wm.start_waves()
-	if not wm.vague_terminee.is_connected(_on_vague_terminee):
-		wm.vague_terminee.connect(_on_vague_terminee)
+	wm.vague_terminee.connect(_on_vague_terminee)
+	wm.monde_termine.connect(_on_monde_termine)  # ← nouveau
+
+func _on_monde_termine(_vague: int) -> void:
+	var monde_suivant = $World/WorldManager.get_nom_monde_suivant()
+	if monde_suivant:
+		$UI/MenuTransition.afficher(monde_suivant)
+	else:
+		$UI/MenuTransition.afficher("Mode Infini")
 
 func _on_vague_terminee(numero: int) -> void:
 	# Met à jour la vague max si on bat le record
-	if SaveManager.current_save and numero > SaveManager.current_save.max_wave_reached:
+	if numero > SaveManager.current_save.max_wave_reached:
 		SaveManager.current_save.max_wave_reached = numero
 		SaveManager.save_game()
 		print("Nouveau record de vague : ", numero)
@@ -89,13 +95,22 @@ func _clear_world() -> void:
 	if current_map:
 		current_map.queue_free()
 		
-func _on_player_health_depleted():
+func _on_GameOver():
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()
 	GameManager.gotoshop = true
+	
+	fade_rect.color   = Color(0, 0, 0, 0)  # repart toujours de transparent
+	fade_rect.visible = true
+	var tween := create_tween()
+	tween.tween_property(fade_rect, "color:a", 1.0, 1.5)
+	tween.tween_callback(reload_level)
+
+func reload_level():
 	get_tree().reload_current_scene()
 	
 func _on_start():
+	GameManager.in_game = true
 	start_game(starting_map)
 
 func show_menu(menu_to_show: Control) -> void:
@@ -114,20 +129,21 @@ func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
 
 func open_bestiary() -> void:
+	GameManager.in_game = false
 	show_menu($UI/Bestiary)
 	$UI/Bestiary.setup(SaveManager.current_save.max_wave_reached)
 	
-func game_over():
-	SaveManager.save_game()
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-	
 func open_bestiary_from_pause() -> void:
 	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause
+	GameManager.in_game = false
 	var bestiary = $UI/Bestiary
 	$UI.move_child(bestiary, $UI.get_child_count() - 1)
 	bestiary.visible = true
-	bestiary.setup_from_pause(SaveManager.current_save.max_wave_reached)
+	
+	# Prend la vague la plus élevée entre le save et la vague en cours
+	var vague_en_cours : int = $World/WaveManager.get_numero_vague()
+	var vague_max : int = max(SaveManager.current_save.max_wave_reached, vague_en_cours)
+	bestiary.setup_from_pause(vague_max)
 
 func _on_bestiary_back() -> void:
 	if $UI/Bestiary._from_pause:
@@ -137,3 +153,19 @@ func _on_bestiary_back() -> void:
 	else:
 		# Fermeture depuis le menu principal : comportement d'avant
 		open_main_menu()
+
+func _on_continuer() -> void:
+	$World/WorldManager.passer_monde_suivant()
+
+func _on_monde_change(config: WorldConfig) -> void:
+	change_level(config.map_scene)
+	$World/WaveManager.spawn_config = config.spawn_config
+	$World/WaveManager.start_waves()
+	AudioManager.play_music(config.musique_id)
+
+func open_main_menu_from_pause() -> void:
+	GameManager.in_game = false
+	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.save_game()
+	get_tree().paused = false
+	get_tree().reload_current_scene()

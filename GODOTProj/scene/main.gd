@@ -28,6 +28,8 @@ func _ready() -> void:
 	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
+	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
+	$World/WorldManager.monde_change.connect(_on_monde_change)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false
@@ -153,7 +155,7 @@ func _on_bestiary_back() -> void:
 		open_main_menu()
 
 func _on_continuer() -> void:
-	$WorldManager.passer_monde_suivant()
+	$World/WorldManager.passer_monde_suivant()
 
 func _on_monde_change(config: WorldConfig) -> void:
 	change_level(config.map_scene)

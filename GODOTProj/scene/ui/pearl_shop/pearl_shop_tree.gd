@@ -137,7 +137,7 @@ func refresh_shop(is_initial_load: bool = false) -> void:
 				
 			if not is_initial_load and was_locked and will_be_unlocked:
 				node.update_node(anim_delay, false)
-				anim_delay += 0.15 # Add slight delay for the next node that might unlock
+				anim_delay += 0.4 
 			else:
 				node.update_node(0.0, is_initial_load)
 
@@ -164,20 +164,11 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 	if SaveManager.current_save.pearls >= cost:
 		SaveManager.current_save.pearls -= cost
 		
-		match id:
-			"health": SaveManager.current_save.upgrade_health_level += 1
-			"damage": SaveManager.current_save.upgrade_damage_level += 1
-			"speed":  SaveManager.current_save.upgrade_speed_level += 1
-			"attack_speed": SaveManager.current_save.upgrade_attack_speed_level += 1
-			"xp_gain": SaveManager.current_save.upgrade_xp_gain_level += 1
-			"luck": SaveManager.current_save.upgrade_luck_level += 1
-			"regen": SaveManager.current_save.upgrade_regen_level += 1
-			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
-			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
-			"reroll": SaveManager.current_save.upgrade_reroll_level += 1
-			"collection_radius": SaveManager.current_save.upgrade_collection_radius_level += 1
-			"bubble_division": SaveManager.current_save.upgrade_bubble_division_level += 1
-			_: push_warning("Unhandled upgrade id: ", id)
+		var prop_name := "upgrade_" + id + "_level"
+		if prop_name in SaveManager.current_save:
+			SaveManager.current_save.set(prop_name, SaveManager.current_save.get(prop_name) + 1)
+		else:
+			push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()
 		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)

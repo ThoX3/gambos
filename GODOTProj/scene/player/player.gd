@@ -175,6 +175,7 @@ func _on_initialize():
 	var lvl_thorns = save.upgrade_thorns_level
 	var lvl_damage = save.upgrade_damage_level
 	var lvl_atk_spd = save.upgrade_attack_speed_level
+	var lvl_bounce = save.upgrade_projectile_bounce_level
 
 	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
 	Stats.current_health = Stats.max_health
@@ -201,6 +202,7 @@ func _on_initialize():
 		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
 		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
 		projectile_data.projectile_count = bubble_count
+		projectile_data.bounce_count = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -236,11 +238,9 @@ func _shoot_multiple(targets: Array) -> void:
 		get_parent().add_child(projectile)
 		projectile.global_position = global_position
 		
-		# Create a local copy of data to apply reduced damage
 		var p_data := projectile_data.duplicate()
-		p_data.damage = max(1, int(projectile_data.damage * pow(0.75, i)))
+		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
 		
-		# Add a tiny spread if shooting at the same target
 		var current_dir := dir
 		if i >= targets.size():
 			current_dir = dir.rotated(randf_range(-0.15, 0.15))

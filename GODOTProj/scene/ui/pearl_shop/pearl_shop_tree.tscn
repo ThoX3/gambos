@@ -18,8 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://de88qaw72pvb" path="res://assets/sprites/pearl_shop/icons/thorns.png" id="12_gipjf"]
 [ext_resource type="Texture2D" uid="uid://6pxudlq3qkj0" path="res://assets/sprites/pearl_shop/icons/skip_map.png" id="12_qpv24"]
 [ext_resource type="Texture2D" uid="uid://bljgw6mp7g52g" path="res://assets/sprites/pearl_shop/icons/collection_zone.png" id="13_r1ves"]
-[ext_resource type="Texture2D" uid="uid://bb2kwn5h1263e" path="res://assets/sprites/projectile/bubble_icon.png" id="14_4wpf8"]
+[ext_resource type="Texture2D" uid="uid://bnqmhlr8uin5i" path="res://assets/sprites/pearl_shop/icons/bubble_division.png" id="15_qpv24"]
 [ext_resource type="PackedScene" uid="uid://bd4sq86hoarr6" path="res://scene/ui/pearl_shop/node_infos.tscn" id="16_jn2eo"]
+[ext_resource type="Texture2D" uid="uid://d14ndqa11ws1q" path="res://assets/sprites/pearl_shop/icons/bubble_bounce.png" id="17_ciura"]
 
 [sub_resource type="Gradient" id="Gradient_w5y77"]
 offsets = PackedFloat32Array(0.8666667, 1)
@@ -255,7 +256,7 @@ layout_mode = 2
 upgrade_id = "bubble_division"
 upgrade_name = "Petites bulles"
 upgrade_description = "Fragmente l'attaque de Gambos en de multiples petites bulles."
-icon_texture = ExtResource("14_4wpf8")
+icon_texture = ExtResource("15_qpv24")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer5/LuckNode")
 
@@ -267,6 +268,19 @@ upgrade_description = "Grâce à une meilleure connaissance des récifs, Gambos 
 icon_texture = ExtResource("12_qpv24")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer5/Thorns")
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=608050801]
+layout_mode = 2
+theme_override_constants/separation = 54
+
+[node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer7" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_bounce"
+upgrade_name = "Ricochets"
+upgrade_description = "Permet aux projectiles encore en état de rebondir vers de nouveaux ennemis."
+icon_texture = ExtResource("17_ciura")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer6/CollectionRadiusNode")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
 layout_mode = 2

@@ -94,11 +94,12 @@ func _declencher_nova() -> void:
 		
 		if "direction" in proj:
 			proj.direction = Vector2(cos(angle), sin(angle))
-			
+		
 		get_parent().add_child(proj)
 
 func take_damage(amount: int) -> void:
 	super.take_damage(amount)
+	GameManager.boss_health_changed.emit(stats.max_hp ,hp)
 	if not is_instance_valid(self) or is_queued_for_deletion():
 		_on_boss_mort()
 

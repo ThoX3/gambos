@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
+[ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
+[ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
 
 [node name="hud" type="Control" unique_id=375714786]
 layout_mode = 3
@@ -156,3 +158,15 @@ layout_mode = 2
 texture = ExtResource("8_gll67")
 expand_mode = 3
 stretch_mode = 4
+
+[node name="HP_BossBar" type="TextureProgressBar" parent="." unique_id=1904707128]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+texture_under = ExtResource("11_onxnr")
+texture_progress = ExtResource("12_llivb")

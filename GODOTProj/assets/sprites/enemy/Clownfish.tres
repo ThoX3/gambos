@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dthxi0mbpsko0"]
+
+[ext_resource type="Texture2D" uid="uid://b0ogk4q0apsn6" path="res://assets/sprites/enemy/clownfish_swim.png" id="1_gwqf3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu46x"]
+atlas = ExtResource("1_gwqf3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_553ol"]
+atlas = ExtResource("1_gwqf3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsgek"]
+atlas = ExtResource("1_gwqf3")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5p8p3"]
+atlas = ExtResource("1_gwqf3")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu46x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_553ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsgek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5p8p3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]

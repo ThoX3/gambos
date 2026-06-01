@@ -4,7 +4,8 @@ extends Control
 
 @onready var pearl_box = $Pearls
 @onready var pearl_label = $Pearls/MarginContainer/Count
-@onready var wave_label = $Wave/Count 
+@onready var wave_label = $Wave/Count
+@onready var bossBar_progressBar = $HP_BossBar
 
 var pearl_tween: Tween
 
@@ -14,6 +15,7 @@ func _ready() -> void:
 	GameManager.health_changed.connect(_update_health_bar)
 	GameManager.start_game.connect(_on_start)
 	GameManager.pearls_changed.connect(_on_pearls_changed)
+	GameManager.boss_health_changed.connect(_on_boss_health_changed)
 	_update_progres_bar()
 	%HP_Bar.max_value = Stats.max_health
 	_update_health_bar()
@@ -25,7 +27,8 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
-	wave_label.text = "1"  
+	wave_label.text = "1"
+	bossBar_progressBar.hide()
 	
 	# Connecte le signal du WaveManager
 	var wm = get_tree().get_first_node_in_group("wave_manager")
@@ -34,14 +37,19 @@ func _on_start():
 
 func _on_vague_demarree(numero: int) -> void:
 	wave_label.text = str(numero)  # ← met à jour le label à chaque nouvelle vague
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	if numero == 20:
+		show_bossBar()
+	
+func show_bossBar():
+	bossBar_progressBar.show()
 
 func _update_progres_bar():
 	%XP_Bar.max_value = Stats.requiredXp
 	%XP_Bar.value = Stats.currentXp
+
+func _on_boss_health_changed(maxHp : int, hp):
+	bossBar_progressBar.max_value = maxHp
+	bossBar_progressBar.value = hp
 
 func _update_health_bar():
 	%HP_Bar.max_value = Stats.max_health

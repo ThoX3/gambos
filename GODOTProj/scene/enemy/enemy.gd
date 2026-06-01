@@ -49,8 +49,11 @@ func _physics_process(_delta):
 	# Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
 	move_and_slide()
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int) -> int:
+	var removed_hp: int = min(amount, hp)
+	
 	hp -= amount
+	
 	if hp <= 0:
 		$CollisionShape2D.set_deferred("disabled", true)
 		_creer_splash_mort()
@@ -59,11 +62,13 @@ func take_damage(amount: int) -> void:
 		queue_free()
 	
 	# Affichage des dégâts
-	_creer_texte_degats(amount)
+	_creer_texte_degats(removed_hp)
 	
+	var tween := create_tween()
 	sprite.modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	sprite.modulate = Color.WHITE
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+	
+	return removed_hp
 		
 func _drop_experience() -> void:
 	var xp_restante : int = stats.xp_drop

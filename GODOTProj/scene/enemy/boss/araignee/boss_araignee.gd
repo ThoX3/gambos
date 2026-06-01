@@ -97,10 +97,11 @@ func _declencher_nova() -> void:
 			
 		get_parent().add_child(proj)
 
-func take_damage(amount: int) -> void:
-	super.take_damage(amount)
+func take_damage(amount: int) -> int:
+	var loss_hp: int = super.take_damage(amount)
 	if not is_instance_valid(self) or is_queued_for_deletion():
 		_on_boss_mort()
+	return loss_hp
 
 func _on_boss_mort() -> void:
 	# Sauvegarde persistante

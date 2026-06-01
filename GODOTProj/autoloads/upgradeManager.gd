@@ -100,9 +100,15 @@ func get_cost_skip_map(level: int) -> int:
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
 	return get_default_cost(level)
-	
+
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
+	return get_default_cost(level)
+	
+func get_cost_collection_radius(level: int) -> int:
+	return get_default_cost(level)
+
+func get_cost_bubble_division(level: int) -> int:
 	return get_default_cost(level)
 
 
@@ -146,11 +152,19 @@ func get_effect_thorns(level: int) -> Dictionary:
 func get_effect_skip_map(level: int) -> float:
 	return level * 1.0
 
+## Retourne le nombre de relances gratuites accordées.
+func get_effect_reroll(level: int) -> float:
+	return level * 1.0
+	
+## Calcule le multiplicateur de rayon de collection.
+func get_effect_collection_radius(level: int) -> float:
+	return level * 15.0
+
 ## Calcule le nombre de projectiles supplémentaires ajoutés.
 func get_effect_projectile(level: int) -> float:
 	return level * 1.0
-
-## Calcule le nombre de reroll ajoutés.
-func get_effect_reroll(level: int) -> int:
-	return level
 	
+# --- Effets des armes ---
+## Calcule le nombre de petites bulles générées
+func get_effect_bubble_division(level: int) -> int:
+	return level * 1

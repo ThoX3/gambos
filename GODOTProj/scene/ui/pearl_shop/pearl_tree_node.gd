@@ -104,6 +104,7 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 	
 	if not is_unlocked:
 		lock_overlay.visible = true
+		price_label.visible = false
 		lock_overlay.modulate = Color.WHITE
 		lock_overlay.position.y = 0
 		icon.modulate = Color(1, 1, 1, 0.1)

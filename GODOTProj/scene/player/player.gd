@@ -184,6 +184,13 @@ func apply_pearl_upgrades(save: SaveData) -> void:
 	xp_multiplier = UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
 	regen_rate = UpgradeManager.get_effect_regen(save.upgrade_regen_level)
 	
+	Stats.collectRadius += UpgradeManager.get_effect_collection_radius(save.upgrade_collection_radius_level)
+	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	
+	# Bubble Division might be used later? Leaving variable for when skill requires it
+	var bubble_count = UpgradeManager.get_effect_bubble_division(save.upgrade_bubble_division_level)
+	
+	# Determine thorns tick rate
 	var thorns_effects = UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)
 	thorns_damage = int(thorns_effects["damage"])
 	thorns_interval = thorns_effects["interval"]

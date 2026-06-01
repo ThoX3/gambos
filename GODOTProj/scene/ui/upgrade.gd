@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 func _on_level_update():
 	get_tree().paused = true
 	%CanvasLayer.visible = true
+	%CanvasLayer.layer = 10
 	var random_cards = UpgradeManager.get_random_upgrades(3)
 	display_upgrades(random_cards)
 	%Card.get_node("TextureButton").grab_focus()

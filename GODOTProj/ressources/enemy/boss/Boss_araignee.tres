@@ -4,12 +4,16 @@
 [ext_resource type="Script" uid="uid://bosh0w0xm27l8" path="res://scene/enemy/boss/araignee/attacks/attaque_balayage.gd" id="2_5l6c2"]
 [ext_resource type="Script" uid="uid://daqti2f86wa3p" path="res://scene/enemy/boss/araignee/attacks/attack_broyage.gd" id="3_vvrx3"]
 [ext_resource type="PackedScene" uid="uid://d3yhcam5xqjel" path="res://scene/projectile/projectile_sable.tscn" id="4_f027s"]
+[ext_resource type="PackedScene" uid="uid://2e66s0giml01" path="res://scene/ui/enemy/boss/BossUI.tscn" id="4_vvrx3"]
+[ext_resource type="PackedScene" uid="uid://bu48a3wfm4td2" path="res://scene/ui/enemy/boss/TransitionBossAraignee.tscn" id="5_5l6c2"]
 [ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/boss/BossData.gd" id="5_6xhw8"]
 [ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="6_qb5vh"]
 
 [resource]
 script = ExtResource("5_6xhw8")
 attack_scripts = Array[Script]([ExtResource("1_0fmyw"), ExtResource("2_5l6c2"), ExtResource("3_vvrx3")])
+scene_transition = ExtResource("5_5l6c2")
+boss_ui_scene = ExtResource("4_vvrx3")
 texture = ExtResource("6_qb5vh")
 name = "Araignée de mer"
 max_hp = 2000

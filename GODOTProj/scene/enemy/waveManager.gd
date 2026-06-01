@@ -4,11 +4,11 @@ extends Node
 @export var config: BalancingConfig
 @export_range(0.0, 30.0, 0.5) var pause_entre_vagues: float = 3.0
 @export var mode_infini: bool = true
-@export var joueur: Node2D
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
 @export var multiplicateur_taille_boss: float = 2.0
 @export var vagues_par_monde: int = 20
+var joueur: Node2D
 
 signal vague_demarree(numero: int)
 signal vague_terminee(numero: int)
@@ -33,7 +33,6 @@ func _ready() -> void:
 	joueur = get_tree().get_first_node_in_group("Player")
 	if spawn_config == null: push_error("WaveManager : aucun SpawnConfig assigné !")
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
-	if joueur == null:       push_error("WaveManager : joueur introuvable.")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
 func start_waves() -> void:

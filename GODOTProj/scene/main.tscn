@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://kvntvrcpo48f" path="res://scene/ui/bestiary/bestiary.tscn" id="6_mswub"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="PackedScene" uid="uid://bkmi1txllqgo" path="res://scene/ui/pause_menu.tscn" id="10_hybxs"]
-[ext_resource type="PackedScene" uid="uid://dqc2w8l4xmstg" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
+[ext_resource type="PackedScene" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
 [ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="15_jcbur"]

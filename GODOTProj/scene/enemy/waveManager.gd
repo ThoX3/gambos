@@ -85,7 +85,11 @@ func _demarrer_vague() -> void:
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
 		_spawner_boss(boss_entry)
-		_lancer_dialogue_boss()
+		# Pas propre : lancer un signal 
+		if joueur:
+			joueur.set_physics_process(false)
+			if joueur.has_method("disable_input"):
+				joueur.disable_input()
 	else:
 		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
 		_liste_spawn          = _generer_liste_spawn(disponibles, _numero_vague)
@@ -93,6 +97,12 @@ func _demarrer_vague() -> void:
 		_intervalle_spawn     = _duree_vague_courante / max(float(_liste_spawn.size()), 1.0)
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
+	
+	# Pas propre : lancer un signal 
+	if joueur:
+		joueur.set_physics_process(true)
+		if joueur.has_method("enable_input"):
+			joueur.enable_input()	
 
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)

@@ -25,8 +25,10 @@ func _ready() -> void:
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
+	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
+	%GameOver.menu_button_pressed.connect(game_over)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false
@@ -65,8 +67,15 @@ func start_game(map_to_load: PackedScene) -> void:
 	# Start WaveManager + connect vague_terminee pour la sauvegarde
 	var wm: Node = $World/WaveManager
 	wm.start_waves()
-	if not wm.vague_terminee.is_connected(_on_vague_terminee):
-		wm.vague_terminee.connect(_on_vague_terminee)
+	wm.vague_terminee.connect(_on_vague_terminee)
+	wm.monde_termine.connect(_on_monde_termine)  # ← nouveau
+
+func _on_monde_termine(_vague: int) -> void:
+	var monde_suivant = $World/WorldManager.get_nom_monde_suivant()
+	if monde_suivant:
+		$UI/MenuTransition.afficher(monde_suivant)
+	else:
+		$UI/MenuTransition.afficher("Mode Infini")
 
 func _on_vague_terminee(numero: int) -> void:
 	# Met à jour la vague max si on bat le record
@@ -103,6 +112,7 @@ func reload_level():
 	get_tree().reload_current_scene()
 	
 func _on_start():
+	GameManager.in_game = true
 	start_game(starting_map)
 
 func show_menu(menu_to_show: Control) -> void:
@@ -121,11 +131,13 @@ func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
 
 func open_bestiary() -> void:
+	GameManager.in_game = false
 	show_menu($UI/Bestiary)
 	$UI/Bestiary.setup(SaveManager.current_save.max_wave_reached)
 	
 func open_bestiary_from_pause() -> void:
 	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause
+	GameManager.in_game = false
 	var bestiary = $UI/Bestiary
 	$UI.move_child(bestiary, $UI.get_child_count() - 1)
 	bestiary.visible = true
@@ -139,3 +151,19 @@ func _on_bestiary_back() -> void:
 	else:
 		# Fermeture depuis le menu principal : comportement d'avant
 		open_main_menu()
+
+func _on_continuer() -> void:
+	$WorldManager.passer_monde_suivant()
+
+func _on_monde_change(config: WorldConfig) -> void:
+	change_level(config.map_scene)
+	$World/WaveManager.spawn_config = config.spawn_config
+	$World/WaveManager.start_waves()
+	AudioManager.play_music(config.musique_id)
+
+func open_main_menu_from_pause() -> void:
+	GameManager.in_game = false
+	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.save_game()
+	get_tree().paused = false
+	get_tree().reload_current_scene()

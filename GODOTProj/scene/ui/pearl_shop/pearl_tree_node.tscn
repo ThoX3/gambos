@@ -41,8 +41,7 @@ texture_normal = ExtResource("2_urf48")
 texture_pressed = ExtResource("2_urf48")
 texture_hover = ExtResource("3_vccej")
 texture_disabled = ExtResource("4_dkipg")
-texture_focused = ExtResource("3_vccej")
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="IconContainer" type="MarginContainer" parent="." unique_id=1579260415]
 modulate = Color(1, 1, 1, 0.3137255)

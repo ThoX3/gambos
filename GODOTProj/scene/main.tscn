@@ -10,9 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://kvntvrcpo48f" path="res://scene/ui/bestiary/bestiary.tscn" id="6_mswub"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="PackedScene" uid="uid://bkmi1txllqgo" path="res://scene/ui/pause_menu.tscn" id="10_hybxs"]
+[ext_resource type="PackedScene" uid="uid://dqc2w8l4xmstg" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
 [ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="15_jcbur"]
+[ext_resource type="Script" uid="uid://bkj2x6i6xdk0e" path="res://scene/WorldManager.gd" id="15_smf0o"]
+[ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="16_tv8i1"]
+[ext_resource type="Resource" uid="uid://dbgxfn1nf1pqg" path="res://ressources/worlds/World_1.tres" id="17_0vlqb"]
 
 [node name="Main" type="Node2D" unique_id=1767589913 groups=["Main"]]
 texture_filter = 1
@@ -25,6 +29,7 @@ starting_map = ExtResource("3_wp4xf")
 [node name="MainMenu" parent="UI" unique_id=1274161686 instance=ExtResource("4_wscrc")]
 
 [node name="PearlShop" parent="UI" unique_id=627456338 instance=ExtResource("5_wscrc")]
+visible = false
 
 [node name="Bestiary" parent="UI" unique_id=847250004 instance=ExtResource("6_mswub")]
 
@@ -36,6 +41,11 @@ offset_bottom = -367.0
 [node name="LevelUp" parent="UI" unique_id=681599716 instance=ExtResource("5_4j5ol")]
 
 [node name="pause_menu" parent="UI" unique_id=1634385708 instance=ExtResource("10_hybxs")]
+unique_name_in_owner = true
+
+[node name="MenuTransition" parent="UI" unique_id=1348043249 instance=ExtResource("11_tv8i1")]
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="FadeRect" type="ColorRect" parent="UI" unique_id=308755849]
 anchors_preset = 15
@@ -56,3 +66,7 @@ scene_dialogue = ExtResource("12_wscrc")
 
 [node name="EnemyContainer" type="Node2D" parent="World/WaveManager" unique_id=14065966]
 z_index = 10
+
+[node name="WorldManager" type="Node2D" parent="World" unique_id=611213918]
+script = ExtResource("15_smf0o")
+mondes = Array[ExtResource("16_tv8i1")]([ExtResource("17_0vlqb")])

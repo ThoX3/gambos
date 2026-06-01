@@ -1,6 +1,6 @@
 extends Control
 
-signal quit_button_pressed
+signal menu_button_pressed
 signal bestiary_button_pressed
 
 const STATS_FONT = preload("res://assets/fonts/depixel/DePixelBreit.ttf")
@@ -13,6 +13,8 @@ func _ready() -> void:
 	%Resume.pressed.connect(_on_resume_pressed)
 	%Quit.pressed.connect(_on_quit_pressed)
 	%BestiaryButton.pressed.connect(_on_bestiary_pressed)  # NOUVEAU
+	%Quit.focus_entered.connect(_display_quit_info)
+	%Quit.focus_exited.connect(_hide_quit_info)
 
 func _input(event: InputEvent) -> void:
 	if _bestiary_open:
@@ -44,7 +46,9 @@ func _on_resume_pressed():
 	toggle_pause()
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	AudioManager.play_music("main_menu")
+	%LayerPause.visible = false
+	menu_button_pressed.emit()
 
 func _on_bestiary_pressed() -> void:
 	_bestiary_open = true
@@ -55,3 +59,12 @@ func notify_bestiary_closed() -> void:
 	_bestiary_open = false
 	%LayerPause.visible = true   # Réaffiche le menu pause
 	%Resume.grab_focus()
+	
+func _display_quit_info() -> void:
+	%QuitDescription.text = "Retourne au menu principal tout en gardant les perles accumulées pendant la partie."
+	%QuitDescription.add_theme_font_override("font", STATS_FONT)
+	%QuitDescription.show()
+	
+func _hide_quit_info() -> void:
+	%QuitDescription.text = ""
+	%QuitDescription.show()

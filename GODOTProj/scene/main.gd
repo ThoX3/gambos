@@ -24,9 +24,10 @@ func _ready() -> void:
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
+	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
-	%GameOver.quit_button_pressed.connect(game_over)
+	%GameOver.menu_button_pressed.connect(game_over)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false
@@ -137,3 +138,9 @@ func _on_bestiary_back() -> void:
 	else:
 		# Fermeture depuis le menu principal : comportement d'avant
 		open_main_menu()
+
+func open_main_menu_from_pause() -> void:
+	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.save_game()
+	get_tree().paused = false
+	get_tree().reload_current_scene()

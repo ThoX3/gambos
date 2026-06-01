@@ -276,8 +276,8 @@ theme_override_constants/separation = 54
 [node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer7" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "bubble_bounce"
-upgrade_name = "Bulles élastiques"
-upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers de nouveaux ennemis."
+upgrade_name = "Ricochets"
+upgrade_description = "Permet aux projectiles toujours robustes de rebondir vers de nouveaux ennemis."
 icon_texture = ExtResource("17_ciura")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer6/CollectionRadiusNode")

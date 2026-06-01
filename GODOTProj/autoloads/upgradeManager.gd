@@ -105,13 +105,19 @@ func get_cost_thorns(level: int) -> int:
 func get_cost_reroll(level: int) -> int:
 	return get_default_cost(level)
 	
+## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
 	return get_default_cost(level)
 
+## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
 func get_cost_bubble_division(level: int) -> int:
 	return get_default_cost(level)
 
-
+## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
+func get_cost_projectile_bounce(level: int) -> int:
+	return get_default_cost(level)
+	
+	
 # --- Logique des effets spécifiques aux améliorations ---
 ## Calcule le bonus de vie maximum en fonction du niveau.
 func get_effect_health(level: int) -> float:
@@ -168,3 +174,8 @@ func get_effect_projectile(level: int) -> float:
 ## Calcule le nombre de petites bulles générées
 func get_effect_bubble_division(level: int) -> int:
 	return 1 + level * 1
+
+## Calcule le nombre potentiel de rebonds des projectiles.
+func get_effect_projectile_bounce(level: int) -> int:
+	return level * 1
+	

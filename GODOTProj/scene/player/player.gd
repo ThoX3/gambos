@@ -238,11 +238,9 @@ func _shoot_multiple(targets: Array) -> void:
 		get_parent().add_child(projectile)
 		projectile.global_position = global_position
 		
-		# Create a local copy of data to apply reduced damage
 		var p_data := projectile_data.duplicate()
 		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
 		
-		# Add a tiny spread if shooting at the same target
 		var current_dir := dir
 		if i >= targets.size():
 			current_dir = dir.rotated(randf_range(-0.15, 0.15))

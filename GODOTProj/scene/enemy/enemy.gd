@@ -50,6 +50,9 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func take_damage(amount: int) -> int:
+	if is_queued_for_deletion():
+		return 0
+
 	var removed_hp: int = min(amount, hp)
 	
 	hp -= amount

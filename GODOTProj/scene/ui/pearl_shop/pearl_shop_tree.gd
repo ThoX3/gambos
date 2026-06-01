@@ -212,6 +212,7 @@ func was_opened_from_game_over(param: bool):
 		play_button.visible = true
 		menu_button.text = "Menu principal"
 	else:
+		fade_rect.queue_free()
 		play_button.visible = false
 		menu_button.text = "Retour"
 

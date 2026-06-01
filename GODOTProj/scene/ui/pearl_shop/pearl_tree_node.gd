@@ -104,12 +104,14 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 	
 	if not is_unlocked:
 		lock_overlay.visible = true
+		price_label.visible = false
 		lock_overlay.modulate = Color.WHITE
 		lock_overlay.position.y = 0
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED, TEX_LOCKED_FOCUSED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
 	else:
+		price_label.visible = true
 		if is_newly_unlocked and lock_overlay.visible:
 			play_unlock_anim(anim_delay)
 		else:

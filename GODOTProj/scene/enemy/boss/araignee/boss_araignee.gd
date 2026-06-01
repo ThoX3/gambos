@@ -1,7 +1,5 @@
 extends Boss_Base
 
-signal health_changed(current_hp)
-
 @onready var collision_physique = $CollisionShape2D
 
 @export_category("Paramètres Araignée")
@@ -101,7 +99,6 @@ func _declencher_nova() -> void:
 
 func take_damage(amount: int) -> int:
 	var loss_hp: int = super.take_damage(amount)
-  health_changed.emit(hp)
 	if not is_instance_valid(self) or is_queued_for_deletion():
 		_on_boss_mort()
 	return loss_hp

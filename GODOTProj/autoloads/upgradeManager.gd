@@ -166,10 +166,6 @@ func get_effect_reroll(level: int) -> float:
 func get_effect_collection_radius(level: int) -> float:
 	return 200.0 + (level * 15.0)
 
-## Calcule le nombre de reroll ajoutés.
-func get_effect_reroll(level: int) -> int:
-	return level
-	
 ## Calcule le nombre de projectiles supplémentaires ajoutés.
 func get_effect_projectile(level: int) -> float:
 	return 1.0 + (level * 1.0)

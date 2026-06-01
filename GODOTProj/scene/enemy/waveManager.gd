@@ -8,12 +8,14 @@ extends Node
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
 @export var multiplicateur_taille_boss: float = 2.0
+@export var vagues_par_monde: int = 20
 
 signal vague_demarree(numero: int)
 signal vague_terminee(numero: int)
 signal toutes_vagues_terminees
+signal monde_termine(numero_vague: int)
 
-enum _Etat { PAUSE, VAGUE, FINI }
+enum _Etat { PAUSE, VAGUE, ATTENTE_ENNEMIS_RESTANTS, FINI }
 
 var _etat: _Etat                          = _Etat.FINI
 var _numero_vague: int                    = 0
@@ -49,6 +51,10 @@ func _process(delta: float) -> void:
 				_demarrer_vague()
 		_Etat.VAGUE:
 			_tick_vague(delta)
+		_Etat.ATTENTE_ENNEMIS_RESTANTS:
+			if get_tree().get_nodes_in_group("Enemy").size() == 0:
+				monde_termine.emit(_numero_vague)
+				_etat = _Etat.FINI
 		_Etat.FINI:
 			pass
 
@@ -92,6 +98,11 @@ func _demarrer_vague() -> void:
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)
 	_boss_courant = null
+
+	# Vérifie si c'est la fin d'un monde (vague boss franchie)
+	if _numero_vague > 0 and _numero_vague % vagues_par_monde == 0:
+		_etat = _Etat.ATTENTE_ENNEMIS_RESTANTS
+		return
 
 	if not mode_infini and spawn_config.get_ennemis_disponibles(_numero_vague + 1).is_empty() \
 	and spawn_config.get_boss_pour_vague(_numero_vague + 1) == null:

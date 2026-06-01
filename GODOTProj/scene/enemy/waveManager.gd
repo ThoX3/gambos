@@ -79,8 +79,7 @@ func _demarrer_vague() -> void:
 		_duree_vague_courante = boss_entry.duree
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
-		_spawner_boss(boss_entry)
-		_lancer_dialogue_boss()
+		_lancer_transition_boss(boss_entry)
 	else:
 		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
 		_liste_spawn          = _generer_liste_spawn(disponibles, _numero_vague)
@@ -178,7 +177,6 @@ func _spawner_boss(boss_entry: EntreeBoss) -> void:
 		var ennemi: Boss_Base = boss_entry.scene.instantiate() as Boss_Base
 		ennemi.stats           = boss_entry.data
 		ennemi.global_position = _calculer_position_spawn()
-		conteneur_ennemis.add_child(ennemi)
 		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
 		conteneur_ennemis.add_child(ennemi)
 
@@ -221,10 +219,57 @@ func est_en_mode_infini() -> bool:
 	# En mode infini il n'y a plus de fin définie, les vagues continuent indéfiniment
 	return mode_infini and _numero_vague > 0
 
-func _lancer_dialogue_boss() -> void:
-	if scene_dialogue == null:
-		push_error("WaveManager : scène de dialogue non assignée !")
+func _lancer_transition_boss(boss_entry: EntreeBoss) -> void:
+	var boss_data = boss_entry.data as BossData
+	
+	if boss_data == null:
+		push_error("WaveManager : Les données du boss ne sont pas de type BossData.")
+		_spawner_boss(boss_entry)
 		return
+
+	# 1. Bloquer le joueur et figer le reste du monde
+	if joueur:
+		joueur.set_physics_process(false)
+		if joueur.has_method("disable_input"):
+			joueur.disable_input()
+			
+	# Mettre le jeu en pause pour que les autres ennemis ou projectiles s'arrêtent
 	get_tree().paused = true
-	var dialogue = scene_dialogue.instantiate()
-	get_tree().current_scene.add_child(dialogue)
+
+	# 2. Instancier et lancer la scène de transition animée
+	if boss_data.scene_transition != null:
+		var transition_instance = boss_data.scene_transition.instantiate()
+		get_tree().root.add_child(transition_instance)
+		
+		# CRUCIAL : La transition doit pouvoir s'animer pendant la pause du jeu !
+		transition_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+
+		# 3. ATTENDRE que la scène de transition ET son animation se terminent
+		if transition_instance.has_signal("transition_terminee"):
+			await transition_instance.transition_terminee
+		elif transition_instance.has_node("AnimationPlayer"):
+			var anim_player = transition_instance.get_node("AnimationPlayer") as AnimationPlayer
+			# On force la lecture au cas où l'autoplay n'est pas mis
+			anim_player.play("intro") 
+			await anim_player.animation_finished
+		else:
+			# Sécurité si l'animation plante
+			await get_tree().create_timer(3.0).timeout
+		
+		# On supprime la scène de transition puisqu'elle est finie
+		transition_instance.queue_free()
+
+	# 4. Enlever la pause générale DU JEU
+	get_tree().paused = false
+
+	# 5. FAIRE APPARAÎTRE LE BOSS (Maintenant que l'UI est partie)
+	_spawner_boss(boss_entry)
+
+	# 6. ATTENDRE QUELQUES SECONDES (Le temps mort dramatique avant le combat)
+	await get_tree().create_timer(2.0).timeout # Ajuste le temps (ici 2 secondes)
+
+	# 7. REDONNER LE CONTRÔLE au joueur pour le combat
+	if joueur:
+		joueur.set_physics_process(true)
+		if joueur.has_method("enable_input"):
+			joueur.enable_input()

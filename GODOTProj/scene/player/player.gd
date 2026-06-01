@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal health_depleted
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
 @export var speed: float = 100
@@ -100,12 +98,11 @@ func _physics_process(delta):
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
-			health_depleted.emit()
-			GameManager.GameOver.emit()
+			death()
 		else:
 			
-			AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
-			start_invincibility() 
+			AudioManager.play_sound_2d("gambos_hurt", global_position)
+			start_invincibility()
 	
 	# --- Tir automatique ---
 	if projectile_data and projectile_scene:
@@ -269,7 +266,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			GameManager.health_changed.emit()
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
 				%HurtBox.monitoring = false
-				health_depleted.emit()
+				death()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
 			speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
@@ -307,7 +304,7 @@ func take_damage(degats: float) -> void:
 	# Vérification de la mort
 	if Stats.current_health <= 0.0:
 		%HurtBox.monitoring = false
-		health_depleted.emit()
+		death()
 	else:
 		# S'il survit, on joue ton son et on lance l'invincibilité
 		AudioManager.play_sound_2d("gambos_hurt", global_position)
@@ -341,3 +338,24 @@ func get_player_stats() -> Dictionary:
 		"Portée d'attaque : " : projectile_data.range
 	}
 	return stats
+
+func death():
+	# ── Désactive tout comportement ──────────────────
+	set_process(false)
+	set_physics_process(false)
+	collision_layer = 0
+	collision_mask  = 0
+	$HurtBox.monitoring = false
+	$HurtBox.monitorable = false
+	z_index = 10
+
+	# ── Lance l'animation ────────────────────────────
+	$AnimatedSprite2D.play("death")
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(self, "position:y", position.y - 200.0, 2.0)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($AnimatedSprite2D, "modulate:a", 0.0, 2.0)\
+		.set_ease(Tween.EASE_IN)
+
+	await tween.finished
+	GameManager.GameOver.emit()

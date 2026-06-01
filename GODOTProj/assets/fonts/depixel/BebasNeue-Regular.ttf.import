@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://stsjslemj87r"
-path="res://.godot/imported/BebasNeue-Regular.ttf-8c604a1d86303691d87a21fc4ea96437.fontdata"
+path="res://.godot/imported/BebasNeue-Regular.ttf-40d340f8ac2ecf858e9695d6da866797.fontdata"
 
 [deps]
 
-source_file="res://assets/sprites/enemy/BebasNeue-Regular.ttf"
-dest_files=["res://.godot/imported/BebasNeue-Regular.ttf-8c604a1d86303691d87a21fc4ea96437.fontdata"]
+source_file="res://assets/fonts/depixel/BebasNeue-Regular.ttf"
+dest_files=["res://.godot/imported/BebasNeue-Regular.ttf-40d340f8ac2ecf858e9695d6da866797.fontdata"]
 
 [params]
 

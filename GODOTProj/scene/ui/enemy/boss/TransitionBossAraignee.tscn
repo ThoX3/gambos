@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bu48a3wfm4td2"]
 
 [ext_resource type="Texture2D" uid="uid://deqjkral6ors6" path="res://assets/sprites/enemy/araignee_transition.png" id="1_baq6g"]
-[ext_resource type="FontFile" uid="uid://stsjslemj87r" path="res://assets/sprites/enemy/BebasNeue-Regular.ttf" id="1_ud0p2"]
+[ext_resource type="FontFile" uid="uid://stsjslemj87r" path="res://assets/fonts/depixel/BebasNeue-Regular.ttf" id="1_ud0p2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_baq6g"]
 font = ExtResource("1_ud0p2")

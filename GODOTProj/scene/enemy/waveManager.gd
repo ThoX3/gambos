@@ -25,6 +25,7 @@ var _intervalle_spawn: float              = 1.0
 var _duree_vague_courante: float          = 30.0
 var _liste_spawn: Array                   = []
 var _boss_courant: EntreeBoss             = null
+var _barre_vie_active: Control = null
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -173,13 +174,51 @@ func _spawner_depuis_liste() -> void:
 	_ennemis_spawnes += 1
 
 func _spawner_boss(boss_entry: EntreeBoss) -> void:
+	# 1. On crée le CanvasLayer de manière locale
+	var canvas_layer : CanvasLayer = null
+	var boss_ui_instance = null
+	
+	if boss_entry.data.boss_ui_scene != null:
+		canvas_layer = CanvasLayer.new()
+		get_tree().current_scene.add_child(canvas_layer)
+		
+		# On instancie l'UI à l'intérieur de ce CanvasLayer
+		boss_ui_instance = boss_entry.data.boss_ui_scene.instantiate()
+		canvas_layer.add_child(boss_ui_instance)
+		
+		# On initialise le nom et la vie max
+		var nom_du_boss = boss_entry.data.name
+		boss_ui_instance.initialiser_boss(nom_du_boss, float(boss_entry.data.max_hp))
+
+	# 2. Boucle de spawn des boss
 	for i in range(boss_entry.nb_ennemis):
 		var ennemi: Boss_Base = boss_entry.scene.instantiate() as Boss_Base
 		ennemi.stats           = boss_entry.data
 		ennemi.global_position = _calculer_position_spawn()
 		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
-		conteneur_ennemis.add_child(ennemi)
+		
+		# 3. Connexion du signal de mise à jour des PV
+		if boss_ui_instance != null and ennemi.has_signal("health_changed"):
+			ennemi.health_changed.connect(func(pv_actuels):
+				if is_instance_valid(boss_ui_instance):
+					boss_ui_instance.mettre_a_jour_pv(pv_actuels)
+			)
 
+		# 4. Nettoyage lors de la mort du boss (Syntaxe simplifiée et robuste)
+		if canvas_layer != null:
+			# On crée une fonction appelable classique en stockant les variables requises
+			var nettoyage = func():
+				if is_instance_valid(canvas_layer):
+					if is_instance_valid(boss_ui_instance) and boss_ui_instance.has_method("fermer_ui"):
+						boss_ui_instance.fermer_ui()
+						await get_tree().create_timer(0.6).timeout
+					canvas_layer.queue_free()
+			
+			# On connecte directement notre fonction de nettoyage au signal
+			ennemi.tree_exited.connect(nettoyage)
+		
+		conteneur_ennemis.add_child(ennemi)
+		
 func _calculer_position_spawn() -> Vector2:
 	match spawn_config.zone:
 		SpawnConfig.ZoneType.BORDS_ECRAN:          return _spawn_bords_ecran(spawn_config.marge_bords)
@@ -273,3 +312,4 @@ func _lancer_transition_boss(boss_entry: EntreeBoss) -> void:
 		joueur.set_physics_process(true)
 		if joueur.has_method("enable_input"):
 			joueur.enable_input()
+			

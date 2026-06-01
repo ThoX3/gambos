@@ -45,9 +45,6 @@ func start_game(map_to_load: PackedScene) -> void:
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
-	if SaveManager.current_save:
-		current_player.apply_pearl_upgrades(SaveManager.current_save)
-	
 	if current_player.has_signal("health_depleted"):
 		current_player.health_depleted.connect(_on_player_health_depleted)
 	
@@ -71,7 +68,7 @@ func start_game(map_to_load: PackedScene) -> void:
 
 func _on_vague_terminee(numero: int) -> void:
 	# Met à jour la vague max si on bat le record
-	if SaveManager.current_save and numero > SaveManager.current_save.max_wave_reached:
+	if numero > SaveManager.current_save.max_wave_reached:
 		SaveManager.current_save.max_wave_reached = numero
 		SaveManager.save_game()
 		print("Nouveau record de vague : ", numero)

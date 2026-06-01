@@ -36,8 +36,7 @@ func _ready() -> void:
 	$LevelUpUnder.hide()
 	_on_initialize()
 	# Charger l'état de débloquage depuis la sauvegarde
-	if SaveManager.current_save:
-		_attaque_sable_debloquee = SaveManager.current_save.boss_araignee_battu
+	_attaque_sable_debloquee = SaveManager.current_save.boss_araignee_battu
 			
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()
@@ -169,36 +168,44 @@ func _handle_blinking(delta):
 		blink_timer = 0.0
 		
 func _on_initialize():
-	Stats.max_health = 10.0
+	var save = SaveManager.current_save
+	var lvl_health = save.upgrade_health_level
+	var lvl_speed = save.upgrade_speed_level
+	var lvl_xp = save.upgrade_xp_gain_level
+	var lvl_regen = save.upgrade_regen_level
+	var lvl_collect = save.upgrade_collection_radius_level
+	var lvl_bubble = save.upgrade_bubble_division_level
+	var lvl_thorns = save.upgrade_thorns_level
+	var lvl_damage = save.upgrade_damage_level
+	var lvl_atk_spd = save.upgrade_attack_speed_level
+	var lvl_proj = save.upgrade_projectile_level
+
+	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
 	Stats.current_health = Stats.max_health
 	Stats.level = 1
 	Stats.requiredXp = 10
 	Stats.currentXp = 0
-	Stats.collectRadius = 200
 	Stats.collected_pearls = 0
 
-func apply_pearl_upgrades(save: SaveData) -> void:
-	Stats.max_health += UpgradeManager.get_effect_health(save.upgrade_health_level)
-	Stats.current_health = Stats.max_health
-	speed += UpgradeManager.get_effect_speed(save.upgrade_speed_level)
-	xp_multiplier = UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level)
-	regen_rate = UpgradeManager.get_effect_regen(save.upgrade_regen_level)
+	speed = UpgradeManager.get_effect_speed(lvl_speed)
+	xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
+	regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 	
-	Stats.collectRadius += UpgradeManager.get_effect_collection_radius(save.upgrade_collection_radius_level)
+	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
 	
 	# Bubble Division might be used later? Leaving variable for when skill requires it
-	var bubble_count = UpgradeManager.get_effect_bubble_division(save.upgrade_bubble_division_level)
+	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
 	
 	# Determine thorns tick rate
-	var thorns_effects = UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)
+	var thorns_effects = UpgradeManager.get_effect_thorns(lvl_thorns)
 	thorns_damage = int(thorns_effects["damage"])
 	thorns_interval = thorns_effects["interval"]
 	
 	if projectile_data:
-		projectile_data.damage += UpgradeManager.get_effect_damage(save.upgrade_damage_level)
-		projectile_data.fire_rate += UpgradeManager.get_effect_attack_speed(save.upgrade_attack_speed_level)
-		projectile_data.projectile_count += int(UpgradeManager.get_effect_projectile(save.upgrade_projectile_level))
+		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
+		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
+		projectile_data.projectile_count = int(UpgradeManager.get_effect_projectile(lvl_proj))
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

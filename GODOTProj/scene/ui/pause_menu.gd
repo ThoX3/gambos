@@ -23,12 +23,13 @@ func _input(event: InputEvent) -> void:
 		toggle_pause()
 
 func toggle_pause():
-	var new_pause_state = !get_tree().paused
-	get_tree().paused = new_pause_state
-	%LayerPause.visible = new_pause_state
-	if new_pause_state:
-		update_stats_display()
-		%Resume.grab_focus()
+	if GameManager.in_game == true:
+		var new_pause_state = !get_tree().paused
+		get_tree().paused = new_pause_state
+		%LayerPause.visible = new_pause_state
+		if new_pause_state:
+			update_stats_display()
+			%Resume.grab_focus()
 
 func update_stats_display():
 	for child in %PlayerStats.get_children():
@@ -56,6 +57,7 @@ func _on_bestiary_pressed() -> void:
 	bestiary_button_pressed.emit()
 
 func notify_bestiary_closed() -> void:
+	GameManager.in_game = true
 	_bestiary_open = false
 	%LayerPause.visible = true   # Réaffiche le menu pause
 	%Resume.grab_focus()

@@ -97,6 +97,7 @@ func _on_player_health_depleted():
 	get_tree().reload_current_scene()
 	
 func _on_start():
+	GameManager.in_game = true
 	start_game(starting_map)
 
 func show_menu(menu_to_show: Control) -> void:
@@ -115,6 +116,7 @@ func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
 
 func open_bestiary() -> void:
+	GameManager.in_game = false
 	show_menu($UI/Bestiary)
 	$UI/Bestiary.setup(SaveManager.current_save.max_wave_reached)
 	
@@ -125,6 +127,7 @@ func game_over():
 	
 func open_bestiary_from_pause() -> void:
 	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause
+	GameManager.in_game = false
 	var bestiary = $UI/Bestiary
 	$UI.move_child(bestiary, $UI.get_child_count() - 1)
 	bestiary.visible = true
@@ -140,6 +143,7 @@ func _on_bestiary_back() -> void:
 		open_main_menu()
 
 func open_main_menu_from_pause() -> void:
+	GameManager.in_game = false
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()
 	get_tree().paused = false

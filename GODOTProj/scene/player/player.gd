@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-signal health_depleted
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
 @export var speed: float = 100
@@ -101,12 +99,11 @@ func _physics_process(delta):
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
-			health_depleted.emit()
-			GameManager.GameOver.emit()
+			death()
 		else:
 			
-			AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
-			start_invincibility() 
+			AudioManager.play_sound_2d("gambos_hurt", global_position)
+			start_invincibility()
 	
 	# --- Tir automatique ---
 	if projectile_data and projectile_scene:
@@ -242,7 +239,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			GameManager.health_changed.emit()
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
 				%HurtBox.monitoring = false
-				health_depleted.emit()
+				death()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
 			speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
@@ -280,7 +277,7 @@ func take_damage(degats: float) -> void:
 	# Vérification de la mort
 	if Stats.current_health <= 0.0:
 		%HurtBox.monitoring = false
-		health_depleted.emit()
+		death()
 	else:
 		# S'il survit, on joue ton son et on lance l'invincibilité
 		AudioManager.play_sound_2d("gambos_hurt", global_position)
@@ -314,3 +311,6 @@ func get_player_stats() -> Dictionary:
 		"Portée d'attaque : " : projectile_data.range
 	}
 	return stats
+
+func death():
+	GameManager.GameOver.emit()

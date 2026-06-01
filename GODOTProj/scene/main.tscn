@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ch63peu8jquqx" path="res://scene/ui/hud.tscn" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://cggxevpadx4nt" path="res://scene/ui/main_menu.tscn" id="4_wscrc"]
 [ext_resource type="PackedScene" uid="uid://di4pipi568uix" path="res://scene/ui/Upgrade.tscn" id="5_4j5ol"]
-[ext_resource type="PackedScene" uid="uid://dy5uvxkcr0e4s" path="res://scene/ui/game_over.tscn" id="5_of57s"]
 [ext_resource type="PackedScene" uid="uid://4ycxxd0kyiod" path="res://scene/ui/pearl_shop/pearl_shop_tree.tscn" id="5_wscrc"]
 [ext_resource type="PackedScene" uid="uid://kvntvrcpo48f" path="res://scene/ui/bestiary/bestiary.tscn" id="6_mswub"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
@@ -34,12 +33,17 @@ visible = false
 offset_top = -7.0
 offset_bottom = -367.0
 
-[node name="GameOver" parent="UI" unique_id=787902403 instance=ExtResource("5_of57s")]
-unique_name_in_owner = true
-
 [node name="LevelUp" parent="UI" unique_id=681599716 instance=ExtResource("5_4j5ol")]
 
 [node name="pause_menu" parent="UI" unique_id=1634385708 instance=ExtResource("10_hybxs")]
+
+[node name="FadeRect" type="ColorRect" parent="UI" unique_id=308755849]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
 [node name="World" type="Node2D" parent="." unique_id=1424555751]
 

@@ -138,7 +138,11 @@ func open_bestiary_from_pause() -> void:
 	var bestiary = $UI/Bestiary
 	$UI.move_child(bestiary, $UI.get_child_count() - 1)
 	bestiary.visible = true
-	bestiary.setup_from_pause(SaveManager.current_save.max_wave_reached)
+	
+	# Prend la vague la plus élevée entre le save et la vague en cours
+	var vague_en_cours : int = $World/WaveManager.get_numero_vague()
+	var vague_max : int = max(SaveManager.current_save.max_wave_reached, vague_en_cours)
+	bestiary.setup_from_pause(vague_max)
 
 func _on_bestiary_back() -> void:
 	if $UI/Bestiary._from_pause:

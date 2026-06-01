@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://be16k2l8cy1kh"]
+
+[ext_resource type="Texture2D" uid="uid://cl774jjra1dow" path="res://assets/sprites/player/Gambos_death.png" id="1_sd3v6"]
+[ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_4nvid"]
+[ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_tepd1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8wkb"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqtk5"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8q4nf"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eowol"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxeqp"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trm37"]
+atlas = ExtResource("1_sd3v6")
+region = Rect2(320, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8wkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqtk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8q4nf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eowol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxeqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trm37")
+}],
+"loop": true,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4nvid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tepd1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]

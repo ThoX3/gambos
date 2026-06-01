@@ -40,6 +40,7 @@ func _on_card_selected(data: upgradeData):
 	%CanvasLayer.visible = false
 	get_tree().paused = false
 	
+	# Ralenti en sortie d'amélioration
 	Engine.time_scale = 0.1
 	var tween = create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)

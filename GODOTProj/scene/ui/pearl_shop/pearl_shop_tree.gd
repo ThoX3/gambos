@@ -13,6 +13,8 @@ signal menu_button_pressed
 
 @onready var list_button = [menu_button, play_button, reset_button]
 
+@onready var fade_rect: ColorRect = $FadeRect
+
 var hover_timer: Timer
 var currently_focused_node: Control = null
 
@@ -72,7 +74,7 @@ func _on_node_focus_entered(node: Control) -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
 	currently_focused_node = node
 	node_infos_window.visible = false
-	hover_timer.start(2.0)
+	hover_timer.start(1.0)
 	
 	var scroll: ScrollContainer = tree.get_parent()
 	var node_center_in_tree_x := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
@@ -135,7 +137,7 @@ func refresh_shop(is_initial_load: bool = false) -> void:
 				
 			if not is_initial_load and was_locked and will_be_unlocked:
 				node.update_node(anim_delay, false)
-				anim_delay += 0.15 # Add slight delay for the next node that might unlock
+				anim_delay += 0.4 
 			else:
 				node.update_node(0.0, is_initial_load)
 
@@ -162,18 +164,11 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 	if SaveManager.current_save.pearls >= cost:
 		SaveManager.current_save.pearls -= cost
 		
-		match id:
-			"health": SaveManager.current_save.upgrade_health_level += 1
-			"damage": SaveManager.current_save.upgrade_damage_level += 1
-			"speed":  SaveManager.current_save.upgrade_speed_level += 1
-			"attack_speed": SaveManager.current_save.upgrade_attack_speed_level += 1
-			"xp_gain": SaveManager.current_save.upgrade_xp_gain_level += 1
-			"luck": SaveManager.current_save.upgrade_luck_level += 1
-			"regen": SaveManager.current_save.upgrade_regen_level += 1
-			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
-			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
-			"reroll": SaveManager.current_save.upgrade_reroll_level += 1
-			_: push_warning("Unhandled upgrade id: ", id)
+		var prop_name := "upgrade_" + id + "_level"
+		if prop_name in SaveManager.current_save:
+			SaveManager.current_save.set(prop_name, SaveManager.current_save.get(prop_name) + 1)
+		else:
+			push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()
 		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)
@@ -198,6 +193,12 @@ func reset_save():
 
 func was_opened_from_game_over(param: bool):
 	if param:
+		# Fondu noir vers transparent
+		fade_rect.color   = Color(0, 0, 0, 1)  # repart toujours de transparent
+		fade_rect.visible = true
+		var tween := create_tween()
+		tween.tween_property(fade_rect, "color:a", 0, 1.5)
+		
 		play_button.visible = true
 		menu_button.text = "Menu principal"
 	else:

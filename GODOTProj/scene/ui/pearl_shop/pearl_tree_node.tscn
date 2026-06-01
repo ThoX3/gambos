@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://drusnwbconaq4" path="res://assets/sprites/pearl_shop/normal_hovered.png" id="3_vccej"]
 [ext_resource type="Texture2D" uid="uid://d2f5qwetbil2q" path="res://assets/sprites/pearl_shop/too_expensive.png" id="4_dkipg"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
-[ext_resource type="Texture2D" uid="uid://dlqwsl6p7ybkh" path="res://assets/sprites/pearl_shop/focused_overlay.png" id="5_dkipg"]
 [ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
 [ext_resource type="Texture2D" uid="uid://drvt2lt6ni5xu" path="res://assets/sprites/pearl_shop/icons/damage.png" id="5_vccej"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
@@ -42,7 +41,6 @@ texture_normal = ExtResource("2_urf48")
 texture_pressed = ExtResource("2_urf48")
 texture_hover = ExtResource("3_vccej")
 texture_disabled = ExtResource("4_dkipg")
-texture_focused = ExtResource("5_dkipg")
 stretch_mode = 5
 
 [node name="IconContainer" type="MarginContainer" parent="." unique_id=1579260415]

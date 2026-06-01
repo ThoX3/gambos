@@ -20,15 +20,59 @@ signal back_button_pressed
 @onready var back_button: Button = %BackButton
 
 var _max_wave: int = 0
+## true si ouvert depuis le menu pause (la partie est en cours)
+var _from_pause: bool = false
 
 func _ready() -> void:
-	back_button.pressed.connect(func(): back_button_pressed.emit())
+	# Fonctionne même quand le jeu est en pause
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	back_button.pressed.connect(_on_back)
 
+## Ouvre le bestiaire depuis le menu principal
 func setup(max_wave_reached: int) -> void:
+	_from_pause = false
 	_max_wave = max_wave_reached
+	_refresh()
+
+## Ouvre le bestiaire par-dessus le menu pause
+func setup_from_pause(max_wave_reached: int) -> void:
+	_from_pause = true
+	_max_wave = max_wave_reached
+	_refresh()
+
+func _refresh() -> void:
 	_clear_containers()
 	_populate_enemies()
 	_populate_bosses()
+	# Focus sur le premier bouton disponible pour la manette
+	await get_tree().process_frame
+	_focus_first_card()
+
+func _focus_first_card() -> void:
+	# Cherche le premier CardButton dans les cartes ennemies
+	for card in enemy_container.get_children():
+		var btn = card.get_node_or_null("%CardButton")
+		if btn:
+			btn.grab_focus()
+			return
+	# Sinon essaie les boss
+	for card in boss_container.get_children():
+		var btn = card.get_node_or_null("%CardButton")
+		if btn:
+			btn.grab_focus()
+			return
+	# Fallback sur le bouton retour
+	back_button.grab_focus()
+
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_on_back()
+
+func _on_back() -> void:
+	back_button_pressed.emit()
 
 func _clear_containers() -> void:
 	for child in enemy_container.get_children():
@@ -65,10 +109,8 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 	if not unlocked:
 		return
 
-	# Nom
 	detail_name.text = data.name
 
-	# Sprite — première frame de l'animation "idle" ou la première dispo
 	if data.texture is SpriteFrames:
 		var sf: SpriteFrames = data.texture
 		var anim_name: String = "idle" if sf.has_animation("idle") else sf.get_animation_names()[0]
@@ -77,16 +119,10 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 	else:
 		detail_sprite.texture = null
 
-	# Stats
 	var stats_text := ""
 	stats_text += "❤️  PV : %d\n" % data.max_hp
-	#stats_text += "🛡️  Armure : %d\n" % data.armor
 	stats_text += "⚔️  Dégâts : %d\n" % data.attack_damage
 	stats_text += "💨  Vitesse : %.0f\n" % data.movement_speed
-	#if data.attack_cooldown > 0.0:
-		#stats_text += "⏱️  Cooldown : %.1f s\n" % data.attack_cooldown
-	#if data.attack_range > 0.0:
-		#stats_text += "🎯  Portée : %.0f\n" % data.attack_range
 	stats_text += "✨  XP lâché : %d\n" % data.xp_drop
 	if data.pearl_drop_probability > 0.0:
 		stats_text += "🦪  Perles : %.0f%%\n" % (data.pearl_drop_probability * 100)

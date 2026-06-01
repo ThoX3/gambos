@@ -24,7 +24,8 @@ func _ready() -> void:
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
-	$UI/Bestiary.back_button_pressed.connect(open_main_menu)
+	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
+	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
 	%GameOver.quit_button_pressed.connect(game_over)
 	
 	if GameManager.skip_menu:
@@ -120,3 +121,19 @@ func game_over():
 	SaveManager.save_game()
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+	
+func open_bestiary_from_pause() -> void:
+	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause
+	var bestiary = $UI/Bestiary
+	$UI.move_child(bestiary, $UI.get_child_count() - 1)
+	bestiary.visible = true
+	bestiary.setup_from_pause(SaveManager.current_save.max_wave_reached)
+
+func _on_bestiary_back() -> void:
+	if $UI/Bestiary._from_pause:
+		# Fermeture depuis la pause : on cache juste le bestiaire
+		$UI/Bestiary.visible = false
+		$UI/pause_menu.notify_bestiary_closed()
+	else:
+		# Fermeture depuis le menu principal : comportement d'avant
+		open_main_menu()

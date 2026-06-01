@@ -1,6 +1,6 @@
 extends Control
 
-signal quit_button_pressed
+signal menu_button_pressed
 
 func _ready():
 	%Replay.pressed.connect(_on_replay_pressed)
@@ -16,4 +16,4 @@ func _on_replay_pressed():
 	
 func _on_quit_pressed():
 	%LayerGameOver.visible = false
-	quit_button_pressed.emit()
+	menu_button_pressed.emit()

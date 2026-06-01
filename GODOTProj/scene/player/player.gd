@@ -178,7 +178,6 @@ func _on_initialize():
 	var lvl_thorns = save.upgrade_thorns_level
 	var lvl_damage = save.upgrade_damage_level
 	var lvl_atk_spd = save.upgrade_attack_speed_level
-	var lvl_proj = save.upgrade_projectile_level
 
 	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
 	Stats.current_health = Stats.max_health
@@ -205,7 +204,6 @@ func _on_initialize():
 	if projectile_data:
 		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
 		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
-		projectile_data.projectile_count = int(UpgradeManager.get_effect_projectile(lvl_proj))
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

@@ -41,7 +41,7 @@ func setup(data: upgradeData) -> void:
 			if effet.value > 0:
 				%Stats.text += "+ " + str(effet.value) + "\n"
 			else :
-				%Stats.text += "- " + str(effet.value) + "\n"
+				%Stats.text += str(effet.value) + "\n"
 	%Rarity.text = upgradeData.rarityType.keys()[data.rarity]
 	var texture_normal = BACKGROUNDS[data.rarity]
 	var texture_hover = HOVER[data.rarity]

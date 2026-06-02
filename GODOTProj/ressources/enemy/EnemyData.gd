@@ -3,6 +3,7 @@ class_name EnemyData
 
 @export_group("Identity")
 @export var texture: SpriteFrames
+@export var name: String
 
 @export_group("HP & Defense")
 @export var max_hp: int
@@ -21,6 +22,7 @@ class_name EnemyData
 @export_group("Loot")
 @export var xp_drop: int
 @export var pearl_drop_probability: float
+@export var pearl_drop_range: Vector2i = Vector2i(1, 1)
 
 @export_group("Spawn")
 ## Coût en budget de difficulté

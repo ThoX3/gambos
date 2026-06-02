@@ -6,9 +6,10 @@
 [resource]
 script = ExtResource("1_7jw3c")
 texture = ExtResource("2_prgte")
+name = "Crabe"
 max_hp = 20
 armor = 15
-movement_speed = 100.0
+movement_speed = 150.0
 patrol_distance = 200.0
 attack_damage = 6
 attack_range = 60.0

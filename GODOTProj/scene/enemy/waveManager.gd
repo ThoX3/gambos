@@ -4,15 +4,18 @@ extends Node
 @export var config: BalancingConfig
 @export_range(0.0, 30.0, 0.5) var pause_entre_vagues: float = 3.0
 @export var mode_infini: bool = true
-@export var joueur: Node2D
 @export var conteneur_ennemis: Node
 @export var scene_dialogue: PackedScene
+@export var multiplicateur_taille_boss: float = 2.0
+@export var vagues_par_monde: int = 20
+var joueur: Node2D
 
 signal vague_demarree(numero: int)
 signal vague_terminee(numero: int)
 signal toutes_vagues_terminees
+signal monde_termine(numero_vague: int)
 
-enum _Etat { PAUSE, VAGUE, FINI }
+enum _Etat { PAUSE, VAGUE, ATTENTE_ENNEMIS_RESTANTS, FINI }
 
 var _etat: _Etat                          = _Etat.FINI
 var _numero_vague: int                    = 0
@@ -30,7 +33,6 @@ func _ready() -> void:
 	joueur = get_tree().get_first_node_in_group("Player")
 	if spawn_config == null: push_error("WaveManager : aucun SpawnConfig assigné !")
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
-	if joueur == null:       push_error("WaveManager : joueur introuvable.")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
 func start_waves() -> void:
@@ -48,6 +50,10 @@ func _process(delta: float) -> void:
 				_demarrer_vague()
 		_Etat.VAGUE:
 			_tick_vague(delta)
+		_Etat.ATTENTE_ENNEMIS_RESTANTS:
+			if get_tree().get_nodes_in_group("Enemy").size() == 0:
+				monde_termine.emit(_numero_vague)
+				_etat = _Etat.FINI
 		_Etat.FINI:
 			pass
 
@@ -79,7 +85,11 @@ func _demarrer_vague() -> void:
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
 		_spawner_boss(boss_entry)
-		_lancer_dialogue_boss()
+		# Pas propre : lancer un signal 
+		if joueur:
+			joueur.set_physics_process(false)
+			if joueur.has_method("disable_input"):
+				joueur.disable_input()
 	else:
 		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
 		_liste_spawn          = _generer_liste_spawn(disponibles, _numero_vague)
@@ -87,10 +97,21 @@ func _demarrer_vague() -> void:
 		_intervalle_spawn     = _duree_vague_courante / max(float(_liste_spawn.size()), 1.0)
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
+	
+	# Pas propre : lancer un signal 
+	if joueur:
+		joueur.set_physics_process(true)
+		if joueur.has_method("enable_input"):
+			joueur.enable_input()	
 
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)
 	_boss_courant = null
+
+	# Vérifie si c'est la fin d'un monde (vague boss franchie)
+	if _numero_vague > 0 and _numero_vague % vagues_par_monde == 0:
+		_etat = _Etat.ATTENTE_ENNEMIS_RESTANTS
+		return
 
 	if not mode_infini and spawn_config.get_ennemis_disponibles(_numero_vague + 1).is_empty() \
 	and spawn_config.get_boss_pour_vague(_numero_vague + 1) == null:
@@ -174,9 +195,11 @@ func _spawner_depuis_liste() -> void:
 
 func _spawner_boss(boss_entry: EntreeBoss) -> void:
 	for i in range(boss_entry.nb_ennemis):
-		var ennemi: Enemy_Base = boss_entry.scene.instantiate()
+		var ennemi: Boss_Base = boss_entry.scene.instantiate() as Boss_Base
 		ennemi.stats           = boss_entry.data
 		ennemi.global_position = _calculer_position_spawn()
+		conteneur_ennemis.add_child(ennemi)
+		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
 		conteneur_ennemis.add_child(ennemi)
 
 func _calculer_position_spawn() -> Vector2:

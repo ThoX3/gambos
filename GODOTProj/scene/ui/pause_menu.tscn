@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://bkmi1txllqgo"]
+
+[ext_resource type="Script" uid="uid://y806dtgn1gll" path="res://scene/ui/pause_menu.gd" id="1_jo6ex"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="1_v5dk4"]
+
+[node name="pause_menu" type="Control" unique_id=1634385708]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jo6ex")
+
+[node name="LayerPause" type="CanvasLayer" parent="." unique_id=915150576]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LayerPause" unique_id=1039735648]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6862745)
+
+[node name="Label" type="Label" parent="LayerPause/ColorRect" unique_id=517239512]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -237.0
+offset_right = 63.0
+offset_bottom = -206.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_v5dk4")
+theme_override_font_sizes/font_size = 30
+text = "Pause"
+uppercase = true
+
+[node name="PlayerStats" type="VBoxContainer" parent="LayerPause/ColorRect" unique_id=169595763]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.62200004
+anchor_right = 0.5
+anchor_bottom = 0.62200004
+offset_left = -25.0
+offset_top = -212.84003
+offset_right = 15.0
+offset_bottom = -172.84003
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="LayerPause/ColorRect" unique_id=712906097]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.88900006
+anchor_right = 0.5
+anchor_bottom = 0.88900006
+offset_left = -54.0
+offset_top = -181.08002
+offset_right = 56.0
+offset_bottom = -150.08002
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_v5dk4")
+text = "Reprendre"
+
+[node name="BestiaryButton" type="Button" parent="LayerPause/ColorRect" unique_id=623807088]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = 39.0
+offset_right = 55.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_v5dk4")
+text = "Bestiaire"
+
+[node name="Quit" type="Button" parent="LayerPause/ColorRect" unique_id=1829968300]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.73200005
+anchor_right = 0.5
+anchor_bottom = 0.73200005
+offset_left = -41.0
+offset_top = -11.040039
+offset_right = 40.0
+offset_bottom = 19.95996
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Retourne au menu principal tout en gardant les perles accumulées pendant la partie."
+theme_override_fonts/font = ExtResource("1_v5dk4")
+text = "Retour menu"
+
+[node name="QuitDescription" type="Label" parent="LayerPause/ColorRect" unique_id=2037318992]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.781
+anchor_right = 0.5
+anchor_bottom = 0.781
+offset_left = -94.0
+offset_top = -12.320007
+offset_right = 95.0
+offset_bottom = 14.679993
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="LayerPause/ColorRect/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="LayerPause/ColorRect/Quit" to="." method="_on_quit_pressed"]

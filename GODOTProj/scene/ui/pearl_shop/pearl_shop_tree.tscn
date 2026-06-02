@@ -1,0 +1,373 @@
+[gd_scene format=3 uid="uid://4ycxxd0kyiod"]
+
+[ext_resource type="Script" uid="uid://qlv3py060nw0" path="res://scene/ui/pearl_shop/pearl_shop_tree.gd" id="1_iqugw"]
+[ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_iqugw"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="2_irh2w"]
+[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_6ic84"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="3_j1qqk"]
+[ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_w5y77"]
+[ext_resource type="PackedScene" uid="uid://tv7ir00li1e2" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
+[ext_resource type="Texture2D" uid="uid://dtfqrdo6uajr2" path="res://assets/sprites/pearl_shop/icons/speed.png" id="6_t1a07"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_u6v75"]
+[ext_resource type="Texture2D" uid="uid://drpy4kvbw4i3c" path="res://assets/sprites/pearl_shop/icons/health.png" id="7_jn2eo"]
+[ext_resource type="Texture2D" uid="uid://dgyuiliof1cak" path="res://assets/sprites/pearl_shop/icons/attack_speed.png" id="8_gipjf"]
+[ext_resource type="Texture2D" uid="uid://br6kwf6hu1eig" path="res://assets/sprites/pearl_shop/icons/regen.png" id="9_h5drw"]
+[ext_resource type="Texture2D" uid="uid://c0bnddu4twh7w" path="res://assets/sprites/pearl_shop/icons/xp_gain.png" id="10_r1ves"]
+[ext_resource type="Texture2D" uid="uid://cpb2ylgaenl0k" path="res://assets/sprites/pearl_shop/icons/luck.png" id="11_4wpf8"]
+[ext_resource type="Texture2D" uid="uid://b15wbq4kodyq8" path="res://assets/sprites/pearl_shop/icons/reroll.png" id="11_qpv24"]
+[ext_resource type="Texture2D" uid="uid://de88qaw72pvb" path="res://assets/sprites/pearl_shop/icons/thorns.png" id="12_gipjf"]
+[ext_resource type="Texture2D" uid="uid://6pxudlq3qkj0" path="res://assets/sprites/pearl_shop/icons/skip_map.png" id="12_qpv24"]
+[ext_resource type="Texture2D" uid="uid://bljgw6mp7g52g" path="res://assets/sprites/pearl_shop/icons/collection_zone.png" id="13_r1ves"]
+[ext_resource type="Texture2D" uid="uid://bnqmhlr8uin5i" path="res://assets/sprites/pearl_shop/icons/bubble_division.png" id="15_qpv24"]
+[ext_resource type="PackedScene" uid="uid://bd4sq86hoarr6" path="res://scene/ui/pearl_shop/node_infos.tscn" id="16_jn2eo"]
+[ext_resource type="Texture2D" uid="uid://d14ndqa11ws1q" path="res://assets/sprites/pearl_shop/icons/bubble_bounce.png" id="17_ciura"]
+
+[sub_resource type="Gradient" id="Gradient_w5y77"]
+offsets = PackedFloat32Array(0.8666667, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 30
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iqugw"]
+gradient = SubResource("Gradient_w5y77")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="PearlShop" type="Control" unique_id=627456338]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iqugw")
+
+[node name="Background" type="TextureRect" parent="." unique_id=14321263]
+modulate = Color(0.6052743, 0.6052743, 0.6052743, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_iqugw")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1813661169]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=945933410]
+layout_mode = 2
+theme_override_constants/separation = 29
+
+[node name="ShopTitle" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1065693868]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_6ic84")
+theme_override_font_sizes/font_size = 36
+text = "Temple de Naïades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=84580435]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=915679690]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("4_w5y77")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 24
+
+[node name="FadeMask" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=515249060]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_iqugw")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask" unique_id=356928227]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 62
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 63
+theme_override_constants/margin_bottom = 35
+
+[node name="TreeScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer" unique_id=440297183]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll" unique_id=2127171886]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=269666704]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="SpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer" unique_id=1910061887 instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "speed"
+upgrade_name = "Vitesse"
+upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
+icon_texture = ExtResource("6_t1a07")
+max_level = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=566447561]
+layout_mode = 2
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="HealthNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=563677094 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_description = "Améliorer la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
+icon_texture = ExtResource("7_jn2eo")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer/SpeedNode")
+
+[node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "damage"
+upgrade_name = "Attaque"
+upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+max_level = 10
+parent_node = NodePath("../../VBoxContainer/SpeedNode")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
+layout_mode = 2
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="RegenNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=832497797 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "regen"
+upgrade_name = "Soins"
+upgrade_description = "Améliore le processus de mue régéné-ratrice pour récupérer des points de vie au fil du temps."
+icon_texture = ExtResource("9_h5drw")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer2/HealthNode")
+parent_node_unlock_level = 5
+
+[node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "attack_speed"
+upgrade_name = "Vigueur"
+upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
+icon_texture = ExtResource("8_gipjf")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer2/DamageNode")
+parent_node_unlock_level = 3
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=366298988]
+layout_mode = 2
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "xp_gain"
+upgrade_name = "Sagesse"
+upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
+icon_texture = ExtResource("10_r1ves")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer3/RegenNode")
+parent_node_unlock_level = 3
+
+[node name="BubbleDivisionNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=1428826433 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "bubble_division"
+upgrade_name = "Petites bulles"
+upgrade_description = "Fragmente l'attaque principale de Gambos en de multiples petites bulles."
+icon_texture = ExtResource("15_qpv24")
+parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
+
+[node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "thorns"
+upgrade_name = "Épines"
+upgrade_description = "Fait pousser des épines sur la carapace de Gambos, infligeant des dégats à ceux qui s'en approchent trop."
+icon_texture = ExtResource("12_gipjf")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
+parent_node_unlock_level = 3
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="RerollNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=734206904 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "reroll"
+upgrade_name = "Joker"
+upgrade_description = "Permet de relancer des cartes d'amélioration en jeu pour quelques perles."
+icon_texture = ExtResource("11_qpv24")
+parent_node = NodePath("../../VBoxContainer4/XPGainNode")
+parent_node_unlock_level = 3
+
+[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "collection_radius"
+upgrade_name = "Aimant"
+upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
+icon_texture = ExtResource("13_r1ves")
+max_level = 4
+parent_node = NodePath("../../VBoxContainer4/XPGainNode")
+
+[node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_bounce"
+upgrade_name = "Ricochets"
+upgrade_description = "Permet aux projectiles encore en état de rebondir vers de nouveaux ennemis."
+icon_texture = ExtResource("17_ciura")
+max_level = 5
+parent_node = NodePath("../../VBoxContainer4/Thorns")
+parent_node_unlock_level = 4
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=217103235]
+layout_mode = 2
+theme_override_constants/separation = 54
+
+[node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=736682881 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "skip_map"
+upgrade_name = "Avance initiale"
+upgrade_description = "Grâce à une meilleure connaissance des récifs, Gambos peut éviter les premières zones de danger."
+icon_texture = ExtResource("12_qpv24")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer5/RerollNode")
+parent_node_unlock_level = 100
+
+[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=1266658196 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "luck"
+upgrade_name = "Chance"
+upgrade_description = "Attire la bienveillance des divinités marines pour de meilleures améliorations en jeu."
+icon_texture = ExtResource("11_4wpf8")
+max_level = 20
+parent_node = NodePath("../../VBoxContainer5/CollectionRadiusNode")
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=608050801]
+layout_mode = 2
+theme_override_constants/separation = 54
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="PearlsCount" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=423753908]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j1qqk")
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1991384462]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="PearlIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1805332699]
+layout_mode = 2
+texture = ExtResource("6_u6v75")
+expand_mode = 3
+
+[node name="NavigationButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1316592912]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=1820389118]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_irh2w")
+theme_override_font_sizes/font_size = 18
+text = "Retour"
+flat = true
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=338214453]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("2_irh2w")
+theme_override_font_sizes/font_size = 18
+text = "Rejouer
+"
+flat = true
+
+[node name="ResetPurchasesButton" type="Button" parent="." unique_id=60559786]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -42.0
+offset_right = -14.0
+offset_bottom = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_j1qqk")
+theme_override_font_sizes/font_size = 8
+text = "Supprimer la sauvegarde"
+flat = true
+
+[node name="NodeInfos" parent="." unique_id=977595567 instance=ExtResource("16_jn2eo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -250.0
+offset_top = 297.0
+offset_right = -54.0
+offset_bottom = 499.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=2013895789]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

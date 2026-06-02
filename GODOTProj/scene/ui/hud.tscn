@@ -2,15 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://cnrtpk77tpprh" path="res://assets/sprites/HUD/Xp_bar/Under.png" id="2_2nglk"]
 [ext_resource type="Texture2D" uid="uid://bldvppr8222tm" path="res://assets/sprites/HUD/Xp_bar/Over.png" id="3_gjr4v"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_t0n4l"]
 [ext_resource type="Texture2D" uid="uid://dln7r0kne5tet" path="res://assets/sprites/HUD/Xp_bar/Progress.png" id="4_3wbyd"]
 [ext_resource type="Script" uid="uid://crpsddy5mn04d" path="res://scene/ui/hud.gd" id="4_73u6w"]
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
+[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="6_g5rf0"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_qxikp"]
-font_size = 19
+[ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
+[ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
 
 [node name="hud" type="Control" unique_id=375714786]
 layout_mode = 3
@@ -25,56 +26,108 @@ scale = Vector2(2, 2)
 script = ExtResource("4_73u6w")
 Stats = ExtResource("5_qxikp")
 
-[node name="XP_Bar" type="TextureProgressBar" parent="." unique_id=1485470852]
-unique_name_in_owner = true
+[node name="Wave" type="HBoxContainer" parent="." unique_id=1235224074]
+layout_mode = 0
+offset_left = 557.0
+offset_top = 7.5
+offset_right = 632.0
+offset_bottom = 34.5
+
+[node name="Wave" type="Label" parent="Wave" unique_id=2019747774]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_t0n4l")
+theme_override_font_sizes/font_size = 18
+text = "Vague"
+
+[node name="Count" type="Label" parent="Wave" unique_id=1033153350]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_t0n4l")
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="XPandHP" type="VBoxContainer" parent="." unique_id=1472514545]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -32.0
+offset_top = -68.0
+offset_right = 182.0
+grow_vertical = 0
+
+[node name="HP" type="Control" parent="XPandHP" unique_id=2021122931]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="HP_Bar" type="TextureProgressBar" parent="XPandHP/HP" unique_id=844185871]
+unique_name_in_owner = true
+layout_mode = 0
 offset_right = 128.0
+offset_bottom = 32.0
+grow_vertical = 2
+texture_under = ExtResource("6_vgic2")
+texture_progress = ExtResource("7_nja0l")
+
+[node name="MarginContainer" type="MarginContainer" parent="XPandHP/HP" unique_id=891919234]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -16.0
+offset_right = 120.5
+offset_bottom = 15.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_bottom = -5
+
+[node name="HP" type="Label" parent="XPandHP/HP/MarginContainer" unique_id=642179829]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g5rf0")
+theme_override_font_sizes/font_size = 18
+text = "10/10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="XP" type="Control" parent="XPandHP" unique_id=208552057]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="XP_Bar" type="TextureProgressBar" parent="XPandHP/XP" unique_id=1485470852]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 32.0
 grow_vertical = 0
 texture_under = ExtResource("2_2nglk")
 texture_over = ExtResource("3_gjr4v")
 texture_progress = ExtResource("4_3wbyd")
 
-[node name="HP_Bar" type="TextureProgressBar" parent="." unique_id=844185871]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="XPandHP/XP" unique_id=1145357853]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = 119.5
-offset_right = 127.5
-offset_bottom = 151.5
+offset_left = 109.5
+offset_top = -16.0
+offset_right = 120.5
+offset_bottom = 16.0
+grow_horizontal = 0
 grow_vertical = 2
-texture_under = ExtResource("6_vgic2")
-texture_progress = ExtResource("7_nja0l")
+theme_override_constants/margin_bottom = -4
 
-[node name="Level" type="Label" parent="." unique_id=1803385994]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 123.5
-offset_top = -31.0
-offset_right = 232.5
-offset_bottom = -4.0
-grow_vertical = 0
-text = "1"
-label_settings = SubResource("LabelSettings_qxikp")
-
-[node name="HP" type="Label" parent="." unique_id=642179829]
+[node name="Level" type="Label" parent="XPandHP/XP/MarginContainer" unique_id=1803385994]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 35.0
-offset_top = 302.0
-offset_right = 119.5
-offset_bottom = 325.0
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 1
-vertical_alignment = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g5rf0")
+theme_override_font_sizes/font_size = 18
+text = "1"
 
 [node name="Pearls" type="HBoxContainer" parent="." unique_id=1668351231]
 layout_mode = 1
@@ -83,18 +136,37 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -45.0
+offset_left = -47.0
 offset_top = -29.0
 offset_right = -8.0
-offset_bottom = -6.0
+offset_bottom = -11.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Count" type="Label" parent="Pearls" unique_id=1718761183]
+[node name="MarginContainer" type="MarginContainer" parent="Pearls" unique_id=349609141]
 layout_mode = 2
+theme_override_constants/margin_bottom = -5
+
+[node name="Count" type="Label" parent="Pearls/MarginContainer" unique_id=1718761183]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_t0n4l")
+theme_override_font_sizes/font_size = 18
 text = "0"
 
 [node name="Icon" type="TextureRect" parent="Pearls" unique_id=1478263408]
 layout_mode = 2
 texture = ExtResource("8_gll67")
 expand_mode = 3
+stretch_mode = 4
+
+[node name="HP_BossBar" type="TextureProgressBar" parent="." unique_id=1904707128]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+texture_under = ExtResource("11_onxnr")
+texture_progress = ExtResource("12_llivb")

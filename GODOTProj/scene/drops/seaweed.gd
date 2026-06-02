@@ -6,10 +6,14 @@ extends Area2D
 var cible = null
 var isCollected = false
 
+var velocity := Vector2.ZERO
+var friction := 8.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimatedSprite2D.play("Idle")
-	scale = Vector2(xp_amount/20.0+0.5, xp_amount/20.0+0.5)
+	var final_scale : float = clamp(xp_amount / 20.0 + 0.5, 0.5, 1.5)
+	scale = Vector2(final_scale, final_scale)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,7 +26,12 @@ func _process(delta: float) -> void:
 		if global_position.distance_to(cible.global_position) < 10 and !isCollected:
 			isCollected = true
 			collect()
-
+	else:
+		if velocity.length() > 0:
+			# On déplace l'objet
+			global_position += velocity * delta
+			# On applique de la friction pour ralentir progressivement le morceau d'XP
+			velocity = velocity.move_toward(Vector2.ZERO, friction * velocity.length() * delta)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Player"):

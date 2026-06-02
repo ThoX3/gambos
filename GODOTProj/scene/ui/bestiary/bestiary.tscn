@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://kvntvrcpo48f"]
+
+[ext_resource type="Script" uid="uid://caygsy8jueaqh" path="res://scene/ui/bestiary/bestiary.gd" id="1_best"]
+[ext_resource type="PackedScene" uid="uid://kmchqd4nvrct" path="res://scene/ui/bestiary/bestiary_card.tscn" id="2_card"]
+[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="2_hixew"]
+
+[node name="Bestiary" type="Control" unique_id=592078671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_best")
+spawn_config = ExtResource("2_hixew")
+card_scene = ExtResource("2_card")
+
+[node name="Background" type="ColorRect" parent="." unique_id=937714590]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.1, 0.95)
+
+[node name="Layout" type="HSplitContainer" parent="." unique_id=742482978]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(500)
+dragging_enabled = false
+split_offset = 500
+
+[node name="LeftPanel" type="ScrollContainer" parent="Layout" unique_id=1001317713]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Layout/LeftPanel" unique_id=1588127875]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="EnemiesTitle" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1487168231]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "— Ennemis —"
+horizontal_alignment = 1
+
+[node name="EnemyContainer" type="GridContainer" parent="Layout/LeftPanel/VBox" unique_id=1562015624]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="BossesTitle" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1337969000]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "— Boss —"
+horizontal_alignment = 1
+
+[node name="BossContainer" type="GridContainer" parent="Layout/LeftPanel/VBox" unique_id=2004035585]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="DetailPanel" type="VBoxContainer" parent="Layout" unique_id=2055664262]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="DetailSprite" type="TextureRect" parent="Layout/DetailPanel" unique_id=324468486]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DetailName" type="Label" parent="Layout/DetailPanel" unique_id=1275510338]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+
+[node name="DetailStats" type="Label" parent="Layout/DetailPanel" unique_id=1851013844]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="." unique_id=341161897]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Bestiaire"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=1065223257]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -48.0
+offset_right = 120.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "← Retour"

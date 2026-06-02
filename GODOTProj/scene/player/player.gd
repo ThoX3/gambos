@@ -1,17 +1,29 @@
 extends CharacterBody2D
 
-signal health_depleted
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
 @export var speed: float = 100
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
+@export var knockback_force: float = 300.0
+var _knockback_velocity: Vector2 = Vector2.ZERO
 
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false
 var blink_timer: float = 0.0
 var _fire_timer: float = 0.0
+
+var xp_multiplier: float = 1.0
+var regen_rate: float = 0.0
+var _regen_timer: float = 0.0
+var thorns_damage: int = 0
+var thorns_interval: float = 0.0
+var _thorns_timer: float = 0.0
+
+@export var projectile_sable_data: ProjectileDataSable
+@export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
+var _attaque_sable_debloquee: bool = false
+var _sable_fire_timer: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,22 +33,51 @@ func _ready() -> void:
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	_on_initialize()
+	# Charger l'état de débloquage depuis la sauvegarde
+	_attaque_sable_debloquee = SaveManager.current_save.boss_araignee_battu
+			
+	if projectile_sable_data:
+		projectile_sable_data = projectile_sable_data.duplicate()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
 	call_deferred("enable_camera_smoothing")
+	GameManager.boss_araignee_vaincu.connect(_on_boss_araignee_vaincu)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if regen_rate > 0 and Stats.current_health < Stats.max_health and Stats.current_health > 0:
+		_regen_timer += delta
+		if _regen_timer >= 1.0:
+			_regen_timer -= 1.0
+			Stats.current_health += regen_rate
+			if Stats.current_health > Stats.max_health:
+				Stats.current_health = Stats.max_health
+			GameManager.health_changed.emit()
+			
+	if thorns_damage > 0:
+		_thorns_timer -= delta
+		if _thorns_timer <= 0.0:
+			var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+			if overlapping_mobs.size() > 0:
+				for mob in overlapping_mobs:
+					if mob.has_method("take_damage"):
+						mob.take_damage(thorns_damage)
+				_thorns_timer = thorns_interval
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
+	# Velocity de mouvement normal
+	var move_velocity = Vector2.ZERO
 	if direction:
-		velocity = direction * speed
+		move_velocity = direction * speed
 		animated_sprite_2d.flip_h = direction.x > 0
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, speed)
+
+	# Amortissement du knockback (indépendant de la velocity de déplacement)
+	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, knockback_force * 2 * delta)
+
+	# On combine les deux
+	velocity = move_velocity + _knockback_velocity
 
 	move_and_slide()
 	
@@ -47,26 +88,42 @@ func _physics_process(delta):
 	
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
+		# Thorns damage
+		if thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+			overlapping_mobs[0].take_damage(thorns_damage)
+			
+		# Calcul de la direction opposée à l'ennemi
+		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
+		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
 		GameManager.health_changed.emit()
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
-			health_depleted.emit()
+			death()
 		else:
 			
-			AudioManager.play_sound_2d("GAMBOS_hurt", global_position)
-			start_invincibility() 
+			AudioManager.play_sound_2d("gambos_hurt", global_position)
+			start_invincibility()
 	
 	# --- Tir automatique ---
 	if projectile_data and projectile_scene:
 		_fire_timer += delta
 		if _fire_timer >= 1.0 / projectile_data.fire_rate:
 			_fire_timer = 0.0
-			var target = _get_nearest_enemy()
-			if target:
-				_shoot(target)
+			var targets = _get_nearest_enemies(projectile_data.projectile_count)
+			if targets.size() > 0:
+				_shoot_multiple(targets)
+	
+	# --- Attaque sable (stick droit) ---
+	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
+		_sable_fire_timer -= delta
+		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
+			_sable_fire_timer = projectile_sable_data.cooldown
+			_tirer_sable(stick.normalized())
+
 
 func gainXP(value: int):
-	Stats.currentXp += value
+	Stats.currentXp += int(value * xp_multiplier)
 	
 	if Stats.currentXp >= Stats.requiredXp:
 		levelUp()
@@ -83,7 +140,7 @@ func levelUp():
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10 * (Stats.level ** 2)
+	Stats.requiredXp = 10 + (Stats.level ** 2) * 2
 	
 	GameManager.level_up.emit()
 	
@@ -108,52 +165,88 @@ func _handle_blinking(delta):
 		blink_timer = 0.0
 		
 func _on_initialize():
-	Stats.max_health = 10.0
+	var save = SaveManager.current_save
+	var lvl_health = save.upgrade_health_level
+	var lvl_speed = save.upgrade_speed_level
+	var lvl_xp = save.upgrade_xp_gain_level
+	var lvl_regen = save.upgrade_regen_level
+	var lvl_collect = save.upgrade_collection_radius_level
+	var lvl_bubble = save.upgrade_bubble_division_level
+	var lvl_thorns = save.upgrade_thorns_level
+	var lvl_damage = save.upgrade_damage_level
+	var lvl_atk_spd = save.upgrade_attack_speed_level
+	var lvl_bounce = save.upgrade_projectile_bounce_level
+
+	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
 	Stats.current_health = Stats.max_health
 	Stats.level = 1
 	Stats.requiredXp = 10
 	Stats.currentXp = 0
-	Stats.collectRadius = 200
 	Stats.collected_pearls = 0
 
-func apply_pearl_upgrades(save: SaveData) -> void:
-	Stats.max_health += save.upgrade_health_level * 5.0
-	Stats.current_health = Stats.max_health
+	speed = UpgradeManager.get_effect_speed(lvl_speed)
+	xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
+	regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 	
-	speed += save.upgrade_speed_level * 20.0
+	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
+	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	
+	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
+	
+	# Determine thorns tick rate
+	var thorns_effects = UpgradeManager.get_effect_thorns(lvl_thorns)
+	thorns_damage = int(thorns_effects["damage"])
+	thorns_interval = thorns_effects["interval"]
 	
 	if projectile_data:
-		projectile_data.damage += save.upgrade_damage_level * 1
-		projectile_data.fire_rate += save.upgrade_speed_damage_level * 0.1
+		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
+		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
+		projectile_data.projectile_count = bubble_count
+		projectile_data.bounce_count = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
 	$LevelUpOver.stop()
 	$LevelUpUnder.hide()
 
-func _get_nearest_enemy() -> Enemy_Base:
+func _get_nearest_enemies(count: int) -> Array:
 	var enemies = get_tree().get_nodes_in_group("Enemy")
-	var nearest: Enemy_Base = null
-	var nearest_dist: float = projectile_data.range
-
+	
+	# Filtrer par portée et validité
+	var in_range: Array = []
 	for enemy in enemies:
 		if not is_instance_valid(enemy):
 			continue
-		var dist = global_position.distance_to(enemy.global_position)
-		if dist <= nearest_dist:
-			nearest_dist = dist
-			nearest = enemy
+		if global_position.distance_to(enemy.global_position) <= projectile_data.range:
+			in_range.append(enemy)
+	
+	# Trier par distance croissante
+	in_range.sort_custom(func(a, b):
+		return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+	
+	# Retourner les N plus proches
+	return in_range.slice(0, count)
 
-	return nearest
-
-func _shoot(target: Enemy_Base) -> void:
+func _shoot_multiple(targets: Array) -> void:
 	for i in range(projectile_data.projectile_count):
+		# Wrap around targets if there are fewer enemies than projectiles
+		var target = targets[i % targets.size()]
+		var dir := global_position.direction_to(target.global_position)
+		
 		var projectile: Projectile = projectile_scene.instantiate()
 		get_parent().add_child(projectile)
-		var angle_offset = (i - (projectile_data.projectile_count - 1) / 2.0 ) * 0.2
-		var dir = global_position.direction_to(target.global_position).rotated(angle_offset)
 		projectile.global_position = global_position
-		projectile.setup(projectile_data, dir)
+		
+		var p_data := projectile_data.duplicate()
+		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
+		
+		var current_dir := dir
+		if i >= targets.size():
+			current_dir = dir.rotated(randf_range(-0.15, 0.15))
+			
+		projectile.setup(p_data, current_dir)
+		projectile.scale = Vector2.ONE * pow(0.75, i)
 	
 func apply_upgrade(data: upgradeData) -> void:
 	if data.typeEffects == upgradeData.effectsType.CAPACITY:
@@ -169,11 +262,11 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 			Stats.max_health += effect.value
-			Stats.current_health += effect.value # A voir si on soigne le montant ajouté
+			Stats.current_health += max(effect.value, 0) # A voir si on soigne le montant ajouté
 			GameManager.health_changed.emit()
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
 				%HurtBox.monitoring = false
-				health_depleted.emit()
+				death()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
 			speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
@@ -198,3 +291,71 @@ func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: sk
 	
 func enable_camera_smoothing():
 	$Camera.position_smoothing_enabled = true
+
+func take_damage(degats: float) -> void:
+	# Si le joueur clignote déjà, il esquive le coup !
+	if is_invincible:
+		return
+		
+	# On retire les PV et on met à jour l'interface
+	Stats.current_health -= degats
+	GameManager.health_changed.emit()
+	
+	# Vérification de la mort
+	if Stats.current_health <= 0.0:
+		%HurtBox.monitoring = false
+		death()
+	else:
+		# S'il survit, on joue ton son et on lance l'invincibilité
+		AudioManager.play_sound_2d("gambos_hurt", global_position)
+		start_invincibility()
+
+func _tirer_sable(direction: Vector2) -> void:
+	var proj = projectile_sable_scene.instantiate()
+	get_parent().add_child(proj)
+	proj.global_position = global_position
+	proj.direction = direction
+	proj.appartient_au_joueur = true
+	proj.vitesse = projectile_sable_data.speed
+	proj.degats = projectile_sable_data.damage
+	# Correction des layers : le projectile joueur doit voir les ennemis (layer 2)
+	proj.collision_layer = 4   # même layer que le projectile normal du joueur
+	proj.collision_mask = 2    # détecte les ennemis (layer 2)
+
+func _on_boss_araignee_vaincu() -> void:
+	_attaque_sable_debloquee = true
+	print("Attaque sable débloquée !")
+	
+func get_player_stats() -> Dictionary:
+	var stats: Dictionary = {}
+	stats = {
+		"Niveau : " : Stats.level,
+		"Vie max : " : Stats.max_health,
+		"Vitesse de déplacement : " : speed,
+		"Portée de collect : " : Stats.collectRadius,
+		"Dégâts : " : projectile_data.damage,
+		"Vitesse d'attaque : " : projectile_data.fire_rate,
+		"Portée d'attaque : " : projectile_data.range
+	}
+	return stats
+
+func death():
+	# ── Désactive tout comportement ──────────────────
+	set_process(false)
+	set_physics_process(false)
+	collision_layer = 0
+	collision_mask  = 0
+	$HurtBox.monitoring = false
+	$HurtBox.monitorable = false
+	z_index = 10
+
+	# ── Lance l'animation ────────────────────────────
+	$AnimatedSprite2D.play("death")
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(self, "position:y", position.y - 200.0, 2.0)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property($AnimatedSprite2D, "modulate:a", 0.0, 2.0)\
+		.set_ease(Tween.EASE_IN)
+
+	await tween.finished
+	GameManager.GameOver.emit()

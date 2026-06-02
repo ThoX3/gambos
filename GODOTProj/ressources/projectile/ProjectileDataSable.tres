@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ProjectileDataSable" format=3 uid="uid://dwg2m2lxcqgv5"]
+
+[ext_resource type="Script" uid="uid://dn2c7a1veugo2" path="res://ressources/projectile/ProjectileDataSable.gd" id="1_64pnb"]
+
+[resource]
+script = ExtResource("1_64pnb")
+damage = 20
+metadata/_custom_type_script = "uid://dn2c7a1veugo2"

@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bcprergp4upjn"
 [resource]
 script = ExtResource("2_sknuu")
 name = "À la vie, à la mort"
-description = "Augmente ta dévotion envers Naïade et devient plus fort"
+description = "Augmente ta dévotion envers Naïades et devient plus fort"
 rarity = 1
 capacities_effects = Array[ExtResource("1_gl52h")]([SubResource("Resource_x12x2")])
 metadata/_custom_type_script = "uid://da80dcqxba25s"

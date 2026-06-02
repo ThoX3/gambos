@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dm66ajmmm82qh"]
 
 [ext_resource type="Script" uid="uid://c2h6w7vx4mncg" path="res://scene/ui/card.gd" id="1_ip8u4"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_ulku6"]
 
 [node name="Card" type="Control" unique_id=995847564]
 layout_mode = 3
@@ -38,6 +39,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,13 +57,17 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 autowrap_mode = 2
 clip_text = true
 
-[node name="Stats" type="Label" parent="TextureButton/VBoxContainer" unique_id=396574016]
+[node name="Stats" type="RichTextLabel" parent="TextureButton/VBoxContainer" unique_id=1818466920]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_ulku6")
+fit_content = true
 autowrap_mode = 2
 
 [node name="Rarity" type="Label" parent="TextureButton/VBoxContainer" unique_id=865929680]
@@ -69,6 +75,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 vertical_alignment = 1
 autowrap_mode = 2
 

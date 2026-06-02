@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eqgpug3rmy8c" path="res://scene/ui/upgrade.gd" id="1_6hck6"]
 [ext_resource type="PackedScene" uid="uid://dm66ajmmm82qh" path="res://scene/ui/card.tscn" id="2_227xh"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_qr4dl"]
 
 [node name="Control" type="Control" unique_id=681599716]
 process_mode = 2
@@ -37,6 +38,7 @@ theme_override_constants/separation = 30
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+theme_override_fonts/font = ExtResource("2_qr4dl")
 theme_override_font_sizes/font_size = 40
 text = "Choisis une amélioration"
 horizontal_alignment = 1

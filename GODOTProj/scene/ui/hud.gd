@@ -25,6 +25,8 @@ func _ready() -> void:
 	pearl_box.visible = false
 
 func _on_start():
+	_time_scale_index = 0
+	Engine.time_scale = 1.0
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
@@ -85,3 +87,21 @@ func _on_pearls_changed():
 	pearl_tween.tween_property(pearl_box, "modulate:a", 0.0, 0.5)
 	
 	pearl_tween.tween_callback(func(): pearl_box.visible = false)
+
+# --- Time scale ---
+const TIME_SCALES = [1.0, 2.0, 3.0, 4.0, 5.0]
+var _time_scale_index: int = 0
+
+func _input(event: InputEvent) -> void:
+	if not GameManager.in_game:
+		return
+	if event.is_action_pressed("speed_up"):
+		_time_scale_index = min(_time_scale_index + 1, TIME_SCALES.size() - 1)
+		_apply_time_scale()
+	elif event.is_action_pressed("slow_down"):
+		_time_scale_index = max(_time_scale_index - 1, 0)
+		_apply_time_scale()
+
+func _apply_time_scale() -> void:
+	Engine.time_scale = TIME_SCALES[_time_scale_index]
+	%SpeedLabel.text = "x" + str(TIME_SCALES[_time_scale_index]).replace(".0", "")

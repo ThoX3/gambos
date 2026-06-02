@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_level_update():
+	GameManager.in_game = false
 	get_tree().paused = true
 	%CanvasLayer.visible = true
 	var random_cards = UpgradeManager.get_random_upgrades(3)
@@ -38,6 +39,7 @@ func _on_card_selected(data: upgradeData):
 		player.apply_upgrade(data)
 	%CanvasLayer.visible = false
 	get_tree().paused = false
+	GameManager.in_game = true
 	
 	# Ralenti en sortie d'amélioration
 	Engine.time_scale = 0.1

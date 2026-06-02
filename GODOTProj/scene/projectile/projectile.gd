@@ -52,7 +52,7 @@ func _on_body_entered(body: Node2D) -> void:
 		AudioManager.play_sound_2d("projectile_pop", global_position)
 		
 		if removed_hp < damage and _number_of_redirections_left > 0:
-			damage -= removed_hp
+			damage -= removed_hp # todo: implémenter même logique pour tire de sable
 			_number_of_redirections_left -= 1
 			_should_update_direction = true
 		else:

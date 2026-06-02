@@ -78,15 +78,15 @@ func get_cost_attack_speed(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de gain d'expérience.
 func get_cost_xp_gain(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 3 * level
 
 ## Retourne le coût de l'amélioration de chance.
 func get_cost_luck(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + level * (level + 2)
 
 ## Retourne le coût de l'amélioration de régénération de vie.
 func get_cost_regen(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 5 * level
 
 ## Retourne le coût de l'amélioration permettant de passer des étapes de la carte.
 func get_cost_skip_map(level: int) -> int:
@@ -94,7 +94,7 @@ func get_cost_skip_map(level: int) -> int:
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 3 * level
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
@@ -106,11 +106,11 @@ func get_cost_collection_radius(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
 func get_cost_bubble_division(level: int) -> int:
-	return get_default_cost(level)
+	return 5 + 2 * 5**level
 
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
-	return get_default_cost(level)
+	return 10 + 2 * 6**level
 	
 	
 # --- Logique des effets spécifiques aux améliorations ---
@@ -166,7 +166,7 @@ func get_effect_projectile(level: int) -> float:
 	return 1.0 + (level * 1.0)
 	
 # --- Effets des armes ---
-## Calcule le nombre de petites bulles générées
+## Calcule le nombre de bulles envoyées.
 func get_effect_bubble_division(level: int) -> int:
 	return 1 + level * 1
 

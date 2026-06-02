@@ -21,7 +21,8 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if not est_actif:
 		return
-
+	
+	Input.start_joy_vibration(0, 0.2, 0.5, 0.2)
 	if appartient_au_joueur:
 		# --- Logique joueur : touche les ennemis ---
 		if body is Enemy_Base:

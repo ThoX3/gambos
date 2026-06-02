@@ -29,5 +29,8 @@ func _on_sauvegarder() -> void:
 	SaveManager.current_save.run_en_cours = true
 	SaveManager.save_game()
 	sauvegarder_pressed.emit()
+	get_tree().paused = false
+	# On force le moteur à oublier l'ancien focus du jeu (ex: bouton de pause ou upgrade)
+	get_viewport().gui_release_focus()
 	# Puis retour au menu principal
 	get_tree().reload_current_scene()

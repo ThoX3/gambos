@@ -96,6 +96,7 @@ func _physics_process(delta):
 		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
 		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
 		GameManager.health_changed.emit()
+		Input.start_joy_vibration(0, 0.2, 0.5, 0.4)
 		if Stats.current_health <= 0.0:
 			%HurtBox.monitoring = false
 			death()
@@ -137,6 +138,9 @@ func levelUp():
 	$LevelUpOver.show()
 	$LevelUpOver.play("Level up")
 	$LevelUpUnder.show()
+	
+	# Vibration manette
+	Input.start_joy_vibration(0, 0.8, 0.2, 0.3)
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp
@@ -264,6 +268,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 			Stats.max_health += effect.value
 			Stats.current_health += max(effect.value, 0) # A voir si on soigne le montant ajouté
 			GameManager.health_changed.emit()
+			Input.start_joy_vibration(0, 0.2, 0.5, 0.4)
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
 				%HurtBox.monitoring = false
 				death()
@@ -293,10 +298,11 @@ func enable_camera_smoothing():
 	$Camera.position_smoothing_enabled = true
 
 func take_damage(degats: float) -> void:
-	# Si le joueur clignote déjà, il esquive le coup !
 	if is_invincible:
 		return
-		
+	
+	Input.start_joy_vibration(0, 0.2, 0.5, 0.4)
+	
 	# On retire les PV et on met à jour l'interface
 	Stats.current_health -= degats
 	GameManager.health_changed.emit()
@@ -356,6 +362,8 @@ func death():
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property($AnimatedSprite2D, "modulate:a", 0.0, 2.0)\
 		.set_ease(Tween.EASE_IN)
+
+	Input.start_joy_vibration(0, 1.0, 0.0, 1.8)
 
 	await tween.finished
 	GameManager.GameOver.emit()

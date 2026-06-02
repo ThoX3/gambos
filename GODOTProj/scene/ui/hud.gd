@@ -16,6 +16,7 @@ func _ready() -> void:
 	GameManager.start_game.connect(_on_start)
 	GameManager.pearls_changed.connect(_on_pearls_changed)
 	GameManager.boss_health_changed.connect(_on_boss_health_changed)
+	GameManager.boss_araignee_vaincu.connect(_on_boss_death)
 	_update_progres_bar()
 	%HP_Bar.max_value = Stats.max_health
 	_update_health_bar()
@@ -42,6 +43,10 @@ func _on_vague_demarree(numero: int) -> void:
 	
 func show_bossBar():
 	bossBar_progressBar.show()
+	_on_boss_health_changed(100, 100)
+
+func _on_boss_death():
+	bossBar_progressBar.hide()
 
 func _update_progres_bar():
 	%XP_Bar.max_value = Stats.requiredXp

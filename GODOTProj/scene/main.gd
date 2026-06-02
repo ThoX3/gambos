@@ -127,6 +127,9 @@ func open_pearl_shop(is_from_game_over : bool) -> void:
 
 func open_main_menu() -> void:
 	show_menu($UI/MainMenu)
+	# On force le moteur à oublier l'ancien focus du jeu (ex: bouton de pause ou upgrade)
+	get_viewport().gui_release_focus()
+	$UI/MainMenu.setup_focus()
 
 func open_bestiary() -> void:
 	GameManager.in_game = false

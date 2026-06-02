@@ -67,3 +67,7 @@ func _on_navigation_menu() -> void:
 
 func _on_validation_menu() -> void:
 	AudioManager.play_sound_2d("menu_press", Vector2.ZERO)
+	
+func setup_focus():
+	if play_button:
+		play_button.grab_focus()

@@ -52,6 +52,7 @@ func _on_area_entered(area: Area2D) -> void:
 		cible = area.get_parent()
 
 func collect():
+	Input.start_joy_vibration(0, 0.1, 0.0, 0.1)
 	cible.gainPearl(pearl_amount)
 	vitesse_actuelle = 0 # Stop movement instantly
 	queue_free()

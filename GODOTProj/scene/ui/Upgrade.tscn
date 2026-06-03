@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://eqgpug3rmy8c" path="res://scene/ui/upgrade.gd" id="1_6hck6"]
 [ext_resource type="PackedScene" uid="uid://dm66ajmmm82qh" path="res://scene/ui/card.tscn" id="2_227xh"]
+[ext_resource type="Texture2D" uid="uid://bcqmml6mdifpa" path="res://assets/sprites/cards/button_lb.png" id="2_ie47p"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_qr4dl"]
+[ext_resource type="Texture2D" uid="uid://mlvlfdmfqax" path="res://assets/sprites/cards/button_rb.png" id="3_ykyk0"]
 
 [node name="Control" type="Control" unique_id=681599716]
 process_mode = 2
@@ -25,6 +27,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.25490198, 0.25490198, 0.25490198, 0.54901963)
+
+[node name="ButtonLb" type="Sprite2D" parent="CanvasLayer" unique_id=1911576474]
+position = Vector2(165.75, 94)
+scale = Vector2(0.2, 0.15)
+texture = ExtResource("2_ie47p")
+
+[node name="ButtonRb" type="Sprite2D" parent="CanvasLayer" unique_id=649172725]
+position = Vector2(1121.5, 94)
+scale = Vector2(0.191, 0.15)
+texture = ExtResource("3_ykyk0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=981812047]
 anchors_preset = 15

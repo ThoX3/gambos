@@ -2,20 +2,22 @@ extends Control
 
 signal selected(data: upgradeData)
 
-const BACKGROUNDS = {
-	upgradeData.rarityType.COMMON: preload("res://assets/sprites/cards/background/Card2.png"),
-	upgradeData.rarityType.UNCOMMUN: preload("res://assets/sprites/cards/background/Card4.png"),
-	upgradeData.rarityType.RARE: preload("res://assets/sprites/cards/background/Card6.png"),
-	upgradeData.rarityType.LEGENDARY: preload("res://assets/sprites/cards/background/Card8.png"),
-	upgradeData.rarityType.MYTHIC: preload("res://assets/sprites/cards/background/Card10.png")
+# A remplir dans l'éditeur Godot de card.tscn ! On écrit plus les chemins en dur
+@export var BACKGROUNDS: Dictionary[upgradeData.rarityType, Texture2D] = {
+	upgradeData.rarityType.COMMON: null,
+	upgradeData.rarityType.UNCOMMUN: null,
+	upgradeData.rarityType.RARE: null,
+	upgradeData.rarityType.LEGENDARY: null,
+	upgradeData.rarityType.MYTHIC: null
 }
 
-const HOVER = {
-	upgradeData.rarityType.COMMON: preload("res://assets/sprites/cards/background/Card3.png"),
-	upgradeData.rarityType.UNCOMMUN: preload("res://assets/sprites/cards/background/Card5.png"),
-	upgradeData.rarityType.RARE: preload("res://assets/sprites/cards/background/Card7.png"),
-	upgradeData.rarityType.LEGENDARY: preload("res://assets/sprites/cards/background/Card9.png"),
-	upgradeData.rarityType.MYTHIC: preload("res://assets/sprites/cards/background/Card11.png")
+# A remplir dans l'éditeur Godot de card.tscn ! On écrit plus les chemins en dur
+@export var HOVER: Dictionary[upgradeData.rarityType, Texture2D] = {
+	upgradeData.rarityType.COMMON: null,
+	upgradeData.rarityType.UNCOMMUN: null,
+	upgradeData.rarityType.RARE: null,
+	upgradeData.rarityType.LEGENDARY: null,
+	upgradeData.rarityType.MYTHIC: null
 }
 
 const RARITY_NAME = {

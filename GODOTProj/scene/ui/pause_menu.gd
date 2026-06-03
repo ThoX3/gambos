@@ -3,7 +3,7 @@ extends Control
 signal menu_button_pressed
 signal bestiary_button_pressed
 
-const STATS_FONT = preload("res://assets/fonts/depixel/DePixelBreit.ttf")
+@export var STATS_FONT: FontFile
 
 ## Empêche le toggle pause quand le bestiaire est ouvert par-dessus
 var _bestiary_open: bool = false
@@ -64,7 +64,6 @@ func notify_bestiary_closed() -> void:
 	
 func _display_quit_info() -> void:
 	%QuitDescription.text = "Retourne au menu principal tout en gardant les perles accumulées pendant la partie."
-	%QuitDescription.add_theme_font_override("font", STATS_FONT)
 	%QuitDescription.show()
 	
 func _hide_quit_info() -> void:

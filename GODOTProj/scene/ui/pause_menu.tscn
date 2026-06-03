@@ -12,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jo6ex")
+STATS_FONT = ExtResource("1_v5dk4")
 
 [node name="LayerPause" type="CanvasLayer" parent="." unique_id=915150576]
 unique_name_in_owner = true
@@ -125,6 +126,7 @@ offset_right = 95.0
 offset_bottom = 14.679993
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_v5dk4")
 
 [connection signal="pressed" from="LayerPause/ColorRect/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="LayerPause/ColorRect/Quit" to="." method="_on_quit_pressed"]

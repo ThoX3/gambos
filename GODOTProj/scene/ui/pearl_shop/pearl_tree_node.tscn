@@ -6,10 +6,18 @@
 [ext_resource type="Texture2D" uid="uid://drusnwbconaq4" path="res://assets/sprites/pearl_shop/normal_hovered.png" id="3_vccej"]
 [ext_resource type="Texture2D" uid="uid://d2f5qwetbil2q" path="res://assets/sprites/pearl_shop/too_expensive.png" id="4_dkipg"]
 [ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
+[ext_resource type="Texture2D" uid="uid://cifkaid3e20yu" path="res://assets/sprites/pearl_shop/normal_focused.png" id="4_ulin4"]
+[ext_resource type="Texture2D" uid="uid://cqyb7204fctpw" path="res://assets/sprites/pearl_shop/locked.png" id="5_uec3o"]
 [ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
 [ext_resource type="Texture2D" uid="uid://drvt2lt6ni5xu" path="res://assets/sprites/pearl_shop/icons/damage.png" id="5_vccej"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
+[ext_resource type="Texture2D" uid="uid://betcqw3hcuyeu" path="res://assets/sprites/pearl_shop/locked_hovered.png" id="6_xclot"]
+[ext_resource type="Texture2D" uid="uid://cauuya5bkbx8w" path="res://assets/sprites/pearl_shop/locked_focused.png" id="7_ckqbl"]
 [ext_resource type="Texture2D" uid="uid://bibp1p2g7gx72" path="res://assets/sprites/pearl_shop/lock.png" id="7_fgmap"]
+[ext_resource type="Texture2D" uid="uid://d23jn3b31om78" path="res://assets/sprites/pearl_shop/too_expensive_hovered.png" id="9_i54ph"]
+[ext_resource type="Texture2D" uid="uid://b5gqidjisw05e" path="res://assets/sprites/pearl_shop/maxed.png" id="10_l3ldp"]
+[ext_resource type="Texture2D" uid="uid://c6h2cduuhlhly" path="res://assets/sprites/pearl_shop/maxed_hovered.png" id="11_b0orh"]
+[ext_resource type="Texture2D" uid="uid://dnnn8bwoc5i5a" path="res://assets/sprites/pearl_shop/maxed_focused.png" id="12_up1cv"]
 
 [node name="PearlTreeNode" type="Control" unique_id=1910061887]
 custom_minimum_size = Vector2(128, 128)
@@ -22,6 +30,18 @@ offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_pc3ls")
+TEX_NORMAL = ExtResource("2_urf48")
+TEX_NORMAL_HOVERED = ExtResource("3_vccej")
+TEX_NORMAL_FOCUSED = ExtResource("4_ulin4")
+TEX_LOCKED = ExtResource("5_uec3o")
+TEX_LOCKED_HOVERED = ExtResource("6_xclot")
+TEX_LOCKED_FOCUSED = ExtResource("7_ckqbl")
+TEX_TOO_EXPENSIVE = ExtResource("4_dkipg")
+TEX_TOO_EXPENSIVE_HOVERED = ExtResource("9_i54ph")
+TEX_TOO_EXPENSIVE_FOCUSED = ExtResource("7_ckqbl")
+TEX_MAXED = ExtResource("10_l3ldp")
+TEX_MAXED_HOVERED = ExtResource("11_b0orh")
+TEX_MAXED_FOCUSED = ExtResource("12_up1cv")
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=150037157]
 modulate = Color(0.86036915, 0.8603692, 0.8603692, 1)

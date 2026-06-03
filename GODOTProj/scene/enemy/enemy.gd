@@ -9,10 +9,10 @@ class_name Enemy_Base
 
 var player = null
 
-const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
-const PEARL_SCENE = preload("res://scene/drops/pearl.tscn")
-const DAMAGE_TEXT_SCENE = preload("res://scene/ui/enemy/damage_text.tscn")
-const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/deathSplash.tscn")
+@export var SEAWEED_SCENE: PackedScene
+@export var PEARL_SCENE: PackedScene
+@export var DAMAGE_TEXT_SCENE: PackedScene
+@export var SPLASH_EFFECT_SCENE: PackedScene
 
 func _ready():
 	if stats:

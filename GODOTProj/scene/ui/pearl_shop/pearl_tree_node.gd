@@ -7,7 +7,7 @@ signal buy_requested(id: String, cost: int)
 @export var upgrade_id: String = "health"
 @export var upgrade_name: String = "Vie"
 @export var upgrade_description: String = ""
-@export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
+@export var icon_texture: Texture2D
 @export var max_level: int = 3
 @export var parent_node: Control
 @export var parent_node_unlock_level: int = 1
@@ -24,18 +24,18 @@ var was_unlocked_preview: bool = false
 @onready var lock_overlay = $LockOverlay
 @onready var icon: TextureRect = $IconContainer/Icon
 
-const TEX_NORMAL = preload("res://assets/sprites/pearl_shop/normal.png")
-const TEX_NORMAL_HOVERED = preload("res://assets/sprites/pearl_shop/normal_hovered.png")
-const TEX_NORMAL_FOCUSED = preload("res://assets/sprites/pearl_shop/normal_focused.png")
-const TEX_LOCKED = preload("res://assets/sprites/pearl_shop/locked.png")
-const TEX_LOCKED_HOVERED = preload("res://assets/sprites/pearl_shop/locked_hovered.png")
-const TEX_LOCKED_FOCUSED = preload("res://assets/sprites/pearl_shop/locked_focused.png")
-const TEX_TOO_EXPENSIVE = preload("res://assets/sprites/pearl_shop/too_expensive.png")
-const TEX_TOO_EXPENSIVE_HOVERED = preload("res://assets/sprites/pearl_shop/too_expensive_hovered.png")
-const TEX_TOO_EXPENSIVE_FOCUSED = preload("res://assets/sprites/pearl_shop/locked_focused.png")
-const TEX_MAXED = preload("res://assets/sprites/pearl_shop/maxed.png")
-const TEX_MAXED_HOVERED = preload("res://assets/sprites/pearl_shop/maxed_hovered.png")
-const TEX_MAXED_FOCUSED = preload("res://assets/sprites/pearl_shop/maxed_focused.png")
+@export var TEX_NORMAL: Texture2D
+@export var TEX_NORMAL_HOVERED: Texture2D
+@export var TEX_NORMAL_FOCUSED: Texture2D
+@export var TEX_LOCKED: Texture2D
+@export var TEX_LOCKED_HOVERED: Texture2D
+@export var TEX_LOCKED_FOCUSED: Texture2D
+@export var TEX_TOO_EXPENSIVE: Texture2D
+@export var TEX_TOO_EXPENSIVE_HOVERED: Texture2D
+@export var TEX_TOO_EXPENSIVE_FOCUSED: Texture2D
+@export var TEX_MAXED: Texture2D
+@export var TEX_MAXED_HOVERED: Texture2D
+@export var TEX_MAXED_FOCUSED: Texture2D
 
 func _ready():
 	buy_button.pressed.connect(_on_buy_button_pressed)

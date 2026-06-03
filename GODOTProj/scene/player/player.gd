@@ -140,7 +140,7 @@ func levelUp():
 	$LevelUpUnder.show()
 	
 	# Vibration manette
-	Input.start_joy_vibration(0, 0.8, 0.2, 0.3)
+	Input.start_joy_vibration(0, 0.8, 0.2, 0.1)
 	
 	# Mise a jour de l'xp et du nouveau montant nécéssaire
 	Stats.currentXp -= Stats.requiredXp

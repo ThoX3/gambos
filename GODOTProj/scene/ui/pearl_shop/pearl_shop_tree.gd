@@ -11,7 +11,7 @@ signal menu_button_pressed
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
 @onready var node_infos_window = $NodeInfos
 
-@onready var list_button = [menu_button, play_button, reset_button]
+@onready var list_button: Array[Variant] = [menu_button, play_button, reset_button]
 
 @onready var fade_rect: ColorRect = $FadeRect
 
@@ -66,7 +66,9 @@ func _on_visibility_changed() -> void:
 			node_infos_window.visible = false
 
 func _on_non_node_focus_entered() -> void:
-	currently_focused_node = null
+	if currently_focused_node:
+		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)
+		currently_focused_node = null
 	hover_timer.stop()
 	node_infos_window.visible = false
 

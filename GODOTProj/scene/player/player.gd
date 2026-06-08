@@ -30,6 +30,11 @@ var _thorns_timer: float = 0.0
 var _attaque_sable_debloquee: bool = false
 var _sable_fire_timer: float = 0.0
 
+var sable_pierce: int = 0
+var sable_zone: float = 0.0
+var sable_count: int = 0
+var sable_bounce: int = 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -199,6 +204,15 @@ func _on_initialize():
 	var lvl_damage = save.upgrade_damage_level
 	var lvl_atk_spd = save.upgrade_attack_speed_level
 	var lvl_bounce = save.upgrade_projectile_bounce_level
+	
+	var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
+	var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
+	var lvl_sable_count = save.upgrade_projectile_sable_count_level
+
+	sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
+	sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
+	sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
+	sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
 
 	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
 	Stats.current_health = Stats.max_health
@@ -336,13 +350,34 @@ func take_damage(degats: float) -> void:
 		start_invincibility()
 
 func _tirer_sable(direction: Vector2) -> void:
+	# Spawn central projectile
+	_spawn_single_sable(direction, 1.0, 1.0)
+	
+	# Level 1: +2 projectiles at +/- 20 degrees
+	if sable_count >= 1:
+		_spawn_single_sable(direction.rotated(deg_to_rad(20)), 0.5, 0.75)
+		_spawn_single_sable(direction.rotated(deg_to_rad(-20)), 0.5, 0.75)
+		
+	# Level 2: +2 more projectiles at +/- 40 degrees
+	if sable_count >= 2:
+		_spawn_single_sable(direction.rotated(deg_to_rad(40)), 0.25, 0.5)
+		_spawn_single_sable(direction.rotated(deg_to_rad(-40)), 0.25, 0.5)
+
+func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplier: float) -> void:
 	var proj = projectile_sable_scene.instantiate()
 	get_parent().add_child(proj)
 	proj.global_position = global_position
-	proj.direction = direction
+	proj.direction = dir
 	proj.appartient_au_joueur = true
 	proj.vitesse = projectile_sable_data.speed
-	proj.degats = projectile_sable_data.damage
+	proj.degats = int(projectile_sable_data.damage * damage_multiplier)
+	proj.scale = Vector2(scale_multiplier, scale_multiplier)
+	
+	# Custom upgrades
+	proj.pierce_hp = sable_pierce
+	proj.zone_radius = sable_zone
+	proj.bounce_count = sable_bounce
+	
 	# Correction des layers : le projectile joueur doit voir les ennemis (layer 2)
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur
 	proj.collision_mask = 2    # détecte les ennemis (layer 2)

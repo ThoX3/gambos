@@ -20,6 +20,9 @@ class_name SaveData
 # Pearl weapon upgrades
 @export var upgrade_bubble_division_level: int = 0
 @export var upgrade_projectile_bounce_level: int = 0
+@export var upgrade_projectile_sable_pierce_level: int = 0
+@export var upgrade_projectile_sable_zone_damage_level: int = 0
+@export var upgrade_projectile_sable_count_level: int = 0
 
 # In-game progress
 @export var boss_araignee_battu: bool = false

@@ -111,6 +111,18 @@ func get_cost_bubble_division(level: int) -> int:
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
 	return 10 + 2 * 6**level
+
+## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
+func get_cost_projectile_sable_pierce(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration permettant au projectile de sable de faire des dégâts de zone.
+func get_cost_projectile_sable_zone_damage(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration ajoutant des projectiles de sable.
+func get_cost_projectile_sable_count(level: int) -> int:
+	return 15 + 2 * 5**level
 	
 	
 # --- Logique des effets spécifiques aux améliorations ---
@@ -173,4 +185,15 @@ func get_effect_bubble_division(level: int) -> int:
 ## Calcule le nombre potentiel de rebonds des projectiles.
 func get_effect_projectile_bounce(level: int) -> int:
 	return level * 1
-	
+
+## Calcule la réserve de PV que le projectile de sable peut transpercer.
+func get_effect_projectile_sable_pierce(level: int) -> int:
+	return level * 50
+
+## Calcule le rayon d'explosion (dégâts de zone) du projectile de sable.
+func get_effect_projectile_sable_zone_damage(level: int) -> float:
+	return level * 60.0
+
+## Calcule le nombre de paires de projectiles de sable supplémentaires.
+func get_effect_projectile_sable_count(level: int) -> int:
+	return level * 1

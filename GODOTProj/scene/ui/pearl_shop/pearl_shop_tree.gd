@@ -72,6 +72,12 @@ func _on_non_node_focus_entered() -> void:
 
 func _on_node_focus_entered(node: Control) -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
+	
+	node.get_node("TextureButton").self_modulate = Color(1.0, 0.9372549, 0.70980394)
+	
+	if currently_focused_node:
+		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)  # restore previous node
+	
 	currently_focused_node = node
 	node_infos_window.visible = false
 	hover_timer.start(1.0)

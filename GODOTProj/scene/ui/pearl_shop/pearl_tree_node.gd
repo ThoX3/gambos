@@ -105,7 +105,7 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		lock_overlay.visible = true
 		price_label.visible = false
 		lock_overlay.modulate = Color.WHITE
-		lock_overlay.position.y = 0
+		lock_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED, TEX_LOCKED_FOCUSED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
@@ -118,7 +118,7 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		else:
 			lock_overlay.visible = false
 			lock_overlay.modulate = Color(1, 1, 1, 1)
-			lock_overlay.position.y = 0
+			lock_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 		
 		if current_level >= max_level:
 			level_label.text = "MAX"

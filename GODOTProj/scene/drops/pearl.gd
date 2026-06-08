@@ -52,7 +52,12 @@ func _on_area_entered(area: Area2D) -> void:
 		cible = area.get_parent()
 
 func collect():
+	# Vibration
 	Input.start_joy_vibration(0, 0.1, 0.0, 0.1)
+	
+	# Bruitage
+	AudioManager.play_sound_2d("pearl_collect", position)
+	
 	cible.gainPearl(pearl_amount)
 	vitesse_actuelle = 0 # Stop movement instantly
 	queue_free()

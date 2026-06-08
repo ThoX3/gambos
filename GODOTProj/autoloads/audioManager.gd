@@ -14,6 +14,7 @@ const SONS := {
 	"gambos_hurt":    "res://assets/sounds/effect/Gambos_hurt.mp3",
 	"menu_press": "res://assets/sounds/menu/Menu_press.mp3",
 	"menu_selection": "res://assets/sounds/menu/Menu_select.mp3",
+	"pearl_collect": "res://assets/sounds/effect/pearlCollect.mp3",
 	"pearl_shop_unlock": "res://assets/sounds/pearl_shop/unlock.mp3",
 	"pearl_shop_buy": "res://assets/sounds/pearl_shop/pearls.mp3",
 }

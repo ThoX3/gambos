@@ -163,7 +163,11 @@ func _on_continuer() -> void:
 func _on_monde_change(config: WorldConfig) -> void:
 	change_level(config.map_scene)
 	$World/WaveManager.spawn_config = config.spawn_config
-	$World/WaveManager.start_waves()
+	if config.vagues_par_monde > 0:
+		$World/WaveManager.vagues_par_monde = config.vagues_par_monde
+	else:
+		$World/WaveManager.vagues_par_monde = 999999  # infini
+	$World/WaveManager.start_waves(true)
 	AudioManager.play_music(config.musique_id)
 
 func open_main_menu_from_pause() -> void:

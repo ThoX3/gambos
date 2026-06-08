@@ -12,6 +12,7 @@ class_name EnemyData
 @export_group("Movement")
 @export var movement_speed: float
 @export var patrol_distance: float
+@export var weight: float = 1.0
 
 @export_group("Attack & Combat")
 @export var attack_damage: int

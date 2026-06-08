@@ -9,6 +9,7 @@ texture = ExtResource("2_7qk45")
 name = "Homard"
 max_hp = 40
 movement_speed = 200.0
+weight = 4.0
 attack_damage = 8
 xp_drop = 8
 pearl_drop_probability = 0.15

@@ -9,6 +9,9 @@ class_name Enemy_Base
 
 var player = null
 
+func get_weight() -> float:
+	return stats.weight if stats else 1.0
+
 @export var SEAWEED_SCENE: PackedScene
 @export var PEARL_SCENE: PackedScene
 @export var DAMAGE_TEXT_SCENE: PackedScene
@@ -28,7 +31,7 @@ func setup_enemy():
 		sprite.sprite_frames = stats.texture
 		sprite.play("walk")
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if not stats:
 		return
 		
@@ -46,8 +49,22 @@ func _physics_process(_delta):
 	# Application de la vitesse brute sur le vecteur directionnel
 	velocity = direction * stats.movement_speed
 
-	# Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
-	move_and_slide()
+	_move_with_push(delta)
+
+func _move_with_push(delta: float) -> void:
+	var motion = velocity * delta
+	for i in 4:
+		var collision = move_and_collide(motion)
+		if not collision:
+			break
+		
+		var collider = collision.get_collider()
+		if collider and collider.has_method("get_weight") and get_weight() > collider.get_weight():
+			var push_dir = -collision.get_normal()
+			var push_dist = motion.length() * (get_weight() / (get_weight() + collider.get_weight()))
+			collider.move_and_collide(push_dir * push_dist)
+			
+		motion = collision.get_remainder().slide(collision.get_normal())
 
 func take_damage(amount: int) -> int:
 	if is_queued_for_deletion():

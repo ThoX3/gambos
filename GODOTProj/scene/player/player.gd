@@ -8,6 +8,11 @@ extends CharacterBody2D
 @export var knockback_force: float = 300.0
 var _knockback_velocity: Vector2 = Vector2.ZERO
 
+@export var weight: float = 10.0
+
+func get_weight() -> float:
+	return weight
+
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false
 var blink_timer: float = 0.0
@@ -79,7 +84,24 @@ func _physics_process(delta):
 	# On combine les deux
 	velocity = move_velocity + _knockback_velocity
 
-	move_and_slide()
+	_move_with_push(delta)
+	
+	# --- Tir automatique ---
+	if projectile_data and projectile_scene:
+		_fire_timer += delta
+		if _fire_timer >= 1.0 / projectile_data.fire_rate:
+			_fire_timer = 0.0
+			var targets = _get_nearest_enemies(projectile_data.projectile_count)
+			if targets.size() > 0:
+				_shoot_multiple(targets)
+	
+	# --- Attaque sable (stick droit) ---
+	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
+		_sable_fire_timer -= delta
+		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
+			_sable_fire_timer = projectile_sable_data.cooldown
+			_tirer_sable(stick.normalized())
 	
 	if is_invincible:
 		_handle_blinking(delta)
@@ -104,24 +126,21 @@ func _physics_process(delta):
 			
 			AudioManager.play_sound_2d("gambos_hurt", global_position)
 			start_invincibility()
-	
-	# --- Tir automatique ---
-	if projectile_data and projectile_scene:
-		_fire_timer += delta
-		if _fire_timer >= 1.0 / projectile_data.fire_rate:
-			_fire_timer = 0.0
-			var targets = _get_nearest_enemies(projectile_data.projectile_count)
-			if targets.size() > 0:
-				_shoot_multiple(targets)
-	
-	# --- Attaque sable (stick droit) ---
-	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
-		_sable_fire_timer -= delta
-		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
-		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
-			_sable_fire_timer = projectile_sable_data.cooldown
-			_tirer_sable(stick.normalized())
 
+func _move_with_push(delta: float) -> void:
+	var motion = velocity * delta
+	for i in 4:
+		var collision = move_and_collide(motion)
+		if not collision:
+			break
+		
+		var collider = collision.get_collider()
+		if collider and collider.has_method("get_weight") and get_weight() > collider.get_weight():
+			var push_dir = -collision.get_normal()
+			var push_dist = motion.length() * (get_weight() / (get_weight() + collider.get_weight()))
+			collider.move_and_collide(push_dir * push_dist)
+			
+		motion = collision.get_remainder().slide(collision.get_normal())
 
 func gainXP(value: int):
 	Stats.currentXp += int(value * xp_multiplier)

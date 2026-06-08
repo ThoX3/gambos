@@ -97,20 +97,13 @@ func _show_node_infos_window() -> void:
 	if currently_focused_node == null or not is_visible_in_tree():
 		return
 	
-	var description := ""
-	var title := ""
+	var title: String = currently_focused_node.upgrade_name
+	var description: String = currently_focused_node.upgrade_description
 	
-	if currently_focused_node.is_unlocked:
-		title = currently_focused_node.upgrade_name
-		description = currently_focused_node.upgrade_description
-	else:
-		title = "???"
-		if currently_focused_node.parent_node != null and currently_focused_node.parent_node.is_unlocked:
-			var parent_name = currently_focused_node.parent_node.upgrade_name
-			var required_level = currently_focused_node.parent_node_unlock_level
-			description = "[color=#a0a0a0]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + "[/color]"
-		else:
-			description = "[color=#a0a0a0]???[/color]"
+	if not currently_focused_node.is_unlocked and currently_focused_node.parent_node != null:
+		var parent_name = currently_focused_node.parent_node.upgrade_name
+		var required_level = currently_focused_node.parent_node_unlock_level
+		description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
 	
 	node_infos_window.set_infos(title, description)
 	node_infos_window.visible = true

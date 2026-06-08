@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dtfqrdo6uajr2" path="res://assets/sprites/pearl_shop/icons/speed.png" id="6_t1a07"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_u6v75"]
 [ext_resource type="Texture2D" uid="uid://drpy4kvbw4i3c" path="res://assets/sprites/pearl_shop/icons/health.png" id="7_jn2eo"]
+[ext_resource type="Texture2D" uid="uid://drvt2lt6ni5xu" path="res://assets/sprites/pearl_shop/icons/damage.png" id="8_ciura"]
 [ext_resource type="Texture2D" uid="uid://dgyuiliof1cak" path="res://assets/sprites/pearl_shop/icons/attack_speed.png" id="8_gipjf"]
 [ext_resource type="Texture2D" uid="uid://br6kwf6hu1eig" path="res://assets/sprites/pearl_shop/icons/regen.png" id="9_h5drw"]
 [ext_resource type="Texture2D" uid="uid://c0bnddu4twh7w" path="res://assets/sprites/pearl_shop/icons/xp_gain.png" id="10_r1ves"]
@@ -164,6 +165,7 @@ layout_mode = 2
 upgrade_id = "damage"
 upgrade_name = "Attaque"
 upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+icon_texture = ExtResource("8_ciura")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 

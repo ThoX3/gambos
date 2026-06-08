@@ -9,7 +9,7 @@ signal buy_requested(id: String, cost: int)
 @export var upgrade_description: String = ""
 @export var icon_texture: Texture2D
 @export var max_level: int = 3
-@export var parent_node: Control
+@export var parent_node: PearlTreeNode
 @export var parent_node_unlock_level: int = 1
 
 var current_level = 0
@@ -109,6 +109,8 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED, TEX_LOCKED_FOCUSED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
+		%ParentIcon.texture = parent_node.icon_texture
+		%ParentUnlockLevelLabel.text = str(parent_node_unlock_level)
 	else:
 		price_label.visible = true
 		if is_newly_unlocked and lock_overlay.visible:

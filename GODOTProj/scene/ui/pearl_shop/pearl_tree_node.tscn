@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b5gqidjisw05e" path="res://assets/sprites/pearl_shop/maxed.png" id="10_l3ldp"]
 [ext_resource type="Texture2D" uid="uid://c6h2cduuhlhly" path="res://assets/sprites/pearl_shop/maxed_hovered.png" id="11_b0orh"]
 [ext_resource type="Texture2D" uid="uid://dnnn8bwoc5i5a" path="res://assets/sprites/pearl_shop/maxed_focused.png" id="12_up1cv"]
+[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="19_uec3o"]
 
 [node name="PearlTreeNode" type="Control" unique_id=1910061887]
 custom_minimum_size = Vector2(128, 128)
@@ -150,8 +151,40 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="TextureRect" type="TextureRect" parent="LockOverlay" unique_id=1791371933]
+[node name="VBoxContainer" type="VBoxContainer" parent="LockOverlay" unique_id=1110137578]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="LockOverlay/VBoxContainer" unique_id=1791371933]
 self_modulate = Color(1, 1, 0.8392157, 1)
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("7_fgmap")
+expand_mode = 4
 stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LockOverlay/VBoxContainer" unique_id=1152063474]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="LockOverlay/VBoxContainer/HBoxContainer" unique_id=606643541]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="ParentIcon" type="TextureRect" parent="LockOverlay/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1989731770]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_vccej")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="ParentUnlockLevelLabel" type="Label" parent="LockOverlay/VBoxContainer/HBoxContainer" unique_id=775300175]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("19_uec3o")
+theme_override_font_sizes/font_size = 24
+text = "3"

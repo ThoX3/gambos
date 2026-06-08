@@ -209,10 +209,10 @@ func was_opened_from_game_over(param: bool):
 		tween.tween_property(fade_rect, "color:a", 0, 1.5)
 		
 		play_button.visible = true
-		menu_button.text = "Menu principal"
+		menu_button.text = " Menu principal"
 	else:
 		play_button.visible = false
-		menu_button.text = "Retour"
+		menu_button.text = " Retour"
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

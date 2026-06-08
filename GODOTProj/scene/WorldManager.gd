@@ -35,6 +35,9 @@ func _appliquer_monde(index: int) -> void:
 	monde_change.emit(mondes[index])
 
 func _appliquer_monde_infini() -> void:
+	if mode_infini_config == null:
+		push_error("WorldManager : mode_infini_config n'est pas assigné dans l'inspecteur !")
+		return
 	monde_change.emit(mode_infini_config)
 
 func get_nom_monde_suivant() -> String:

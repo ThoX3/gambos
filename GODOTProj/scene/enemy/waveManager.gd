@@ -35,10 +35,11 @@ func _ready() -> void:
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
-func start_waves() -> void:
-	_numero_vague      = 0
-	_timer_pause       = 0.0
-	_boss_courant      = null
+func start_waves(continuer: bool = false) -> void:
+	if not continuer:
+		_numero_vague = 0
+	_timer_pause  = 0.0
+	_boss_courant = null
 	_etat = _Etat.PAUSE
 
 func _process(delta: float) -> void:

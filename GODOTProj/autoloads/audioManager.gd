@@ -41,6 +41,32 @@ const MUSIQUES := {
 		}
 	},
 	
+	"map2": {
+		"pistes": {
+			"bass":   "res://assets/sounds/map2/map2-bass.mp3",
+			"drums": "res://assets/sounds/map2/map2-drums.mp3",
+			"other":  "res://assets/sounds/map2/map2-other.mp3",
+		},
+		"deverouillage": {
+			21:  ["bass"],
+			28:  ["drums"],
+			35: ["other"],
+		}
+	},
+	
+	"map3": {
+		"pistes": {
+			"bass":   "res://assets/sounds/map3/map3-bass.mp3",
+			"drums": "res://assets/sounds/map3/map3-drums.mp3",
+			"other":  "res://assets/sounds/map3/map3-other.mp3",
+		},
+		"deverouillage": {
+			61:  ["other"],
+			68:  ["drums"],
+			74: ["other"],
+		}
+	},
+	
 
 	"main_menu": {
 		"pistes": {

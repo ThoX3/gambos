@@ -238,7 +238,7 @@ upgrade_name = "Joker"
 upgrade_description = "Permet de relancer des cartes d'amélioration en jeu pour quelques perles."
 icon_texture = ExtResource("11_qpv24")
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
-parent_node_unlock_level = 100
+parent_node_unlock_level = 5
 
 [node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2

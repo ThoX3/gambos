@@ -22,6 +22,7 @@ func _ready() -> void:
 	menu_button.pressed.connect(open_menu)
 	play_button.pressed.connect(play)
 	reset_button.pressed.connect(reset_save)
+	reset_button.gui_input.connect(_on_reset_button_gui_input)
 	
 	menu_button.focus_entered.connect(_on_non_node_focus_entered)
 	play_button.focus_entered.connect(_on_non_node_focus_entered)
@@ -191,6 +192,13 @@ func reset_save():
 	SaveManager.current_save = SaveData.new()
 	SaveManager.save_game()
 	refresh_shop()
+
+func _on_reset_button_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		SaveManager.current_save.pearls += 1000
+		SaveManager.current_save.upgrade_ingame_speed_level = 5
+		SaveManager.save_game()
+		refresh_shop()
 
 func was_opened_from_game_over(param: bool):
 	if param:

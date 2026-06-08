@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6pxudlq3qkj0"
-path="res://.godot/imported/skip_map.png-3bbf1523cc74d5a81a5ec99100460a8f.ctex"
+uid="uid://coxt8cfwy2dix"
+path="res://.godot/imported/ingame_speed.png-95481cf66e14cb43e6d93e56bb83d93f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/pearl_shop/icons/skip_map.png"
-dest_files=["res://.godot/imported/skip_map.png-3bbf1523cc74d5a81a5ec99100460a8f.ctex"]
+source_file="res://assets/sprites/pearl_shop/icons/ingame_speed.png"
+dest_files=["res://.godot/imported/ingame_speed.png-95481cf66e14cb43e6d93e56bb83d93f.ctex"]
 
 [params]
 

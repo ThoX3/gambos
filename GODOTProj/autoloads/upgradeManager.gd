@@ -88,9 +88,9 @@ func get_cost_luck(level: int) -> int:
 func get_cost_regen(level: int) -> int:
 	return 1 + 5 * level
 
-## Retourne le coût de l'amélioration permettant de passer des étapes de la carte.
-func get_cost_skip_map(level: int) -> int:
-	return get_default_cost(level)
+## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
+func get_cost_ingame_speed(level: int) -> int:
+	return max(30, 9 ** (level + 1) - 5) 
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
@@ -149,8 +149,8 @@ func get_effect_thorns(level: int) -> Dictionary:
 		"interval": max(0.2, 1.0 - (level * 0.15))
 	}
 
-## Calcule le nombre de niveaux de carte passés initialement.
-func get_effect_skip_map(level: int) -> float:
+## Calcule la vitesse du jeu selon le niveau. Non utilisé pour le moment, c'est hud.gd qui gère cela.
+func get_effect_ingame_speed(level: int) -> float:
 	return level * 1.0
 
 ## Retourne le nombre de relances gratuites accordées.

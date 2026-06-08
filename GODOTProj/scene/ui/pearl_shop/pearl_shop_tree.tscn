@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cpb2ylgaenl0k" path="res://assets/sprites/pearl_shop/icons/luck.png" id="11_4wpf8"]
 [ext_resource type="Texture2D" uid="uid://b15wbq4kodyq8" path="res://assets/sprites/pearl_shop/icons/reroll.png" id="11_qpv24"]
 [ext_resource type="Texture2D" uid="uid://de88qaw72pvb" path="res://assets/sprites/pearl_shop/icons/thorns.png" id="12_gipjf"]
-[ext_resource type="Texture2D" uid="uid://6pxudlq3qkj0" path="res://assets/sprites/pearl_shop/icons/skip_map.png" id="12_qpv24"]
+[ext_resource type="Texture2D" uid="uid://coxt8cfwy2dix" path="res://assets/sprites/pearl_shop/icons/ingame_speed.png" id="12_qpv24"]
 [ext_resource type="Texture2D" uid="uid://bljgw6mp7g52g" path="res://assets/sprites/pearl_shop/icons/collection_zone.png" id="13_r1ves"]
 [ext_resource type="Texture2D" uid="uid://bnqmhlr8uin5i" path="res://assets/sprites/pearl_shop/icons/bubble_division.png" id="15_qpv24"]
 [ext_resource type="PackedScene" uid="uid://bd4sq86hoarr6" path="res://scene/ui/pearl_shop/node_infos.tscn" id="16_jn2eo"]
@@ -287,13 +287,11 @@ theme_override_constants/separation = 54
 
 [node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=736682881 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "skip_map"
-upgrade_name = "Avance initiale"
-upgrade_description = "Grâce à une meilleure connaissance des récifs, Gambos peut éviter les premières zones de danger."
+upgrade_id = "ingame_speed"
+upgrade_name = "Célérité"
+upgrade_description = "Permet d'accélérer l'écoulement du temps en combat pour affronter les vagues plus rapidement."
 icon_texture = ExtResource("12_qpv24")
-max_level = 10
 parent_node = NodePath("../../VBoxContainer5/RerollNode")
-parent_node_unlock_level = 100
 
 [node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=1266658196 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2

@@ -37,6 +37,8 @@ func _on_start():
 	var wm = get_tree().get_first_node_in_group("wave_manager")
 	if wm and not wm.vague_demarree.is_connected(_on_vague_demarree):
 		wm.vague_demarree.connect(_on_vague_demarree)
+	
+	_init_time_scales()
 
 func _on_vague_demarree(numero: int) -> void:
 	wave_label.text = str(numero)  # ← met à jour le label à chaque nouvelle vague
@@ -89,19 +91,42 @@ func _on_pearls_changed():
 	pearl_tween.tween_callback(func(): pearl_box.visible = false)
 
 # --- Time scale ---
-const TIME_SCALES = [1.0, 2.0, 3.0, 4.0, 5.0]
+var time_scales: Array[float] = [1.0]
 var _time_scale_index: int = 0
+
+func _init_time_scales() -> void:
+	var speed_lvl = SaveManager.current_save.upgrade_ingame_speed_level
+	time_scales = [1.0]
+	if speed_lvl >= 1:
+		time_scales.append(1.5)
+	if speed_lvl >= 2:
+		time_scales.append(2.0)
+	if speed_lvl >= 3:
+		time_scales.append(3.0)
+	if speed_lvl >= 4:
+		time_scales.append(4.0)
+	if speed_lvl >= 5:
+		time_scales.append(5.0)
+	
+	if time_scales.size() <= 1:
+		%SpeedLabel.hide()
+	else:
+		%SpeedLabel.show()
+		%SpeedLabel.text = "x1"
 
 func _input(event: InputEvent) -> void:
 	if not GameManager.in_game:
 		return
+	if time_scales.size() <= 1:
+		return
+		
 	if event.is_action_pressed("speed_up"):
-		_time_scale_index = min(_time_scale_index + 1, TIME_SCALES.size() - 1)
+		_time_scale_index = min(_time_scale_index + 1, time_scales.size() - 1)
 		_apply_time_scale()
 	elif event.is_action_pressed("slow_down"):
 		_time_scale_index = max(_time_scale_index - 1, 0)
 		_apply_time_scale()
 
 func _apply_time_scale() -> void:
-	Engine.time_scale = TIME_SCALES[_time_scale_index]
-	%SpeedLabel.text = "x" + str(TIME_SCALES[_time_scale_index]).replace(".0", "")
+	Engine.time_scale = time_scales[_time_scale_index]
+	%SpeedLabel.text = "x" + str(time_scales[_time_scale_index]).replace(".0", "")

@@ -2,11 +2,14 @@ extends BossAttack
 
 func _init() -> void:
 	id = "balayage"
+	portee_min = 200.0
+	portee_max = 500.0
 	combo_suivant_id = "broyage"
 	
 func executer(boss) -> void:
 	var direction_originale = boss.sprite.flip_h
 	
+	# --- CORRECTION : On réinitialise TOUJOURS ces variables au début de l'attaque ---
 	var position_joueur_frame_9 = Vector2.ZERO
 	var a_tire_projectile = false
 	var cone_active = false
@@ -64,6 +67,7 @@ func executer(boss) -> void:
 		# --- PHASE 4 : Fin de l'attaque ---
 		elif frame_actuelle > 12:
 			cone_active = false
+			# On peut aussi reset ici par sécurité, mais le reset en début de fonction suffit
 				
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return
@@ -75,19 +79,21 @@ func executer(boss) -> void:
 		if boss.has_node("ConeHitbox"):
 			boss.get_node("ConeHitbox").visible = false
 			boss.get_node("ConeHitbox/CollisionPolygon2D").set_deferred("disabled", true)
-						
+			
 func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 	if boss.projectile_scene != null:
 		var direction_centrale = boss.global_position.direction_to(cible)
 		
-		# Paramètres de la rafale
 		var nombre_projectiles = 3
-		var ecart_angulaire = deg_to_rad(15.0)
+		var ecart_angulaire = deg_to_rad(15.0) # Angle entre chaque projectile (15 degrés ici)
 		
 		var angle_depart = - (nombre_projectiles - 1) * ecart_angulaire / 2.0
 		
 		for i in range(nombre_projectiles):
 			var proj = boss.projectile_scene.instantiate()
+			
+			boss.get_parent().add_child(proj)
+			
 			proj.global_position = boss.global_position
 			
 			if "degats" in proj:

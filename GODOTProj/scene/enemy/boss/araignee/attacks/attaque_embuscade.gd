@@ -53,7 +53,7 @@ func executer(boss) -> void:
 		var frame_actuelle = boss.sprite.frame
 		
 		# --- FENÊTRE D'ATTAQUE (Frames 9 à 12) ---
-		if frame_actuelle >= 9 and frame_actuelle <= 12:
+		if frame_actuelle >= 5 and frame_actuelle <= 13:
 			if not est_agrandi:
 				boss.stats.attack_damage = boss.degats_embuscade
 				boss.collision_physique.shape.radius = rayon_original * 2.0 

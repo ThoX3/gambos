@@ -12,7 +12,7 @@ func executer(boss) -> void:
 	var position_joueur_frame_9 = Vector2.ZERO
 	var a_tire_projectile = false
 	var cone_active = false
-	var a_inflige_degats_corps = false # Évite d'infliger les dégâts du cône en boucle
+	var a_inflige_degats_corps = false
 	
 	boss.sprite.play("attack3")	
 	
@@ -49,19 +49,18 @@ func executer(boss) -> void:
 					var angle_ecart = direction_regard.angle_to(direction_vers_joueur)
 					
 					if abs(angle_ecart) <= deg_to_rad(45.0):
-						# IMPACT : Le joueur prend les dégâts de corps-à-corps définis sur le boss
 						if boss.player.has_method("take_damage"):
 							boss.player.take_damage(boss.degats_balayage_corps)
 							
 						a_inflige_degats_corps = true 
 				cone_active = true 
 				
-			# Tir du projectile
+			# Tir multiple de projectiles
 			if not a_tire_projectile:
 				if position_joueur_frame_9 == Vector2.ZERO:
 					position_joueur_frame_9 = boss.player.global_position
 					
-				_lancer_projectile(boss, position_joueur_frame_9)
+				_lancer_plusieurs_projectiles(boss, position_joueur_frame_9)
 				a_tire_projectile = true
 				
 		# --- PHASE 4 : Fin de l'attaque ---
@@ -79,21 +78,32 @@ func executer(boss) -> void:
 			boss.get_node("ConeHitbox").visible = false
 			boss.get_node("ConeHitbox/CollisionPolygon2D").set_deferred("disabled", true)
 						
-func _lancer_projectile(boss, cible: Vector2) -> void:
+func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 	if boss.projectile_scene != null:
-		var proj = boss.projectile_scene.instantiate()
-		proj.global_position = boss.global_position
+		var direction_centrale = boss.global_position.direction_to(cible)
 		
-		# --- INJECTION DES DÉGÂTS DANS LE PROJECTILE ---
-		# Assure-toi que ton script de projectile possède une variable pour ses dégâts 
-		# (ex: 'degats', 'damage', ou 'attack_damage')
-		if "degats" in proj:
-			proj.degats = boss.degats_projectile
+		# Paramètres de la rafale
+		var nombre_projectiles = 3
+		var ecart_angulaire = deg_to_rad(15.0) # Angle entre chaque projectile (15 degrés ici)
 		
-		var direction = boss.global_position.direction_to(cible)
-		if "direction" in proj:
-			proj.direction = direction
+		# On calcule l'angle de départ pour que la rafale reste centrée sur le joueur
+		var angle_depart = - (nombre_projectiles - 1) * ecart_angulaire / 2.0
+		
+		for i in range(nombre_projectiles):
+			var proj = boss.projectile_scene.instantiate()
+			proj.global_position = boss.global_position
 			
-		boss.get_parent().add_child(proj)
+			# Injection des dégâts
+			if "degats" in proj:
+				proj.degats = boss.degats_projectile
+				
+			# Calcul de la direction déviée pour l'éventail
+			var angle_deviation = angle_depart + (i * ecart_angulaire)
+			var direction_finale = direction_centrale.rotated(angle_deviation)
+			
+			if "direction" in proj:
+				proj.direction = direction_finale
+				
+			boss.get_parent().add_child(proj)
 	else:
 		push_error("❌ ERREUR : Tu as oublié de mettre la scène du projectile dans l'inspecteur du Boss !")

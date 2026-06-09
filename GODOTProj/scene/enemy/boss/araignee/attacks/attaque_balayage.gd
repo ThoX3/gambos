@@ -2,8 +2,6 @@ extends BossAttack
 
 func _init() -> void:
 	id = "balayage"
-	portee_min = 200.0
-	portee_max = 500.0
 	combo_suivant_id = "broyage"
 	
 func executer(boss) -> void:
@@ -84,20 +82,17 @@ func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 		
 		# Paramètres de la rafale
 		var nombre_projectiles = 3
-		var ecart_angulaire = deg_to_rad(15.0) # Angle entre chaque projectile (15 degrés ici)
+		var ecart_angulaire = deg_to_rad(15.0)
 		
-		# On calcule l'angle de départ pour que la rafale reste centrée sur le joueur
 		var angle_depart = - (nombre_projectiles - 1) * ecart_angulaire / 2.0
 		
 		for i in range(nombre_projectiles):
 			var proj = boss.projectile_scene.instantiate()
 			proj.global_position = boss.global_position
 			
-			# Injection des dégâts
 			if "degats" in proj:
 				proj.degats = boss.degats_projectile
 				
-			# Calcul de la direction déviée pour l'éventail
 			var angle_deviation = angle_depart + (i * ecart_angulaire)
 			var direction_finale = direction_centrale.rotated(angle_deviation)
 			

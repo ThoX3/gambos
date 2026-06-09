@@ -345,11 +345,17 @@ animations = [{
 "texture": SubResource("AtlasTexture_v6kxc")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_v6kxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj5kt")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hj5kt")
 }],
 "loop": false,
 "name": &"attack2",
-"speed": 20.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,

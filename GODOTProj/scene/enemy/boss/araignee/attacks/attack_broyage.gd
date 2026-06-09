@@ -2,7 +2,6 @@ extends BossAttack
 
 func _init() -> void:
 	id = "broyage"
-	portee_max = 150.0
 
 func executer(boss) -> void:
 	var rayon_original = boss.collision_physique.shape.radius
@@ -20,7 +19,7 @@ func executer(boss) -> void:
 		if frame_actuelle >= 15 and frame_actuelle <= 18:
 			if not est_agrandi:
 				boss.stats.attack_damage = boss.degats_broyage
-				boss.collision_physique.shape.radius = rayon_original * 2.0
+				boss.collision_physique.shape.radius = rayon_original * 3.0
 				est_agrandi = true
 				
 			if not a_inflige_degats:

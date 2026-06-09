@@ -2,8 +2,6 @@ extends BossAttack
 
 func _init() -> void:
 	id = "embuscade" 
-	portee_min = 150.0
-	portee_max = 800.0
 
 func executer(boss) -> void:
 	# ==========================================
@@ -19,7 +17,7 @@ func executer(boss) -> void:
 	# PHASE 2 : Poursuite souterraine
 	# ==========================================
 	boss.sprite.play("attack1.2")
-	var vitesse_souterraine = 800.0 
+	var vitesse_souterraine = boss.vitesse_embuscade
 	
 	while is_instance_valid(boss) and boss.is_inside_tree() and boss.global_position.distance_to(boss.player.global_position) > 80.0:		
 		var delta = boss.get_process_delta_time()

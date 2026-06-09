@@ -1,8 +1,8 @@
 extends Area2D
 
 var direction: Vector2 = Vector2.ZERO
-var vitesse: float = 600.0
-var degats: int = 2
+@export var vitesse: float = 600.0
+@export var degats: int = 10
 var est_actif: bool = true
 var appartient_au_joueur: bool = false  # ← NOUVEAU
 
@@ -45,7 +45,8 @@ func _on_body_entered(body: Node2D) -> void:
 			set_deferred("monitoring", false)
 			if body.is_in_group("Player"):
 				print("Sable dans les yeux ! Dégâts au joueur !")
-				body.take_damage(10)
+				body.take_damage(degats)
+				print(degats)
 			sprite.play("destroy")
 			await sprite.animation_finished
 			queue_free()

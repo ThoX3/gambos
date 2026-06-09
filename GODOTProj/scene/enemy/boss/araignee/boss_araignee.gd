@@ -4,6 +4,10 @@ extends Boss_Base
 
 @export_category("Paramètres Araignée")
 @export var projectile_scene: PackedScene 
+@export var degats_broyage: int = 25
+@export var degats_balayage_corps: int = 20
+@export var degats_projectile: int = 30
+@export var degats_embuscade: int = 35
 
 var _attaques_instanciees: Array[BossAttack] = []
 

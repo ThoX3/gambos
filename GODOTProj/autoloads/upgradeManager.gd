@@ -192,7 +192,7 @@ func get_effect_projectile_sable_pierce(level: int) -> int:
 
 ## Calcule le rayon d'explosion (dégâts de zone) du projectile de sable.
 func get_effect_projectile_sable_zone_damage(level: int) -> float:
-	return level * 60.0
+	return level * 32.0
 
 ## Calcule le nombre de paires de projectiles de sable supplémentaires.
 func get_effect_projectile_sable_count(level: int) -> int:

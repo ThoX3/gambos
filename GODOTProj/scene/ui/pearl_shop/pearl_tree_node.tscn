@@ -100,7 +100,7 @@ mouse_filter = 2
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer" unique_id=1233662898]
-custom_minimum_size = Vector2(64, 0)
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_fgmap")

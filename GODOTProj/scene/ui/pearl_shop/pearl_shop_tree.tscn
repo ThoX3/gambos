@@ -22,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://bnqmhlr8uin5i" path="res://assets/sprites/pearl_shop/icons/bubble_division.png" id="15_qpv24"]
 [ext_resource type="PackedScene" uid="uid://bd4sq86hoarr6" path="res://scene/ui/pearl_shop/node_infos.tscn" id="16_jn2eo"]
 [ext_resource type="Texture2D" uid="uid://d14ndqa11ws1q" path="res://assets/sprites/pearl_shop/icons/bubble_bounce.png" id="17_ciura"]
+[ext_resource type="Texture2D" uid="uid://c4o4d6d2k5gd2" path="res://assets/sprites/pearl_shop/icons/sable_pierce.png" id="17_xe34p"]
+[ext_resource type="Texture2D" uid="uid://c0n5d08j07iaf" path="res://assets/sprites/pearl_shop/icons/sable_zone.png" id="19_q40y7"]
+[ext_resource type="Texture2D" uid="uid://530ybr8i2vv" path="res://assets/sprites/pearl_shop/icons/sable_count.png" id="21_s3x1b"]
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="22_6jm8l"]
 [ext_resource type="Texture2D" uid="uid://b0oxhimygfwc8" path="res://assets/sprites/pearl_shop/buttons/xbox-y.png" id="23_iebwt"]
 
@@ -285,15 +288,15 @@ parent_node_unlock_level = 4
 layout_mode = 2
 theme_override_constants/separation = 54
 
-[node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=736682881 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="SablePierceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=1266658196 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "ingame_speed"
-upgrade_name = "Célérité"
-upgrade_description = "Permet d'accélérer l'écoulement du temps en combat pour affronter les vagues plus rapidement."
-icon_texture = ExtResource("12_qpv24")
+upgrade_id = "projectile_sable_pierce"
+upgrade_name = "Gravier"
+upgrade_description = "Permet au projectile de sable de transpercer les ennemis, infligeant des dégâts à ceux situés derrière."
+icon_texture = ExtResource("17_xe34p")
 parent_node = NodePath("../../VBoxContainer5/RerollNode")
 
-[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=1266658196 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=1145773156 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "luck"
 upgrade_name = "Chance"
@@ -302,9 +305,34 @@ icon_texture = ExtResource("11_4wpf8")
 max_level = 20
 parent_node = NodePath("../../VBoxContainer5/CollectionRadiusNode")
 
+[node name="SableZone" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer6" unique_id=999669842 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_sable_zone_damage"
+upgrade_name = "Tempête de sable"
+upgrade_description = "Les projectiles de sable explosent à l'impact, infligeant des dégâts de zone."
+icon_texture = ExtResource("19_q40y7")
+parent_node = NodePath("../../VBoxContainer5/BubbleBounceNode")
+
 [node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=608050801]
 layout_mode = 2
 theme_override_constants/separation = 54
+
+[node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer7" unique_id=736682881 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "ingame_speed"
+upgrade_name = "Célérité"
+upgrade_description = "Permet d'accélérer l'écoulement du temps en combat pour affronter les vagues plus rapidement."
+icon_texture = ExtResource("12_qpv24")
+parent_node = NodePath("../../VBoxContainer6/SablePierceNode")
+
+[node name="SableCount" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer7" unique_id=541011176 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_sable_count"
+upgrade_name = "Jet de sable"
+upgrade_description = "Tire des projectiles de sable supplémentaires sur les côtés pour toucher plus d'ennemis."
+icon_texture = ExtResource("21_s3x1b")
+max_level = 2
+parent_node = NodePath("../../VBoxContainer6/SablePierceNode")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=174954619]
 layout_mode = 2

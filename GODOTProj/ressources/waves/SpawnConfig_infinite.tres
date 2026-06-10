@@ -9,9 +9,9 @@
 [ext_resource type="Script" uid="uid://dj14x25prjjx0" path="res://ressources/waves/EntreeBoss.gd" id="3_8og5k"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="4_1ykh5"]
 [ext_resource type="Resource" uid="uid://jhsrfe6k6ui1" path="res://ressources/enemy/Lobster.tres" id="4_xwoul"]
-[ext_resource type="Resource" path="res://ressources/enemy/Clownfish.tres" id="5_1ykh5"]
-[ext_resource type="Resource" path="res://ressources/enemy/Surgeonfish.tres" id="6_updt2"]
-[ext_resource type="Resource" path="res://ressources/enemy/Oldfish.tres" id="7_7u5fj"]
+[ext_resource type="Resource" uid="uid://gqqt6yw5g2wv" path="res://ressources/enemy/Clownfish.tres" id="5_1ykh5"]
+[ext_resource type="Resource" uid="uid://frgewh2lsjpu" path="res://ressources/enemy/Surgeonfish.tres" id="6_updt2"]
+[ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="7_7u5fj"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="8_8og5k"]
 
 [sub_resource type="Resource" id="Resource_ptvm1"]

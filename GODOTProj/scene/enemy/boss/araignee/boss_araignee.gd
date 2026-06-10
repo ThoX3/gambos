@@ -134,10 +134,8 @@ func take_damage(amount: int) -> int:
 	return loss_hp
 
 func _on_boss_mort() -> void:
-	SaveManager.current_save.boss_araignee_battu = true
 	SaveManager.save_game()
 	GameManager.boss_araignee_vaincu.emit()
 
 func _sauvegarder_victoire() -> void:
-	SaveManager.current_save.boss_araignee_battu = true
 	SaveManager.save_game()

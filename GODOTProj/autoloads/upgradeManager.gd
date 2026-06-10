@@ -131,8 +131,8 @@ func get_effect_health(level: int) -> float:
 	return 10.0 + (level * 5.0)
 
 ## Calcule le bonus de vitesse de déplacement en fonction du niveau.
-func get_effect_speed(level: int) -> float:
-	return 100.0 + (level * 20.0)
+func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
+	return base_speed + (level * 20.0)
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:

@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="16_tv8i1"]
 [ext_resource type="Resource" uid="uid://dbgxfn1nf1pqg" path="res://ressources/worlds/World_1.tres" id="17_0vlqb"]
 [ext_resource type="Resource" uid="uid://cmt7vxtkm1cqf" path="res://ressources/worlds/World_2.tres" id="19_0vlqb"]
-[ext_resource type="Resource" path="res://ressources/worlds/World_infinite.tres" id="19_gjnwh"]
+[ext_resource type="Resource" uid="uid://can5ygg520p8d" path="res://ressources/worlds/World_infinite.tres" id="19_gjnwh"]
 
 [node name="Main" type="Node2D" unique_id=1767589913 groups=["Main"]]
 texture_filter = 1

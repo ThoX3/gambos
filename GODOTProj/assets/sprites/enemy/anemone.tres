@@ -1,3 +1,25 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://mnrc3xngbvhk"]
 
+[ext_resource type="Texture2D" uid="uid://bohy7nnqk1pnk" path="res://assets/sprites/enemy/anemone_idle.png" id="1_ky7k8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2ou4"]
+atlas = ExtResource("1_ky7k8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urvdm"]
+atlas = ExtResource("1_ky7k8")
+region = Rect2(64, 0, 64, 64)
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2ou4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urvdm")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

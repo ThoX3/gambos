@@ -30,7 +30,7 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
-	wave_label.text = "1"
+	_set_wave_text(1)
 	bossBar_progressBar.hide()
 	
 	# Connecte le signal du WaveManager
@@ -41,9 +41,23 @@ func _on_start():
 	_init_time_scales()
 
 func _on_vague_demarree(numero: int) -> void:
-	wave_label.text = str(numero)  # ← met à jour le label à chaque nouvelle vague
+	_set_wave_text(numero)
 	if numero == 20:
 		show_bossBar()
+		
+func _set_wave_text(numero: int) -> void:
+	var base_text = "Vague " + str(numero)
+	var max_wave = SaveManager.current_save.max_wave_reached
+	var sweep_rect = wave_label.get_node("SweepRect")
+	
+	if numero >= max_wave:
+		wave_label.text = "[wave amp=20.0 freq=2.0 connected=0]" + base_text + "[/wave]"
+		if sweep_rect.material:
+			sweep_rect.material.set_shader_parameter("active", true)
+	else:
+		wave_label.text = base_text
+		if sweep_rect.material:
+			sweep_rect.material.set_shader_parameter("active", false)
 	
 func show_bossBar():
 	bossBar_progressBar.show()

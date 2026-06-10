@@ -22,8 +22,8 @@ class_name SaveData
 @export var upgrade_projectile_bounce_level: int = 0
 
 # In-game progress
-@export var boss_araignee_battu: bool = false
 @export var max_wave_reached: int = 0
+@export var mondes_completes_total: int = 0 
 
 # Progression de monde (run en cours)
 @export var run_en_cours: bool = false

@@ -18,6 +18,10 @@ func demarrer_depuis_sauvegarde() -> void:
 func passer_monde_suivant() -> void:
 	SaveManager.current_save.mondes_completes += 1
 	_index_monde_courant += 1
+	SaveManager.current_save.mondes_completes_total = max(
+		SaveManager.current_save.mondes_completes_total,
+		_index_monde_courant
+	)
 
 	if _index_monde_courant >= mondes.size():
 		_mode_infini_actif = true

@@ -127,6 +127,7 @@ alignment = 1
 [node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=299740571]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_right = NodePath("../QuitButton")
 theme_override_fonts/font = ExtResource("5_e5dty")
 theme_override_font_sizes/font_size = 18
 text = "Paramètres"
@@ -135,6 +136,7 @@ flat = true
 [node name="QuitButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1640362949]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../SettingsButton")
 theme_override_fonts/font = ExtResource("5_e5dty")
 theme_override_font_sizes/font_size = 18
 text = "Quitter"

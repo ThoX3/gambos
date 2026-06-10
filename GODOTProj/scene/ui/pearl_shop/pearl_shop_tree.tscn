@@ -277,8 +277,8 @@ parent_node = NodePath("../../VBoxContainer4/XPGainNode")
 [node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer5" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "projectile_bounce"
-upgrade_name = "Ricochets"
-upgrade_description = "Permet aux projectiles encore en état de rebondir vers de nouveaux ennemis."
+upgrade_name = "Rebonds"
+upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers de nouveaux ennemis."
 icon_texture = ExtResource("17_ciura")
 max_level = 5
 parent_node = NodePath("../../VBoxContainer4/Thorns")
@@ -290,7 +290,7 @@ upgrade_id = "bubble_division"
 upgrade_name = "Petites bulles"
 upgrade_description = "Fragmente l'attaque principale de Gambos en de multiples petites bulles."
 icon_texture = ExtResource("15_qpv24")
-parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
+parent_node = NodePath("../../VBoxContainer4/Thorns")
 
 [node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=217103235]
 layout_mode = 2

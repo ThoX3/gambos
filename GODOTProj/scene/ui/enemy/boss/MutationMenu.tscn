@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://qhxtom5bsoq8"]
+
+[ext_resource type="Script" uid="uid://dswspp6hxsuvp" path="res://scene/ui/enemy/boss/mutation_menu.gd" id="1_sil87"]
+
+[node name="MutationMenu" type="Control" unique_id=465259838]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sil87")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1474509273]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button1" type="Button" parent="HBoxContainer" unique_id=1203966108]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer" unique_id=771546736]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="HBoxContainer" unique_id=564193543]
+layout_mode = 2

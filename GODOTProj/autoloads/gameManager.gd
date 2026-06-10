@@ -14,6 +14,7 @@ signal Retry()
 # Boss signal
 signal boss_health_changed(maxHp : int, currentHp : int)
 signal boss_araignee_vaincu()
+signal show_mutation_menu()
 
 var skip_menu: bool = false
 var gotoshop: bool = false

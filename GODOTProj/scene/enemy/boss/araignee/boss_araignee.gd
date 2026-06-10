@@ -136,6 +136,7 @@ func take_damage(amount: int) -> int:
 func _on_boss_mort() -> void:
 	SaveManager.save_game()
 	GameManager.boss_araignee_vaincu.emit()
+	queue_free()
 
 func _sauvegarder_victoire() -> void:
 	SaveManager.save_game()

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
-[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="15_jcbur"]
+[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig_1.tres" id="15_jcbur"]
 [ext_resource type="Script" uid="uid://bkj2x6i6xdk0e" path="res://scene/WorldManager.gd" id="15_smf0o"]
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="16_tv8i1"]
 [ext_resource type="Resource" uid="uid://dbgxfn1nf1pqg" path="res://ressources/worlds/World_1.tres" id="17_0vlqb"]

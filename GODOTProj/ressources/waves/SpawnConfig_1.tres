@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://bjiu7nnwxkwj5"]
+[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://dlbscv7k3dnd5"]
 
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="1_dja2t"]
 [ext_resource type="Resource" uid="uid://cqb5hsm2bn2v" path="res://ressources/enemy/boss/Boss_araignee.tres" id="1_ka2uf"]

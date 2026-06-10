@@ -142,9 +142,8 @@ func _move_with_push(delta: float) -> void:
 			
 		motion = collision.get_remainder().slide(collision.get_normal())
 
-func _on_enemy_killed(xp: int, mob_position: Vector2):
-	var real_xp = int(xp * Stats.xp_multiplier)
-	Stats.currentXp += real_xp
+func gainXP(value: int):
+	Stats.currentXp += int(value * Stats.xp_multiplier)
 	
 	if Stats.currentXp >= Stats.requiredXp:
 		levelUp()

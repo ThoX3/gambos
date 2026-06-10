@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="1_6rmv5"]
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="1_o0k23"]
-[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig_1.tres" id="3_nfgao"]
+[ext_resource type="Resource" path="res://ressources/waves/SpawnConfig_1.tres" id="3_o0k23"]
 
 [resource]
 script = ExtResource("1_6rmv5")
 map_scene = ExtResource("1_o0k23")
-spawn_config = ExtResource("3_nfgao")
+spawn_config = ExtResource("3_o0k23")
 metadata/_custom_type_script = "uid://cdgruyanl6eb1"

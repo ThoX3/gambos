@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
-@export var speed: float = 100
+const BASE_SPEED: float = 150.0
+@export var speed: float = BASE_SPEED
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 @export var knockback_force: float = 300.0
@@ -34,14 +35,13 @@ func _ready() -> void:
 	$LevelUpUnder.hide()
 	_on_initialize()
 	# Charger l'état de débloquage depuis la sauvegarde
-	_attaque_sable_debloquee = SaveManager.current_save.boss_araignee_battu
+	_attaque_sable_debloquee = SaveManager.current_save.mondes_completes_total >= 1
 			
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
 	call_deferred("enable_camera_smoothing")
-	GameManager.boss_araignee_vaincu.connect(_on_boss_araignee_vaincu)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -188,7 +188,7 @@ func _on_initialize():
 	Stats.currentXp = 0
 	Stats.collected_pearls = 0
 
-	speed = UpgradeManager.get_effect_speed(lvl_speed)
+	speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED)
 	xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
 	regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 	
@@ -327,10 +327,6 @@ func _tirer_sable(direction: Vector2) -> void:
 	# Correction des layers : le projectile joueur doit voir les ennemis (layer 2)
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur
 	proj.collision_mask = 2    # détecte les ennemis (layer 2)
-
-func _on_boss_araignee_vaincu() -> void:
-	_attaque_sable_debloquee = true
-	print("Attaque sable débloquée !")
 	
 func get_player_stats() -> Dictionary:
 	var stats: Dictionary = {}

@@ -9,9 +9,11 @@ func _init() -> void:
 func executer(boss) -> void:
 	var direction_originale = boss.sprite.flip_h
 	
+	# --- CORRECTION : On réinitialise TOUJOURS ces variables au début de l'attaque ---
 	var position_joueur_frame_9 = Vector2.ZERO
 	var a_tire_projectile = false
 	var cone_active = false
+	var a_inflige_degats_corps = false
 	
 	boss.sprite.play("attack3")	
 	
@@ -25,44 +27,47 @@ func executer(boss) -> void:
 			boss.sprite.flip_h = direction_originale
 			
 		# --- PHASE 2 : Le Dash ---
-		# On ne garde que la frame 8 (au lieu de >= 8 and <= 9)
 		if frame_actuelle == 8:
-			var vitesse_dash = 2500.0 # Vitesse augmentée car l'action est plus courte
+			var vitesse_dash = 2500.0
 			var delta = boss.get_process_delta_time()
 			boss.global_position = boss.global_position.move_toward(boss.player.global_position, vitesse_dash * delta)
 			
-		# On mémorise la position du joueur à la frame 9 (le boss est maintenant immobile)
 		if frame_actuelle == 9:
-			if position_joueur_frame_9 == Vector2.ZERO: # Petite sécurité
+			if position_joueur_frame_9 == Vector2.ZERO:
 				position_joueur_frame_9 = boss.player.global_position
 			
 		# --- PHASE 3 : Le tir du projectile et le cône ---
 		elif frame_actuelle >= 10 and frame_actuelle <= 12:
 			
+			# Attaque au corps-à-corps (Cône mathématique)
 			if not cone_active:
 				var portee_cone = 150.0 
 				var distance = boss.global_position.distance_to(boss.player.global_position)
 				
-				if distance <= portee_cone:
+				if distance <= portee_cone and not a_inflige_degats_corps:
 					var direction_regard = Vector2.LEFT if boss.sprite.flip_h else Vector2.RIGHT
 					var direction_vers_joueur = boss.global_position.direction_to(boss.player.global_position)
 					var angle_ecart = direction_regard.angle_to(direction_vers_joueur)
 					
 					if abs(angle_ecart) <= deg_to_rad(45.0):
-						print("BAM ! Le joueur est dans le cône mathématique !")
+						if boss.player.has_method("take_damage"):
+							boss.player.take_damage(boss.degats_balayage_corps)
+							
+						a_inflige_degats_corps = true 
 				cone_active = true 
 				
-			# C'est ici que le projectile se lance !
+			# Tir multiple de projectiles
 			if not a_tire_projectile:
 				if position_joueur_frame_9 == Vector2.ZERO:
 					position_joueur_frame_9 = boss.player.global_position
 					
-				_lancer_projectile(boss, position_joueur_frame_9)
+				_lancer_plusieurs_projectiles(boss, position_joueur_frame_9)
 				a_tire_projectile = true
 				
 		# --- PHASE 4 : Fin de l'attaque ---
 		elif frame_actuelle > 12:
 			cone_active = false
+			# On peut aussi reset ici par sécurité, mais le reset en début de fonction suffit
 				
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return
@@ -74,17 +79,32 @@ func executer(boss) -> void:
 		if boss.has_node("ConeHitbox"):
 			boss.get_node("ConeHitbox").visible = false
 			boss.get_node("ConeHitbox/CollisionPolygon2D").set_deferred("disabled", true)
-						
-func _lancer_projectile(boss, cible: Vector2) -> void:
-	if boss.projectile_scene != null:
-		var proj = boss.projectile_scene.instantiate()
-		proj.global_position = boss.global_position
-		
-		var direction = boss.global_position.direction_to(cible)
-		if "direction" in proj:
-			proj.direction = direction
 			
-		boss.get_parent().add_child(proj)
-		print("✅ Projectile lancé !")
+func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
+	if boss.projectile_scene != null:
+		var direction_centrale = boss.global_position.direction_to(cible)
+		
+		var nombre_projectiles = 3
+		var ecart_angulaire = deg_to_rad(15.0) # Angle entre chaque projectile (15 degrés ici)
+		
+		var angle_depart = - (nombre_projectiles - 1) * ecart_angulaire / 2.0
+		
+		for i in range(nombre_projectiles):
+			var proj = boss.projectile_scene.instantiate()
+			
+			boss.get_parent().add_child(proj)
+			
+			proj.global_position = boss.global_position
+			
+			if "degats" in proj:
+				proj.degats = boss.degats_projectile
+				
+			var angle_deviation = angle_depart + (i * ecart_angulaire)
+			var direction_finale = direction_centrale.rotated(angle_deviation)
+			
+			if "direction" in proj:
+				proj.direction = direction_finale
+				
+			boss.get_parent().add_child(proj)
 	else:
 		push_error("❌ ERREUR : Tu as oublié de mettre la scène du projectile dans l'inspecteur du Boss !")

@@ -1,3 +1,14 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://by2k1lc61be25"]
 
+[ext_resource type="Texture2D" uid="uid://dtp1awvgu03ox" path="res://assets/sprites/enemy/surgeonfish_alone.png" id="1_idml8"]
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idml8")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

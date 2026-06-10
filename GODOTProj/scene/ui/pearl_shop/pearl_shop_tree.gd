@@ -103,10 +103,13 @@ func _show_node_infos_window() -> void:
 	var title: String = currently_focused_node.upgrade_name
 	var description: String = currently_focused_node.upgrade_description
 	
-	if not currently_focused_node.is_unlocked and currently_focused_node.parent_node != null:
-		var parent_name = currently_focused_node.parent_node.upgrade_name
-		var required_level = currently_focused_node.parent_node_unlock_level
-		description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
+	if not currently_focused_node.is_unlocked:
+		if currently_focused_node.locked_by_monde:
+			description = "[font_size=14]" + description + "\n[u]Bloqué[/u][/font_size]"
+		elif currently_focused_node.parent_node != null:
+			var parent_name = currently_focused_node.parent_node.upgrade_name
+			var required_level = currently_focused_node.parent_node_unlock_level
+			description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
 	
 	node_infos_window.set_infos(title, description)
 	node_infos_window.visible = true

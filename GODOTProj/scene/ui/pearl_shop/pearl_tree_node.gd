@@ -16,6 +16,7 @@ var current_level = 0
 var current_cost: int = 0
 var is_unlocked: bool = false
 var was_unlocked_preview: bool = false
+var locked_by_monde: bool = false
 
 @onready var buy_button = $TextureButton
 @onready var level_label = $VBoxContainer/Level
@@ -88,7 +89,7 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		var parent_level = SaveManager.current_save.get("upgrade_" + parent_node.upgrade_id + "_level")
 		is_unlocked = (parent_level != null and parent_level >= parent_node_unlock_level)
 		
-	var locked_by_monde = false
+	locked_by_monde = false
 	if upgrade_id in ["projectile_sable_pierce", "projectile_sable_zone_damage", "projectile_sable_count"]:
 		if SaveManager.current_save.mondes_completes_total < 1:
 			is_unlocked = false

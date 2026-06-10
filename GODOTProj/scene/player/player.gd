@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
-@export var speed: float = 100
+const BASE_SPEED: float = 150.0
+@export var speed: float = BASE_SPEED
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 @export var knockback_force: float = 300.0
@@ -188,7 +189,7 @@ func _on_initialize():
 	Stats.currentXp = 0
 	Stats.collected_pearls = 0
 
-	speed = UpgradeManager.get_effect_speed(lvl_speed)
+	speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED)
 	xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
 	regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 	

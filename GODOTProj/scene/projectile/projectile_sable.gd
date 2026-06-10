@@ -10,6 +10,9 @@ var pierce_hp: int = 0
 var zone_radius: float = 0.0
 var _last_hit_enemy: Node2D = null
 
+var max_range: float = 1000.0
+var _distance_traveled: float = 0.0
+
 @onready var sprite = $AnimatedSprite2D
 
 const ANGLE_CORRECTION : float = 3 * PI / 4 
@@ -22,7 +25,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if est_actif:
-		global_position += direction * vitesse * delta
+		var move = direction * vitesse * delta
+		global_position += move
+		_distance_traveled += move.length()
+		
+		if _distance_traveled >= max_range:
+			_destroy()
 
 func _set_direction(nouvelle_direction: Vector2) -> void:
 	direction = nouvelle_direction.normalized()
@@ -64,28 +72,30 @@ func _on_body_entered(body: Node2D) -> void:
 				# Pierce: continue flying
 				pass
 			else:
-				est_actif = false
-				set_deferred("monitoring", false)
-				sprite.play("destroy")
-				await sprite.animation_finished
-				queue_free()
+				_destroy()
 		elif body is TileMap:
-			est_actif = false
-			set_deferred("monitoring", false)
-			sprite.play("destroy")
-			await sprite.animation_finished
-			queue_free()
+			_destroy()
 	else:
 		if body.is_in_group("Player") or body is TileMap:
-			est_actif = false
-			set_deferred("monitoring", false)
 			if body.is_in_group("Player"):
 				print("Sable dans les yeux ! Dégâts au joueur !")
 				body.take_damage(degats)
 				print(degats)
-			sprite.play("destroy")
-			await sprite.animation_finished
-			queue_free()
+			_destroy()
+
+func _destroy() -> void:
+	if not est_actif:
+		return
+	est_actif = false
+	set_deferred("monitoring", false)
+	
+	if zone_radius > 0:
+		var scale_factor = max(20.0, zone_radius) / 20.0
+		sprite.scale = Vector2(scale_factor, scale_factor)
+		
+	sprite.play("destroy")
+	await sprite.animation_finished
+	queue_free()
 
 func _apply_zone_damage(center_body: Node2D) -> void:
 	var enemies = get_tree().get_nodes_in_group("Enemy")

@@ -415,7 +415,6 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	# Custom upgrades
 	proj.pierce_hp = sable_pierce
 	proj.zone_radius = sable_zone
-	proj.bounce_count = sable_bounce
 	
 	# Correction des layers : le projectile joueur doit voir les ennemis (layer 2)
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur

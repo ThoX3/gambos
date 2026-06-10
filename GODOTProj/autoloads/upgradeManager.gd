@@ -188,11 +188,11 @@ func get_effect_projectile_bounce(level: int) -> int:
 
 ## Calcule la réserve de PV que le projectile de sable peut transpercer.
 func get_effect_projectile_sable_pierce(level: int) -> int:
-	return level * 50
+	return level * 30
 
 ## Calcule le rayon d'explosion (dégâts de zone) du projectile de sable.
 func get_effect_projectile_sable_zone_damage(level: int) -> float:
-	return level * 32.0
+	return 24.0 + level * 16.0
 
 ## Calcule le nombre de paires de projectiles de sable supplémentaires.
 func get_effect_projectile_sable_count(level: int) -> int:

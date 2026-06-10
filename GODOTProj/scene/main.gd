@@ -34,6 +34,7 @@ func _ready() -> void:
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
 	$UI/Settings.back_pressed.connect(_on_settings_back)
 	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
+	$UI/MenuTransition.sauvegarder_pressed.connect(_on_sauvegarder)
 	$World/WorldManager.monde_change.connect(_on_monde_change)
 	
 	if GameManager.skip_menu:
@@ -176,7 +177,7 @@ func _on_settings_back() -> void:
 		%pause_menu.notify_settings_closed()
 	else:
 		open_main_menu()
-	
+
 func open_bestiary_from_pause() -> void:
 	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause
 	GameManager.in_game = false
@@ -202,6 +203,29 @@ func _on_continuer() -> void:
 	SaveManager.current_save.run_en_cours = true
 	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
 	$World/WorldManager.passer_monde_suivant()
+
+func _on_sauvegarder() -> void:
+	SaveManager.current_save.run_en_cours = true
+	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
+	
+	# Increment the world progress manually to simulate passing to the next world
+	var wm = $World/WorldManager
+	SaveManager.current_save.mondes_completes += 1
+	var prochain_index = wm._index_monde_courant + 1
+	SaveManager.current_save.mondes_completes_total = max(
+		SaveManager.current_save.mondes_completes_total,
+		prochain_index
+	)
+	SaveManager.current_save.monde_actuel_index = prochain_index
+	
+	# Add the collected pearls from this run to the total
+	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.save_game()
+	
+	# Return to the main menu
+	GameManager.in_game = false
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 func _on_monde_change(config: WorldConfig) -> void:
 	change_level(config.map_scene)

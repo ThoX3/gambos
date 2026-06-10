@@ -26,6 +26,7 @@ func _ready() -> void:
 	check_for_save()
 	if is_save_available:
 		resume_button.grab_focus.call_deferred()
+		play_button.text = "Commencer une nouvelle partie"
 	else:
 		play_button.grab_focus.call_deferred()
 	
@@ -37,8 +38,6 @@ func _ready() -> void:
 		button.mouse_entered.connect(_on_navigation_menu)
 		
 		button.pressed.connect(_on_validation_menu)
-	
-	
 
 func _process(delta: float) -> void:
 	pass
@@ -72,7 +71,8 @@ func check_for_save():
 	if SaveManager.current_save and SaveManager.current_save.run_en_cours:
 		resume_button.visible = true
 		is_save_available = true
-		resume_button.text = "Continuer (Monde %d)" % [SaveManager.current_save.monde_actuel_index + 1]
+		var save = SaveManager.current_save
+		resume_button.get_node("RichTextLabel").text = "[center]%d [img=24]res://assets/sprites/collectibles/pearl_icon.png[/img] ⋅ Map %d ⋅ Niveau %d[/center]" % [save.run_player_stats.collected_pearls, save.monde_actuel_index + 1, save.run_player_stats.level]
 	else:
 		resume_button.visible = false
 		is_save_available = false

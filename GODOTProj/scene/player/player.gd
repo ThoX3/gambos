@@ -211,6 +211,7 @@ func _on_initialize():
 			projectile_data.bounce_count = Stats.proj_bounce
 			
 		$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+		_sync_hud()
 		return
 		
 	var lvl_health = save.upgrade_health_level
@@ -264,6 +265,16 @@ func _on_initialize():
 		projectile_data.fire_rate = Stats.proj_fire_rate
 		projectile_data.projectile_count = Stats.proj_count
 		projectile_data.bounce_count = Stats.proj_bounce
+	_sync_hud()
+
+func _sync_hud():
+	var main_node = get_tree().get_first_node_in_group("Main")
+	if main_node and main_node.has_node("UI/Hud"):
+		var hud = main_node.get_node("UI/Hud")
+		hud.Stats = Stats
+		hud._update_health_bar()
+		hud._update_progres_bar()
+		hud._update_level()
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()

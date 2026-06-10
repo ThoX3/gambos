@@ -21,6 +21,7 @@ func _ready() -> void:
 		push_error("Main: Missing Player or Starting Map in the Inspector!")
 		
 	GameManager.start_game.connect(_on_start)
+	GameManager.resume_game.connect(_on_resume)
 	
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
@@ -41,17 +42,15 @@ func _ready() -> void:
 		else:
 			open_main_menu()
 
-func start_game(map_to_load: PackedScene) -> void:
+func setup_game_environment() -> void:
 	_clear_world()
 	
 	current_player = player_scene.instantiate()
 	game_world.add_child(current_player)
 	current_player.transform = Transform2D(Vector2(1,0), Vector2(0,1), center)
 	
-	GameManager.GameOver.connect(_on_GameOver)
-	
-	current_map = map_to_load.instantiate()
-	game_world.add_child(current_map)
+	if not GameManager.GameOver.is_connected(_on_GameOver):
+		GameManager.GameOver.connect(_on_GameOver)
 	
 	# Hide any left menu
 	for child in ui_layer.get_children():
@@ -62,11 +61,28 @@ func start_game(map_to_load: PackedScene) -> void:
 	$UI/Hud._on_start()
 	$UI/Hud.visible = true
 	
-	# Start WaveManager + connect vague_terminee pour la sauvegarde
 	var wm: Node = $World/WaveManager
-	wm.start_waves()
-	wm.vague_terminee.connect(_on_vague_terminee)
-	wm.monde_termine.connect(_on_monde_termine)  # ← nouveau
+	if not wm.vague_terminee.is_connected(_on_vague_terminee):
+		wm.vague_terminee.connect(_on_vague_terminee)
+	if not wm.monde_termine.is_connected(_on_monde_termine):
+		wm.monde_termine.connect(_on_monde_termine)
+
+func start_game(map_to_load: PackedScene) -> void:
+	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.run_player_stats = null
+	
+	setup_game_environment()
+	
+	current_map = map_to_load.instantiate()
+	game_world.add_child(current_map)
+	
+	$World/WorldManager._index_monde_courant = 0
+	$World/WaveManager.start_waves()
+
+func _on_resume() -> void:
+	GameManager.in_game = true
+	setup_game_environment()
+	$World/WorldManager.demarrer_depuis_sauvegarde()
 
 func _on_monde_termine(_vague: int) -> void:
 	var monde_suivant = $World/WorldManager.get_nom_monde_suivant()
@@ -96,6 +112,8 @@ func _clear_world() -> void:
 		current_map.queue_free()
 		
 func _on_GameOver():
+	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.run_player_stats = null
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()
 	GameManager.gotoshop = true
@@ -158,6 +176,8 @@ func _on_bestiary_back() -> void:
 		open_main_menu()
 
 func _on_continuer() -> void:
+	SaveManager.current_save.run_en_cours = true
+	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
 	$World/WorldManager.passer_monde_suivant()
 
 func _on_monde_change(config: WorldConfig) -> void:
@@ -172,6 +192,8 @@ func _on_monde_change(config: WorldConfig) -> void:
 
 func open_main_menu_from_pause() -> void:
 	GameManager.in_game = false
+	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.run_player_stats = null
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()
 	get_tree().paused = false

@@ -30,6 +30,7 @@ class_name SaveData
 
 # Progression de monde (run en cours)
 @export var run_en_cours: bool = false
+@export var run_player_stats: PlayerStat
 @export var monde_actuel_index: int = 0   # index dans la liste des mondes
 @export var vague_actuelle: int = 0
 @export var mondes_completes: int = 0

@@ -3,7 +3,6 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
 const BASE_SPEED: float = 150.0
-@export var speed: float = BASE_SPEED
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 @export var knockback_force: float = 300.0
@@ -19,11 +18,7 @@ var is_invincible: bool = false
 var blink_timer: float = 0.0
 var _fire_timer: float = 0.0
 
-var xp_multiplier: float = 1.0
-var regen_rate: float = 0.0
 var _regen_timer: float = 0.0
-var thorns_damage: int = 0
-var thorns_interval: float = 0.0
 var _thorns_timer: float = 0.0
 
 @export var projectile_sable_data: ProjectileDataSable
@@ -55,24 +50,24 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if regen_rate > 0 and Stats.current_health < Stats.max_health and Stats.current_health > 0:
+	if Stats.regen_rate > 0 and Stats.current_health < Stats.max_health and Stats.current_health > 0:
 		_regen_timer += delta
 		if _regen_timer >= 1.0:
 			_regen_timer -= 1.0
-			Stats.current_health += regen_rate
+			Stats.current_health += Stats.regen_rate
 			if Stats.current_health > Stats.max_health:
 				Stats.current_health = Stats.max_health
 			GameManager.health_changed.emit()
 			
-	if thorns_damage > 0:
+	if Stats.thorns_damage > 0:
 		_thorns_timer -= delta
 		if _thorns_timer <= 0.0:
 			var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 			if overlapping_mobs.size() > 0:
 				for mob in overlapping_mobs:
 					if mob.has_method("take_damage"):
-						mob.take_damage(thorns_damage)
-				_thorns_timer = thorns_interval
+						mob.take_damage(Stats.thorns_damage)
+				_thorns_timer = Stats.thorns_interval
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -80,7 +75,7 @@ func _physics_process(delta):
 	# Velocity de mouvement normal
 	var move_velocity = Vector2.ZERO
 	if direction:
-		move_velocity = direction * speed
+		move_velocity = direction * Stats.speed
 		animated_sprite_2d.flip_h = direction.x > 0
 
 	# Amortissement du knockback (indépendant de la velocity de déplacement)
@@ -116,8 +111,8 @@ func _physics_process(delta):
 	if overlapping_mobs.size() > 0 and not is_invincible:
 		Stats.current_health -= overlapping_mobs[0].attack_damage
 		# Thorns damage
-		if thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
-			overlapping_mobs[0].take_damage(thorns_damage)
+		if Stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+			overlapping_mobs[0].take_damage(Stats.thorns_damage)
 			
 		# Calcul de la direction opposée à l'ennemi
 		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
@@ -147,8 +142,9 @@ func _move_with_push(delta: float) -> void:
 			
 		motion = collision.get_remainder().slide(collision.get_normal())
 
-func gainXP(value: int):
-	Stats.currentXp += int(value * xp_multiplier)
+func _on_enemy_killed(xp: int, mob_position: Vector2):
+	var real_xp = int(xp * Stats.xp_multiplier)
+	Stats.currentXp += real_xp
 	
 	if Stats.currentXp >= Stats.requiredXp:
 		levelUp()
@@ -194,6 +190,30 @@ func _handle_blinking(delta):
 		
 func _on_initialize():
 	var save = SaveManager.current_save
+	
+	if save.run_en_cours and save.run_player_stats != null:
+		Stats = save.run_player_stats.duplicate(true)
+		
+		var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
+		var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
+		var lvl_sable_count = save.upgrade_projectile_sable_count_level
+		var lvl_bounce = save.upgrade_projectile_bounce_level
+		
+		sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
+		sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
+		sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
+		sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+		
+		if projectile_data:
+			projectile_data.damage = Stats.proj_damage
+			projectile_data.fire_rate = Stats.proj_fire_rate
+			projectile_data.range = Stats.proj_range
+			projectile_data.projectile_count = Stats.proj_count
+			projectile_data.bounce_count = Stats.proj_bounce
+			
+		$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+		return
+		
 	var lvl_health = save.upgrade_health_level
 	var lvl_speed = save.upgrade_speed_level
 	var lvl_xp = save.upgrade_xp_gain_level
@@ -221,9 +241,9 @@ func _on_initialize():
 	Stats.currentXp = 0
 	Stats.collected_pearls = 0
 
-	speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED)
-	xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
-	regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
+	Stats.speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED)
+	Stats.xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
+	Stats.regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 	
 	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
@@ -232,14 +252,19 @@ func _on_initialize():
 	
 	# Determine thorns tick rate
 	var thorns_effects = UpgradeManager.get_effect_thorns(lvl_thorns)
-	thorns_damage = int(thorns_effects["damage"])
-	thorns_interval = thorns_effects["interval"]
+	Stats.thorns_damage = int(thorns_effects["damage"])
+	Stats.thorns_interval = thorns_effects["interval"]
 	
 	if projectile_data:
-		projectile_data.damage = int(UpgradeManager.get_effect_damage(lvl_damage))
-		projectile_data.fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
-		projectile_data.projectile_count = bubble_count
-		projectile_data.bounce_count = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+		Stats.proj_damage = int(UpgradeManager.get_effect_damage(lvl_damage))
+		Stats.proj_fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
+		Stats.proj_count = bubble_count
+		Stats.proj_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+		# Initialize projectile_data
+		projectile_data.damage = Stats.proj_damage
+		projectile_data.fire_rate = Stats.proj_fire_rate
+		projectile_data.projectile_count = Stats.proj_count
+		projectile_data.bounce_count = Stats.proj_bounce
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -306,23 +331,27 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 				%HurtBox.monitoring = false
 				death()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
-			speed += effect.value
+			Stats.speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
 			Stats.collectRadius += effect.value
 			$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
 		capacityEffectData.TargetCapacityEffect.PLAYER_DAMAGE:
-			projectile_data.damage += effect.value
+			Stats.proj_damage += effect.value
+			projectile_data.damage = Stats.proj_damage
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
-			projectile_data.fire_rate += effect.value
-			if projectile_data.fire_rate <= 0.0:
-				projectile_data.fire_rate = 0.5
+			Stats.proj_fire_rate += effect.value
+			if Stats.proj_fire_rate <= 0.0:
+				Stats.proj_fire_rate = 0.5
+			projectile_data.fire_rate = Stats.proj_fire_rate
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
-			projectile_data.range += effect.value
+			Stats.proj_range += effect.value
+			projectile_data.range = Stats.proj_range
 
 func _add_new_skill(skill: upgradeData.available_skill) -> void:
 	match skill:
 		upgradeData.available_skill.MORE_PROJECTILE:
-			projectile_data.projectile_count += 1
+			Stats.proj_count += 1
+			projectile_data.projectile_count = Stats.proj_count
 
 func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: skillEffectData) -> void:
 	print("En cours")
@@ -387,11 +416,11 @@ func get_player_stats() -> Dictionary:
 	stats = {
 		"Niveau : " : Stats.level,
 		"Vie max : " : Stats.max_health,
-		"Vitesse de déplacement : " : speed,
+		"Vitesse de déplacement : " : Stats.speed,
 		"Portée de collect : " : Stats.collectRadius,
-		"Dégâts : " : projectile_data.damage,
-		"Vitesse d'attaque : " : projectile_data.fire_rate,
-		"Portée d'attaque : " : projectile_data.range
+		"Dégâts : " : Stats.proj_damage,
+		"Vitesse d'attaque : " : Stats.proj_fire_rate,
+		"Portée d'attaque : " : Stats.proj_range
 	}
 	return stats
 

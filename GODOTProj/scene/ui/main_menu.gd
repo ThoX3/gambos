@@ -17,12 +17,17 @@ var is_save_available: bool = false
 
 func _ready() -> void:
 	play_button.pressed.connect(play)
+	resume_button.pressed.connect(resume_run)
 	pearl_shop_button.pressed.connect(open_pearl_shop)
 	bestiary_button.pressed.connect(open_bestiary)
 	quit_button.pressed.connect(get_tree().quit)
 	settings_button.pressed.connect(open_settings) 
 	
-	play_button.grab_focus.call_deferred()
+	check_for_save()
+	if is_save_available:
+		resume_button.grab_focus.call_deferred()
+	else:
+		play_button.grab_focus.call_deferred()
 	
 	# ── Musique et son ─────────────────────────
 	AudioManager.play_music("main_menu")
@@ -33,17 +38,25 @@ func _ready() -> void:
 		
 		button.pressed.connect(_on_validation_menu)
 	
-	check_for_save()
+	
 
 func _process(delta: float) -> void:
 	pass
 
 func play():
 	if is_save_available:
-		pass # pop up avertissement
+		# L'utilisateur a cliqué sur jouer alors qu'une sauvegarde existe.
+		# On écrase la sauvegarde existante.
+		SaveManager.current_save.run_en_cours = false
+		SaveManager.current_save.run_player_stats = null
+		SaveManager.save_game()
 	
 	self.visible = false
 	GameManager.start_game.emit()
+
+func resume_run():
+	self.visible = false
+	GameManager.resume_game.emit()
 	
 func open_pearl_shop():
 	AudioManager.play_music("shop")
@@ -56,11 +69,13 @@ func open_settings():
 	settings_button_pressed.emit()
 	
 func check_for_save():
-	# Todo
-	# Si on trouve une sauvegarde, on met à jour les infos du bouton,
-	# on le laisse visible et on active le warning sur le bouton play
-	resume_button.visible = false
-	is_save_available = false
+	if SaveManager.current_save and SaveManager.current_save.run_en_cours:
+		resume_button.visible = true
+		is_save_available = true
+		resume_button.text = "Continuer (Monde %d)" % [SaveManager.current_save.monde_actuel_index + 1]
+	else:
+		resume_button.visible = false
+		is_save_available = false
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

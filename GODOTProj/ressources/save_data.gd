@@ -1,6 +1,11 @@
 extends Resource
 class_name SaveData
 
+# Settings
+@export var setting_master_volume: float = 1.0
+@export var setting_haptic_strength: float = 1.0
+@export var setting_use_pixel_font: bool = true
+
 # Pearls 
 @export var pearls: int = 0
 

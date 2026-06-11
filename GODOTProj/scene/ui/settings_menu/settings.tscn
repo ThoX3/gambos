@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 128
+theme_override_constants/separation = 64
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer" unique_id=253395178]
@@ -51,24 +51,65 @@ theme_override_font_sizes/font_size = 27
 text = "Paramètres"
 horizontal_alignment = 1
 
-[node name="SoundControl" type="HBoxContainer" parent="VBoxContainer" unique_id=754781190]
+[node name="SettingsList" type="VBoxContainer" parent="VBoxContainer" unique_id=998877665]
 layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/SoundControl" unique_id=1231005903]
+[node name="SoundControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=754781190]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/SoundControl" unique_id=1231005903]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("3_35imh")
 theme_override_font_sizes/font_size = 18
 text = "Volume"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/SoundControl" unique_id=524897728]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/SettingsList/SoundControl" unique_id=524897728]
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
+
+[node name="HapticControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=887766554]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/HapticControl" unique_id=776655443]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Vibrations"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/SettingsList/HapticControl" unique_id=665544332]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="FontControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=554433221]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/FontControl" unique_id=443322110]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Police Pixel"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/SettingsList/FontControl" unique_id=332211009]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_35imh")
+button_pressed = true
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=2082345703]
 layout_mode = 2

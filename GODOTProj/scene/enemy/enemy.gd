@@ -129,6 +129,9 @@ func _drop_pearl() -> void:
 			get_parent().call_deferred("add_child", new_pearl)
 
 func _creer_texte_degats(montant: int) -> void:
+	if SaveManager.current_save and not SaveManager.current_save.setting_show_damage_numbers:
+		return
+		
 	var texte_instance: Node = DAMAGE_TEXT_SCENE.instantiate()
 	
 	texte_instance.global_position = self.global_position + Vector2(-20, -40)

@@ -170,10 +170,23 @@ func play_sound_2d(nom: String, position: Vector2) -> void:
 	p.stream          = _sons_charges[nom]
 	p.pitch_scale     = randf_range(0.8, 1.3)
 	p.global_position = position
+	p.bus             = "SFX"
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
 
+## Joue un effet sonore non spatialisé (idéal pour l'UI).
+func play_sound(nom: String) -> void:
+	if not _sons_charges.has(nom):
+		push_error("AudioManager : son introuvable → " + nom)
+		return
+	var p := AudioStreamPlayer.new()
+	p.stream      = _sons_charges[nom]
+	p.pitch_scale = randf_range(0.8, 1.3)
+	p.bus         = "SFX"
+	add_child(p)
+	p.play()
+	p.finished.connect(p.queue_free)
 
 # ── Internes ─────────────────────────────────────────────────────
 
@@ -190,6 +203,7 @@ func _charger_musique(id: String) -> void:
 		var p := AudioStreamPlayer.new()
 		p.stream    = load(config["pistes"][nom])
 		p.volume_db = VOL_MIN
+		p.bus       = "Music"
 		add_child(p)
 		p.play()
 		p.finished.connect(p.play)  # boucle automatique

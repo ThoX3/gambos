@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b74kar3aieo7v" path="res://scene/maps/map_1.tscn" id="1_jy5tf"]
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="2_jx7ku"]
-[ext_resource type="Resource" uid="uid://bp4bqdsebw2jg" path="res://ressources/waves/SpawnConfig_infinite.tres" id="3_jy5tf"]
+[ext_resource type="Resource" uid="uid://bai2sy5oxi5j5" path="res://ressources/waves/SpawnConfig_infinite.tres" id="3_jy5tf"]
 
 [resource]
 script = ExtResource("2_jx7ku")

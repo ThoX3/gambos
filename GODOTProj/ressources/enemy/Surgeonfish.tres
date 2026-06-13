@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://frgewh2lsjpu"]
 
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_qnede"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_seofc"]
 [ext_resource type="SpriteFrames" uid="uid://by2k1lc61be25" path="res://assets/sprites/enemy/surgeonfish_alone.tres" id="2_qnede"]
 
 [resource]

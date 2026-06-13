@@ -9,10 +9,13 @@ class_name Enemy_Base
 
 var player = null
 
-const SEAWEED_SCENE = preload("res://scene/drops/seaweed.tscn")
-const PEARL_SCENE = preload("res://scene/drops/pearl.tscn")
-const DAMAGE_TEXT_SCENE = preload("res://scene/ui/enemy/damage_text.tscn")
-const SPLASH_EFFECT_SCENE = preload("res://scene/ui/enemy/deathSplash.tscn")
+func get_weight() -> float:
+	return stats.weight if stats else 1.0
+
+@export var SEAWEED_SCENE: PackedScene
+@export var PEARL_SCENE: PackedScene
+@export var DAMAGE_TEXT_SCENE: PackedScene
+@export var SPLASH_EFFECT_SCENE: PackedScene
 
 func _ready():
 	if stats:
@@ -28,7 +31,7 @@ func setup_enemy():
 		sprite.sprite_frames = stats.texture
 		sprite.play("walk")
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if not stats:
 		return
 		
@@ -46,11 +49,31 @@ func _physics_process(_delta):
 	# Application de la vitesse brute sur le vecteur directionnel
 	velocity = direction * stats.movement_speed
 
-	# Déplacement et gestion automatique du glissement physique contre le joueur/obstacles
-	move_and_slide()
+	_move_with_push(delta)
 
-func take_damage(amount: int) -> void:
+func _move_with_push(delta: float) -> void:
+	var motion = velocity * delta
+	for i in 4:
+		var collision = move_and_collide(motion)
+		if not collision:
+			break
+		
+		var collider = collision.get_collider()
+		if collider and collider.has_method("get_weight") and get_weight() > collider.get_weight():
+			var push_dir = -collision.get_normal()
+			var push_dist = motion.length() * (get_weight() / (get_weight() + collider.get_weight()))
+			collider.move_and_collide(push_dir * push_dist)
+			
+		motion = collision.get_remainder().slide(collision.get_normal())
+
+func take_damage(amount: int) -> int:
+	if is_queued_for_deletion():
+		return 0
+
+	var removed_hp: int = min(amount, hp)
+	
 	hp -= amount
+	
 	if hp <= 0:
 		$CollisionShape2D.set_deferred("disabled", true)
 		_creer_splash_mort()
@@ -59,11 +82,13 @@ func take_damage(amount: int) -> void:
 		queue_free()
 	
 	# Affichage des dégâts
-	_creer_texte_degats(amount)
+	_creer_texte_degats(removed_hp)
 	
+	var tween := create_tween()
 	sprite.modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	sprite.modulate = Color.WHITE
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+	
+	return removed_hp
 		
 func _drop_experience() -> void:
 	var xp_restante : int = stats.xp_drop
@@ -104,7 +129,10 @@ func _drop_pearl() -> void:
 			get_parent().call_deferred("add_child", new_pearl)
 
 func _creer_texte_degats(montant: int) -> void:
-	var texte_instance := DAMAGE_TEXT_SCENE.instantiate()
+	if SaveManager.current_save and not SaveManager.current_save.setting_show_damage_numbers:
+		return
+		
+	var texte_instance: Node = DAMAGE_TEXT_SCENE.instantiate()
 	
 	texte_instance.global_position = self.global_position + Vector2(-20, -40)
 	

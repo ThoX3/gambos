@@ -7,3 +7,4 @@ class_name ProjectileData
 @export var range: float = 500.0      # portée en pixels
 @export var fire_rate: float = 0.5    # tirs par seconde
 @export var projectile_count: int = 1
+@export var bounce_count: int = 0

@@ -7,16 +7,16 @@ signal buy_requested(id: String, cost: int)
 @export var upgrade_id: String = "health"
 @export var upgrade_name: String = "Vie"
 @export var upgrade_description: String = ""
-@export var icon_texture: Texture2D = preload("res://assets/sprites/pearl_shop/icons/damage.png")
+@export var icon_texture: Texture2D
 @export var max_level: int = 3
-@export var base_cost: int = 1
-@export var parent_node: Control
+@export var parent_node: PearlTreeNode
 @export var parent_node_unlock_level: int = 1
 
 var current_level = 0
 var current_cost: int = 0
 var is_unlocked: bool = false
 var was_unlocked_preview: bool = false
+var locked_by_monde: bool = false
 
 @onready var buy_button = $TextureButton
 @onready var level_label = $VBoxContainer/Level
@@ -25,18 +25,18 @@ var was_unlocked_preview: bool = false
 @onready var lock_overlay = $LockOverlay
 @onready var icon: TextureRect = $IconContainer/Icon
 
-const TEX_NORMAL = preload("res://assets/sprites/pearl_shop/normal.png")
-const TEX_NORMAL_HOVERED = preload("res://assets/sprites/pearl_shop/normal_hovered.png")
-const TEX_NORMAL_FOCUSED = preload("res://assets/sprites/pearl_shop/normal_focused.png")
-const TEX_LOCKED = preload("res://assets/sprites/pearl_shop/locked.png")
-const TEX_LOCKED_HOVERED = preload("res://assets/sprites/pearl_shop/locked_hovered.png")
-const TEX_LOCKED_FOCUSED = preload("res://assets/sprites/pearl_shop/locked_focused.png")
-const TEX_TOO_EXPENSIVE = preload("res://assets/sprites/pearl_shop/too_expensive.png")
-const TEX_TOO_EXPENSIVE_HOVERED = preload("res://assets/sprites/pearl_shop/too_expensive_hovered.png")
-const TEX_TOO_EXPENSIVE_FOCUSED = preload("res://assets/sprites/pearl_shop/locked_focused.png")
-const TEX_MAXED = preload("res://assets/sprites/pearl_shop/maxed.png")
-const TEX_MAXED_HOVERED = preload("res://assets/sprites/pearl_shop/maxed_hovered.png")
-const TEX_MAXED_FOCUSED = preload("res://assets/sprites/pearl_shop/maxed_focused.png")
+@export var TEX_NORMAL: Texture2D
+@export var TEX_NORMAL_HOVERED: Texture2D
+@export var TEX_NORMAL_FOCUSED: Texture2D
+@export var TEX_LOCKED: Texture2D
+@export var TEX_LOCKED_HOVERED: Texture2D
+@export var TEX_LOCKED_FOCUSED: Texture2D
+@export var TEX_TOO_EXPENSIVE: Texture2D
+@export var TEX_TOO_EXPENSIVE_HOVERED: Texture2D
+@export var TEX_TOO_EXPENSIVE_FOCUSED: Texture2D
+@export var TEX_MAXED: Texture2D
+@export var TEX_MAXED_HOVERED: Texture2D
+@export var TEX_MAXED_FOCUSED: Texture2D
 
 func _ready():
 	buy_button.pressed.connect(_on_buy_button_pressed)
@@ -89,6 +89,12 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		var parent_level = SaveManager.current_save.get("upgrade_" + parent_node.upgrade_id + "_level")
 		is_unlocked = (parent_level != null and parent_level >= parent_node_unlock_level)
 		
+	locked_by_monde = false
+	if upgrade_id in ["projectile_sable_pierce", "projectile_sable_zone_damage", "projectile_sable_count"]:
+		if SaveManager.current_save.mondes_completes_total < 1:
+			is_unlocked = false
+			locked_by_monde = true
+		
 	# Check for new unlock BEFORE setting UI
 	var is_newly_unlocked = false
 	if is_unlocked and not was_unlocked_preview and not is_initial_load:
@@ -106,10 +112,19 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		lock_overlay.visible = true
 		price_label.visible = false
 		lock_overlay.modulate = Color.WHITE
-		lock_overlay.position.y = 0
+		lock_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED, TEX_LOCKED_FOCUSED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
+		if parent_node:
+			%ParentIcon.texture = parent_node.icon_texture
+			%ParentUnlockLevelLabel.text = str(parent_node_unlock_level)
+			
+		var parent_req_container = $LockOverlay/VBoxContainer/HBoxContainer
+		if locked_by_monde:
+			parent_req_container.visible = false
+		else:
+			parent_req_container.visible = true
 	else:
 		price_label.visible = true
 		if is_newly_unlocked and lock_overlay.visible:
@@ -117,7 +132,7 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		else:
 			lock_overlay.visible = false
 			lock_overlay.modulate = Color(1, 1, 1, 1)
-			lock_overlay.position.y = 0
+			lock_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 		
 		if current_level >= max_level:
 			level_label.text = "MAX"

@@ -26,8 +26,5 @@ func _on_continuer() -> void:
 	continuer_pressed.emit()
 
 func _on_sauvegarder() -> void:
-	SaveManager.current_save.run_en_cours = true
-	SaveManager.save_game()
+	visible = false
 	sauvegarder_pressed.emit()
-	# Puis retour au menu principal
-	get_tree().reload_current_scene()

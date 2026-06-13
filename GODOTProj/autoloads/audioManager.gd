@@ -14,6 +14,7 @@ const SONS := {
 	"gambos_hurt":    "res://assets/sounds/effect/Gambos_hurt.mp3",
 	"menu_press": "res://assets/sounds/menu/Menu_press.mp3",
 	"menu_selection": "res://assets/sounds/menu/Menu_select.mp3",
+	"pearl_collect": "res://assets/sounds/effect/pearlCollect.mp3",
 	"pearl_shop_unlock": "res://assets/sounds/pearl_shop/unlock.mp3",
 	"pearl_shop_buy": "res://assets/sounds/pearl_shop/pearls.mp3",
 }
@@ -37,6 +38,32 @@ const MUSIQUES := {
 			0:  ["bass"],
 			7:  ["guitar", "piano", "other", "vocals"],
 			15: ["drums"],
+		}
+	},
+	
+	"map2": {
+		"pistes": {
+			"bass":   "res://assets/sounds/map2/map2-bass.mp3",
+			"drums": "res://assets/sounds/map2/map2-drums.mp3",
+			"other":  "res://assets/sounds/map2/map2-other.mp3",
+		},
+		"deverouillage": {
+			21:  ["bass"],
+			28:  ["drums"],
+			35: ["other"],
+		}
+	},
+	
+	"map3": {
+		"pistes": {
+			"bass":   "res://assets/sounds/map3/map3-bass.mp3",
+			"drums": "res://assets/sounds/map3/map3-drums.mp3",
+			"other":  "res://assets/sounds/map3/map3-other.mp3",
+		},
+		"deverouillage": {
+			61:  ["other"],
+			68:  ["drums"],
+			74: ["other"],
 		}
 	},
 	
@@ -143,10 +170,23 @@ func play_sound_2d(nom: String, position: Vector2) -> void:
 	p.stream          = _sons_charges[nom]
 	p.pitch_scale     = randf_range(0.8, 1.3)
 	p.global_position = position
+	p.bus             = "SFX"
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
 
+## Joue un effet sonore non spatialisé (idéal pour l'UI).
+func play_sound(nom: String) -> void:
+	if not _sons_charges.has(nom):
+		push_error("AudioManager : son introuvable → " + nom)
+		return
+	var p := AudioStreamPlayer.new()
+	p.stream      = _sons_charges[nom]
+	p.pitch_scale = randf_range(0.8, 1.3)
+	p.bus         = "SFX"
+	add_child(p)
+	p.play()
+	p.finished.connect(p.queue_free)
 
 # ── Internes ─────────────────────────────────────────────────────
 
@@ -163,6 +203,7 @@ func _charger_musique(id: String) -> void:
 		var p := AudioStreamPlayer.new()
 		p.stream    = load(config["pistes"][nom])
 		p.volume_db = VOL_MIN
+		p.bus       = "Music"
 		add_child(p)
 		p.play()
 		p.finished.connect(p.play)  # boucle automatique

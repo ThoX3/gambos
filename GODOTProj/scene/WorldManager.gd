@@ -18,6 +18,10 @@ func demarrer_depuis_sauvegarde() -> void:
 func passer_monde_suivant() -> void:
 	SaveManager.current_save.mondes_completes += 1
 	_index_monde_courant += 1
+	SaveManager.current_save.mondes_completes_total = max(
+		SaveManager.current_save.mondes_completes_total,
+		_index_monde_courant
+	)
 
 	if _index_monde_courant >= mondes.size():
 		_mode_infini_actif = true
@@ -35,6 +39,9 @@ func _appliquer_monde(index: int) -> void:
 	monde_change.emit(mondes[index])
 
 func _appliquer_monde_infini() -> void:
+	if mode_infini_config == null:
+		push_error("WorldManager : mode_infini_config n'est pas assigné dans l'inspecteur !")
+		return
 	monde_change.emit(mode_infini_config)
 
 func get_nom_monde_suivant() -> String:

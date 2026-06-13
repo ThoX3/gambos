@@ -31,19 +31,14 @@ func load_upgrades():
 func get_random_upgrades(count: int) -> Array[upgradeData]:
 	var selected_upgrades: Array[upgradeData] = []
 	var pool = all_upgrades.duplicate()
-	for i in range (count):
+	for i in range(count):
 		if pool.is_empty(): break
 		var picked = pick_one_weighted(pool)
-		match i:
-			1:
-				while picked.name == str(selected_upgrades[0].name):
-					picked = pick_one_weighted(pool)
-			2:
-				while picked.name == str(selected_upgrades[0].name) or picked.name == str(selected_upgrades[1]):
-					picked = pick_one_weighted(pool)
 		if picked:
 			selected_upgrades.append(picked)
-			pool.erase(picked)
+			# On garde uniquement les cartes dont le nom est DIFFÉRENT de celle piochée
+			pool = pool.filter(func(u): return u.name != picked.name)
+			
 	return selected_upgrades
 	
 func pick_one_weighted(list: Array[upgradeData]) -> upgradeData:
@@ -83,43 +78,61 @@ func get_cost_attack_speed(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de gain d'expérience.
 func get_cost_xp_gain(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 3 * level
 
 ## Retourne le coût de l'amélioration de chance.
 func get_cost_luck(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + level * (level + 2)
 
 ## Retourne le coût de l'amélioration de régénération de vie.
 func get_cost_regen(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 5 * level
 
-## Retourne le coût de l'amélioration permettant de passer des étapes de la carte.
-func get_cost_skip_map(level: int) -> int:
-	return get_default_cost(level)
+## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
+func get_cost_ingame_speed(level: int) -> int:
+	return max(30, 9 ** (level + 1) - 5) 
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
-	return get_default_cost(level)
+	return 1 + 3 * level
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
 	return get_default_cost(level)
 	
+## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
 	return get_default_cost(level)
 
+## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
 func get_cost_bubble_division(level: int) -> int:
-	return get_default_cost(level)
+	return 5 + 2 * 5**level
 
+## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
+func get_cost_projectile_bounce(level: int) -> int:
+	return 10 + 2 * 6**level
 
+## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
+func get_cost_projectile_sable_pierce(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration permettant au projectile de sable de faire des dégâts de zone.
+func get_cost_projectile_sable_zone_damage(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration ajoutant des projectiles de sable.
+func get_cost_projectile_sable_count(level: int) -> int:
+	return 15 + 2 * 5**level
+	
+	
 # --- Logique des effets spécifiques aux améliorations ---
 ## Calcule le bonus de vie maximum en fonction du niveau.
 func get_effect_health(level: int) -> float:
 	return 10.0 + (level * 5.0)
 
 ## Calcule le bonus de vitesse de déplacement en fonction du niveau.
-func get_effect_speed(level: int) -> float:
-	return 100.0 + (level * 20.0)
+func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
+	return base_speed + (level * 20.0)
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:
@@ -148,13 +161,13 @@ func get_effect_thorns(level: int) -> Dictionary:
 		"interval": max(0.2, 1.0 - (level * 0.15))
 	}
 
-## Calcule le nombre de niveaux de carte passés initialement.
-func get_effect_skip_map(level: int) -> float:
+## Calcule la vitesse du jeu selon le niveau. Non utilisé pour le moment, c'est hud.gd qui gère cela.
+func get_effect_ingame_speed(level: int) -> float:
 	return level * 1.0
 
 ## Retourne le nombre de relances gratuites accordées.
-func get_effect_reroll(level: int) -> float:
-	return level * 1.0
+func get_effect_reroll(level: int) -> int:
+	return level * 1
 	
 ## Calcule le multiplicateur de rayon de collection.
 func get_effect_collection_radius(level: int) -> float:
@@ -165,6 +178,22 @@ func get_effect_projectile(level: int) -> float:
 	return 1.0 + (level * 1.0)
 	
 # --- Effets des armes ---
-## Calcule le nombre de petites bulles générées
+## Calcule le nombre de bulles envoyées.
 func get_effect_bubble_division(level: int) -> int:
 	return 1 + level * 1
+
+## Calcule le nombre potentiel de rebonds des projectiles.
+func get_effect_projectile_bounce(level: int) -> int:
+	return level * 1
+
+## Calcule la réserve de PV que le projectile de sable peut transpercer.
+func get_effect_projectile_sable_pierce(level: int) -> int:
+	return level * 30
+
+## Calcule le rayon d'explosion (dégâts de zone) du projectile de sable.
+func get_effect_projectile_sable_zone_damage(level: int) -> float:
+	return 24.0 + level * 16.0
+
+## Calcule le nombre de paires de projectiles de sable supplémentaires.
+func get_effect_projectile_sable_count(level: int) -> int:
+	return level * 1

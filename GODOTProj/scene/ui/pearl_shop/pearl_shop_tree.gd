@@ -11,7 +11,7 @@ signal menu_button_pressed
 @onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
 @onready var node_infos_window = $NodeInfos
 
-@onready var list_button = [menu_button, play_button, reset_button]
+@onready var list_button: Array[Variant] = [menu_button, play_button, reset_button]
 
 @onready var fade_rect: ColorRect = $FadeRect
 
@@ -22,6 +22,7 @@ func _ready() -> void:
 	menu_button.pressed.connect(open_menu)
 	play_button.pressed.connect(play)
 	reset_button.pressed.connect(reset_save)
+	reset_button.gui_input.connect(_on_reset_button_gui_input)
 	
 	menu_button.focus_entered.connect(_on_non_node_focus_entered)
 	play_button.focus_entered.connect(_on_non_node_focus_entered)
@@ -66,12 +67,20 @@ func _on_visibility_changed() -> void:
 			node_infos_window.visible = false
 
 func _on_non_node_focus_entered() -> void:
-	currently_focused_node = null
+	if currently_focused_node:
+		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)
+		currently_focused_node = null
 	hover_timer.stop()
 	node_infos_window.visible = false
 
 func _on_node_focus_entered(node: Control) -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)
+	
+	node.get_node("TextureButton").self_modulate = Color(1.0, 0.9372549, 0.70980394)
+	
+	if currently_focused_node:
+		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)  # restore previous node
+	
 	currently_focused_node = node
 	node_infos_window.visible = false
 	hover_timer.start(1.0)
@@ -91,20 +100,16 @@ func _show_node_infos_window() -> void:
 	if currently_focused_node == null or not is_visible_in_tree():
 		return
 	
-	var description := ""
-	var title := ""
+	var title: String = currently_focused_node.upgrade_name
+	var description: String = currently_focused_node.upgrade_description
 	
-	if currently_focused_node.is_unlocked:
-		title = currently_focused_node.upgrade_name
-		description = currently_focused_node.upgrade_description
-	else:
-		title = "???"
-		if currently_focused_node.parent_node != null and currently_focused_node.parent_node.is_unlocked:
+	if not currently_focused_node.is_unlocked:
+		if currently_focused_node.locked_by_monde:
+			description = "[font_size=14]" + description + "\n[u]Bloqué[/u][/font_size]"
+		elif currently_focused_node.parent_node != null:
 			var parent_name = currently_focused_node.parent_node.upgrade_name
 			var required_level = currently_focused_node.parent_node_unlock_level
-			description = "[color=#a0a0a0]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + "[/color]"
-		else:
-			description = "[color=#a0a0a0]???[/color]"
+			description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
 	
 	node_infos_window.set_infos(title, description)
 	node_infos_window.visible = true
@@ -137,7 +142,7 @@ func refresh_shop(is_initial_load: bool = false) -> void:
 				
 			if not is_initial_load and was_locked and will_be_unlocked:
 				node.update_node(anim_delay, false)
-				anim_delay += 0.15 # Add slight delay for the next node that might unlock
+				anim_delay += 0.4 
 			else:
 				node.update_node(0.0, is_initial_load)
 
@@ -164,20 +169,11 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 	if SaveManager.current_save.pearls >= cost:
 		SaveManager.current_save.pearls -= cost
 		
-		match id:
-			"health": SaveManager.current_save.upgrade_health_level += 1
-			"damage": SaveManager.current_save.upgrade_damage_level += 1
-			"speed":  SaveManager.current_save.upgrade_speed_level += 1
-			"attack_speed": SaveManager.current_save.upgrade_attack_speed_level += 1
-			"xp_gain": SaveManager.current_save.upgrade_xp_gain_level += 1
-			"luck": SaveManager.current_save.upgrade_luck_level += 1
-			"regen": SaveManager.current_save.upgrade_regen_level += 1
-			"skip_map": SaveManager.current_save.upgrade_skip_map_level += 1
-			"thorns": SaveManager.current_save.upgrade_thorns_level += 1
-			"reroll": SaveManager.current_save.upgrade_reroll_level += 1
-			"collection_radius": SaveManager.current_save.upgrade_collection_radius_level += 1
-			"bubble_division": SaveManager.current_save.upgrade_bubble_division_level += 1
-			_: push_warning("Unhandled upgrade id: ", id)
+		var prop_name := "upgrade_" + id + "_level"
+		if prop_name in SaveManager.current_save:
+			SaveManager.current_save.set(prop_name, SaveManager.current_save.get(prop_name) + 1)
+		else:
+			push_warning("Unhandled upgrade id: ", id)
 			
 		SaveManager.save_game()
 		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)
@@ -200,6 +196,13 @@ func reset_save():
 	SaveManager.save_game()
 	refresh_shop()
 
+func _on_reset_button_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		SaveManager.current_save.pearls += 1000
+		SaveManager.current_save.upgrade_ingame_speed_level = 5
+		SaveManager.save_game()
+		refresh_shop()
+
 func was_opened_from_game_over(param: bool):
 	if param:
 		# Fondu noir vers transparent
@@ -209,10 +212,10 @@ func was_opened_from_game_over(param: bool):
 		tween.tween_property(fade_rect, "color:a", 0, 1.5)
 		
 		play_button.visible = true
-		menu_button.text = "Menu principal"
+		menu_button.text = " Menu principal"
 	else:
 		play_button.visible = false
-		menu_button.text = "Retour"
+		menu_button.text = " Retour"
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

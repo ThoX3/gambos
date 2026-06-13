@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://caygsy8jueaqh" path="res://scene/ui/bestiary/bestiary.gd" id="1_best"]
 [ext_resource type="PackedScene" uid="uid://kmchqd4nvrct" path="res://scene/ui/bestiary/bestiary_card.tscn" id="2_card"]
-[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="2_hixew"]
+[ext_resource type="Resource" uid="uid://bp4bqdsebw2jg" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
 
 [node name="Bestiary" type="Control" unique_id=592078671]
 layout_mode = 3

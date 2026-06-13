@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://bxm35m7vx2oef"]
+
+[ext_resource type="Script" uid="uid://cvqau51y1diir" path="res://scene/ui/settings_menu/settings.gd" id="1_35imh"]
+[ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="1_65qtl"]
+[ext_resource type="Texture2D" uid="uid://crxk1fnfcd5ip" path="res://assets/sprites/background/settings/settings_background.jpg" id="1_kura1"]
+[ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="2_q6tgv"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_35imh"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_35imh"]
+button_index = 1
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_bc2px"]
+events = [SubResource("InputEventJoypadButton_35imh")]
+
+[node name="Settings" type="Control" unique_id=157733887]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_35imh")
+
+[node name="Background" type="TextureRect" parent="." unique_id=57446639]
+modulate = Color(0.2516, 0.33448, 0.37, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kura1")
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1416896541]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=253395178]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_65qtl")
+theme_override_font_sizes/font_size = 27
+text = "Paramètres"
+horizontal_alignment = 1
+
+[node name="SettingsList" type="VBoxContainer" parent="VBoxContainer" unique_id=998877665]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="MusicControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=754781190]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/MusicControl" unique_id=1231005903]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Musique"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/SettingsList/MusicControl" unique_id=524897728]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFXControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=754781191]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/SFXControl" unique_id=1231005904]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Effets sonores"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/SettingsList/SFXControl" unique_id=524897729]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="HapticControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=887766554]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/HapticControl" unique_id=776655443]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Vibrations"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/SettingsList/HapticControl" unique_id=665544332]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="DamageNumberControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=987654321]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/DamageNumberControl" unique_id=123456789]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Affichage des dégâts"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/SettingsList/DamageNumberControl" unique_id=987654322]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_35imh")
+button_pressed = true
+
+[node name="FontControl" type="HBoxContainer" parent="VBoxContainer/SettingsList" unique_id=554433221]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsList/FontControl" unique_id=443322110]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+text = "Police pixel art"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/SettingsList/FontControl" unique_id=332211009]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_35imh")
+button_pressed = true
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=2082345703]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_35imh")
+theme_override_font_sizes/font_size = 18
+shortcut = SubResource("Shortcut_bc2px")
+text = " Retour"
+icon = ExtResource("2_q6tgv")

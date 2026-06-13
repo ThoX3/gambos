@@ -34,3 +34,20 @@ func load_game() -> void:
 	else:
 		current_save = SaveData.new()
 		print("SaveManager: No save found. Created new save profile.")
+	
+	apply_settings()
+
+func apply_settings() -> void:
+	if not current_save: return
+	
+	# Music Volume
+	var music_bus_index = AudioServer.get_bus_index("Music")
+	var music_volume = current_save.setting_music_volume
+	AudioServer.set_bus_volume_db(music_bus_index, linear_to_db(music_volume))
+	AudioServer.set_bus_mute(music_bus_index, music_volume <= 0.0)
+	
+	# SFX Volume
+	var sfx_bus_index = AudioServer.get_bus_index("SFX")
+	var sfx_volume = current_save.setting_sfx_volume
+	AudioServer.set_bus_volume_db(sfx_bus_index, linear_to_db(sfx_volume))
+	AudioServer.set_bus_mute(sfx_bus_index, sfx_volume <= 0.0)

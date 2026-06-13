@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b7y1xk1twkbbu" path="res://scene/enemy/enemy.gd" id="1_nytjq"]
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="2_msiye"]
+[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="3_u8b2j"]
+[ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="4_27n4c"]
+[ext_resource type="PackedScene" uid="uid://b0ni17q05s5ii" path="res://scene/ui/enemy/damage_text.tscn" id="5_2ragj"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="6_epgpp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0
@@ -12,6 +16,10 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_nytjq")
 stats = ExtResource("2_msiye")
+SEAWEED_SCENE = ExtResource("3_u8b2j")
+PEARL_SCENE = ExtResource("4_27n4c")
+DAMAGE_TEXT_SCENE = ExtResource("5_2ragj")
+SPLASH_EFFECT_SCENE = ExtResource("6_epgpp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
 

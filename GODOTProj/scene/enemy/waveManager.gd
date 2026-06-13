@@ -35,10 +35,17 @@ func _ready() -> void:
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
 
-func start_waves() -> void:
-	_numero_vague      = 0
-	_timer_pause       = 0.0
-	_boss_courant      = null
+func start_waves(continuer: bool = false) -> void:
+	if not continuer:
+		_numero_vague = 0
+	else:
+		var main_node = get_tree().get_first_node_in_group("Main")
+		if main_node and main_node.has_node("World/WorldManager"):
+			var wm = main_node.get_node("World/WorldManager")
+			_numero_vague = wm._index_monde_courant * vagues_par_monde
+
+	_timer_pause  = 0.0
+	_boss_courant = null
 	_etat = _Etat.PAUSE
 
 func _process(delta: float) -> void:
@@ -85,7 +92,11 @@ func _demarrer_vague() -> void:
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
 		_spawner_boss(boss_entry)
-		_lancer_dialogue_boss()
+		# Pas propre : lancer un signal 
+		if joueur:
+			joueur.set_physics_process(false)
+			if joueur.has_method("disable_input"):
+				joueur.disable_input()
 	else:
 		var disponibles := spawn_config.get_ennemis_disponibles(_numero_vague)
 		_liste_spawn          = _generer_liste_spawn(disponibles, _numero_vague)
@@ -93,6 +104,12 @@ func _demarrer_vague() -> void:
 		_intervalle_spawn     = _duree_vague_courante / max(float(_liste_spawn.size()), 1.0)
 		_etat = _Etat.VAGUE
 		vague_demarree.emit(_numero_vague)
+	
+	# Pas propre : lancer un signal 
+	if joueur:
+		joueur.set_physics_process(true)
+		if joueur.has_method("enable_input"):
+			joueur.enable_input()	
 
 func _terminer_vague() -> void:
 	vague_terminee.emit(_numero_vague)
@@ -201,17 +218,39 @@ func _calculer_position_spawn() -> Vector2:
 
 func _spawn_bords_ecran(marge: float) -> Vector2:
 	var cam    := get_viewport().get_camera_2d()
-	var centre := cam.global_position if cam else joueur.global_position
+	var centre := cam.get_screen_center_position()
 	var demi   := get_viewport().get_visible_rect().size * 0.5
-	match randi() % 4:
-		0: return Vector2(clampf(randf_range(centre.x - demi.x, centre.x + demi.x), 64, 2560),
-						  clampf(centre.y - demi.y - marge, 64, 1408))
-		1: return Vector2(clampf(randf_range(centre.x - demi.x, centre.x + demi.x), 64, 2560),
-						  clampf(centre.y + demi.y + marge, 64, 1408))
-		2: return Vector2(clampf(centre.x - demi.x - marge, 64, 2560),
-						  clampf(randf_range(centre.y - demi.y, centre.y + demi.y), 64, 1408))
-		_: return Vector2(clampf(centre.x + demi.x + marge, 64, 2560),
-						  clampf(randf_range(centre.y - demi.y, centre.y + demi.y), 64, 1408))
+	
+	var min_x := cam.limit_left + 64.0
+	var max_x := cam.limit_right - 64.0
+	var min_y := cam.limit_top + 64.0
+	var max_y := cam.limit_bottom - 64.0
+
+	var cotes_valides := []
+	
+	if centre.y - demi.y - marge >= min_y:
+		cotes_valides.append(0) # Haut
+	if centre.y + demi.y + marge <= max_y:
+		cotes_valides.append(1) # Bas
+	if centre.x - demi.x - marge >= min_x:
+		cotes_valides.append(2) # Gauche
+	if centre.x + demi.x + marge <= max_x:
+		cotes_valides.append(3) # Droite
+
+	if cotes_valides.is_empty():
+		cotes_valides = [0, 1, 2, 3]
+
+	var cote_choisi = cotes_valides.pick_random()
+
+	match cote_choisi:
+		0: return Vector2(clampf(randf_range(centre.x - demi.x, centre.x + demi.x), min_x, max_x),
+						  centre.y - demi.y - marge)
+		1: return Vector2(clampf(randf_range(centre.x - demi.x, centre.x + demi.x), min_x, max_x),
+						  centre.y + demi.y + marge)
+		2: return Vector2(centre.x - demi.x - marge,
+						  clampf(randf_range(centre.y - demi.y, centre.y + demi.y), min_y, max_y))
+		_: return Vector2(centre.x + demi.x + marge,
+						  clampf(randf_range(centre.y - demi.y, centre.y + demi.y), min_y, max_y))
 
 func _spawn_cercle(centre: Vector2, rayon: float) -> Vector2:
 	var angle := randf() * TAU

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BossData" format=3 uid="uid://cqb5hsm2bn2v"]
 
-[ext_resource type="Script" uid="uid://dtcafnpjj30rd" path="res://scene/enemy/boss/araignee/attacks/attaque_embuscade.gd" id="1_0fmyw"]
 [ext_resource type="Script" uid="uid://bosh0w0xm27l8" path="res://scene/enemy/boss/araignee/attacks/attaque_balayage.gd" id="2_5l6c2"]
+[ext_resource type="Script" uid="uid://dtcafnpjj30rd" path="res://scene/enemy/boss/araignee/attacks/attaque_embuscade.gd" id="3_0fmyw"]
 [ext_resource type="Script" uid="uid://daqti2f86wa3p" path="res://scene/enemy/boss/araignee/attacks/attack_broyage.gd" id="3_vvrx3"]
 [ext_resource type="PackedScene" uid="uid://d3yhcam5xqjel" path="res://scene/projectile/projectile_sable.tscn" id="4_f027s"]
 [ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/boss/BossData.gd" id="5_6xhw8"]
@@ -9,10 +9,10 @@
 
 [resource]
 script = ExtResource("5_6xhw8")
-attack_scripts = Array[Script]([ExtResource("1_0fmyw"), ExtResource("2_5l6c2"), ExtResource("3_vvrx3")])
+attack_scripts = Array[Script]([ExtResource("2_5l6c2"), ExtResource("3_vvrx3"), ExtResource("3_0fmyw")])
 texture = ExtResource("6_qb5vh")
 name = "Araignée de mer"
-max_hp = 2000
+max_hp = 1000
 armor = 20
 movement_speed = 50.0
 patrol_distance = 10000.0

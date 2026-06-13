@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://dm66ajmmm82qh"]
 
 [ext_resource type="Script" uid="uid://c2h6w7vx4mncg" path="res://scene/ui/card.gd" id="1_ip8u4"]
+[ext_resource type="Texture2D" uid="uid://bly05caq2r6d6" path="res://assets/sprites/cards/background/Card3.png" id="2_0tbtp"]
+[ext_resource type="Texture2D" uid="uid://7ug25d1wsel7" path="res://assets/sprites/cards/background/Card2.png" id="2_nyfce"]
+[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_ulku6"]
+[ext_resource type="Texture2D" uid="uid://dow3b3d2pv12t" path="res://assets/sprites/cards/background/Card4.png" id="3_0tbtp"]
+[ext_resource type="Texture2D" uid="uid://bd8j2tj73sq44" path="res://assets/sprites/cards/background/Card5.png" id="3_yvh08"]
+[ext_resource type="Texture2D" uid="uid://dthxc8g7x2iiu" path="res://assets/sprites/cards/background/Card7.png" id="4_gxkve"]
+[ext_resource type="Texture2D" uid="uid://c3am13105yb1" path="res://assets/sprites/cards/background/Card6.png" id="4_s1v0k"]
+[ext_resource type="Texture2D" uid="uid://c50ijoyjs8kwj" path="res://assets/sprites/cards/background/Card8.png" id="4_yvh08"]
+[ext_resource type="Texture2D" uid="uid://deiy6gh852o1c" path="res://assets/sprites/cards/background/Card10.png" id="5_gxkve"]
+[ext_resource type="Texture2D" uid="uid://ckeuceolxfyto" path="res://assets/sprites/cards/background/Card9.png" id="5_ybrhn"]
+[ext_resource type="Texture2D" uid="uid://ucrqovpqfu1u" path="res://assets/sprites/cards/background/Card11.png" id="6_xy3u8"]
 
 [node name="Card" type="Control" unique_id=995847564]
 layout_mode = 3
@@ -10,6 +21,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ip8u4")
+BACKGROUNDS = Dictionary[int, Texture2D]({
+0: ExtResource("2_nyfce"),
+1: ExtResource("3_0tbtp"),
+2: ExtResource("4_s1v0k"),
+3: ExtResource("4_yvh08"),
+4: ExtResource("5_gxkve")
+})
+HOVER = Dictionary[int, Texture2D]({
+0: ExtResource("2_0tbtp"),
+1: ExtResource("3_yvh08"),
+2: ExtResource("4_gxkve"),
+3: ExtResource("5_ybrhn"),
+4: ExtResource("6_xy3u8")
+})
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=532998159]
 unique_name_in_owner = true
@@ -38,6 +63,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,13 +81,17 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 autowrap_mode = 2
 clip_text = true
 
-[node name="Stats" type="Label" parent="TextureButton/VBoxContainer" unique_id=396574016]
+[node name="Stats" type="RichTextLabel" parent="TextureButton/VBoxContainer" unique_id=1818466920]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("2_ulku6")
+fit_content = true
 autowrap_mode = 2
 
 [node name="Rarity" type="Label" parent="TextureButton/VBoxContainer" unique_id=865929680]
@@ -69,6 +99,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ulku6")
 vertical_alignment = 1
 autowrap_mode = 2
 

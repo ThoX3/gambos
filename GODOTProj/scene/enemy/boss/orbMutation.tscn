@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bm21afyivgtjn"]
+
+[ext_resource type="Script" uid="uid://c2cqkxm7fd15y" path="res://scene/enemy/boss/orb_mutation.gd" id="1_ntobh"]
+
+[node name="OrbMutation" type="Area2D" unique_id=1862983577]
+script = ExtResource("1_ntobh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=36120342]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=825448278]

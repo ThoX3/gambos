@@ -50,7 +50,7 @@ func _set_wave_text(numero: int) -> void:
 	var max_wave = SaveManager.current_save.max_wave_reached
 	var sweep_rect = wave_label.get_node("SweepRect")
 	
-	if numero >= max_wave:
+	if numero >= max_wave and max_wave > 0:
 		wave_label.text = "[wave amp=20.0 freq=2.0 connected=0]" + base_text + "[/wave]"
 		if sweep_rect.material:
 			sweep_rect.material.set_shader_parameter("active", true)

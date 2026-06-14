@@ -27,12 +27,14 @@ func _ready() -> void:
 	$UI/MainMenu.pearl_shop_button_pressed.connect(open_pearl_shop)
 	$UI/MainMenu.bestiary_button_pressed.connect(open_bestiary)
 	$UI/MainMenu.settings_button_pressed.connect(open_settings_from_main_menu)
+	$UI/MainMenu.credits_button_pressed.connect(open_credits)
 	$UI/PearlShop.menu_button_pressed.connect(open_main_menu)
 	%pause_menu.menu_button_pressed.connect(open_main_menu_from_pause)
 	$UI/pause_menu.bestiary_button_pressed.connect(open_bestiary_from_pause)
 	$UI/pause_menu.settings_button_pressed.connect(open_settings_from_pause)
 	$UI/Bestiary.back_button_pressed.connect(_on_bestiary_back)
 	$UI/Settings.back_pressed.connect(_on_settings_back)
+	$UI/Credits.back_pressed.connect(_on_credits_back)
 	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
 	$UI/MenuTransition.sauvegarder_pressed.connect(_on_sauvegarder)
 	$World/WorldManager.monde_change.connect(_on_monde_change)
@@ -163,6 +165,10 @@ func open_settings_from_main_menu() -> void:
 	_settings_opened_from_pause = false
 	show_menu($UI/Settings)
 	$UI/Settings.back_button.grab_focus()
+
+func open_credits() -> void:
+	show_menu($UI/Credits)
+	$UI/Credits.back_button.grab_focus()
 	
 func open_settings_from_pause() -> void:
 	_settings_opened_from_pause = true
@@ -177,6 +183,10 @@ func _on_settings_back() -> void:
 		%pause_menu.notify_settings_closed()
 	else:
 		open_main_menu()
+
+func _on_credits_back() -> void:
+	$UI/Credits.visible = false
+	open_main_menu()
 
 func open_bestiary_from_pause() -> void:
 	# Déplace le bestiaire en dernier dans UI pour qu'il s'affiche au-dessus du menu pause

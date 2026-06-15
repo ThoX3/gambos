@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cp0apbhuwm2kb" path="res://scene/ui/main_menu.gd" id="1_s6uko"]
 [ext_resource type="Texture2D" uid="uid://dac1i4n7sccgj" path="res://assets/sprites/main_menu/background.png" id="2_vww0c"]
 [ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_k75cp"]
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_k3dtv"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="5_e5dty"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_k3dtv"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="5_e5dty"]
 
 [node name="MainMenu" type="Control" unique_id=1274161686]
 layout_mode = 3

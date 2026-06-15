@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scene/ui/credits.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://crxk1fnfcd5ip" path="res://assets/sprites/background/settings/settings_background.jpg" id="2_bg"]
-[ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="3_font_title"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="4_font_text"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="3_font_title"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="4_font_text"]
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="5_icon"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_35imh"]

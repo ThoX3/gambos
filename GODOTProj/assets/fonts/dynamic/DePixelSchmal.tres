@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" format=3]
+
+[ext_resource type="FontFile" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="1_8tedr"]
+
+[resource]
+base_font = ExtResource("1_8tedr")

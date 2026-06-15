@@ -4,7 +4,7 @@ signal menu_button_pressed
 signal bestiary_button_pressed
 signal settings_button_pressed
 
-@export var STATS_FONT: FontFile
+@export var STATS_FONT: Font = preload("res://assets/fonts/dynamic/DePixelKlein.tres")
 
 ## Empêche le toggle pause quand le bestiaire est ouvert par-dessus
 var _bestiary_open: bool = false

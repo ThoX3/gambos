@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bmd4rfgpqv57u" path="res://assets/sprites/pearl_shop/node_infos_background.png" id="1_mv1ej"]
 [ext_resource type="Script" uid="uid://dlipl2x7ueoe2" path="res://scene/ui/pearl_shop/node_infos.gd" id="1_r6ld7"]
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_r6ld7"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_54lvh"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="2_r6ld7"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_54lvh"]
 
 [node name="NodeInfos" type="Control" unique_id=977595567]
 custom_minimum_size = Vector2(98, 101)

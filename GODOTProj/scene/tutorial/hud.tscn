@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cbtucyirl7uyl"]
 
 [ext_resource type="Script" uid="uid://ctvrdusyi260a" path="res://scene/tutorial/hud.gd" id="1_5wg8i"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_8hjpl"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_8hjpl"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="5_g2q33"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="6_w32mh"]
-[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="7_l1uel"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="7_l1uel"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="11_ccc18"]
 
 [node name="hud" type="Control" unique_id=375714786]

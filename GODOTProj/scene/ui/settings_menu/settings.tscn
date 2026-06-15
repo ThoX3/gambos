@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bxm35m7vx2oef"]
 
 [ext_resource type="Script" uid="uid://cvqau51y1diir" path="res://scene/ui/settings_menu/settings.gd" id="1_35imh"]
-[ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="1_65qtl"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="1_65qtl"]
 [ext_resource type="Texture2D" uid="uid://crxk1fnfcd5ip" path="res://assets/sprites/background/settings/settings_background.jpg" id="1_kura1"]
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="2_q6tgv"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_35imh"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_35imh"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_35imh"]
 button_index = 1

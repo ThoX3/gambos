@@ -23,6 +23,8 @@ var init_walk_ready: bool = false
 var is_healing: bool = false
 
 func _ready() -> void:
+	SaveManager.current_save = SaveData.new()
+	SaveManager.save_game()
 	call_deferred("start_init_walk")
 
 func clear_scene() -> void:

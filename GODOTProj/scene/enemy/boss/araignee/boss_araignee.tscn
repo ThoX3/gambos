@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cm4r681rprknf" path="res://scene/enemy/boss/araignee/boss_araignee.gd" id="1_52uca"]
 [ext_resource type="PackedScene" uid="uid://d3yhcam5xqjel" path="res://scene/projectile/projectile_sable.tscn" id="2_632vg"]
-[ext_resource type="PackedScene" uid="uid://bmk387cyux6hd" path="res://scene/ui/enemy/boss/TransitionBossAraignee.tscn" id="3_632vg"]
+[ext_resource type="PackedScene" uid="uid://bmk387cyux6hd" path="res://scene/ui/enemy/boss/araignee/TransitionBossAraignee.tscn" id="3_632vg"]
 [ext_resource type="Resource" uid="uid://cqb5hsm2bn2v" path="res://ressources/enemy/boss/Boss_araignee.tres" id="3_ixp5x"]
+[ext_resource type="PackedScene" uid="uid://bm21afyivgtjn" path="res://scene/enemy/boss/orbMutation.tscn" id="4_5isqy"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_scond"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_5isqy"]
 [ext_resource type="PackedScene" uid="uid://b0ni17q05s5ii" path="res://scene/ui/enemy/Damage_text.tscn" id="7_26ku6"]
@@ -20,6 +21,7 @@ motion_mode = 1
 script = ExtResource("1_52uca")
 projectile_scene = ExtResource("2_632vg")
 scene_transition = ExtResource("3_632vg")
+orb_mutation_scene = ExtResource("4_5isqy")
 stats = ExtResource("3_ixp5x")
 SEAWEED_SCENE = ExtResource("5_scond")
 PEARL_SCENE = ExtResource("6_5isqy")

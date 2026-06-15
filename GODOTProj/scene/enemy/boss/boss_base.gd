@@ -3,6 +3,7 @@ extends Enemy_Base
 
 @export var attack_cooldown: float = 3.0
 @export var scene_transition: PackedScene
+@export var orb_mutation_scene: PackedScene
 
 var _attack_timer: float = 0.0
 var is_attacking: bool = false
@@ -65,3 +66,22 @@ func _lancer_transition_boss() -> void:
 	get_tree().paused = false
 
 	await get_tree().create_timer(2.0).timeout
+	
+func _on_boss_mort() -> void:
+	# 1. Sauvegardes et signaux d'origine
+	SaveManager.current_save.boss_araignee_battu = true
+	SaveManager.save_game()
+	GameManager.boss_araignee_vaincu.emit()
+	
+	print("💀 MORT DU BOSS : On fige le jeu immédiatement.")
+	
+	# 2. On fige le jeu ICI, depuis le boss
+	# Comme ça, aucune action ou frame parasite ne peut continuer
+	if is_inside_tree():
+		get_tree().paused = true
+	
+	# 3. On demande à l'UI de s'afficher
+	get_tree().call_group("MutationUI", "_ouvrir_menu")
+	
+	# 4. Le boss peut mourir en paix, le jeu est déjà gelé
+	queue_free()

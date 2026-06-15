@@ -12,7 +12,6 @@ max_hp = 20
 armor = 15
 movement_speed = 150.0
 patrol_distance = 200.0
-weight = 5.0
 attack_damage = 6
 attack_range = 60.0
 attack_cooldown = 2.0

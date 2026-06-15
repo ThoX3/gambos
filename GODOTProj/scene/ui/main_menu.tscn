@@ -114,9 +114,10 @@ text = "Aller au temple"
 [node name="BestiaryButton" type="Button" parent="VBoxContainer" unique_id=426550016]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../HBoxContainer/SettingsButton")
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 27
-text = "Bestiaire"
+text = "Consulter le bestiaire"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=839489443]
 layout_mode = 2
@@ -133,7 +134,7 @@ theme_override_font_sizes/font_size = 18
 text = "Paramètres"
 flat = true
 
-[node name="CreditsButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="CreditsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1214350816]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_left = NodePath("../SettingsButton")

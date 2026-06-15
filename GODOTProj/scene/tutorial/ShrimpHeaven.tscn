@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://jp74a645mg4w"]
+
+[ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="1_1wx3j"]
+[ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="3_s6n4w"]
+[ext_resource type="PackedScene" uid="uid://75bi7dvqxslw" path="res://scene/tutorial/tutorial_dialogue.tscn" id="4_ptpny"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="5_gplew"]
+[ext_resource type="Texture2D" uid="uid://dh1nb3exsjgek" path="res://assets/sprites/pearl_shop/buttons/xbox-a.png" id="6_7rdeg"]
+
+[sub_resource type="Gradient" id="Gradient_s20yb"]
+offsets = PackedFloat32Array(0, 0.7758285, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nrkdb"]
+gradient = SubResource("Gradient_s20yb")
+fill_to = Vector2(0, 1)
+
+[node name="ShrimpHeaven" type="Control" unique_id=1276843658]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=992565490]
+self_modulate = Color(0.6039216, 0.6039216, 0.6039216, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1wx3j")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=799389860]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1721216305]
+layout_mode = 2
+theme_override_constants/separation = 29
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=913565030]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=909860046]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 200
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=1321222658]
+clip_children = 1
+layout_mode = 2
+texture = SubResource("GradientTexture2D_nrkdb")
+
+[node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/TextureRect" unique_id=2016717586]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_s6n4w")
+stretch_mode = 5
+
+
+[node name="NavigationButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=292889613]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=1205460141]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_gplew")
+theme_override_font_sizes/font_size = 18
+text = " Continuer"
+icon = ExtResource("6_7rdeg")
+flat = true

@@ -145,7 +145,8 @@ func show_menu(menu_to_show: Control) -> void:
 	menu_to_show.visible = true
 
 func open_pearl_shop(is_from_game_over : bool) -> void:
-	AudioManager.play_music("shop")
+	if not GameManager.gotoshop_from_tutorial:
+		AudioManager.play_music("shop")
 	show_menu($UI/PearlShop)
 	$UI/PearlShop.was_opened_from_game_over(is_from_game_over)
 	$UI/PearlShop.refresh_shop()

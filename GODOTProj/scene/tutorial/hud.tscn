@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://cbtucyirl7uyl"]
+
+[ext_resource type="Script" uid="uid://ctvrdusyi260a" path="res://scene/tutorial/hud.gd" id="1_5wg8i"]
+[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_8hjpl"]
+[ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="5_g2q33"]
+[ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="6_w32mh"]
+[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="7_l1uel"]
+[ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="11_ccc18"]
+
+[node name="hud" type="Control" unique_id=375714786]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 9.0
+offset_right = -641.0
+offset_bottom = -351.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+script = ExtResource("1_5wg8i")
+
+[node name="HP_Bar" type="TextureProgressBar" parent="." unique_id=844185871]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 309.5
+offset_right = 131.0
+offset_bottom = 341.5
+texture_under = ExtResource("5_g2q33")
+texture_progress = ExtResource("6_w32mh")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=891919234]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -634.0
+offset_top = 130.0
+offset_right = -519.5
+offset_bottom = 161.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_bottom = -5
+
+[node name="HP" type="Label" parent="MarginContainer" unique_id=642179829]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_l1uel")
+theme_override_font_sizes/font_size = 18
+text = "10/10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Pearls" type="HBoxContainer" parent="." unique_id=1714735676]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -29.0
+offset_right = -8.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Pearls" unique_id=1729645464]
+layout_mode = 2
+theme_override_constants/margin_bottom = -5
+
+[node name="Count" type="Label" parent="Pearls/MarginContainer" unique_id=933801261]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8hjpl")
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="Icon" type="TextureRect" parent="Pearls" unique_id=1527297100]
+layout_mode = 2
+texture = ExtResource("11_ccc18")
+expand_mode = 3
+stretch_mode = 4

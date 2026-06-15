@@ -8,6 +8,9 @@ class_name SaveData
 @export var setting_use_pixel_font: bool = true
 @export var setting_show_damage_numbers: bool = true
 
+# Tutorial
+@export var tutorial_completed: bool = false
+
 # Pearls 
 @export var pearls: int = 0
 

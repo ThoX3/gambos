@@ -28,14 +28,22 @@
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="22_6jm8l"]
 [ext_resource type="Texture2D" uid="uid://b0oxhimygfwc8" path="res://assets/sprites/pearl_shop/buttons/xbox-y.png" id="23_iebwt"]
 
-[sub_resource type="Gradient" id="Gradient_w5y77"]
+[sub_resource type="Gradient" id="Gradient_s20yb"]
+offsets = PackedFloat32Array(0, 0.7758285, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xe34p"]
+gradient = SubResource("Gradient_s20yb")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_q40y7"]
 offsets = PackedFloat32Array(0.8666667, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 30
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iqugw"]
-gradient = SubResource("Gradient_w5y77")
+gradient = SubResource("Gradient_q40y7")
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
@@ -106,18 +114,28 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=915679690]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1509750811]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=59470666]
+[node name="GodessRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2" unique_id=776678437]
+unique_name_in_owner = true
+clip_children = 1
 layout_mode = 2
+texture = SubResource("GradientTexture2D_xe34p")
+
+[node name="GodessPic" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/GodessRect" unique_id=599555308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 texture = ExtResource("4_w5y77")
-expand_mode = 3
-stretch_mode = 4
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=228003722]
 layout_mode = 2

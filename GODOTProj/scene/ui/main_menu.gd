@@ -3,6 +3,8 @@ extends Control
 signal pearl_shop_button_pressed(isFromMainMenu)
 signal bestiary_button_pressed
 signal settings_button_pressed
+signal credits_button_pressed
+
 
 @onready var play_button = $VBoxContainer/PlayButton
 @onready var resume_button = $VBoxContainer/ResumeSaveButton
@@ -10,8 +12,9 @@ signal settings_button_pressed
 @onready var bestiary_button = $VBoxContainer/BestiaryButton
 @onready var quit_button = $VBoxContainer/HBoxContainer/QuitButton
 @onready var settings_button = $VBoxContainer/HBoxContainer/SettingsButton
+@onready var credits_button = $VBoxContainer/HBoxContainer/CreditsButton
 @onready var list_button = [play_button, resume_button, pearl_shop_button, 
-							bestiary_button, quit_button, settings_button]
+							bestiary_button, quit_button, settings_button, credits_button]
 
 var is_save_available: bool = false
 
@@ -22,6 +25,7 @@ func _ready() -> void:
 	bestiary_button.pressed.connect(open_bestiary)
 	quit_button.pressed.connect(get_tree().quit)
 	settings_button.pressed.connect(open_settings) 
+	credits_button.pressed.connect(open_credits)
 	
 	check_for_save()
 	if is_save_available:
@@ -31,7 +35,8 @@ func _ready() -> void:
 		play_button.grab_focus.call_deferred()
 	
 	# ── Musique et son ─────────────────────────
-	AudioManager.play_music("main_menu")
+	if not GameManager.gotoshop:
+		AudioManager.play_music("main_menu")
 	
 	for button in list_button:
 		button.focus_entered.connect(_on_navigation_menu)
@@ -43,6 +48,10 @@ func _process(delta: float) -> void:
 	pass
 
 func play():
+	if not SaveManager.current_save.tutorial_completed:
+		get_tree().change_scene_to_file("res://scene/tutorial/turorial.tscn")
+		return
+		
 	if is_save_available:
 		# L'utilisateur a cliqué sur jouer alors qu'une sauvegarde existe.
 		# On écrase la sauvegarde existante.
@@ -67,6 +76,9 @@ func open_bestiary():
 func open_settings():
 	settings_button_pressed.emit()
 	
+func open_credits():
+	credits_button_pressed.emit()
+	
 func check_for_save():
 	if SaveManager.current_save and SaveManager.current_save.run_en_cours:
 		resume_button.visible = true
@@ -76,6 +88,12 @@ func check_for_save():
 	else:
 		resume_button.visible = false
 		is_save_available = false
+
+	if SaveManager.current_save and not SaveManager.current_save.tutorial_completed:
+		resume_button.visible = false
+		pearl_shop_button.visible = false
+		bestiary_button.visible = false
+		credits_button.visible = false
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

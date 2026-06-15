@@ -17,6 +17,7 @@ signal boss_araignee_vaincu()
 
 var skip_menu: bool = false
 var gotoshop: bool = false
+var gotoshop_from_tutorial: bool = false
 var in_game: bool = false
 
 # Called when the node enters the scene tree for the first time.

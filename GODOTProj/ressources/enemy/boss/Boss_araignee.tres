@@ -22,4 +22,5 @@ attack_cooldown = 3.0
 projectile_type = ExtResource("4_f027s")
 xp_drop = 500
 pearl_drop_probability = 1.0
+pearl_drop_range = Vector2i(5, 5)
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

@@ -67,7 +67,7 @@ scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SweepRect" type="ColorRect" parent="Wave/Count" unique_id=3141592653]
+[node name="SweepRect" type="ColorRect" parent="Wave/Count" unique_id=-1153374643]
 material = SubResource("ShaderMaterial_sweep")
 layout_mode = 1
 anchors_preset = 15

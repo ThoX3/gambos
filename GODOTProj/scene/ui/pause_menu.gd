@@ -11,10 +11,14 @@ var _bestiary_open: bool = false
 
 func _ready() -> void:
 	hide()
-	%Resume.pressed.connect(_on_resume_pressed)
-	%Quit.pressed.connect(_on_quit_pressed)
-	%BestiaryButton.pressed.connect(_on_bestiary_pressed) 
-	%SettingsButton.pressed.connect(_on_settings_pressed)
+	if not %Resume.pressed.is_connected(_on_resume_pressed):
+		%Resume.pressed.connect(_on_resume_pressed)
+	if not %Quit.pressed.is_connected(_on_quit_pressed):
+		%Quit.pressed.connect(_on_quit_pressed)
+	if not %BestiaryButton.pressed.is_connected(_on_bestiary_pressed):
+		%BestiaryButton.pressed.connect(_on_bestiary_pressed) 
+	if not %SettingsButton.pressed.is_connected(_on_settings_pressed):
+		%SettingsButton.pressed.connect(_on_settings_pressed)
 	%Quit.focus_entered.connect(_display_quit_info)
 	%Quit.focus_exited.connect(_hide_quit_info)
 

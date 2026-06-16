@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://caygsy8jueaqh" path="res://scene/ui/bestiary/bestiary.gd" id="1_best"]
 [ext_resource type="PackedScene" uid="uid://kmchqd4nvrct" path="res://scene/ui/bestiary/bestiary_card.tscn" id="2_card"]
-[ext_resource type="Resource" uid="uid://bp4bqdsebw2jg" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
+[ext_resource type="Resource" uid="uid://bai2sy5oxi5j5" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
 
 [node name="Bestiary" type="Control" unique_id=592078671]
 layout_mode = 3
@@ -48,6 +48,16 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
+
+[node name="CharacterTitle2" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1248520001]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "— Personnages —"
+horizontal_alignment = 1
+
+[node name="PlayerContainer" type="GridContainer" parent="Layout/LeftPanel/VBox" unique_id=1015656980]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="EnemiesTitle" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1487168231]
 layout_mode = 2

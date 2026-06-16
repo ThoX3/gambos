@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://0585j1evwitf"]
 
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_fppg3"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_yd174"]
 [ext_resource type="SpriteFrames" uid="uid://bhl8oj6rulx46" path="res://assets/sprites/enemy/Woodlouse.tres" id="2_6xvqb"]
 
 [resource]

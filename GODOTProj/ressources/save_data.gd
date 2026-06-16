@@ -13,6 +13,7 @@ class_name SaveData
 
 # Pearls 
 @export var pearls: int = 0
+@export var total_purchases: int = 0
 
 # Pearl basic upgrades
 @export var upgrade_health_level: int = 0

@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bkmi1txllqgo" path="res://scene/ui/pause_menu.tscn" id="10_hybxs"]
 [ext_resource type="PackedScene" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
+[ext_resource type="PackedScene" path="res://scene/ui/credits.tscn" id="13_credits"]
 [ext_resource type="Resource" uid="uid://dlbscv7k3dnd5" path="res://ressources/waves/SpawnConfig_1.tres" id="13_gjnwh"]
-[ext_resource type="PackedScene" uid="uid://credits_uid" path="res://scene/ui/credits.tscn" id="13_credits"]
 [ext_resource type="PackedScene" uid="uid://bxm35m7vx2oef" path="res://scene/ui/settings_menu/settings.tscn" id="13_settings"]
 [ext_resource type="Resource" uid="uid://bqqieftyh5wfv" path="res://ressources/waves/BalancingConfig.tres" id="14_v2gmf"]
 [ext_resource type="Script" uid="uid://bkj2x6i6xdk0e" path="res://scene/WorldManager.gd" id="15_smf0o"]
@@ -34,7 +34,7 @@ starting_map = ExtResource("3_wp4xf")
 [node name="Settings" parent="UI" unique_id=123123123 instance=ExtResource("13_settings")]
 visible = false
 
-[node name="Credits" parent="UI" instance=ExtResource("13_credits")]
+[node name="Credits" parent="UI" unique_id=2046469343 instance=ExtResource("13_credits")]
 visible = false
 
 [node name="MainMenu" parent="UI" unique_id=1274161686 instance=ExtResource("4_wscrc")]

@@ -79,6 +79,7 @@ func take_damage(amount: int) -> int:
 	hp -= amount
 	
 	if hp <= 0:
+		GameManager.register_enemy_kill(stats)
 		$CollisionShape2D.set_deferred("disabled", true)
 		_creer_splash_mort()
 		_drop_experience()

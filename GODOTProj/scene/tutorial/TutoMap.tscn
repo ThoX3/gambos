@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d025r4ny7jvdq" path="res://assets/sprites/background/map1/Background(blue2).png" id="1_hkp6c"]
 [ext_resource type="Texture2D" uid="uid://d3ykmxsybkci8" path="res://assets/sprites/tutorial/house.png" id="2_i0dpn"]
 [ext_resource type="Texture2D" uid="uid://d2t6xa75hd6ar" path="res://assets/sprites/tutorial/riff1.png" id="4_txlgu"]
-[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral.png" id="5_6225r"]
+[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral_blue.png" id="5_6225r"]
 [ext_resource type="Texture2D" uid="uid://cdqnxtnnyulat" path="res://assets/sprites/tutorial/coral1.png" id="6_y8py7"]
 [ext_resource type="Texture2D" uid="uid://de0aw7820ruhu" path="res://assets/sprites/tutorial/coral3.png" id="7_cj065"]
 [ext_resource type="Texture2D" uid="uid://0uwl475302t6" path="res://assets/sprites/tutorial/riff3.png" id="8_2vysh"]

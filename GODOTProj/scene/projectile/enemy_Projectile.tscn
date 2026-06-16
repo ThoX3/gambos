@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bem8erjrse6pm"]
+
+[ext_resource type="Script" uid="uid://dlbff56yix3aq" path="res://scene/projectile/enemy_projectile.gd" id="1_5c0ru"]
+[ext_resource type="SpriteFrames" uid="uid://blk82shyc77ms" path="res://assets/sprites/projectile/coral_projectile.tres" id="2_rci2k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eq5dk"]
+radius = 14.0
+
+[node name="EnemyProjectile" type="Area2D" unique_id=2121252919]
+script = ExtResource("1_5c0ru")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=947011685]
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("2_rci2k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1248825371]
+shape = SubResource("CircleShape2D_eq5dk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

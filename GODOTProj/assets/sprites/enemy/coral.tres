@@ -1,3 +1,14 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://c2b32jfro6mmg"]
 
+[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral.png" id="1_yopwf"]
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yopwf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

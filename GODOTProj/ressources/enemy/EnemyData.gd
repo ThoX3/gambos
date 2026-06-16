@@ -37,3 +37,6 @@ class_name EnemyData
 @export var intervalle_spawn: float = 3.0
 @export var spawn_a_la_mort: bool = false
 @export var afficher_pulsation: bool = true
+
+@export_group("Si shooterTir")
+@export var patterns: Array[ShootingPattern] = []

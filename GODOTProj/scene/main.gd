@@ -122,6 +122,8 @@ func _on_GameOver():
 	SaveManager.current_save.run_en_cours = false
 	SaveManager.current_save.run_player_stats = null
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.current_save.player_death_count += 1
+	GameManager.flush_kill_counts_to_save()
 	SaveManager.save_game()
 	GameManager.gotoshop = true
 	
@@ -136,6 +138,7 @@ func reload_level():
 	
 func _on_start():
 	GameManager.in_game = true
+	GameManager.reset_run_kill_counts()
 	start_game(starting_map)
 
 func show_menu(menu_to_show: Control) -> void:

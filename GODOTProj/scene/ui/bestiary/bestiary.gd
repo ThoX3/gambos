@@ -13,11 +13,17 @@ signal back_button_pressed
 
 @onready var enemy_container: GridContainer = %EnemyContainer
 @onready var boss_container: GridContainer = %BossContainer
+@onready var player_container: GridContainer = %PlayerContainer
 @onready var detail_panel: Control = %DetailPanel
 @onready var detail_name: Label = %DetailName
 @onready var detail_stats: Label = %DetailStats
 @onready var detail_sprite: TextureRect = %DetailSprite
 @onready var back_button: Button = %BackButton
+
+const GAMBOS_KEY := "gambos_player"
+
+const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos_walk1.png")
+const BASE_PLAYER_STATS: PlayerStat = preload("res://ressources/playerStat.tres")
 
 var _max_wave: int = 0
 ## true si ouvert depuis le menu pause (la partie est en cours)
@@ -42,9 +48,9 @@ func setup_from_pause(max_wave_reached: int) -> void:
 
 func _refresh() -> void:
 	_clear_containers()
+	_populate_player()
 	_populate_enemies()
 	_populate_bosses()
-	# Focus sur le premier bouton disponible pour la manette
 	await get_tree().process_frame
 	_focus_first_card()
 
@@ -79,6 +85,8 @@ func _clear_containers() -> void:
 		child.queue_free()
 	for child in boss_container.get_children():
 		child.queue_free()
+	for child in player_container.get_children():
+		child.queue_free()
 
 func _populate_enemies() -> void:
 	if spawn_config == null:
@@ -99,11 +107,31 @@ func _populate_bosses() -> void:
 		var unlocked: bool = entry.vague_exacte <= _max_wave
 		_add_card(entry.data, unlocked, true, boss_container)
 
+func _populate_player() -> void:
+	var card: Control = card_scene.instantiate()
+	player_container.add_child(card)
+	card.setup_player()
+	card.card_selected.connect(_on_player_card_selected)
+
 func _add_card(data: EnemyData, unlocked: bool, is_boss: bool, container: GridContainer) -> void:
 	var card: Control = card_scene.instantiate()
 	container.add_child(card)
-	card.setup(data, unlocked, is_boss)
+	var kill_count := GameManager.get_total_kill_count(data) if unlocked else 0
+	card.setup(data, unlocked, is_boss, kill_count)
 	card.card_selected.connect(_on_card_selected.bind(data, unlocked, is_boss))
+
+func _on_player_card_selected() -> void:
+	detail_name.text = "Gambos"
+	detail_sprite.texture = GAMBOS_TEXTURE
+
+	var save = SaveManager.current_save
+	var stats_text := ""
+	stats_text += "❤️  PV : %d\n" % int(BASE_PLAYER_STATS.max_health)
+	stats_text += "⚔️  Dégâts : %d\n" % BASE_PLAYER_STATS.proj_damage
+	stats_text += "💨  Vitesse : %.0f\n" % BASE_PLAYER_STATS.speed
+	stats_text += "💀  Morts : %d\n" % save.player_death_count
+
+	detail_stats.text = stats_text
 
 func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 	if not unlocked:
@@ -126,5 +154,6 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 	stats_text += "✨  XP lâché : %d\n" % data.xp_drop
 	if data.pearl_drop_probability > 0.0:
 		stats_text += "🦪  Perles : %.0f%%\n" % (data.pearl_drop_probability * 100)
+	stats_text += "☠️  Tués : %d\n" % GameManager.get_total_kill_count(data)
 
 	detail_stats.text = stats_text

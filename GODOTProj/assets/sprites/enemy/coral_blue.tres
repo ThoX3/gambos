@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://c2b32jfro6mmg"]
 
-[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral.png" id="1_yopwf"]
+[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral_blue.png" id="1_yopwf"]
 
 [resource]
 animations = [{

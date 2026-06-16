@@ -40,3 +40,4 @@ class_name EnemyData
 
 @export_group("Si shooterTir")
 @export var patterns: Array[ShootingPattern] = []
+@export var projectile_sprite: SpriteFrames

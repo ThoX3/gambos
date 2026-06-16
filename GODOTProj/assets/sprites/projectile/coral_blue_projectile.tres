@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://blk82shyc77ms"]
 
-[ext_resource type="Texture2D" uid="uid://bmbnhjveuhsb8" path="res://assets/sprites/projectile/coral_projectile.png" id="1_wfx36"]
+[ext_resource type="Texture2D" uid="uid://bmbnhjveuhsb8" path="res://assets/sprites/projectile/coral_blue_projectile.png" id="1_wfx36"]
 
 [resource]
 animations = [{

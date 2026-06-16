@@ -71,8 +71,14 @@ func _calculer_directions(pattern: ShootingPattern) -> Array[Vector2]:
 
 func _spawner_projectile(pattern: ShootingPattern, direction: Vector2) -> void:
 	var proj: EnemyProjectile = pattern.scene_projectile.instantiate()
-	proj.init(direction, pattern.degats, pattern.vitesse, pattern.duree_vie)
+	proj.init(direction, pattern.degats, pattern.vitesse, pattern.duree_vie, stats.projectile_sprite)
 
 	var parent := conteneur_projectiles if conteneur_projectiles else get_parent()
 	parent.add_child(proj)
+	_pulser()
 	proj.global_position = global_position
+
+func _pulser() -> void:
+	var tween := create_tween().set_trans(Tween.TRANS_SINE)
+	tween.tween_property(sprite, "scale", Vector2(1.3, 1.3), 0.15)
+	tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.15)

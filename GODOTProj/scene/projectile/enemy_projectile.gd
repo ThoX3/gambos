@@ -8,11 +8,12 @@ var duree_vie: float = 3.0
 var _direction: Vector2 = Vector2.RIGHT
 var _timer: float       = 0.0
 
-func init(direction: Vector2, p_degats: int, p_vitesse: float, p_duree_vie: float) -> void:
+func init(direction: Vector2, p_degats: int, p_vitesse: float, p_duree_vie: float, p_sprite) -> void:
 	_direction = direction.normalized()
 	degats     = p_degats
 	vitesse    = p_vitesse
 	duree_vie  = p_duree_vie
+	$AnimatedSprite2D.sprite_frames = p_sprite
 	# Oriente le sprite dans la direction de tir
 	rotation   = _direction.angle()
 

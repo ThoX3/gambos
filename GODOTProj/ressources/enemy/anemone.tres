@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_4wvjc"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_j4d83"]
-[ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="2_0s4u4"]
+[ext_resource type="Resource" uid="uid://gqqt6yw5g2wv" path="res://ressources/enemy/Clownfish.tres" id="2_0s4u4"]
 [ext_resource type="SpriteFrames" uid="uid://mnrc3xngbvhk" path="res://assets/sprites/enemy/anemone.tres" id="2_dw08a"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="3_mi41w"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="4_0s4u4"]
@@ -17,11 +17,10 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 [resource]
 script = ExtResource("1_j4d83")
 texture = ExtResource("2_dw08a")
-name = "anemone"
+name = "Anemone"
 max_hp = 50
 weight = 500000.0
-cout = 2
-poids = 100
+cout = 15
 ennemis_a_spawner = Array[ExtResource("1_4wvjc")]([SubResource("Resource_6twek")])
 nb_spawn_max = 1000
 intervalle_spawn = 5.0

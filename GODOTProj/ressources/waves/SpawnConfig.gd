@@ -20,11 +20,17 @@ enum ZoneType {
 @export_group("Ennemis")
 @export var ennemis: Array[Resource] = []
 @export var boss: Array[Resource] = []
+## Boss qui doivent apparaître comme des ennemis normaux (mode infini).
+## Référencent un EntreeBoss mais sont piochés via le budget, sans cinématique ni barre de vie.
+@export var boss_comme_ennemis: Array[Resource] = []
+
 
 # ── Accesseurs ────────────────────────────────
 
 func get_ennemis_disponibles(numero_vague: int) -> Array:
-	return ennemis.filter(func(e): return e is EntreeEnnemi and e.vague_apparition <= numero_vague)
+	var liste := ennemis.filter(func(e): return e is EntreeEnnemi and e.vague_apparition <= numero_vague)
+	liste += boss_comme_ennemis.filter(func(b): return b is EntreeBoss)
+	return liste
 
 func get_boss_pour_vague(numero_vague: int) -> EntreeBoss:
 	for b in boss:

@@ -8,8 +8,10 @@
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="3_6sx1e"]
 [ext_resource type="Script" uid="uid://dj14x25prjjx0" path="res://ressources/waves/EntreeBoss.gd" id="3_8og5k"]
 [ext_resource type="Resource" uid="uid://vtt7rlekjsuu" path="res://ressources/enemy/hermit.tres" id="4_1ykh5"]
+[ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="4_8og5k"]
 [ext_resource type="Resource" uid="uid://jhsrfe6k6ui1" path="res://ressources/enemy/Lobster.tres" id="4_xwoul"]
 [ext_resource type="Resource" uid="uid://gqqt6yw5g2wv" path="res://ressources/enemy/Clownfish.tres" id="5_1ykh5"]
+[ext_resource type="PackedScene" uid="uid://jw1arwmodi8o" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.tscn" id="5_ptvm1"]
 [ext_resource type="Resource" uid="uid://frgewh2lsjpu" path="res://ressources/enemy/Surgeonfish.tres" id="6_updt2"]
 [ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="7_7u5fj"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="8_8og5k"]
@@ -19,6 +21,14 @@ script = ExtResource("3_8og5k")
 scene = ExtResource("2_7u5fj")
 data = ExtResource("1_updt2")
 vague_exacte = 20
+duree = 30.0
+metadata/_custom_type_script = "uid://dj14x25prjjx0"
+
+[sub_resource type="Resource" id="Resource_cew7t"]
+script = ExtResource("3_8og5k")
+scene = ExtResource("5_ptvm1")
+data = ExtResource("4_8og5k")
+vague_exacte = 40
 duree = 30.0
 metadata/_custom_type_script = "uid://dj14x25prjjx0"
 
@@ -72,5 +82,5 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 [resource]
 script = ExtResource("8_8og5k")
 ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_y3dq1"), SubResource("Resource_34r5y"), SubResource("Resource_k4dty")])
-boss = Array[Resource]([SubResource("Resource_ptvm1")])
+boss = Array[Resource]([SubResource("Resource_ptvm1"), SubResource("Resource_cew7t")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

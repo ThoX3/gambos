@@ -138,11 +138,11 @@ func _input(event: InputEvent) -> void:
 		return
 	if time_scales.size() <= 1:
 		return
-		
-	if event.is_action_pressed("speed_up"):
+	
+	if Input.is_action_just_pressed("speed_up"):
 		_time_scale_index = min(_time_scale_index + 1, time_scales.size() - 1)
 		_apply_time_scale()
-	elif event.is_action_pressed("slow_down"):
+	elif Input.is_action_just_pressed("slow_down"):
 		_time_scale_index = max(_time_scale_index - 1, 0)
 		_apply_time_scale()
 

@@ -1,11 +1,7 @@
 [gd_scene format=3 uid="uid://bmk387cyux6hd"]
 
 [ext_resource type="Texture2D" uid="uid://deqjkral6ors6" path="res://assets/sprites/enemy/araignee_transition.png" id="1_baq6g"]
-[ext_resource type="FontFile" uid="uid://stsjslemj87r" path="res://assets/fonts/depixel/BebasNeue-Regular.ttf" id="1_ud0p2"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_baq6g"]
-font = ExtResource("1_ud0p2")
-font_size = 100
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="1_ud0p2"]
 
 [sub_resource type="Gradient" id="Gradient_baq6g"]
 offsets = PackedFloat32Array(0.5397351, 0.6258278)
@@ -170,10 +166,13 @@ color = Color(1, 0, 0, 0.39215687)
 [node name="NomBoss" type="Label" parent="CanvasLayer" unique_id=175997757]
 offset_left = -631.0
 offset_top = 227.0
-offset_right = 496.0
-offset_bottom = 364.0
-text = "UN BOSS EST APPARU !!"
-label_settings = SubResource("LabelSettings_baq6g")
+offset_right = -131.0
+offset_bottom = 542.0
+theme_override_fonts/font = ExtResource("1_ud0p2")
+theme_override_font_sizes/font_size = 90
+text = "UN BOSS EST APPARU !"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="SilhouetteBoss" type="TextureRect" parent="CanvasLayer" unique_id=1928499436]
 z_index = 10

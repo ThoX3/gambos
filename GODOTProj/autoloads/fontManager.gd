@@ -13,11 +13,11 @@ var font_map = {
 }
 
 var modern_font_map = {
-	"DePixelBreit.tres": "Coolvetica Rg Cond.otf",
-	"DePixelHalbfett.tres": "Coolvetica Rg Cram.otf",
-	"DePixelKlein.tres": "Coolvetica Rg Cond.otf",
-	"DePixelSchmal.tres": "Coolvetica Hv Comp.otf",
-	"DePixelIllegible.tres": "Coolvetica Rg.otf"
+	"DePixelBreit.tres": "Gobold Regular.otf",
+	"DePixelHalbfett.tres": "Gobold Bold.otf",
+	"DePixelKlein.tres": "Gobold Lowplus.otf",
+	"DePixelSchmal.tres": "Gobold Extra2.otf",
+	"DePixelIllegible.tres": "Gobold Uplow.otf"
 }
 
 var is_modern_active: bool = false

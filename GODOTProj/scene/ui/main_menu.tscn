@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cp0apbhuwm2kb" path="res://scene/ui/main_menu.gd" id="1_s6uko"]
 [ext_resource type="Texture2D" uid="uid://dac1i4n7sccgj" path="res://assets/sprites/main_menu/background.png" id="2_vww0c"]
-[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_k75cp"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_k3dtv"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_k3dtv"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="5_e5dty"]
 
@@ -50,7 +50,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.90588236, 0.89411765, 0.92941177, 1)
 theme_override_colors/font_outline_color = Color(0.039215688, 0.32156864, 0.47843137, 1)
 theme_override_constants/outline_size = 18
-theme_override_fonts/font = ExtResource("3_k75cp")
+theme_override_fonts/font = ExtResource("3_k3dtv")
 theme_override_font_sizes/font_size = 54
 text = "The Choosen"
 horizontal_alignment = 1
@@ -61,7 +61,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.90588236, 0.89411765, 0.92941177, 1)
 theme_override_colors/font_outline_color = Color(0.039215688, 0.32156864, 0.47843137, 1)
 theme_override_constants/outline_size = 18
-theme_override_fonts/font = ExtResource("3_k75cp")
+theme_override_fonts/font = ExtResource("3_k3dtv")
 theme_override_font_sizes/font_size = 81
 text = "Shrimp"
 horizontal_alignment = 1

@@ -116,7 +116,7 @@ func _populate_player() -> void:
 func _add_card(data: EnemyData, unlocked: bool, is_boss: bool, container: GridContainer) -> void:
 	var card: Control = card_scene.instantiate()
 	container.add_child(card)
-	var kill_count := GameManager.get_total_kill_count(data) if unlocked else 0
+	var kill_count = GameManager.get_total_kill_count(data) if unlocked else 0
 	card.setup(data, unlocked, is_boss, kill_count)
 	card.card_selected.connect(_on_card_selected.bind(data, unlocked, is_boss))
 

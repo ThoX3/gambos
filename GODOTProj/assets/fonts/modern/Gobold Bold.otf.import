@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ceuhm3hj1fddi"
-path="res://.godot/imported/Coolvetica Rg Cond.otf-f9a72d5a6eaa661098b6df2b9ddffa82.fontdata"
+uid="uid://c3ia2aetkiwhp"
+path="res://.godot/imported/Gobold Bold.otf-f1f5dc295889165673d4e727c08214d6.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/modern/Coolvetica Rg Cond.otf"
-dest_files=["res://.godot/imported/Coolvetica Rg Cond.otf-f9a72d5a6eaa661098b6df2b9ddffa82.fontdata"]
+source_file="res://assets/fonts/modern/Gobold Bold.otf"
+dest_files=["res://.godot/imported/Gobold Bold.otf-f1f5dc295889165673d4e727c08214d6.fontdata"]
 
 [params]
 

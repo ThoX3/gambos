@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b8tkfyn7p6e3u"
-path="res://.godot/imported/Coolvetica Rg Cram.otf-efd932130031f46b8a9ab13cc66f063a.fontdata"
+uid="uid://cmsq2rxw64035"
+path="res://.godot/imported/Gobold Lowplus.otf-f2d4e1c123bd702ea93383882eb7ab4e.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/modern/Coolvetica Rg Cram.otf"
-dest_files=["res://.godot/imported/Coolvetica Rg Cram.otf-efd932130031f46b8a9ab13cc66f063a.fontdata"]
+source_file="res://assets/fonts/modern/Gobold Lowplus.otf"
+dest_files=["res://.godot/imported/Gobold Lowplus.otf-f2d4e1c123bd702ea93383882eb7ab4e.fontdata"]
 
 [params]
 

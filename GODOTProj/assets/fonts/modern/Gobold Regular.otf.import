@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://stsjslemj87r"
-path="res://.godot/imported/BebasNeue-Regular.ttf-40d340f8ac2ecf858e9695d6da866797.fontdata"
+uid="uid://bp7jkuhvvbjgn"
+path="res://.godot/imported/Gobold Regular.otf-7d0c717818e2c85796388f6066fabc82.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/depixel/BebasNeue-Regular.ttf"
-dest_files=["res://.godot/imported/BebasNeue-Regular.ttf-40d340f8ac2ecf858e9695d6da866797.fontdata"]
+source_file="res://assets/fonts/modern/Gobold Regular.otf"
+dest_files=["res://.godot/imported/Gobold Regular.otf-7d0c717818e2c85796388f6066fabc82.fontdata"]
 
 [params]
 

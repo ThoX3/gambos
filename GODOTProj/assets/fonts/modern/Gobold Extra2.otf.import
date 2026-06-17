@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://jxtkuw28wvla"
-path="res://.godot/imported/Coolvetica Hv Comp.otf-ff920f0a658367e8c23f01f9302799d1.fontdata"
+uid="uid://dcrsnnqqsjns2"
+path="res://.godot/imported/Gobold Extra2.otf-fefe7c1e0be3538075ef2694c1f9df22.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/modern/Coolvetica Hv Comp.otf"
-dest_files=["res://.godot/imported/Coolvetica Hv Comp.otf-ff920f0a658367e8c23f01f9302799d1.fontdata"]
+source_file="res://assets/fonts/modern/Gobold Extra2.otf"
+dest_files=["res://.godot/imported/Gobold Extra2.otf-fefe7c1e0be3538075ef2694c1f9df22.fontdata"]
 
 [params]
 

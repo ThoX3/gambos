@@ -54,7 +54,8 @@ theme_override_constants/separation = 16
 
 [node name="CharacterTitle2" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1248520001]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_dk0bv")
+theme_override_font_sizes/font_size = 18
 text = "— Personnages —"
 horizontal_alignment = 1
 
@@ -134,6 +135,7 @@ theme_override_fonts/font = ExtResource("5_qprn2")
 theme_override_font_sizes/font_size = 27
 text = "Bestiaire"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="." unique_id=1065223257]
 unique_name_in_owner = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qlv3py060nw0" path="res://scene/ui/pearl_shop/pearl_shop_tree.gd" id="1_iqugw"]
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_iqugw"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_irh2w"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_irh2w"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_6ic84"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="3_j1qqk"]
 [ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_w5y77"]
@@ -201,14 +201,15 @@ icon_texture = ExtResource("7_jn2eo")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
-[node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer2" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "damage"
-upgrade_name = "Attaque"
-upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
-icon_texture = ExtResource("8_ciura")
+upgrade_id = "attack_speed"
+upgrade_name = "Vigueur"
+upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
+icon_texture = ExtResource("8_gipjf")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
+parent_node_unlock_level = 3
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
 layout_mode = 2
@@ -225,15 +226,14 @@ max_level = 10
 parent_node = NodePath("../../VBoxContainer2/HealthNode")
 parent_node_unlock_level = 5
 
-[node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="DamageNode" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer3" unique_id=1568314784 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "attack_speed"
-upgrade_name = "Vigueur"
-upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
-icon_texture = ExtResource("8_gipjf")
+upgrade_id = "damage"
+upgrade_name = "Attaque"
+upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+icon_texture = ExtResource("8_ciura")
 max_level = 10
-parent_node = NodePath("../../VBoxContainer2/DamageNode")
-parent_node_unlock_level = 3
+parent_node = NodePath("../../VBoxContainer2/AttackSpeedNode")
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=366298988]
 layout_mode = 2
@@ -256,7 +256,7 @@ upgrade_id = "ingame_speed"
 upgrade_name = "Célérité"
 upgrade_description = "Permet d'accélérer l'écoulement du temps en combat pour affronter les vagues plus rapidement."
 icon_texture = ExtResource("12_qpv24")
-parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
+parent_node = NodePath("../../VBoxContainer3/DamageNode")
 
 [node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer4" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -265,7 +265,7 @@ upgrade_name = "Épines"
 upgrade_description = "Fait pousser des épines sur la carapace de Gambos, infligeant des dégats à ceux qui s'en approchent trop."
 icon_texture = ExtResource("12_gipjf")
 max_level = 10
-parent_node = NodePath("../../VBoxContainer3/AttackSpeedNode")
+parent_node = NodePath("../../VBoxContainer3/DamageNode")
 parent_node_unlock_level = 3
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=1020847908]
@@ -433,6 +433,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=2013895789]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

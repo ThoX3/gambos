@@ -7,9 +7,14 @@ extends Enemy_Base
 var _attack_timer: float = 0.0
 var is_attacking: bool = false
 
+## true quand le boss est spawné comme un ennemi normal (mode infini) :
+## pas de cinématique, pas de pause, pas de barre de vie spéciale.
+var spawn_comme_ennemi_normal: bool = false
+
 func _ready() -> void:
 	super._ready() 
-	_lancer_transition_boss()
+	if not spawn_comme_ennemi_normal:
+		_lancer_transition_boss()
 	_attack_timer = attack_cooldown
 
 func _physics_process(delta: float) -> void:

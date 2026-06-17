@@ -42,7 +42,12 @@ func start_waves(continuer: bool = false) -> void:
 		var main_node = get_tree().get_first_node_in_group("Main")
 		if main_node and main_node.has_node("World/WorldManager"):
 			var wm = main_node.get_node("World/WorldManager")
-			_numero_vague = wm._index_monde_courant * vagues_par_monde
+			if wm._mode_infini_actif:
+				# En mode infini, on continue simplement à partir de la vague actuelle,
+				# pas de recalcul basé sur l'index de monde.
+				pass  # _numero_vague garde sa valeur actuelle
+			else:
+				_numero_vague = wm._index_monde_courant * vagues_par_monde
 
 	_timer_pause  = 0.0
 	_boss_courant = null
@@ -197,11 +202,22 @@ func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:
 func _spawner_depuis_liste() -> void:
 	if _ennemis_spawnes >= _liste_spawn.size():
 		return
-	var entry: EntreeEnnemi = _liste_spawn[_ennemis_spawnes]
-	var ennemi: Enemy_Base  = entry.scene.instantiate()
-	ennemi.stats            = entry.data
-	ennemi.global_position  = _calculer_position_spawn()
-	conteneur_ennemis.add_child(ennemi)
+	var entry = _liste_spawn[_ennemis_spawnes]
+
+	if entry is EntreeBoss:
+		var nb = max(entry.nb_ennemis, 1)
+		for i in range(nb):
+			var boss: Boss_Base = entry.scene.instantiate() as Boss_Base
+			boss.stats = entry.data
+			boss.spawn_comme_ennemi_normal = true
+			boss.global_position = _calculer_position_spawn()
+			conteneur_ennemis.add_child(boss)
+	else:
+		var ennemi: Enemy_Base = entry.scene.instantiate()
+		ennemi.stats           = entry.data
+		ennemi.global_position = _calculer_position_spawn()
+		conteneur_ennemis.add_child(ennemi)
+
 	_ennemis_spawnes += 1
 
 func _spawner_boss(boss_entry: EntreeBoss) -> void:

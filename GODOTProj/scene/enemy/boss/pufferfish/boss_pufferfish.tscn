@@ -28,9 +28,6 @@ SPLASH_EFFECT_SCENE = ExtResource("8_emkko")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
 sprite_frames = ExtResource("9_vwxca")
 animation = &"walk"
-script = ExtResource("10_q3vn2")
-scene_transition = ExtResource("11_1mii0")
-stats = ExtResource("12_4osb5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)

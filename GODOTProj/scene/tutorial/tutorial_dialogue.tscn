@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://75bi7dvqxslw"]
 
 [ext_resource type="Script" uid="uid://oe1wae5nssje" path="res://scene/tutorial/tutorial_dialogue.gd" id="1_script"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_qxx86"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_qxx86"]
 
 [sub_resource type="Gradient" id="Gradient_8hmr8"]
 offsets = PackedFloat32Array(0.11306043, 1)

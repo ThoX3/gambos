@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://kvntvrcpo48f" path="res://scene/ui/bestiary/bestiary.tscn" id="6_mswub"]
 [ext_resource type="Script" uid="uid://ckrwipx6x53u6" path="res://scene/enemy/waveManager.gd" id="7_of57s"]
 [ext_resource type="PackedScene" uid="uid://bkmi1txllqgo" path="res://scene/ui/pause_menu.tscn" id="10_hybxs"]
-[ext_resource type="PackedScene" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
+[ext_resource type="PackedScene" uid="uid://xh6nrrgmb0aq" path="res://scene/ui/menu_transition.tscn" id="11_tv8i1"]
 [ext_resource type="PackedScene" uid="uid://da8mgr6pgoucp" path="res://scene/ui/DialogueUI.tscn" id="12_wscrc"]
 [ext_resource type="PackedScene" path="res://scene/ui/credits.tscn" id="13_credits"]
 [ext_resource type="Resource" uid="uid://dlbscv7k3dnd5" path="res://ressources/waves/SpawnConfig_1.tres" id="13_gjnwh"]
@@ -54,8 +54,6 @@ offset_bottom = -367.0
 unique_name_in_owner = true
 
 [node name="MenuTransition" parent="UI" unique_id=1348043249 instance=ExtResource("11_tv8i1")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="FadeRect" type="ColorRect" parent="UI" unique_id=308755849]
 anchors_preset = 15

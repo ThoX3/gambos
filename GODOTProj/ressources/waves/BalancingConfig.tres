@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_alvd0")
-budget_exposant = 1.2
-budget_variance = 0.0
+budget_facteur = 0.4
+budget_exposant = 1.1
+budget_variance = 0.1
 biais_vague_max = 40.0
-reduction_duree_par_achat = 0.2
+reduction_duree_par_achat = 0.15

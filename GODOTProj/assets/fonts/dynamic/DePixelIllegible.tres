@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" format=3 uid="uid://bf6kmleh4uyyr"]
+
+[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="1_7iw7t"]
+
+[resource]
+base_font = ExtResource("1_7iw7t")

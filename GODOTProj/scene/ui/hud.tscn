@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://cnrtpk77tpprh" path="res://assets/sprites/HUD/Xp_bar/Under.png" id="2_2nglk"]
 [ext_resource type="Texture2D" uid="uid://bldvppr8222tm" path="res://assets/sprites/HUD/Xp_bar/Over.png" id="3_gjr4v"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_t0n4l"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_t0n4l"]
 [ext_resource type="Texture2D" uid="uid://dln7r0kne5tet" path="res://assets/sprites/HUD/Xp_bar/Progress.png" id="4_3wbyd"]
 [ext_resource type="Script" uid="uid://crpsddy5mn04d" path="res://scene/ui/hud.gd" id="4_73u6w"]
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
-[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="6_g5rf0"]
+[ext_resource type="FontVariation" uid="uid://bf6kmleh4uyyr" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="6_g5rf0"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]

@@ -69,6 +69,8 @@ func _on_haptic_changed(value: float) -> void:
 func _on_font_toggled(toggled_on: bool) -> void:
 	if SaveManager.current_save:
 		SaveManager.current_save.setting_use_pixel_font = toggled_on
+		if FontManager:
+			FontManager.set_modern_font(not toggled_on)
 
 func _on_back_pressed() -> void:
 	# Save changes to disk

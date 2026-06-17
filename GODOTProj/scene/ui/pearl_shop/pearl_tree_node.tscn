@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://ck4qnaun1j26p" path="res://scene/ui/pearl_shop/pearl_tree_node.gd" id="1_pc3ls"]
 [ext_resource type="Texture2D" uid="uid://c8a5v8mcxyuwf" path="res://assets/sprites/pearl_shop/normal.png" id="2_urf48"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_fgmap"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_fgmap"]
 [ext_resource type="Texture2D" uid="uid://drusnwbconaq4" path="res://assets/sprites/pearl_shop/normal_hovered.png" id="3_vccej"]
 [ext_resource type="Texture2D" uid="uid://d2f5qwetbil2q" path="res://assets/sprites/pearl_shop/too_expensive.png" id="4_dkipg"]
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_ncogy"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_ncogy"]
 [ext_resource type="Texture2D" uid="uid://cifkaid3e20yu" path="res://assets/sprites/pearl_shop/normal_focused.png" id="4_ulin4"]
 [ext_resource type="Texture2D" uid="uid://cqyb7204fctpw" path="res://assets/sprites/pearl_shop/locked.png" id="5_uec3o"]
-[ext_resource type="FontFile" uid="uid://c3g04in5tp11d" path="res://assets/fonts/depixel/DePixelSchmal.ttf" id="5_urf48"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="5_urf48"]
 [ext_resource type="Texture2D" uid="uid://drvt2lt6ni5xu" path="res://assets/sprites/pearl_shop/icons/damage.png" id="5_vccej"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_vccej"]
 [ext_resource type="Texture2D" uid="uid://betcqw3hcuyeu" path="res://assets/sprites/pearl_shop/locked_hovered.png" id="6_xclot"]
@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b5gqidjisw05e" path="res://assets/sprites/pearl_shop/maxed.png" id="10_l3ldp"]
 [ext_resource type="Texture2D" uid="uid://c6h2cduuhlhly" path="res://assets/sprites/pearl_shop/maxed_hovered.png" id="11_b0orh"]
 [ext_resource type="Texture2D" uid="uid://dnnn8bwoc5i5a" path="res://assets/sprites/pearl_shop/maxed_focused.png" id="12_up1cv"]
-[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="19_uec3o"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="19_uec3o"]
 
 [node name="PearlTreeNode" type="Control" unique_id=1910061887]
 custom_minimum_size = Vector2(128, 128)

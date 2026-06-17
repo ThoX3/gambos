@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cvqvdfoshy6a7"]
+
+[ext_resource type="Texture2D" uid="uid://bnb8oscaqrcri" path="res://assets/sprites/projectile/projectile_pic.png" id="1_mdrq1"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mdrq1")
+}],
+"loop": true,
+"name": &"pic",
+"speed": 5.0
+}]

@@ -21,6 +21,7 @@ GameManager="*uid://ddtwp7cwnbrva"
 UpgradeManager="*uid://cg5imskw71qwf"
 AudioManager="*uid://c7aps3wct67pj"
 SaveManager="*uid://bt7phbd00ot07"
+FontManager="*res://autoloads/fontManager.gd"
 
 [debug]
 
@@ -30,7 +31,7 @@ file_logging/enable_file_logging=true
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

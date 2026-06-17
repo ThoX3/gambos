@@ -1,6 +1,6 @@
 extends Area2D
 
-var direction: Vector2 = Vector2.ZERO : set = _set_direction
+var direction: Vector2 = Vector2.ZERO
 @export var vitesse: float = 300.0
 @export var degats: int = 30
 
@@ -16,13 +16,8 @@ var _distance_traveled: float = 0.0
 const ANGLE_CORRECTION: float = PI / 4
 
 func _ready() -> void:
-	sprite.play("create")
-	await sprite.animation_finished
-	if est_actif:
-		sprite.play("pic")
-	await sprite.animation_finished
-	if est_actif:
-		sprite.play("move")
+	_appliquer_rotation()
+	sprite.play("pic")
 
 func _process(delta: float) -> void:
 	if est_actif:
@@ -32,16 +27,16 @@ func _process(delta: float) -> void:
 		if _distance_traveled >= max_range:
 			_destroy()
 
-func _set_direction(nouvelle_direction: Vector2) -> void:
-	direction = nouvelle_direction.normalized()
-	if direction != Vector2.ZERO:
-		var angle_calculé = direction.angle()
+func _appliquer_rotation() -> void:
+	if direction == Vector2.ZERO:
+		return
+	var angle_calculé = direction.angle()
+	if direction.x > 0:
+		sprite.flip_v = true
+		global_rotation = angle_calculé + ANGLE_CORRECTION
+	else:
+		sprite.flip_v = false
 		global_rotation = angle_calculé - ANGLE_CORRECTION
-		if direction.x > 0:
-			sprite.flip_v = true
-			global_rotation = angle_calculé + ANGLE_CORRECTION
-		else:
-			sprite.flip_v = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if not est_actif:
@@ -55,18 +50,12 @@ func _on_body_entered(body: Node2D) -> void:
 				return
 			_last_hit_enemy = body
 			body.take_damage(degats)
-
-			if pierce_hp > 0:
-				pierce_hp -= body.stats.max_hp if body.stats else 10
-			else:
-				pierce_hp -= 1
-
+			pierce_hp -= body.stats.max_hp if body.stats else 10
 			if pierce_hp <= 0:
 				_destroy()
 		elif body is TileMap:
 			_destroy()
 	else:
-		# Pic du boss — touche le joueur
 		if body.is_in_group("Player"):
 			body.take_damage(degats)
 			_destroy()
@@ -78,6 +67,4 @@ func _destroy() -> void:
 		return
 	est_actif = false
 	set_deferred("monitoring", false)
-	sprite.play("destroy")
-	await sprite.animation_finished
 	queue_free()

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rgearcb1aho4"
-path="res://.godot/imported/Boss1.png-d3fb0999ac65eab2a132397dce788a1a.ctex"
+path="res://.godot/imported/boss1.png-52f9642acc91fac31bcd8e0fad6d3aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/Boss1.png"
-dest_files=["res://.godot/imported/Boss1.png-d3fb0999ac65eab2a132397dce788a1a.ctex"]
+source_file="res://assets/sprites/enemy/boss1.png"
+dest_files=["res://.godot/imported/boss1.png-52f9642acc91fac31bcd8e0fad6d3aeb.ctex"]
 
 [params]
 

@@ -148,32 +148,39 @@ func _start_attack() -> void:
 
 func _lancer_charge() -> void:
 	print("[Poisson] _lancer_charge début")
+
+	# 1. Préparation — le boss se fige et se prépare, PAS encore en charge
+	if sprite.sprite_frames.has_animation("prepare_speed"):
+		sprite.sprite_frames.set_animation_loop("prepare_speed", false)
+		sprite.play("prepare_speed")
+		await sprite.animation_finished
+	else:
+		print("[Poisson] WARN : animation prepare_speed manquante")
+		await get_tree().create_timer(0.5).timeout
+
+	if _est_mort or not is_instance_valid(self): return
+
+	# 2. Déclenchement de la charge APRÈS prepare_speed
 	_direction_charge = (player.global_position - global_position).normalized()
 	_timer_charge     = duree_charge
 	_rebonds_restants = nombre_rebonds_max
 	_en_charge        = true
-
-	if sprite.sprite_frames.has_animation("prepare_speed"):
-		sprite.play("prepare_speed")
-		await sprite.animation_finished
-	else:
-		print("[Poisson] WARN : animation prepare_speed manquante, on skip")
-		await get_tree().create_timer(0.3).timeout
-
-	if _est_mort or not is_instance_valid(self): return
 
 	if sprite.sprite_frames.has_animation("speed"):
 		sprite.play("speed")
 	else:
 		print("[Poisson] WARN : animation speed manquante")
 
+	# 3. Attente de la fin de la charge (rebonds)
 	while _en_charge:
 		if _est_mort or not is_instance_valid(self): return
 		await get_tree().process_frame
 
 	if _est_mort or not is_instance_valid(self): return
 
+	# 4. Fin de charge
 	if sprite.sprite_frames.has_animation("finish_speed"):
+		sprite.sprite_frames.set_animation_loop("finish_speed", false)
 		sprite.play("finish_speed")
 		await sprite.animation_finished
 	else:
@@ -189,6 +196,7 @@ func _lancer_charge() -> void:
 func _lancer_gonflement_explosif() -> void:
 	print("[Poisson] _lancer_gonflement_explosif début")
 	if _est_mort or not is_instance_valid(self): return
+	sprite.sprite_frames.set_animation_loop("explode", false)
 	sprite.play("explode")
 	await sprite.animation_finished
 	if _est_mort or not is_instance_valid(self): return
@@ -204,6 +212,7 @@ func _lancer_gonflement_explosif() -> void:
 func _lancer_explosion_pics() -> void:
 	print("[Poisson] _lancer_explosion_pics début")
 	if _est_mort or not is_instance_valid(self): return
+	sprite.sprite_frames.set_animation_loop("explode", false)
 	sprite.play("explode")
 	await get_tree().create_timer(0.4).timeout
 	if _est_mort or not is_instance_valid(self): return

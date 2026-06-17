@@ -5,10 +5,11 @@
 
 [resource]
 script = ExtResource("1_olt6e")
-type = 1
+type = 3
 scene_projectile = ExtResource("1_tvowi")
+degats = 7
 vitesse = 300.0
 duree_vie = 4.0
-nb_projectiles = 3
+nb_projectiles = 1
 angle_eventail = 70.0
 metadata/_custom_type_script = "uid://coog8bv3la8ch"

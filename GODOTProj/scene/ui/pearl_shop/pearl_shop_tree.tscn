@@ -209,7 +209,6 @@ upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fu
 icon_texture = ExtResource("8_gipjf")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
-parent_node_unlock_level = 3
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=2082736016]
 layout_mode = 2
@@ -234,6 +233,7 @@ upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dég
 icon_texture = ExtResource("8_ciura")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer2/AttackSpeedNode")
+parent_node_unlock_level = 3
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer" unique_id=366298988]
 layout_mode = 2
@@ -433,7 +433,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=2013895789]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

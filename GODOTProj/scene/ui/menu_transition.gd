@@ -4,12 +4,35 @@ extends Control
 signal continuer_pressed
 signal sauvegarder_pressed
 
-@onready var btn_continuer = $VBox/BtnContinuer
-@onready var btn_sauvegarder = $VBox/BtnSauvegarder
-@onready var label_monde = $VBox/LabelMonde
+@export var new_world_messages: Array[String] = [
+	"Bravo d'avoir battu l'araignée des sables ! Tu peux maintenant utiliser son attaque de sable [img=24]res://assets/sprites/projectile/projectile_sable_icon.png[/img] avec [img=24]res://assets/sprites/tutorial/xbox_right.png[/img].",
+	"Bravo d'avoir battu le poisson globe !",
+	"Bravo, j'ai plus rien à dire"
+]
 
-func afficher(nom_monde_suivant: String) -> void:
-	label_monde.text = "Prochain monde : " + nom_monde_suivant
+@export var known_world_messages: Array[String] = [
+	"Bravo d'avoir battu l'araignée des sables !",
+	"Bravo d'avoir battu le poisson globe !",
+	"C'était facile !"
+]
+
+@onready var btn_continuer = %ContinueButton
+@onready var btn_sauvegarder = %SaveButton
+@onready var label_dialog = %DialogueLabel
+
+func afficher(nom_monde_suivant: String, index_suivant: int) -> void:
+	var message = ""
+	
+	if index_suivant > SaveManager.current_save.mondes_completes_total:
+		var msg_idx = min(index_suivant - 1, new_world_messages.size() - 1)
+		message = new_world_messages[msg_idx]
+	else:
+		var msg_idx = min(index_suivant - 1, known_world_messages.size() - 1)
+		message = known_world_messages[msg_idx]
+		
+	label_dialog.text = "[center]" + message + "\nVeux-tu sauvegarder et quitter ou continuer ?[/center]"
+	btn_continuer.text = " Continuer et passer au " + nom_monde_suivant
+		
 	visible = true
 	get_tree().paused = true
 	btn_continuer.grab_focus()

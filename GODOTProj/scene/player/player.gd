@@ -42,8 +42,6 @@ func _ready() -> void:
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	_on_initialize()
-	# Charger l'état de débloquage depuis la sauvegarde
-	_attaque_sable_debloquee = SaveManager.current_save.mondes_completes_total >= 1
 			
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()
@@ -99,7 +97,7 @@ func _physics_process(delta):
 				_shoot_multiple(targets)
 	
 	# --- Attaque sable (stick droit) ---
-	if can_shoot and _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
+	if can_shoot and SaveManager.current_save.mondes_completes_total >= 1 and projectile_sable_data and projectile_sable_scene:
 		_sable_fire_timer -= delta
 		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:

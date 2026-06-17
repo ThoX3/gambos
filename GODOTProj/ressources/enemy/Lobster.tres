@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://jhsrfe6k6ui1"]
 
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_0gb7j"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_uce6x"]
 [ext_resource type="SpriteFrames" uid="uid://o1j3416nu8kg" path="res://assets/sprites/enemy/Lobster.tres" id="2_7qk45"]
 

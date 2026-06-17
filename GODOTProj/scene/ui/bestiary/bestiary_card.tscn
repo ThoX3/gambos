@@ -76,3 +76,7 @@ text = "Bête"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
+
+[node name="CardKillCount" type="Label" parent="CardButton/VBox" unique_id=1601965370]
+unique_name_in_owner = true
+layout_mode = 2

@@ -13,6 +13,7 @@ class_name SaveData
 
 # Pearls 
 @export var pearls: int = 0
+@export var total_purchases: int = 0
 
 # Pearl basic upgrades
 @export var upgrade_health_level: int = 0
@@ -37,6 +38,10 @@ class_name SaveData
 # In-game progress
 @export var max_wave_reached: int = 0
 @export var mondes_completes_total: int = 0 
+
+# Bestiaire — statistiques persistantes
+@export var enemy_kill_counts: Dictionary = {}   # clé: resource_path de l'EnemyData, valeur: int
+@export var player_death_count: int = 0
 
 # Progression de monde (run en cours)
 @export var run_en_cours: bool = false

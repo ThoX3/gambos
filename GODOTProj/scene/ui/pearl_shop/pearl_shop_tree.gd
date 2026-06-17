@@ -176,7 +176,9 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			SaveManager.current_save.set(prop_name, SaveManager.current_save.get(prop_name) + 1)
 		else:
 			push_warning("Unhandled upgrade id: ", id)
-			
+		
+		SaveManager.current_save.total_purchases += 1
+		
 		SaveManager.save_game()
 		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)
 		refresh_shop()

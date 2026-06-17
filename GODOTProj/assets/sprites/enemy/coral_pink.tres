@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dntjudlnykg81"]
+
+[ext_resource type="Texture2D" uid="uid://p0b5nb72nv7b" path="res://assets/sprites/enemy/Coral_pink.png" id="1_x4vu7"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x4vu7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

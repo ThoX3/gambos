@@ -8,6 +8,7 @@ class_name Enemy_Base
 @onready var sprite = $AnimatedSprite2D
 
 var player = null
+var tutorial_mode: bool = false
 
 func get_weight() -> float:
 	return stats.weight if stats else 1.0
@@ -36,7 +37,10 @@ func _physics_process(delta):
 		return
 		
 	if not player or not is_instance_valid(player):
-		print("DÉBOGAGE: Je ne trouve pas le joueur ! Vérifie le groupe 'Player'")
+		return
+		
+	if not player.is_physics_processing():
+		velocity = Vector2.ZERO
 		return
 
 	# Calcul de la direction directe vers le joueur (Méthode GDQuest)
@@ -75,6 +79,7 @@ func take_damage(amount: int) -> int:
 	hp -= amount
 	
 	if hp <= 0:
+		GameManager.register_enemy_kill(stats)
 		$CollisionShape2D.set_deferred("disabled", true)
 		_creer_splash_mort()
 		_drop_experience()
@@ -91,6 +96,9 @@ func take_damage(amount: int) -> int:
 	return removed_hp
 		
 func _drop_experience() -> void:
+	if tutorial_mode:
+		return
+		
 	var xp_restante : int = stats.xp_drop
 	var valeur_max_par_morceau : int = 5
 	
@@ -120,6 +128,12 @@ func _drop_experience() -> void:
 		get_parent().call_deferred("add_child", new_seaweed)
 	
 func _drop_pearl() -> void:
+	if tutorial_mode:
+		var new_pearl = PEARL_SCENE.instantiate()
+		new_pearl.global_position = self.global_position
+		get_parent().call_deferred("add_child", new_pearl)
+		return
+		
 	if randf() <= stats.pearl_drop_probability:
 		var pearl_count := randi_range(stats.pearl_drop_range.x, stats.pearl_drop_range.y)
 		

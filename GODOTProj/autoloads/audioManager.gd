@@ -17,6 +17,8 @@ const SONS := {
 	"pearl_collect": "res://assets/sounds/effect/pearlCollect.mp3",
 	"pearl_shop_unlock": "res://assets/sounds/pearl_shop/unlock.mp3",
 	"pearl_shop_buy": "res://assets/sounds/pearl_shop/pearls.mp3",
+	"door_close": "res://assets/sounds/tuto/door.mp3",
+	"health_refill": "res://assets/sounds/tuto/health_refill.wav"
 }
 
 # ── Musiques ────────────────────────────────────────────────────
@@ -85,6 +87,24 @@ const MUSIQUES := {
 			0: ["theme"],
 		}
 	},
+	
+	"shrimp_heaven": {
+			"pistes": {
+				"theme": "res://assets/sounds/tuto/shrimp_heaven_1.mp3",
+			},
+			"deverouillage": {
+				0: ["theme"],
+			}
+		},
+		
+	"shrimp_heaven_full": {
+			"pistes": {
+				"theme": "res://assets/sounds/tuto/shrimp_heaven_full.mp3",
+			},
+			"deverouillage": {
+				0: ["theme"],
+			}
+		},
 
 	# Ajouter une nouvelle musique = copier ce bloc et changer les chemins
 	# "map2": {

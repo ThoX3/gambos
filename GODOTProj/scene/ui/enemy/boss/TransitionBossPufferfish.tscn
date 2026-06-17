@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://jbnrfg3eeax5"]
+
+[ext_resource type="FontVariation" uid="uid://cbvc6kusfq3it" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="1_swk6r"]
+[ext_resource type="Texture2D" uid="uid://bgb0fdlkcq16a" path="res://assets/sprites/enemy/boss2_silhouette.png" id="2_swk6r"]
+
+[sub_resource type="Gradient" id="Gradient_baq6g"]
+offsets = PackedFloat32Array(0.5397351, 0.6258278)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ud0p2"]
+gradient = SubResource("Gradient_baq6g")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.95, 0)
+
+[sub_resource type="Animation" id="Animation_baq6g"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FondRouge:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/HautNoir:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1601, -615)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/BasNoir:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1500, 718)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/SilhouetteBoss:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1400, 151), Vector2(801, 151)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/NomBoss:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-631, 227)]
+}
+
+[sub_resource type="Animation" id="Animation_ud0p2"]
+resource_name = "intro"
+length = 2.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FondRouge:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/HautNoir:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1600, -611), Vector2(-247, -611)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/BasNoir:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1500, 718), Vector2(-1, 718)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/SilhouetteBoss:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1400, 151), Vector2(801, 151)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/NomBoss:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-631, 227), Vector2(100, 234)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gbicp"]
+_data = {
+&"RESET": SubResource("Animation_baq6g"),
+&"intro": SubResource("Animation_ud0p2")
+}
+
+[node name="TransitionBossPufferfish" type="Control" unique_id=1744949199]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=282983512]
+layer = 10
+
+[node name="FondRouge" type="ColorRect" parent="CanvasLayer" unique_id=1003521426]
+offset_right = 1281.0
+offset_bottom = 720.0
+color = Color(1, 0, 0, 0.39215687)
+
+[node name="NomBoss" type="Label" parent="CanvasLayer" unique_id=175997757]
+offset_left = -631.0
+offset_top = 227.0
+offset_right = -131.0
+offset_bottom = 542.0
+theme_override_fonts/font = ExtResource("1_swk6r")
+theme_override_font_sizes/font_size = 90
+text = "UN BOSS EST APPARU !"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SilhouetteBoss" type="TextureRect" parent="CanvasLayer" unique_id=1928499436]
+z_index = 10
+offset_left = 1400.0
+offset_top = 151.0
+offset_right = 1799.9999
+offset_bottom = 551.0
+texture = ExtResource("2_swk6r")
+
+[node name="EffetLumiere" type="TextureRect" parent="CanvasLayer" unique_id=1151718046]
+offset_left = 754.0
+offset_top = 101.0
+offset_right = 1254.0
+offset_bottom = 601.0
+texture = SubResource("GradientTexture2D_ud0p2")
+
+[node name="HautNoir" type="ColorRect" parent="CanvasLayer" unique_id=903683534]
+offset_left = -1601.0
+offset_top = -615.0
+offset_right = -118.93384
+offset_bottom = 105.0
+rotation = -0.06981317
+color = Color(0, 0, 0, 1)
+
+[node name="BasNoir" type="ColorRect" parent="CanvasLayer" unique_id=389014505]
+offset_left = -1500.0
+offset_top = 718.0
+offset_right = -17.933838
+offset_bottom = 1438.0
+rotation = -0.06981317
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1016258310]
+libraries/ = SubResource("AnimationLibrary_gbicp")

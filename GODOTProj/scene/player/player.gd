@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
-const BASE_SPEED: float = 150.0
+const BASE_SPEED: float = 100.0
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 @export var knockback_force: float = 300.0
@@ -17,6 +17,7 @@ func get_weight() -> float:
 var is_invincible: bool = false
 var blink_timer: float = 0.0
 var _fire_timer: float = 0.0
+var prevent_death: bool = false
 
 var _regen_timer: float = 0.0
 var _thorns_timer: float = 0.0
@@ -30,6 +31,8 @@ var sable_pierce: int = 0
 var sable_zone: float = 0.0
 var sable_count: int = 0
 var sable_bounce: int = 0
+
+var can_shoot: bool = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -87,7 +90,7 @@ func _physics_process(delta):
 	_move_with_push(delta)
 	
 	# --- Tir automatique ---
-	if projectile_data and projectile_scene:
+	if can_shoot and projectile_data and projectile_scene:
 		_fire_timer += delta
 		if _fire_timer >= 1.0 / projectile_data.fire_rate:
 			_fire_timer = 0.0
@@ -96,7 +99,7 @@ func _physics_process(delta):
 				_shoot_multiple(targets)
 	
 	# --- Attaque sable (stick droit) ---
-	if _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
+	if can_shoot and _attaque_sable_debloquee and projectile_sable_data and projectile_sable_scene:
 		_sable_fire_timer -= delta
 		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
@@ -120,8 +123,13 @@ func _physics_process(delta):
 		GameManager.health_changed.emit()
 		GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
 		if Stats.current_health <= 0.0:
-			%HurtBox.monitoring = false
-			death()
+			if prevent_death:
+				Stats.current_health = 0.1
+				AudioManager.play_sound_2d("gambos_hurt", global_position)
+				start_invincibility()
+			else:
+				%HurtBox.monitoring = false
+				death()
 		else:
 			
 			AudioManager.play_sound_2d("gambos_hurt", global_position)
@@ -381,8 +389,13 @@ func take_damage(degats: float) -> void:
 	
 	# Vérification de la mort
 	if Stats.current_health <= 0.0:
-		%HurtBox.monitoring = false
-		death()
+		if prevent_death:
+			Stats.current_health = 0.1
+			AudioManager.play_sound_2d("gambos_hurt", global_position)
+			start_invincibility()
+		else:
+			%HurtBox.monitoring = false
+			death()
 	else:
 		# S'il survit, on joue ton son et on lance l'invincibilité
 		AudioManager.play_sound_2d("gambos_hurt", global_position)

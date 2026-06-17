@@ -135,7 +135,11 @@ func _calculer_budget(numero: int) -> float:
 	return base * (1.0 + variance)
 
 func _calculer_duree(numero: int) -> float:
-	return config.duree_base + config.duree_par_vague * float(numero - 1)
+	var base := config.duree_base
+	var reduction = (SaveManager.current_save.total_purchases * config.reduction_duree_par_achat) * (max((60-float(numero)),0)/60)
+	var duree = max(base - reduction, config.duree_minimale)
+	print("WaveManager durée : %fs" %duree)
+	return duree
 
 func _tirer_ratio_intensite(numero: int) -> float:
 	var ratio_brut := randf_range(config.intensite_min, config.intensite_max)

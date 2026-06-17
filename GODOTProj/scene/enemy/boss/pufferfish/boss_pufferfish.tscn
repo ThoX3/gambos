@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://jw1arwmodi8o"]
+
+[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_eyvxo"]
+[ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_8wkub"]
+[ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_3dcn1"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_emkko"]
+[ext_resource type="SpriteFrames" uid="uid://bhh4gulg7kmv3" path="res://assets/sprites/enemy/Boss1.tres" id="9_vwxca"]
+[ext_resource type="Script" uid="uid://3pfiyienny43" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.gd" id="10_q3vn2"]
+[ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="11_1mii0"]
+[ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="12_4osb5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
+radius = 60.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=730657589]
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("10_q3vn2")
+scene_transition = ExtResource("11_1mii0")
+stats = ExtResource("12_4osb5")
+SEAWEED_SCENE = ExtResource("5_eyvxo")
+PEARL_SCENE = ExtResource("6_8wkub")
+DAMAGE_TEXT_SCENE = ExtResource("7_3dcn1")
+SPLASH_EFFECT_SCENE = ExtResource("8_emkko")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
+sprite_frames = ExtResource("9_vwxca")
+animation = &"walk"
+script = ExtResource("10_q3vn2")
+scene_transition = ExtResource("11_1mii0")
+stats = ExtResource("12_4osb5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CircleShape2D_nytjq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=710470670]

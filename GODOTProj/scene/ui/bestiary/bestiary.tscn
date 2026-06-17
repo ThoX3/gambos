@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://caygsy8jueaqh" path="res://scene/ui/bestiary/bestiary.gd" id="1_best"]
 [ext_resource type="PackedScene" uid="uid://kmchqd4nvrct" path="res://scene/ui/bestiary/bestiary_card.tscn" id="2_card"]
-[ext_resource type="Resource" uid="uid://bp4bqdsebw2jg" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
+[ext_resource type="Resource" uid="uid://bai2sy5oxi5j5" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_dk0bv"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="5_qprn2"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="6_wy5py"]
 
 [node name="Bestiary" type="Control" unique_id=592078671]
 layout_mode = 3
@@ -49,9 +52,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
+[node name="CharacterTitle2" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1248520001]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_dk0bv")
+theme_override_font_sizes/font_size = 18
+text = "— Personnages —"
+horizontal_alignment = 1
+
+[node name="PlayerContainer" type="GridContainer" parent="Layout/LeftPanel/VBox" unique_id=1015656980]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="EnemiesTitle" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1487168231]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_dk0bv")
+theme_override_font_sizes/font_size = 18
 text = "— Ennemis —"
 horizontal_alignment = 1
 
@@ -64,7 +79,8 @@ columns = 4
 
 [node name="BossesTitle" type="Label" parent="Layout/LeftPanel/VBox" unique_id=1337969000]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_dk0bv")
+theme_override_font_sizes/font_size = 18
 text = "— Boss —"
 horizontal_alignment = 1
 
@@ -94,13 +110,15 @@ stretch_mode = 5
 [node name="DetailName" type="Label" parent="Layout/DetailPanel" unique_id=1275510338]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = ExtResource("5_qprn2")
+theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 
 [node name="DetailStats" type="Label" parent="Layout/DetailPanel" unique_id=1851013844]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("4_dk0bv")
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
 [node name="Title" type="Label" parent="." unique_id=341161897]
@@ -113,9 +131,11 @@ offset_top = 10.0
 offset_right = 120.0
 offset_bottom = 49.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 28
+theme_override_fonts/font = ExtResource("5_qprn2")
+theme_override_font_sizes/font_size = 27
 text = "Bestiaire"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="." unique_id=1065223257]
 unique_name_in_owner = true
@@ -128,5 +148,6 @@ offset_top = -48.0
 offset_right = 120.0
 offset_bottom = -12.0
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("6_wy5py")
 theme_override_font_sizes/font_size = 18
 text = "← Retour"

@@ -3,13 +3,14 @@
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_2ju84"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_de8au"]
 [ext_resource type="SpriteFrames" uid="uid://dthxi0mbpsko0" path="res://assets/sprites/enemy/Clownfish.tres" id="2_de8au"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_sm82v"]
 
 [resource]
 script = ExtResource("1_de8au")
 texture = ExtResource("2_de8au")
 name = "Poisson clown"
 max_hp = 50
-movement_speed = 250.0
+movement_speed = 233.0
 attack_damage = 10
 xp_drop = 12
 pearl_drop_probability = 0.2

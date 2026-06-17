@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="BossData" format=3 uid="uid://ckc7t4f7hk56r"]
+
+[ext_resource type="Script" uid="uid://c17mbgk4d6ngk" path="res://scene/enemy/boss/pufferfish/attacks/attack_charge.gd" id="1_v3jad"]
+[ext_resource type="Script" uid="uid://c5hpslepvrfm1" path="res://scene/enemy/boss/pufferfish/attacks/attack_explosion_pics.gd" id="2_b2ju0"]
+[ext_resource type="Script" uid="uid://s6xkv3suiw5a" path="res://scene/enemy/boss/pufferfish/attacks/attack_gonflement_explosif.gd" id="3_iw6xh"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="4_ggfn5"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="5_257ed"]
+[ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="6_v3jad"]
+[ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/boss/BossData.gd" id="7_rev0r"]
+[ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="8_as4fd"]
+
+[resource]
+script = ExtResource("7_rev0r")
+attack_scripts = Array[Script]([ExtResource("1_v3jad"), ExtResource("2_b2ju0"), ExtResource("3_iw6xh")])
+texture = ExtResource("8_as4fd")
+name = "Araignée de mer"
+max_hp = 1000
+armor = 20
+movement_speed = 50.0
+patrol_distance = 10000.0
+attack_damage = 10
+attack_cooldown = 3.0
+projectile_type = ExtResource("6_v3jad")
+xp_drop = 500
+pearl_drop_probability = 1.0
+pearl_drop_range = Vector2i(5, 5)
+metadata/_custom_type_script = "uid://41pu5w8i8y3b"

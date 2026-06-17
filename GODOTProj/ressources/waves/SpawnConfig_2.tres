@@ -1,5 +1,8 @@
 [gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://xutntr6cwmx5"]
 
+[ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="1_3h8u1"]
+[ext_resource type="PackedScene" uid="uid://jw1arwmodi8o" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.tscn" id="2_kk5vi"]
+[ext_resource type="Script" uid="uid://dj14x25prjjx0" path="res://ressources/waves/EntreeBoss.gd" id="3_j4siw"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="5_bo8sp"]
 [ext_resource type="Resource" uid="uid://gqqt6yw5g2wv" path="res://ressources/enemy/Clownfish.tres" id="5_y3dq1"]
 [ext_resource type="Resource" uid="uid://frgewh2lsjpu" path="res://ressources/enemy/Surgeonfish.tres" id="6_34r5y"]
@@ -8,6 +11,14 @@
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="8_lupo7"]
 [ext_resource type="Resource" uid="uid://jhsrfe6k6ui1" path="res://ressources/enemy/Lobster.tres" id="9_ki6j3"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="10_atd43"]
+
+[sub_resource type="Resource" id="Resource_bo8sp"]
+script = ExtResource("3_j4siw")
+scene = ExtResource("2_kk5vi")
+data = ExtResource("1_3h8u1")
+vague_exacte = 40
+duree = 30.0
+metadata/_custom_type_script = "uid://dj14x25prjjx0"
 
 [sub_resource type="Resource" id="Resource_qt35s"]
 script = ExtResource("6_kk2my")
@@ -47,4 +58,5 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 [resource]
 script = ExtResource("10_atd43")
 ennemis = Array[Resource]([SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_y3dq1"), SubResource("Resource_34r5y"), SubResource("Resource_k4dty")])
+boss = Array[Resource]([SubResource("Resource_bo8sp")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

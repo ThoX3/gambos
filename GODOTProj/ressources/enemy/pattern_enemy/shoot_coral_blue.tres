@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ShootingPattern" format=3 uid="uid://dbrswkrn1eb8q"]
+
+[ext_resource type="PackedScene" uid="uid://bem8erjrse6pm" path="res://scene/projectile/enemy_Projectile.tscn" id="1_10n0f"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="1_un26b"]
+
+[resource]
+script = ExtResource("1_un26b")
+scene_projectile = ExtResource("1_10n0f")
+nb_projectiles = 1
+offset_rotation = 16.0
+metadata/_custom_type_script = "uid://coog8bv3la8ch"

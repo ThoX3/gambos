@@ -4,14 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bly05caq2r6d6" path="res://assets/sprites/cards/background/Card3.png" id="2_0tbtp"]
 [ext_resource type="Texture2D" uid="uid://rt8fklmg5ojq" path="res://assets/sprites/cards/background/Card12.png" id="2_ip8u4"]
 [ext_resource type="Texture2D" uid="uid://7ug25d1wsel7" path="res://assets/sprites/cards/background/Card2.png" id="2_nyfce"]
-
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="2_ulku6"]
-[ext_resource type="Texture2D" uid="uid://5i0yc742vxi6" path="res://assets/sprites/cards/background/Card13.png" id="3_ehfxp"]
-
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="2_ulku6"]
-[ext_resource type="Texture2D" uid="uid://dow3b3d2pv12t" path="res://assets/sprites/cards/background/Card4.png" id="3_0tbtp"]
-[ext_resource type="Texture2D" uid="uid://bd8j2tj73sq44" path="res://assets/sprites/cards/background/Card5.png" id="3_yvh08"]
-
+[ext_resource type="Texture2D" uid="uid://5i0yc742vxi6" path="res://assets/sprites/cards/background/Card13.png" id="3_ehfxp"]
 [ext_resource type="Texture2D" uid="uid://dthxc8g7x2iiu" path="res://assets/sprites/cards/background/Card7.png" id="4_gxkve"]
 [ext_resource type="Texture2D" uid="uid://c3am13105yb1" path="res://assets/sprites/cards/background/Card6.png" id="4_s1v0k"]
 [ext_resource type="Texture2D" uid="uid://c50ijoyjs8kwj" path="res://assets/sprites/cards/background/Card8.png" id="4_yvh08"]
@@ -111,4 +105,5 @@ theme_override_fonts/font = ExtResource("2_ulku6")
 vertical_alignment = 1
 autowrap_mode = 2
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

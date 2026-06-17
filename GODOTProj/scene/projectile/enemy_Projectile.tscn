@@ -1,12 +1,13 @@
-[gd_scene format=3 uid="uid://bem8erjrse6pm"]
+[gd_scene format=3 uid="uid://lko1k3mem6pw"]
 
-[ext_resource type="Script" uid="uid://dlbff56yix3aq" path="res://scene/projectile/enemy_projectile.gd" id="1_5c0ru"]
-[ext_resource type="SpriteFrames" uid="uid://blk82shyc77ms" path="res://assets/sprites/projectile/coral_blue_projectile.tres" id="2_rci2k"]
+[ext_resource type="Script" path="res://scene/projectile/enemy_projectile.gd" id="1_5c0ru"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/projectile/coral_blue_projectile.tres" id="2_rci2k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eq5dk"]
 radius = 14.0
 
 [node name="EnemyProjectile" type="Area2D" unique_id=2121252919]
+collision_mask = 5
 script = ExtResource("1_5c0ru")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=947011685]

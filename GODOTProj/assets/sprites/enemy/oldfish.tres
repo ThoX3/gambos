@@ -1,3 +1,14 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://d3og0sys8tsl5"]
 
+[ext_resource type="Texture2D" uid="uid://b76xsa5obpihu" path="res://assets/sprites/enemy/oldfish.png" id="1_n52iw"]
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n52iw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

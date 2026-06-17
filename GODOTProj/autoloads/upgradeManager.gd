@@ -3,12 +3,12 @@ class_name upgradeManager
 
 var all_upgrades: Array[upgradeData] = []
 var path_to_upgrade = "res://ressources/upgrades/"
-const RARITY_WEIGHTS = {
-	upgradeData.rarityType.COMMON: 100,
-	upgradeData.rarityType.UNCOMMUN: 50,
-	upgradeData.rarityType.RARE: 20,
-	upgradeData.rarityType.LEGENDARY: 5,
-	upgradeData.rarityType.MYTHIC: 1
+const BASE_RARITY_WEIGHTS = {
+	upgradeData.rarityType.COMMON: 100.0,
+	upgradeData.rarityType.UNCOMMUN: 40.0,
+	upgradeData.rarityType.RARE: 15.0,
+	upgradeData.rarityType.LEGENDARY: 3.0,
+	upgradeData.rarityType.MYTHIC: 0.5
 }
 
 func _ready():
@@ -30,10 +30,12 @@ func load_upgrades():
 	
 func get_random_upgrades(count: int) -> Array[upgradeData]:
 	var selected_upgrades: Array[upgradeData] = []
+	var luck_level = SaveManager.current_save.upgrade_luck_level
 	var pool = all_upgrades.duplicate()
+	var dynamic_weights = calculate_dynamic_weights(luck_level)
 	for i in range(count):
 		if pool.is_empty(): break
-		var picked = pick_one_weighted(pool)
+		var picked = pick_one_weighted(pool, dynamic_weights)
 		if picked:
 			selected_upgrades.append(picked)
 			# On garde uniquement les cartes dont le nom est DIFFÉRENT de celle piochée
@@ -41,17 +43,28 @@ func get_random_upgrades(count: int) -> Array[upgradeData]:
 			
 	return selected_upgrades
 	
-func pick_one_weighted(list: Array[upgradeData]) -> upgradeData:
+func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgradeData:
 	var total_weight = 0
 	for upgrade in list:
-		total_weight += RARITY_WEIGHTS[upgrade.rarity]
-	var random_value = randi() % total_weight
+		total_weight += BASE_RARITY_WEIGHTS[upgrade.rarity]
+	var random_value = randf() * total_weight
 	var current_sum = 0
 	for upgrade in list:
-		current_sum += RARITY_WEIGHTS[upgrade.rarity]
+		current_sum += weights[upgrade.rarity]
 		if random_value < current_sum:
 			return upgrade
 	return null
+	
+func calculate_dynamic_weights(luck_level: int) -> Dictionary:
+	var dyn_weights = {}
+	var level_clamped = clamp(luck_level, 0, 20)
+	var luck_factor: float = level_clamped / 20.0
+	dyn_weights[upgradeData.rarityType.COMMON] = max(50.0, BASE_RARITY_WEIGHTS[upgradeData.rarityType.COMMON] - (luck_factor * 50.0))
+	dyn_weights[upgradeData.rarityType.UNCOMMUN] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.UNCOMMUN] * (1.0 + luck_factor * 1.0)
+	dyn_weights[upgradeData.rarityType.RARE] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.RARE] * (1.0 + luck_factor * 2.0)
+	dyn_weights[upgradeData.rarityType.LEGENDARY] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.LEGENDARY] * (1.0 + luck_factor * 4.0)
+	dyn_weights[upgradeData.rarityType.MYTHIC] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.MYTHIC] * (1.0 + luck_factor * 8.0)
+	return dyn_weights
 
 # --- Logique de coût de base ---
 ## Calcule le coût par défaut d'une amélioration si aucune fonction spécifique n'est définie.
@@ -111,6 +124,18 @@ func get_cost_bubble_division(level: int) -> int:
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
 	return 10 + 2 * 6**level
+
+## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
+func get_cost_projectile_sable_pierce(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration permettant au projectile de sable de faire des dégâts de zone.
+func get_cost_projectile_sable_zone_damage(level: int) -> int:
+	return 10 + 2 * 4**level
+
+## Retourne le coût de l'amélioration ajoutant des projectiles de sable.
+func get_cost_projectile_sable_count(level: int) -> int:
+	return 15 + 2 * 5**level
 	
 	
 # --- Logique des effets spécifiques aux améliorations ---
@@ -173,4 +198,15 @@ func get_effect_bubble_division(level: int) -> int:
 ## Calcule le nombre potentiel de rebonds des projectiles.
 func get_effect_projectile_bounce(level: int) -> int:
 	return level * 1
-	
+
+## Calcule la réserve de PV que le projectile de sable peut transpercer.
+func get_effect_projectile_sable_pierce(level: int) -> int:
+	return level * 30
+
+## Calcule le rayon d'explosion (dégâts de zone) du projectile de sable.
+func get_effect_projectile_sable_zone_damage(level: int) -> float:
+	return 24.0 + level * 16.0
+
+## Calcule le nombre de paires de projectiles de sable supplémentaires.
+func get_effect_projectile_sable_count(level: int) -> int:
+	return level * 1

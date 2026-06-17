@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://bvuksbwbu41h" path="res://scene/maps/map_2.tscn" id="1_5rho1"]
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="1_mb5c3"]
-[ext_resource type="Resource" uid="uid://bjiu7nnwxkwj5" path="res://ressources/waves/SpawnConfig.tres" id="3_txok5"]
+[ext_resource type="Resource" uid="uid://xutntr6cwmx5" path="res://ressources/waves/SpawnConfig_2.tres" id="3_5rho1"]
 
 [resource]
 script = ExtResource("1_mb5c3")
 nom = "Monde 2"
 map_scene = ExtResource("1_5rho1")
-spawn_config = ExtResource("3_txok5")
+spawn_config = ExtResource("3_5rho1")
 musique_id = "map2"
 metadata/_custom_type_script = "uid://cdgruyanl6eb1"

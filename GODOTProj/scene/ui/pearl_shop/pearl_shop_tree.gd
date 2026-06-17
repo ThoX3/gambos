@@ -13,6 +13,8 @@ signal menu_button_pressed
 
 @onready var list_button: Array[Variant] = [menu_button, play_button, reset_button]
 
+@export var max_items_per_group: int = 5
+const DIALOGUE_SCENE = preload("res://scene/tutorial/tutorial_dialogue.tscn")
 @onready var fade_rect: ColorRect = $FadeRect
 
 var hover_timer: Timer
@@ -103,10 +105,13 @@ func _show_node_infos_window() -> void:
 	var title: String = currently_focused_node.upgrade_name
 	var description: String = currently_focused_node.upgrade_description
 	
-	if not currently_focused_node.is_unlocked and currently_focused_node.parent_node != null:
-		var parent_name = currently_focused_node.parent_node.upgrade_name
-		var required_level = currently_focused_node.parent_node_unlock_level
-		description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
+	if not currently_focused_node.is_unlocked:
+		if currently_focused_node.locked_by_monde:
+			description = "[font_size=14]" + description + "\n[u]Bloqué[/u][/font_size]"
+		elif currently_focused_node.parent_node != null:
+			var parent_name = currently_focused_node.parent_node.upgrade_name
+			var required_level = currently_focused_node.parent_node_unlock_level
+			description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
 	
 	node_infos_window.set_infos(title, description)
 	node_infos_window.visible = true
@@ -171,7 +176,9 @@ func _on_node_buy_requested(id: String, cost: int) -> void:
 			SaveManager.current_save.set(prop_name, SaveManager.current_save.get(prop_name) + 1)
 		else:
 			push_warning("Unhandled upgrade id: ", id)
-			
+		
+		SaveManager.current_save.total_purchases += 1
+		
 		SaveManager.save_game()
 		AudioManager.play_sound_2d("pearl_shop_buy", Vector2.ZERO)
 		refresh_shop()
@@ -182,8 +189,27 @@ func open_menu() -> void:
 	menu_button_pressed.emit()
 	
 func play() -> void:
+	if GameManager.gotoshop_from_tutorial:
+		%GodessRect.z_index = 100
+		var tween := create_tween()
+		tween.tween_property(fade_rect, "color:a", 0.75, 1)
+		var dialog = DIALOGUE_SCENE.instantiate()
+		add_child(dialog)
+		var dialog_lines: Array[String] = ["Bon courage pour ta quête, Gambos !"]
+		dialog.start_dialogue(dialog_lines, true)
+		dialog.dialogue_finished.connect(func():
+			%GodessRect.z_index = 0
+			get_tree().paused = false
+			GameManager.skip_menu = true
+			GameManager.gotoshop_from_tutorial = false
+			get_tree().reload_current_scene()
+			GameManager.Retry.emit()
+		)
+		return
+		
 	get_tree().paused = false
 	GameManager.skip_menu = true
+	GameManager.gotoshop_from_tutorial = false
 	get_tree().reload_current_scene()
 	
 	GameManager.Retry.emit()
@@ -209,10 +235,18 @@ func was_opened_from_game_over(param: bool):
 		tween.tween_property(fade_rect, "color:a", 0, 1.5)
 		
 		play_button.visible = true
-		menu_button.text = " Menu principal"
+		if GameManager.gotoshop_from_tutorial:
+			menu_button.visible = false
+			play_button.text = " Commencer la conquête des océans !"
+		else:
+			menu_button.visible = true
+			menu_button.text = " Menu principal"
+			play_button.text = " Rejouer\n"
 	else:
 		play_button.visible = false
 		menu_button.text = " Retour"
+		menu_button.visible = true
+		play_button.text = " Rejouer\n"
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

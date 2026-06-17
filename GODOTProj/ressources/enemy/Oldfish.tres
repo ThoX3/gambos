@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://brqdciyr4jc72"]
+
+[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_hwn1h"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_vrn0j"]
+[ext_resource type="SpriteFrames" uid="uid://d3og0sys8tsl5" path="res://assets/sprites/enemy/oldfish.tres" id="2_hwn1h"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_m85iq"]
+
+[resource]
+script = ExtResource("1_hwn1h")
+texture = ExtResource("2_hwn1h")
+name = "Vieille de corail"
+max_hp = 100
+movement_speed = 300.0
+attack_damage = 20
+xp_drop = 40
+pearl_drop_probability = 0.35
+cout = 8
+metadata/_custom_type_script = "uid://41pu5w8i8y3b"

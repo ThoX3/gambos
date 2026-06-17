@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cpcw4jetkxuqo"]
 
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="1_7jw3c"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_758k7"]
 [ext_resource type="SpriteFrames" uid="uid://8dvcbb6otss5" path="res://assets/sprites/enemy/Crab.tres" id="2_prgte"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_pya5v"]
 
 [resource]
 script = ExtResource("1_7jw3c")
@@ -11,6 +13,7 @@ max_hp = 20
 armor = 15
 movement_speed = 150.0
 patrol_distance = 200.0
+weight = 5.0
 attack_damage = 6
 attack_range = 60.0
 attack_cooldown = 2.0

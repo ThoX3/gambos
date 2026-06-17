@@ -2,24 +2,35 @@
 
 [ext_resource type="Texture2D" uid="uid://cnrtpk77tpprh" path="res://assets/sprites/HUD/Xp_bar/Under.png" id="2_2nglk"]
 [ext_resource type="Texture2D" uid="uid://bldvppr8222tm" path="res://assets/sprites/HUD/Xp_bar/Over.png" id="3_gjr4v"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="3_t0n4l"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_t0n4l"]
 [ext_resource type="Texture2D" uid="uid://dln7r0kne5tet" path="res://assets/sprites/HUD/Xp_bar/Progress.png" id="4_3wbyd"]
 [ext_resource type="Script" uid="uid://crpsddy5mn04d" path="res://scene/ui/hud.gd" id="4_73u6w"]
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
-[ext_resource type="FontFile" uid="uid://hci0iep6a084" path="res://assets/fonts/depixel/DePixelIllegible.ttf" id="6_g5rf0"]
+[ext_resource type="FontVariation" uid="uid://bf6kmleh4uyyr" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="6_g5rf0"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
 [ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
 [ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
+[ext_resource type="Shader" uid="uid://cuvaebm2d4tux" path="res://scene/ui/metallic_sweep.gdshader" id="13_sweep"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sweep"]
+shader = ExtResource("13_sweep")
+shader_parameter/speed = 1.5
+shader_parameter/line_width = 0.2
+shader_parameter/angle = 0.785398
+shader_parameter/shine_color = Color(1, 0.8, 0.2, 0.9)
+shader_parameter/active = false
 
 [node name="hud" type="Control" unique_id=375714786]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -640.0
-offset_bottom = -360.0
+offset_left = -1.0
+offset_top = 9.0
+offset_right = -641.0
+offset_bottom = -351.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -39,22 +50,32 @@ text = "x1"
 
 [node name="Wave" type="HBoxContainer" parent="." unique_id=1235224074]
 layout_mode = 0
-offset_left = 557.0
-offset_top = 7.5
-offset_right = 632.0
-offset_bottom = 34.5
+offset_left = 474.5
+offset_top = 5.5
+offset_right = 631.5
+offset_bottom = 37.5
 
-[node name="Wave" type="Label" parent="Wave" unique_id=2019747774]
+[node name="Count" type="RichTextLabel" parent="Wave" unique_id=1033153350]
+clip_children = 2
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_t0n4l")
-theme_override_font_sizes/font_size = 18
-text = "Vague"
+theme_override_fonts/normal_font = ExtResource("3_t0n4l")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Vague 0"
+scroll_active = false
+horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="Count" type="Label" parent="Wave" unique_id=1033153350]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_t0n4l")
-theme_override_font_sizes/font_size = 18
-text = "0"
+[node name="SweepRect" type="ColorRect" parent="Wave/Count" unique_id=-1153374643]
+material = SubResource("ShaderMaterial_sweep")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="XPandHP" type="VBoxContainer" parent="." unique_id=1472514545]
 layout_mode = 1

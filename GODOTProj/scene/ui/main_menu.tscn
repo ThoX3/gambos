@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cp0apbhuwm2kb" path="res://scene/ui/main_menu.gd" id="1_s6uko"]
 [ext_resource type="Texture2D" uid="uid://dac1i4n7sccgj" path="res://assets/sprites/main_menu/background.png" id="2_vww0c"]
-[ext_resource type="FontFile" uid="uid://ctqphwxxrwrnp" path="res://assets/fonts/depixel/DePixelHalbfett.ttf" id="3_k75cp"]
-[ext_resource type="FontFile" uid="uid://cddfkw67dd7sg" path="res://assets/fonts/depixel/DePixelBreit.ttf" id="4_k3dtv"]
-[ext_resource type="FontFile" uid="uid://83u4yvyyuwyk" path="res://assets/fonts/depixel/DePixelKlein.ttf" id="5_e5dty"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_k3dtv"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_k3dtv"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="5_e5dty"]
 
 [node name="MainMenu" type="Control" unique_id=1274161686]
 layout_mode = 3
@@ -50,7 +50,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.90588236, 0.89411765, 0.92941177, 1)
 theme_override_colors/font_outline_color = Color(0.039215688, 0.32156864, 0.47843137, 1)
 theme_override_constants/outline_size = 18
-theme_override_fonts/font = ExtResource("3_k75cp")
+theme_override_fonts/font = ExtResource("3_k3dtv")
 theme_override_font_sizes/font_size = 54
 text = "The Choosen"
 horizontal_alignment = 1
@@ -61,7 +61,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.90588236, 0.89411765, 0.92941177, 1)
 theme_override_colors/font_outline_color = Color(0.039215688, 0.32156864, 0.47843137, 1)
 theme_override_constants/outline_size = 18
-theme_override_fonts/font = ExtResource("3_k75cp")
+theme_override_fonts/font = ExtResource("3_k3dtv")
 theme_override_font_sizes/font_size = 81
 text = "Shrimp"
 horizontal_alignment = 1
@@ -73,7 +73,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 27
-text = "Rependre la sauvegarde
+text = "Reprendre la sauvegarde
  "
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ResumeSaveButton" unique_id=254101988]
@@ -100,7 +100,6 @@ autowrap_mode = 0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-focus_neighbor_top = NodePath("../HBoxContainer/QuitButton")
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 27
 text = "Jouer"
@@ -115,9 +114,10 @@ text = "Aller au temple"
 [node name="BestiaryButton" type="Button" parent="VBoxContainer" unique_id=426550016]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../HBoxContainer/SettingsButton")
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 27
-text = "Bestiaire"
+text = "Consulter le bestiaire"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=839489443]
 layout_mode = 2
@@ -128,19 +128,26 @@ alignment = 1
 [node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=299740571]
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_right = NodePath("../QuitButton")
-focus_neighbor_bottom = NodePath("../QuitButton")
+focus_neighbor_right = NodePath("../CreditsButton")
 theme_override_fonts/font = ExtResource("5_e5dty")
 theme_override_font_sizes/font_size = 18
 text = "Paramètres"
 flat = true
 
-[node name="QuitButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1640362949]
+[node name="CreditsButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1214350816]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_left = NodePath("../SettingsButton")
-focus_neighbor_top = NodePath("../SettingsButton")
-focus_neighbor_bottom = NodePath("../../PlayButton")
+focus_neighbor_right = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("5_e5dty")
+theme_override_font_sizes/font_size = 18
+text = "Crédits"
+flat = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1640362949]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../CreditsButton")
 theme_override_fonts/font = ExtResource("5_e5dty")
 theme_override_font_sizes/font_size = 18
 text = "Quitter"

@@ -16,13 +16,13 @@ class_name BaseMap
 @export var loop_vertically: bool = false
 
 # --- NODE REFERENCES ---
-@onready var bgm_player: AudioStreamPlayer2D = $Audio
+@onready var bgm_player: AudioStreamPlayer2D = get_node_or_null("Audio")
 
 var player: CharacterBody2D
 
 func _ready() -> void:
 	# 1. Start the music immediately if one is assigned
-	if background_music:
+	if background_music and bgm_player:
 		bgm_player.stream = background_music
 		bgm_player.play()
 	

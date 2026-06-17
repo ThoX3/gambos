@@ -16,6 +16,7 @@ var current_level = 0
 var current_cost: int = 0
 var is_unlocked: bool = false
 var was_unlocked_preview: bool = false
+var locked_by_monde: bool = false
 
 @onready var buy_button = $TextureButton
 @onready var level_label = $VBoxContainer/Level
@@ -88,6 +89,12 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		var parent_level = SaveManager.current_save.get("upgrade_" + parent_node.upgrade_id + "_level")
 		is_unlocked = (parent_level != null and parent_level >= parent_node_unlock_level)
 		
+	locked_by_monde = false
+	if upgrade_id in ["projectile_sable_pierce", "projectile_sable_zone_damage", "projectile_sable_count"]:
+		if SaveManager.current_save.mondes_completes_total < 1:
+			is_unlocked = false
+			locked_by_monde = true
+		
 	# Check for new unlock BEFORE setting UI
 	var is_newly_unlocked = false
 	if is_unlocked and not was_unlocked_preview and not is_initial_load:
@@ -109,8 +116,15 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		icon.modulate = Color(1, 1, 1, 0.1)
 		_set_button_textures(TEX_LOCKED, TEX_LOCKED_HOVERED, TEX_LOCKED_FOCUSED)
 		_set_labels_color(Color(0.5, 0.5, 0.5, 1.0))
-		%ParentIcon.texture = parent_node.icon_texture
-		%ParentUnlockLevelLabel.text = str(parent_node_unlock_level)
+		if parent_node:
+			%ParentIcon.texture = parent_node.icon_texture
+			%ParentUnlockLevelLabel.text = str(parent_node_unlock_level)
+			
+		var parent_req_container = $LockOverlay/VBoxContainer/HBoxContainer
+		if locked_by_monde:
+			parent_req_container.visible = false
+		else:
+			parent_req_container.visible = true
 	else:
 		price_label.visible = true
 		if is_newly_unlocked and lock_overlay.visible:

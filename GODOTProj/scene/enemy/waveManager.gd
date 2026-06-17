@@ -38,6 +38,12 @@ func _ready() -> void:
 func start_waves(continuer: bool = false) -> void:
 	if not continuer:
 		_numero_vague = 0
+	else:
+		var main_node = get_tree().get_first_node_in_group("Main")
+		if main_node and main_node.has_node("World/WorldManager"):
+			var wm = main_node.get_node("World/WorldManager")
+			_numero_vague = wm._index_monde_courant * vagues_par_monde
+
 	_timer_pause  = 0.0
 	_boss_courant = null
 	_etat = _Etat.PAUSE
@@ -129,7 +135,11 @@ func _calculer_budget(numero: int) -> float:
 	return base * (1.0 + variance)
 
 func _calculer_duree(numero: int) -> float:
-	return config.duree_base + config.duree_par_vague * float(numero - 1)
+	var base := config.duree_base
+	var reduction = (SaveManager.current_save.total_purchases * config.reduction_duree_par_achat) * (max((60-float(numero)),0)/60)
+	var duree = max(base - reduction, config.duree_minimale)
+	print("WaveManager durée : %fs" %duree)
+	return duree
 
 func _tirer_ratio_intensite(numero: int) -> float:
 	var ratio_brut := randf_range(config.intensite_min, config.intensite_max)

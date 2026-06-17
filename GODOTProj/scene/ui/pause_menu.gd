@@ -2,17 +2,23 @@ extends Control
 
 signal menu_button_pressed
 signal bestiary_button_pressed
+signal settings_button_pressed
 
-@export var STATS_FONT: FontFile
+@export var STATS_FONT: Font = preload("res://assets/fonts/dynamic/DePixelKlein.tres")
 
 ## Empêche le toggle pause quand le bestiaire est ouvert par-dessus
 var _bestiary_open: bool = false
 
 func _ready() -> void:
 	hide()
-	%Resume.pressed.connect(_on_resume_pressed)
-	%Quit.pressed.connect(_on_quit_pressed)
-	%BestiaryButton.pressed.connect(_on_bestiary_pressed)  # NOUVEAU
+	if not %Resume.pressed.is_connected(_on_resume_pressed):
+		%Resume.pressed.connect(_on_resume_pressed)
+	if not %Quit.pressed.is_connected(_on_quit_pressed):
+		%Quit.pressed.connect(_on_quit_pressed)
+	if not %BestiaryButton.pressed.is_connected(_on_bestiary_pressed):
+		%BestiaryButton.pressed.connect(_on_bestiary_pressed) 
+	if not %SettingsButton.pressed.is_connected(_on_settings_pressed):
+		%SettingsButton.pressed.connect(_on_settings_pressed)
 	%Quit.focus_entered.connect(_display_quit_info)
 	%Quit.focus_exited.connect(_hide_quit_info)
 
@@ -55,6 +61,14 @@ func _on_bestiary_pressed() -> void:
 	_bestiary_open = true
 	%LayerPause.visible = false  # Cache le menu pause visuellement
 	bestiary_button_pressed.emit()
+	
+func _on_settings_pressed():
+	%LayerPause.visible = false
+	settings_button_pressed.emit()
+
+func notify_settings_closed() -> void:
+	%LayerPause.visible = true
+	%Resume.grab_focus()
 
 func notify_bestiary_closed() -> void:
 	GameManager.in_game = true

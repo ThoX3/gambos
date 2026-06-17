@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://75bi7dvqxslw"]
+
+[ext_resource type="Script" uid="uid://oe1wae5nssje" path="res://scene/tutorial/tutorial_dialogue.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_qxx86"]
+
+[sub_resource type="Gradient" id="Gradient_8hmr8"]
+offsets = PackedFloat32Array(0.11306043, 1)
+colors = PackedColorArray(0, 0, 0, 0.5529412, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_44i7g"]
+gradient = SubResource("Gradient_8hmr8")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="TutorialDialogue" type="CanvasLayer" unique_id=444627915]
+process_mode = 3
+layer = 100
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="TextureRect" parent="." unique_id=428052043]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -377.0
+offset_top = -257.0
+offset_right = 374.0
+offset_bottom = -91.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_44i7g")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=510423822]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 32
+
+[node name="Label" type="RichTextLabel" parent="ColorRect/MarginContainer" unique_id=795077227]
+custom_minimum_size = Vector2(495, 102)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_qxx86")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center]Gambos veut devenir le roi des mers ! Sa quête est soutenue par la déesse des crevettes Naïades, qui ne supporte plus d’être considérée faible par les autres dieux. [img=24]res://assets/sprites/collectibles/pearl_icon.png[/img][/center]"
+scroll_active = false
+vertical_alignment = 1

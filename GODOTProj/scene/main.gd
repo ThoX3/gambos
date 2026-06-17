@@ -160,6 +160,7 @@ func show_menu(menu_to_show: Control) -> void:
 	menu_to_show.visible = true
 
 func open_pearl_shop(is_from_game_over : bool) -> void:
+	GameManager.in_game = false
 	if not GameManager.gotoshop_from_tutorial:
 		AudioManager.play_music("shop")
 	show_menu($UI/PearlShop)

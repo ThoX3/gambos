@@ -223,6 +223,7 @@ func _on_reset_button_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		SaveManager.current_save.pearls += 1000
 		SaveManager.current_save.upgrade_ingame_speed_level = 5
+		SaveManager.current_save.tutorial_completed = true
 		SaveManager.save_game()
 		refresh_shop()
 

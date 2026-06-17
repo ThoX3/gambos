@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var Stats: Resource
-const BASE_SPEED: float = 100.0
+const BASE_SPEED: int = 100.0
 @export var projectile_data: ProjectileData
 @export var projectile_scene: PackedScene
 @export var knockback_force: float = 300.0

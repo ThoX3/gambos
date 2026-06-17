@@ -51,8 +51,11 @@ func setup(data: upgradeData) -> void:
 		for effet in data.capacities_effects:
 			%Stats.append_text(STATS[effet.targetCapacity] + "\n")
 			var current_value = current_stats[STATS[effet.targetCapacity]]
+			var affichage_valeur = effet.value
+			if effet.targetCapacity != effet.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
+				affichage_valeur = int(effet.value)
 			var color = "green" if effet.value > 0 else "red"
-			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + effet.value) + "[/color]\n")
+			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + affichage_valeur) + "[/color]\n")
 	%Rarity.text = RARITY_NAME[data.rarity]
 	var texture_normal = BACKGROUNDS[data.rarity]
 	var texture_hover = HOVER[data.rarity]

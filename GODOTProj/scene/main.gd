@@ -96,14 +96,13 @@ func _on_monde_termine(_vague: int) -> void:
 	var monde_suivant = wm.get_nom_monde_suivant()
 	var index_suivant = wm._index_monde_courant + 1
 	
-	get_tree().paused = true
-	
 	fade_rect.color = Color(0, 0, 0, 0)
 	fade_rect.visible = true
 	var tween := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	
-	tween.tween_property(fade_rect, "color:a", 1.0, 2.0)
+	tween.tween_property(fade_rect, "color:a", 1.0, 5.0)
 	tween.tween_callback(func():
+		get_tree().paused = true
 		$UI/MenuTransition.afficher(monde_suivant, index_suivant)
 	)
 	tween.tween_property(fade_rect, "color:a", 0.0, 1.0)

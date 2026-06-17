@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_5isqy"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_26ku6"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_3cbsx"]
+[ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="9_5isqy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0
@@ -31,6 +32,9 @@ DAMAGE_TEXT_SCENE = ExtResource("7_26ku6")
 SPLASH_EFFECT_SCENE = ExtResource("8_3cbsx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
+sprite_frames = ExtResource("9_5isqy")
+animation = &"pic"
+script = ExtResource("1_52uca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
 scale = Vector2(0.4, 0.4)

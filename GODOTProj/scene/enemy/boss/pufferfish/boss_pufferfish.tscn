@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_eyvxo"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_8wkub"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_3dcn1"]
-[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_emkko"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="8_emkko"]
 [ext_resource type="SpriteFrames" uid="uid://bhh4gulg7kmv3" path="res://assets/sprites/enemy/BossPufferfish.tres" id="9_vwxca"]
 [ext_resource type="Script" uid="uid://3pfiyienny43" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.gd" id="10_q3vn2"]
 [ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="11_1mii0"]

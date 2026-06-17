@@ -34,6 +34,9 @@ func _ready() -> void:
 	if spawn_config == null: push_error("WaveManager : aucun SpawnConfig assigné !")
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
+	
+	if not vague_demarree.is_connected(AudioManager._on_vague_change):
+		vague_demarree.connect(AudioManager._on_vague_change)
 
 func start_waves(continuer: bool = false) -> void:
 	if not continuer:

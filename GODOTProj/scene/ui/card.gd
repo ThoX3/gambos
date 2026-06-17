@@ -59,9 +59,17 @@ func setup(data: upgradeData) -> void:
 	%TextureButton.texture_normal = texture_normal
 	%TextureButton.texture_hover = texture_hover
 	%TextureButton.texture_focused = texture_hover
+	
+	%TextureButton.focus_entered.connect(_on_focus_entered)
+	%TextureButton.focus_exited.connect(_on_focus_exited)
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)
 
 func _on_focus_entered() -> void:
-	print_debug("MAXITEST2")
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1.08, 1.08), 0.15)
+
+func _on_focus_exited() -> void:
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.15)

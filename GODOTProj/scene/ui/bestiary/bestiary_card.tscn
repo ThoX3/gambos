@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://kmchqd4nvrct"]
 
 [ext_resource type="Script" uid="uid://yl8pf1ayfdjk" path="res://scene/ui/bestiary/bestiary_card.gd" id="1_bcard"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_odwsm"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_odwsm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
 bg_color = Color(0.1, 0.1, 0.2, 1)
@@ -80,3 +80,4 @@ clip_text = true
 [node name="CardKillCount" type="Label" parent="CardButton/VBox" unique_id=1601965370]
 unique_name_in_owner = true
 layout_mode = 2
+text = "10"

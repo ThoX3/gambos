@@ -62,18 +62,32 @@ data = ExtResource("4_xwoul")
 vague_apparition = 15
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
-[sub_resource type="Resource" id="Resource_y3dq1"]
-script = ExtResource("3_6sx1e")
-scene = ExtResource("2_8onsx")
-data = ExtResource("5_1ykh5")
-vague_apparition = 21
-metadata/_custom_type_script = "uid://dt8adtnpm1fog"
-
 [sub_resource type="Resource" id="Resource_34r5y"]
 script = ExtResource("3_6sx1e")
 scene = ExtResource("2_8onsx")
 data = ExtResource("6_updt2")
-vague_apparition = 27
+vague_apparition = 21
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_0hiio"]
+script = ExtResource("3_6sx1e")
+scene = ExtResource("16_wru3l")
+data = ExtResource("15_y7e3n")
+vague_apparition = 25
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_y3dq1"]
+script = ExtResource("3_6sx1e")
+scene = ExtResource("2_8onsx")
+data = ExtResource("5_1ykh5")
+vague_apparition = 25
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_xbaqx"]
+script = ExtResource("3_6sx1e")
+scene = ExtResource("18_cbfg2")
+data = ExtResource("17_bjlhm")
+vague_apparition = 30
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_k4dty"]
@@ -83,20 +97,8 @@ data = ExtResource("7_7u5fj")
 vague_apparition = 34
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
-[sub_resource type="Resource" id="Resource_0hiio"]
-script = ExtResource("3_6sx1e")
-scene = ExtResource("16_wru3l")
-data = ExtResource("15_y7e3n")
-metadata/_custom_type_script = "uid://dt8adtnpm1fog"
-
-[sub_resource type="Resource" id="Resource_xbaqx"]
-script = ExtResource("3_6sx1e")
-scene = ExtResource("18_cbfg2")
-data = ExtResource("17_bjlhm")
-metadata/_custom_type_script = "uid://dt8adtnpm1fog"
-
 [resource]
 script = ExtResource("8_8og5k")
-ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_y3dq1"), SubResource("Resource_34r5y"), SubResource("Resource_k4dty"), SubResource("Resource_0hiio"), SubResource("Resource_xbaqx")])
+ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_34r5y"), SubResource("Resource_0hiio"), SubResource("Resource_y3dq1"), SubResource("Resource_xbaqx"), SubResource("Resource_k4dty")])
 boss = Array[Resource]([SubResource("Resource_ptvm1"), SubResource("Resource_cew7t")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

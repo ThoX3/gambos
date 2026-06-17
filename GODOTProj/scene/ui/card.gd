@@ -62,3 +62,6 @@ func setup(data: upgradeData) -> void:
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)
+
+func _on_focus_entered() -> void:
+	print_debug("MAXITEST2")

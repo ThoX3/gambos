@@ -23,6 +23,11 @@ func _ready() -> void:
 	_update_level()
 	pearl_box.modulate.a = 0
 	pearl_box.visible = false
+	
+	if FontManager:
+		if not FontManager.font_mode_changed.is_connected(_on_font_mode_changed):
+			FontManager.font_mode_changed.connect(_on_font_mode_changed)
+		_on_font_mode_changed(FontManager.is_modern_active)
 
 func _on_start():
 	_time_scale_index = 0
@@ -144,3 +149,26 @@ func _input(event: InputEvent) -> void:
 func _apply_time_scale() -> void:
 	Engine.time_scale = time_scales[_time_scale_index]
 	%SpeedLabel.text = "x" + str(time_scales[_time_scale_index]).replace(".0", "")
+
+func _on_font_mode_changed(is_modern: bool) -> void:
+	var margins = ["margin_left", "margin_top", "margin_right", "margin_bottom"]
+	_apply_margin_overrides(self, margins, is_modern)
+
+var _original_margins = {}
+
+func _apply_margin_overrides(node: Node, margins: Array, is_modern: bool) -> void:
+	if node is MarginContainer:
+		var node_id = node.get_instance_id()
+		if not _original_margins.has(node_id):
+			_original_margins[node_id] = {}
+			for m in margins:
+				_original_margins[node_id][m] = node.get_theme_constant(m)
+				
+		for m in margins:
+			if is_modern:
+				node.add_theme_constant_override(m, 0)
+			else:
+				node.add_theme_constant_override(m, _original_margins[node_id][m])
+				
+	for child in node.get_children():
+		_apply_margin_overrides(child, margins, is_modern)

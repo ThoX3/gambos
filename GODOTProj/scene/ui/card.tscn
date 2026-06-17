@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://deiy6gh852o1c" path="res://assets/sprites/cards/background/Card10.png" id="5_gxkve"]
 [ext_resource type="Texture2D" uid="uid://ckeuceolxfyto" path="res://assets/sprites/cards/background/Card9.png" id="5_ybrhn"]
 [ext_resource type="Texture2D" uid="uid://ucrqovpqfu1u" path="res://assets/sprites/cards/background/Card11.png" id="6_xy3u8"]
+[ext_resource type="FontVariation" uid="uid://cbvc6kusfq3it" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="12_imtf8"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="13_r7h6l"]
 
 [node name="Card" type="Control" unique_id=995847564]
 layout_mode = 3
@@ -63,7 +65,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_ulku6")
+theme_override_fonts/font = ExtResource("12_imtf8")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -81,7 +83,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("2_ulku6")
+theme_override_fonts/font = ExtResource("13_r7h6l")
 autowrap_mode = 2
 clip_text = true
 

@@ -1,5 +1,7 @@
 extends Node
 
+signal font_mode_changed(is_modern: bool)
+
 const DYNAMIC_FONTS_DIR = "res://assets/fonts/dynamic/"
 const PIXEL_FONTS_DIR = "res://assets/fonts/depixel/"
 const MODERN_FONTS_DIR = "res://assets/fonts/modern/" 
@@ -55,9 +57,17 @@ func set_modern_font(active: bool) -> void:
 		var base_font: Font = load(target_path)
 		if base_font:
 			font_var.base_font = base_font
+			
+			if dynamic_res == "DePixelIllegible.tres":
+				if active:
+					font_var.variation_transform = Transform2D().scaled(Vector2(0.8, 0.8))
+				else:
+					font_var.variation_transform = Transform2D()
 	
 	# Update existing nodes in the tree
 	_update_all_nodes(get_tree().root)
+	
+	font_mode_changed.emit(active)
 
 func _update_all_nodes(node: Node) -> void:
 	_apply_filter(node)

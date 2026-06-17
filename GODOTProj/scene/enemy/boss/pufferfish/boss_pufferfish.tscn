@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://jw1arwmodi8o"]
 
+[ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="2_3qyhk"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_eyvxo"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_8wkub"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_3dcn1"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_emkko"]
-[ext_resource type="SpriteFrames" uid="uid://bhh4gulg7kmv3" path="res://assets/sprites/enemy/Boss1.tres" id="9_vwxca"]
+[ext_resource type="SpriteFrames" uid="uid://bhh4gulg7kmv3" path="res://assets/sprites/enemy/BossPufferfish.tres" id="9_vwxca"]
 [ext_resource type="Script" uid="uid://3pfiyienny43" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.gd" id="10_q3vn2"]
 [ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="11_1mii0"]
 [ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="12_4osb5"]
@@ -18,6 +19,9 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("10_q3vn2")
+pic_scene = ExtResource("2_3qyhk")
+vitesse_charge = 1000.0
+duree_charge = 5.0
 scene_transition = ExtResource("11_1mii0")
 stats = ExtResource("12_4osb5")
 SEAWEED_SCENE = ExtResource("5_eyvxo")

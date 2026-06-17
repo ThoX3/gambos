@@ -19,7 +19,7 @@
 script = ExtResource("3_j4siw")
 scene = ExtResource("2_kk5vi")
 data = ExtResource("1_3h8u1")
-vague_exacte = 40
+vague_exacte = 21
 duree = 30.0
 metadata/_custom_type_script = "uid://dj14x25prjjx0"
 

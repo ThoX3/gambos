@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_vq3o3")
 name = "Ébullition Massive"
-description = "Ajoute 1 projectile"
+description = "Ajoute une petite bulle"
 rarity = 3
 typeEffects = 1
 skill_add_effects = 1

@@ -60,11 +60,13 @@ func _process(delta: float) -> void:
 		var node_size := currently_focused_node.size
 		var target_pos: Vector2
 		
-		if pos.y <= 390:
-			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
+		if currently_focused_node.upgrade_id == "speed":
+			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)	
+		elif pos.y <= 300:
+			target_pos = pos + Vector2(- node_infos_window.size.x - 20, node_size.y / 2 - node_infos_window.size.y / 2)
 		else:
-			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, -218)
-			
+			target_pos = pos + Vector2(- node_infos_window.size.x - 20, node_size.y / 2 - node_infos_window.size.y / 2 - 16)
+
 		node_infos_window.global_position = node_infos_window.global_position.lerp(target_pos, 15.0 * delta)
 
 func _on_visibility_changed() -> void:
@@ -108,29 +110,18 @@ func _update_node_infos_window() -> void:
 	
 	var title: String = currently_focused_node.upgrade_name
 	var description: String = currently_focused_node.upgrade_description
+	var locked_text: String = ""
 	
 	if not currently_focused_node.is_unlocked:
 		if currently_focused_node.locked_by_monde:
-			description = "[font_size=14][u]Verrouillé[/u]\n" + description
+			locked_text = "[u]Verrouillé[/u]"
 		elif currently_focused_node.parent_node != null:
 			var parent_name = currently_focused_node.parent_node.upgrade_name
 			var required_level = currently_focused_node.parent_node_unlock_level
-			description = "[font_size=14][u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u]\n" + description
+			locked_text = "[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u]"
 	
-	node_infos_window.set_infos(title, description)
-	
-	var was_visible = node_infos_window.visible
+	node_infos_window.set_infos(title, description, locked_text)
 	node_infos_window.visible = true
-	
-	if not was_visible:
-		var pos := currently_focused_node.global_position
-		var node_size := currently_focused_node.size
-		var target_pos: Vector2
-		if pos.y <= 390:
-			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
-		else:
-			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, -218)
-		node_infos_window.global_position = target_pos
 
 func refresh_shop(is_initial_load: bool = false) -> void:
 	var current_pearls = SaveManager.current_save.pearls

@@ -284,6 +284,7 @@ upgrade_name = "Célérité"
 upgrade_description = "Permet d'accélérer l'écoulement du temps en combat pour affronter les vagues plus rapidement."
 icon_texture = ExtResource("12_qpv24")
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
+parent_node_unlock_level = 2
 
 [node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -336,6 +337,7 @@ upgrade_name = "Petites bulles"
 upgrade_description = "Fragmente l'attaque principale de Gambos en de multiples petites bulles."
 icon_texture = ExtResource("15_qpv24")
 parent_node = NodePath("../../VBoxContainer4/Thorns")
+parent_node_unlock_level = 2
 
 [node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=217103235]
 layout_mode = 2
@@ -436,6 +438,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=2013895789]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

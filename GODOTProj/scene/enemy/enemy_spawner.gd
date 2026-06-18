@@ -51,10 +51,24 @@ func _spawner_un_ennemi() -> void:
 	var entry: EntreeEnnemi = ennemis_a_spawner.pick_random()
 	var ennemi: Enemy_Base  = entry.scene.instantiate()
 	ennemi.stats            = entry.data
-	ennemi.global_position  = global_position + Vector2(
-		randf_range(-60.0, 60.0),
-		randf_range(-60.0, 60.0)
-	)
+	
+	var space_state = get_world_2d().direct_space_state
+	var valid_pos = global_position
+	for i in range(10):
+		var test_pos = global_position + Vector2(randf_range(-60.0, 60.0), randf_range(-60.0, 60.0))
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = test_pos
+		var intersections = space_state.intersect_point(query)
+		var hit_obstacle = false
+		for inter in intersections:
+			if inter.collider is TileMapLayer:
+				hit_obstacle = true
+				break
+		if not hit_obstacle:
+			valid_pos = test_pos
+			break
+
+	ennemi.global_position = valid_pos
 	get_parent().call_deferred("add_child", ennemi)
 	_spawnes += 1
 

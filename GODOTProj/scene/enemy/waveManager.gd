@@ -242,12 +242,23 @@ func _spawner_boss(boss_entry: EntreeBoss) -> void:
 		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
 		conteneur_ennemis.add_child(ennemi)
 
-func _calculer_position_spawn() -> Vector2:
+func _calculer_position_spawn(attempts_left: int = 10) -> Vector2:
+	var pos = Vector2.ZERO
 	match spawn_config.zone:
-		SpawnConfig.ZoneType.BORDS_ECRAN:          return _spawn_bords_ecran(spawn_config.marge_bords)
-		SpawnConfig.ZoneType.CERCLE_AUTOUR_JOUEUR: return _spawn_cercle(joueur.global_position, spawn_config.rayon_cercle)
+		SpawnConfig.ZoneType.BORDS_ECRAN:          pos = _spawn_bords_ecran(spawn_config.marge_bords)
+		SpawnConfig.ZoneType.CERCLE_AUTOUR_JOUEUR: pos = _spawn_cercle(joueur.global_position, spawn_config.rayon_cercle)
 		SpawnConfig.ZoneType.POINT_FIXE:           return spawn_config.position_fixe
-	return Vector2.ZERO
+
+	if attempts_left > 0:
+		var space_state = get_viewport().find_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = pos
+		var intersections = space_state.intersect_point(query)
+		for inter in intersections:
+			if inter.collider is TileMapLayer:
+				return _calculer_position_spawn(attempts_left - 1)
+			
+	return pos
 
 func _spawn_bords_ecran(marge: float) -> Vector2:
 	var cam    := get_viewport().get_camera_2d()

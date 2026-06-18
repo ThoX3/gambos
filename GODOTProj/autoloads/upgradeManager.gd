@@ -75,19 +75,19 @@ func get_default_cost(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de vie maximum.
 func get_cost_health(level: int) -> int:
-	return get_default_cost(level)
+	return [1, 2, 4, 6, 9, 13, 15, 18, 22, 28][level]
 
 ## Retourne le coût de l'amélioration de vitesse de déplacement.
 func get_cost_speed(level: int) -> int:
-	return get_default_cost(level)
+	return [1, 2, 4, 6, 9, 13, 15, 18, 22, 28][level]
 
 ## Retourne le coût de l'amélioration de dégâts.
 func get_cost_damage(level: int) -> int:
-	return get_default_cost(level)
+	return [1, 2, 4, 6, 9, 13, 15, 18, 22, 28][level]
 
 ## Retourne le coût de l'amélioration de vitesse d'attaque.
 func get_cost_attack_speed(level: int) -> int:
-	return get_default_cost(level)
+	return [1, 2, 4, 6, 9, 13, 15, 18, 22, 28][level]
 
 ## Retourne le coût de l'amélioration de gain d'expérience.
 func get_cost_xp_gain(level: int) -> int:
@@ -103,7 +103,7 @@ func get_cost_regen(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
 func get_cost_ingame_speed(level: int) -> int:
-	return max(30, 9 ** (level + 1) - 5) 
+	return max(20, 9 ** (level + 1) - 5) 
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
@@ -111,11 +111,11 @@ func get_cost_thorns(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
-	return get_default_cost(level)
+	return [5, 25, 50][level]
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
-	return get_default_cost(level)
+	return get_default_cost(level) * 2
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
 func get_cost_bubble_division(level: int) -> int:

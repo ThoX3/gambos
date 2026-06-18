@@ -73,7 +73,7 @@ conteneur_ennemis = NodePath("EnemyContainer")
 scene_dialogue = ExtResource("12_wscrc")
 
 [node name="EnemyContainer" type="Node2D" parent="World/WaveManager" unique_id=14065966]
-z_index = 10
+z_index = 1
 
 [node name="WorldManager" type="Node2D" parent="World" unique_id=611213918]
 script = ExtResource("15_smf0o")

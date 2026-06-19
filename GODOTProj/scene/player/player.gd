@@ -63,11 +63,12 @@ func _process(delta: float) -> void:
 	if Stats.thorns_damage > 0:
 		_thorns_timer -= delta
 		if _thorns_timer <= 0.0:
-			var overlapping_mobs = %HurtBox.get_overlapping_bodies()
-			if overlapping_mobs.size() > 0:
-				for mob in overlapping_mobs:
-					if mob.has_method("take_damage"):
-						mob.take_damage(Stats.thorns_damage)
+			if %HurtBox.monitoring:
+				var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+				if overlapping_mobs.size() > 0:
+					for mob in overlapping_mobs:
+						if mob.has_method("take_damage"):
+							mob.take_damage(Stats.thorns_damage)
 				_thorns_timer = Stats.thorns_interval
 
 func _physics_process(delta):
@@ -107,31 +108,32 @@ func _physics_process(delta):
 	if is_invincible:
 		_handle_blinking(delta)
 		
-	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
-	
-	if overlapping_mobs.size() > 0 and not is_invincible:
-		Stats.current_health -= overlapping_mobs[0].attack_damage
-		# Thorns damage
-		if Stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
-			overlapping_mobs[0].take_damage(Stats.thorns_damage)
-			
-		# Calcul de la direction opposée à l'ennemi
-		var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
-		_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
-		GameManager.health_changed.emit()
-		GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
-		if Stats.current_health <= 0.0:
-			if prevent_death:
-				Stats.current_health = 0.1
+	if %HurtBox.monitoring:
+		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
+		
+		if overlapping_mobs.size() > 0 and not is_invincible:
+			Stats.current_health -= overlapping_mobs[0].attack_damage
+			# Thorns damage
+			if Stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+				overlapping_mobs[0].take_damage(Stats.thorns_damage)
+				
+			# Calcul de la direction opposée à l'ennemi
+			var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
+			_knockback_velocity = knockback_dir * knockback_force  # ← remplace le commentaire
+			GameManager.health_changed.emit()
+			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
+			if Stats.current_health <= 0.0:
+				if prevent_death:
+					Stats.current_health = 0.1
+					AudioManager.play_sound_2d("gambos_hurt", global_position)
+					start_invincibility()
+				else:
+					%HurtBox.monitoring = false
+					death()
+			else:
+				
 				AudioManager.play_sound_2d("gambos_hurt", global_position)
 				start_invincibility()
-			else:
-				%HurtBox.monitoring = false
-				death()
-		else:
-			
-			AudioManager.play_sound_2d("gambos_hurt", global_position)
-			start_invincibility()
 
 func _move_with_push(delta: float) -> void:
 	var motion = velocity * delta

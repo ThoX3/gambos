@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://jbnrfg3eeax5"]
 
 [ext_resource type="FontVariation" uid="uid://cbvc6kusfq3it" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="1_swk6r"]
-[ext_resource type="Texture2D" uid="uid://bgb0fdlkcq16a" path="res://assets/sprites/enemy/boss2_silhouette.png" id="2_swk6r"]
+[ext_resource type="Texture2D" uid="uid://bgb0fdlkcq16a" path="res://assets/sprites/enemy/bossPufferfishSilhouette.png" id="2_swk6r"]
 
 [sub_resource type="Gradient" id="Gradient_baq6g"]
 offsets = PackedFloat32Array(0.5397351, 0.6258278)

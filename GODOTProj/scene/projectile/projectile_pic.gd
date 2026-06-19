@@ -1,6 +1,6 @@
 extends Area2D
 
-var direction: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO : set = _set_direction
 @export var vitesse: float = 300.0
 @export var degats: int = 30
 
@@ -13,9 +13,10 @@ var _distance_traveled: float = 0.0
 
 @onready var sprite = $AnimatedSprite2D
 
-const ANGLE_CORRECTION: float = PI / 4
+const ANGLE_CORRECTION: float = 0
 
 func _ready() -> void:
+	# La direction a pu être assignée avant _ready : on applique la rotation maintenant
 	_appliquer_rotation()
 	sprite.play("pic")
 
@@ -27,16 +28,17 @@ func _process(delta: float) -> void:
 		if _distance_traveled >= max_range:
 			_destroy()
 
+func _set_direction(nouvelle_direction: Vector2) -> void:
+	direction = nouvelle_direction.normalized()
+	# Si le sprite est déjà prêt, on applique tout de suite ; sinon _ready s'en chargera
+	if is_inside_tree() and sprite != null:
+		_appliquer_rotation()
+
 func _appliquer_rotation() -> void:
-	if direction == Vector2.ZERO:
+	if direction == Vector2.ZERO or sprite == null:
 		return
-	var angle_calculé = direction.angle()
-	if direction.x > 0:
-		sprite.flip_v = true
-		global_rotation = angle_calculé + ANGLE_CORRECTION
-	else:
-		sprite.flip_v = false
-		global_rotation = angle_calculé - ANGLE_CORRECTION
+	# Oriente le projectile dans la direction de tir
+	rotation = direction.angle() + ANGLE_CORRECTION
 
 func _on_body_entered(body: Node2D) -> void:
 	if not est_actif:

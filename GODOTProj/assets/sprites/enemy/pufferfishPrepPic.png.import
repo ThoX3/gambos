@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhvmo4o1x4nb"
-path="res://.godot/imported/Boss1Speed.png-2dfd0609de28f3d2f659863705a81272.ctex"
+uid="uid://v00p0n4yrig4"
+path="res://.godot/imported/pufferfishPrepPic.png-436dca17284a9e83023ef149411519ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/Boss1Speed.png"
-dest_files=["res://.godot/imported/Boss1Speed.png-2dfd0609de28f3d2f659863705a81272.ctex"]
+source_file="res://assets/sprites/enemy/pufferfishPrepPic.png"
+dest_files=["res://.godot/imported/pufferfishPrepPic.png-436dca17284a9e83023ef149411519ef.ctex"]
 
 [params]
 

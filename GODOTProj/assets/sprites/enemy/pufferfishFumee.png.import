@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgb0fdlkcq16a"
-path="res://.godot/imported/boss2_silhouette.png-b4011eef7390a6e47429757199e27ba6.ctex"
+uid="uid://be36mh3ddomgi"
+path="res://.godot/imported/pufferfishFumee.png-54fd8f6ba925206f422148bfd3936b6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/boss2_silhouette.png"
-dest_files=["res://.godot/imported/boss2_silhouette.png-b4011eef7390a6e47429757199e27ba6.ctex"]
+source_file="res://assets/sprites/enemy/pufferfishFumee.png"
+dest_files=["res://.godot/imported/pufferfishFumee.png-54fd8f6ba925206f422148bfd3936b6b.ctex"]
 
 [params]
 

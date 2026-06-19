@@ -171,7 +171,7 @@ func _start_attack() -> void:
 						_attaque_forcee = attaque
 						break
 			if _attaque_forcee != null:
-				await get_tree().create_timer(0.05).timeout
+				if not await _attendre_timer(0.05): return
 			else:
 				break
 		else:
@@ -192,11 +192,9 @@ func _lancer_charge() -> void:
 	if sprite.sprite_frames.has_animation("prepare_speed"):
 		sprite.sprite_frames.set_animation_loop("prepare_speed", false)
 		sprite.play("prepare_speed")
-		await sprite.animation_finished
+		if not await _attendre_anim(): return
 	else:
-		await get_tree().create_timer(0.5).timeout
-
-	if _est_mort or not is_instance_valid(self): return
+		if not await _attendre_timer(0.5): return
 
 	# 2. Déclenchement de la charge APRÈS prepare_speed
 	_direction_charge = (player.global_position - global_position).normalized()
@@ -209,34 +207,26 @@ func _lancer_charge() -> void:
 
 	# 3. Attente de la fin de la charge (rebonds)
 	while _en_charge:
-		if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-			return
-		await get_tree().process_frame
-		# Re-check APRÈS l'await : le nœud peut avoir été libéré pendant la frame
-		if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-			return
-
-	if _est_mort or not is_instance_valid(self): return
+		if not await _attendre_frame(): return
 
 	# 4. Fin de charge
 	if sprite.sprite_frames.has_animation("finish_speed"):
 		sprite.sprite_frames.set_animation_loop("finish_speed", false)
 		sprite.play("finish_speed")
-		await sprite.animation_finished
+		if not await _attendre_anim(): return
 	else:
-		await get_tree().create_timer(0.3).timeout
+		if not await _attendre_timer(0.3): return
 
 	if not _est_mort:
 		sprite.play("walk")
-	await get_tree().create_timer(0.3).timeout
+	if not await _attendre_timer(0.3): return
 
 
 func _lancer_gonflement_explosif() -> void:
 	if _est_mort or not is_instance_valid(self): return
 	sprite.sprite_frames.set_animation_loop("explode", false)
 	sprite.play("explode")
-	await sprite.animation_finished
-	if _est_mort or not is_instance_valid(self): return
+	if not await _attendre_anim(): return
 	_tirer_pics_en_cercle()
 
 	# Phase fumée : invulnérable et immobile dès maintenant
@@ -246,8 +236,10 @@ func _lancer_gonflement_explosif() -> void:
 	if sprite.sprite_frames.has_animation("prepare_fumee"):
 		sprite.sprite_frames.set_animation_loop("prepare_fumee", false)
 		sprite.play("prepare_fumee")
-		await sprite.animation_finished
-		if _est_mort or not is_instance_valid(self): return
+		if not await _attendre_anim():
+			_en_fumee = false
+			scale = _echelle_normale
+			return
 
 	# 2. fumee — c'est ICI qu'il grandit x3
 	scale = _echelle_normale * 3.0
@@ -260,19 +252,18 @@ func _lancer_gonflement_explosif() -> void:
 
 	if not _est_mort:
 		sprite.play("walk")
-	await get_tree().create_timer(0.4).timeout
+	if not await _attendre_timer(0.4): return
 
 
 func _lancer_explosion_pics() -> void:
 	if _est_mort or not is_instance_valid(self): return
 	sprite.sprite_frames.set_animation_loop("explode", false)
 	sprite.play("explode")
-	await get_tree().create_timer(0.4).timeout
-	if _est_mort or not is_instance_valid(self): return
+	if not await _attendre_timer(0.4): return
 	_tirer_pics_en_cercle()
 	if not _est_mort:
 		sprite.play("walk")
-	await get_tree().create_timer(0.3).timeout
+	if not await _attendre_timer(0.3): return
 
 
 # ── Helpers ───────────────────────────────────────────────────────────
@@ -311,11 +302,35 @@ func _creer_nuage_poison() -> void:
 					player.take_damage(degats_nuage_poison)
 				if player.has_method("apply_poison"):
 					player.apply_poison(poison_duree, poison_degats_tick, poison_intervalle, poison_ralenti)
-		await get_tree().process_frame
+		if not await _attendre_frame(): return
 
 
 func _poids(attaque: BossAttack) -> float:
 	return attaque.poids if "poids" in attaque else 1.0
+
+
+# ── Awaits sécurisés ──────────────────────────────────────────────────
+# Retournent false si le boss a été libéré → l'appelant doit return immédiatement
+
+func _attendre_frame() -> bool:
+	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
+		return false
+	await get_tree().process_frame
+	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
+
+
+func _attendre_timer(duree: float) -> bool:
+	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
+		return false
+	await get_tree().create_timer(duree).timeout
+	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
+
+
+func _attendre_anim() -> bool:
+	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
+		return false
+	await sprite.animation_finished
+	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
 
 
 # ── Mort ──────────────────────────────────────────────────────────────

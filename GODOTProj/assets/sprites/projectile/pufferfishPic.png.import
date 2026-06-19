@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnb8oscaqrcri"
-path="res://.godot/imported/projectile_pic.png-7c40b55217f9e6a1b983c42cba00b23f.ctex"
+uid="uid://btojoy0arl7e7"
+path="res://.godot/imported/pufferfishPic.png-b74c2898da6926b8c93bf5b4b6781c3d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/projectile/projectile_pic.png"
-dest_files=["res://.godot/imported/projectile_pic.png-7c40b55217f9e6a1b983c42cba00b23f.ctex"]
+source_file="res://assets/sprites/projectile/pufferfishPic.png"
+dest_files=["res://.godot/imported/pufferfishPic.png-b74c2898da6926b8c93bf5b4b6781c3d.ctex"]
 
 [params]
 

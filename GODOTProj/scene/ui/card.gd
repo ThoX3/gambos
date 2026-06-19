@@ -68,8 +68,9 @@ func setup(data: upgradeData) -> void:
 	%TextureButton.texture_hover = texture_hover
 	%TextureButton.texture_focused = texture_hover
 	
-	%TextureButton.focus_entered.connect(_on_focus_entered)
-	%TextureButton.focus_exited.connect(_on_focus_exited)
+	if not %TextureButton.focus_entered.is_connected(_on_focus_entered):
+		%TextureButton.focus_entered.connect(_on_focus_entered)
+		%TextureButton.focus_exited.connect(_on_focus_exited)
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)

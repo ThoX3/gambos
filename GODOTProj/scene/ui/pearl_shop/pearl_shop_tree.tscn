@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://530ybr8i2vv" path="res://assets/sprites/pearl_shop/icons/sable_count.png" id="21_s3x1b"]
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="22_6jm8l"]
 [ext_resource type="Texture2D" uid="uid://b0oxhimygfwc8" path="res://assets/sprites/pearl_shop/buttons/xbox-y.png" id="23_iebwt"]
+[ext_resource type="Texture2D" uid="uid://dh1nb3exsjgek" path="res://assets/sprites/pearl_shop/buttons/xbox-a.png" id="24_q40y7"]
 
 [sub_resource type="Gradient" id="Gradient_s20yb"]
 offsets = PackedFloat32Array(0, 0.7758285, 1)
@@ -385,6 +386,22 @@ theme_override_constants/separation = 54
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
+
+[node name="BuyButton" type="HBoxContainer" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=1883397860]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/NavigationButtons/BuyButton" unique_id=2108634781]
+layout_mode = 2
+texture = ExtResource("24_q40y7")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/NavigationButtons/BuyButton" unique_id=1308594710]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_fonts/font = ExtResource("2_irh2w")
+theme_override_font_sizes/font_size = 18
+text = "Acheter"
 
 [node name="MenuButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=1820389118]
 layout_mode = 2

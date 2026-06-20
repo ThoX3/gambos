@@ -9,7 +9,7 @@
 script = ExtResource("1_hwn1h")
 texture = ExtResource("2_hwn1h")
 name = "Vieille de corail"
-max_hp = 100
+max_hp = 300
 movement_speed = 250.0
 attack_damage = 20
 xp_drop = 20

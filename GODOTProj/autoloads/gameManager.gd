@@ -24,8 +24,23 @@ var gotoshop_from_tutorial: bool = false
 var in_game: bool = false
 
 # Called when the node enters the scene tree for the first time.
+var _mouse_idle_timer: float = 0.0
+const MOUSE_HIDE_DELAY: float = 3.0
+
 func _ready() -> void:
-	pass
+	set_process(true)
+	
+func _process(delta: float) -> void:
+	if _mouse_idle_timer > 0.0:
+		_mouse_idle_timer -= delta
+		if _mouse_idle_timer <= 0.0:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		_mouse_idle_timer = MOUSE_HIDE_DELAY
 
 func joy_vibration(device: int, weak_magnitude: float, strong_magnitude: float, duration: float = 0.0) -> void:
 	var strength = SaveManager.current_save.setting_haptic_strength

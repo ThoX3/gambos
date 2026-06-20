@@ -31,6 +31,7 @@ func setup_enemy():
 	if stats.texture:
 		sprite.sprite_frames = stats.texture
 		sprite.play("walk")
+		start_breathing_animation()
 
 func _physics_process(delta):
 	if not stats:
@@ -160,3 +161,14 @@ func _creer_splash_mort() -> void:
 	splash.global_position = self.global_position
 	
 	get_parent().call_deferred("add_child", splash)
+
+func start_breathing_animation() -> void:
+	var tween = create_tween().set_loops()
+	
+	tween.tween_property(self, "scale", Vector2(1.05, 1.05), 0.2)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN_OUT)
+		
+	tween.tween_property(self, "scale", Vector2(0.95, 0.95), 0.2)\
+		.set_trans(Tween.TRANS_SINE)\
+		.set_ease(Tween.EASE_IN_OUT)

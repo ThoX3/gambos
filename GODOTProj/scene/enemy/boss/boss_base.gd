@@ -70,3 +70,6 @@ func _lancer_transition_boss() -> void:
 	get_tree().paused = false
 
 	await get_tree().create_timer(2.0).timeout
+	
+func start_breathing_animation():
+	pass

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://eqgpug3rmy8c" path="res://scene/ui/upgrade.gd" id="1_6hck6"]
 [ext_resource type="PackedScene" uid="uid://dm66ajmmm82qh" path="res://scene/ui/card.tscn" id="2_227xh"]
 [ext_resource type="Texture2D" uid="uid://bcqmml6mdifpa" path="res://assets/sprites/cards/button_lb.png" id="2_ie47p"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="2_qr4dl"]
+[ext_resource type="FontVariation" uid="uid://b5r14v10d3ad6" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="2_qr4dl"]
 [ext_resource type="Texture2D" uid="uid://mlvlfdmfqax" path="res://assets/sprites/cards/button_rb.png" id="3_ykyk0"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="6_ykyk0"]
 

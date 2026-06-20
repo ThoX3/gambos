@@ -40,6 +40,7 @@ const MUSIQUES := {
 			0:  ["bass"],
 			7:  ["guitar", "piano", "other", "vocals"],
 			15: ["drums"],
+			61: ["bass","guitar", "piano", "other", "vocals","drums"],
 		}
 	},
 	

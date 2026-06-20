@@ -2,6 +2,12 @@ extends Control
 
 @export var Stats = Resource
 
+@export_group("Boss Healthbar Sprites")
+@export var UnderCrab = CompressedTexture2D
+@export var ProgressCrab = CompressedTexture2D
+@export var UnderPuffer = CompressedTexture2D
+@export var ProgressPuffer = CompressedTexture2D
+
 @onready var pearl_box = $Pearls
 @onready var pearl_label = $Pearls/MarginContainer/Count
 @onready var wave_label = $Wave/Count
@@ -55,7 +61,9 @@ func _on_start():
 func _on_vague_demarree(numero: int) -> void:
 	_set_wave_text(numero)
 	if numero == 20:
-		show_bossBar()
+		show_bossBar("Crab")
+	if numero == 40:
+		show_bossBar("Puffer")
 		
 	if numero >= 3 and _celerity_tuto_shown_this_run and not SaveManager.current_save.celerity_tutorial_shown:
 		SaveManager.current_save.celerity_tutorial_shown = true
@@ -75,7 +83,16 @@ func _set_wave_text(numero: int) -> void:
 		if sweep_rect.material:
 			sweep_rect.material.set_shader_parameter("active", false)
 	
-func show_bossBar():
+func show_bossBar(Name: String):
+	if Name == "Crab":
+		bossBar_progressBar.texture_under = UnderCrab
+		bossBar_progressBar.texture_progress = ProgressCrab
+		bossBar_progressBar.texture_progress_offset = Vector2(41, 26)
+	elif Name == "Puffer":
+		bossBar_progressBar.texture_under = UnderPuffer
+		bossBar_progressBar.texture_progress = ProgressPuffer
+		bossBar_progressBar.texture_progress_offset = Vector2(39, 26)
+	
 	bossBar_progressBar.show()
 	_on_boss_health_changed(100, 100)
 

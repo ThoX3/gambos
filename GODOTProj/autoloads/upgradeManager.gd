@@ -52,6 +52,11 @@ func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgrade
 	for upgrade in list:
 		current_sum += weights[upgrade.rarity]
 		if random_value < current_sum:
+			for data in upgrade.capacities_effects :
+				if data.targetCapacity == data.TargetCapacityEffect.PLAYER_HEALTH:
+					var player = get_tree().get_first_node_in_group("Player")
+					if player.Stats.current_health + data.value <= 0:
+						pick_one_weighted(list, weights)
 			return upgrade
 	return null
 	
@@ -59,11 +64,14 @@ func calculate_dynamic_weights(luck_level: int) -> Dictionary:
 	var dyn_weights = {}
 	var level_clamped = clamp(luck_level, 0, 20)
 	var luck_factor: float = level_clamped / 20.0
-	dyn_weights[upgradeData.rarityType.COMMON] = max(50.0, BASE_RARITY_WEIGHTS[upgradeData.rarityType.COMMON] - (luck_factor * 50.0))
-	dyn_weights[upgradeData.rarityType.UNCOMMUN] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.UNCOMMUN] * (1.0 + luck_factor * 1.0)
-	dyn_weights[upgradeData.rarityType.RARE] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.RARE] * (1.0 + luck_factor * 2.0)
-	dyn_weights[upgradeData.rarityType.LEGENDARY] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.LEGENDARY] * (1.0 + luck_factor * 4.0)
-	dyn_weights[upgradeData.rarityType.MYTHIC] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.MYTHIC] * (1.0 + luck_factor * 8.0)
+	dyn_weights[upgradeData.rarityType.COMMON] = lerp(BASE_RARITY_WEIGHTS[upgradeData.rarityType.COMMON], 1.0, pow(luck_factor, 1.5))
+	dyn_weights[upgradeData.rarityType.UNCOMMUN] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.UNCOMMUN] * (1.0 + luck_factor * 1.5)
+	dyn_weights[upgradeData.rarityType.RARE] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.RARE] + (luck_factor * 65.0)
+	dyn_weights[upgradeData.rarityType.LEGENDARY] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.LEGENDARY] * pow(luck_factor, 2.0) * 15.0
+	dyn_weights[upgradeData.rarityType.MYTHIC] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.MYTHIC] * pow(luck_factor, 3.0) * 60.0
+	if level_clamped == 0:
+		dyn_weights[upgradeData.rarityType.LEGENDARY] = 0.0
+		dyn_weights[upgradeData.rarityType.MYTHIC] = 0.0
 	return dyn_weights
 
 # --- Logique de coût de base ---
@@ -111,7 +119,7 @@ func get_cost_thorns(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
-	return [5, 25, 50][level]
+	return [5, 25, 50, 100][level]
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
@@ -149,7 +157,7 @@ func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:
-	return 1.0 + (level * 1.0)
+	return 1.0 + (level * 2.0)
 
 ## Calcule le bonus de cadence de tir en fonction du niveau.
 func get_effect_attack_speed(level: int) -> float:
@@ -165,7 +173,7 @@ func get_effect_luck(level: int) -> float:
 
 ## Calcule le taux de régénération de vie par seconde en fonction du niveau.
 func get_effect_regen(level: int) -> float:
-	return level * 0.1
+	return level * 0.05
 
 ## Retourne les paramètres des épines (dégâts et intervalle de tick) en fonction du niveau.
 func get_effect_thorns(level: int) -> Dictionary:

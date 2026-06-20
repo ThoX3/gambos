@@ -31,6 +31,8 @@ var sable_bounce: int = 0
 
 var can_shoot: bool = true
 
+const BUBBLE_SPEED_FACTOR: float = 1.5  # la bulle est toujours au moins 1,5× plus rapide que le joueur
+
 # ── Poison ───────────────────────────────────────────────────────────
 var _poison_actif: bool = false
 var _poison_timer_total: float = 0.0     
@@ -407,7 +409,8 @@ func _shoot_multiple(targets: Array) -> void:
 
 		var p_data := projectile_data.duplicate()
 		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
-
+		p_data.speed = max(projectile_data.speed, Stats.speed * BUBBLE_SPEED_FACTOR)
+		
 		var current_dir := dir
 		if i >= targets.size():
 			current_dir = dir.rotated(randf_range(-0.15, 0.15))
@@ -435,7 +438,7 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.direction = dir
 	proj.appartient_au_joueur = true
 	proj.vitesse = projectile_sable_data.speed
-	proj.degats = int(projectile_sable_data.damage * damage_multiplier)
+	proj.degats = max(1, int(Stats.proj_damage * damage_multiplier * 3))
 	proj.scale = Vector2(scale_multiplier, scale_multiplier)
 
 	proj.pierce_hp = sable_pierce
@@ -463,7 +466,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 			Stats.max_health += effect.value
-			Stats.current_health += max(effect.value, 0)
+			Stats.current_health += effect.value
 			GameManager.health_changed.emit()
 			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:

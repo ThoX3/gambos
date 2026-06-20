@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ot5ljxibm2x8"
-path="res://.godot/imported/Coelacanthiformes.png-6a60dee062cc558901170c6c07c970cb.ctex"
+path="res://.godot/imported/Coelacanthes.png-af45f3cf6d8c6bf1db60606eed7ef6de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/Coelacanthiformes.png"
-dest_files=["res://.godot/imported/Coelacanthiformes.png-6a60dee062cc558901170c6c07c970cb.ctex"]
+source_file="res://assets/sprites/enemy/Coelacanthes.png"
+dest_files=["res://.godot/imported/Coelacanthes.png-af45f3cf6d8c6bf1db60606eed7ef6de.ctex"]
 
 [params]
 

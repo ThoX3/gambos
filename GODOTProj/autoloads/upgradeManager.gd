@@ -56,7 +56,7 @@ func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgrade
 				if data.targetCapacity == data.TargetCapacityEffect.PLAYER_HEALTH:
 					var player = get_tree().get_first_node_in_group("Player")
 					if player.Stats.current_health + data.value <= 0:
-						pick_one_weighted(list, weights)
+						return pick_one_weighted(list, weights)
 			return upgrade
 	return null
 	

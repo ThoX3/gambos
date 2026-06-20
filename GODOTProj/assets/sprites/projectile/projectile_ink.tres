@@ -1,7 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://begucuj1tkjgp"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nj250"]
-load_path = "res://.godot/imported/bossPoulpeProjectile.png-ff3b1196ddcd3408e66e6ec04bf3004d.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpmcs"]
 atlas = SubResource("CompressedTexture2D_nj250")

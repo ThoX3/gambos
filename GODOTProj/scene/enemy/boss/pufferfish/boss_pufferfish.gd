@@ -31,13 +31,17 @@ var _attaque_forcee: BossAttack = null
 var _en_train_de_combo: bool = false
 var _derniere_attaque_id: String = ""
 
-var _en_charge: bool = false
-var _direction_charge: Vector2 = Vector2.ZERO
-var _timer_charge: float = 0.0
-var _rebonds_restants: int = 0
 var _est_mort: bool = false
 var _en_fumee: bool = false
 var _echelle_normale: Vector2 = Vector2.ONE
+
+# --- Délégation du mouvement à l'attaque en cours (charge, phase fumée, etc.) ---
+# Une attaque active ce mode en mettant _etat_special_actif = true et en fournissant
+# une Callable(delta) -> bool. Tant que la Callable renvoie true, le boss continue de
+# lui déléguer _physics_process. Quand elle renvoie false (ou que l'attaque la vide
+# explicitement), le boss reprend son comportement normal (Enemy_Base).
+var _etat_special_actif: bool = false
+var _physics_process_special: Callable = Callable()
 
 
 func _ready() -> void:
@@ -52,50 +56,16 @@ func _physics_process(delta: float) -> void:
 	if _est_mort or not is_inside_tree():
 		return
 
-	if _en_charge:
-		_timer_charge -= delta
-		if _timer_charge <= 0.0 or _rebonds_restants <= 0:
-			_en_charge = false
-		else:
-			# Limites de la CAMÉRA (coords monde)
-			var cam = get_viewport().get_camera_2d()
-			if cam == null:
-				_en_charge = false
-				return
-			var marge = 40.0
-			var min_x = cam.limit_left + marge
-			var max_x = cam.limit_right - marge
-			var min_y = cam.limit_top + marge
-			var max_y = cam.limit_bottom - marge
-
-			var rebond = false
-			if global_position.x <= min_x or global_position.x >= max_x:
-				rebond = true
-			if global_position.y <= min_y or global_position.y >= max_y:
-				rebond = true
-
-			if rebond:
-				_rebonds_restants -= 1
-				global_position.x = clampf(global_position.x, min_x + 1, max_x - 1)
-				global_position.y = clampf(global_position.y, min_y + 1, max_y - 1)
-				# Au rebond : on RE-VISE la position actuelle du joueur
-				if is_instance_valid(player):
-					_direction_charge = (player.global_position - global_position).normalized()
-
-			global_position += _direction_charge * vitesse_charge * delta
-
-			# Contact avec le joueur pendant la charge → dégâts seulement (pas de poison)
-			if is_instance_valid(player) and global_position.distance_to(player.global_position) <= 60.0:
-				if player.has_method("take_damage"):
-					player.take_damage(degats_charge)
-			return
-
-	# Immobile pendant la phase de fumée
-	if _en_fumee:
-		if is_instance_valid(player):
-			var dir_x_f = player.global_position.x - global_position.x
-			if abs(dir_x_f) > 1.0:
-				sprite.flip_h = dir_x_f > 0
+	if _etat_special_actif:
+		# Une attaque a pris la main sur le mouvement.
+		# - callable valide → on lui délègue le mouvement frame par frame
+		# - callable vide   → le boss reste simplement figé (ex: phase de préparation),
+		#   et l'attaque libèrera _etat_special_actif elle-même quand elle aura fini.
+		if _physics_process_special.is_valid():
+			var continue_special: bool = _physics_process_special.call(delta)
+			if not continue_special:
+				_etat_special_actif = false
+				_physics_process_special = Callable()
 		return
 
 	super._physics_process(delta)
@@ -108,7 +78,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _peut_attaquer() -> bool:
-	return not _en_charge
+	return not _etat_special_actif
+
 
 func _start_attack() -> void:
 	if _en_train_de_combo:
@@ -138,12 +109,8 @@ func _start_attack() -> void:
 			var attaques_possibles: Array[BossAttack] = []
 			var somme_des_poids: float = 0.0
 			for attaque in _attaques_instanciees:
-				var cool_ok = temps_actuel >= attaque._prochain_lancement_possible
 				var pas_rep = attaque.id != _derniere_attaque_id
-				var dist_ok = true
-				if attaque.portee_max <= 200.0:
-					dist_ok = distance <= attaque.portee_max
-				if cool_ok and pas_rep and dist_ok:
+				if pas_rep and attaque.peut_attaquer(distance, temps_actuel):
 					attaques_possibles.append(attaque)
 					somme_des_poids += _poids(attaque)
 
@@ -185,132 +152,13 @@ func _start_attack() -> void:
 		sprite.play("walk")
 
 
-# ── Attaques ──────────────────────────────────────────────────────────
-
-func _lancer_charge() -> void:
-	# 1. Préparation — le boss se fige, PAS encore en charge
-	if sprite.sprite_frames.has_animation("prepare_speed"):
-		sprite.sprite_frames.set_animation_loop("prepare_speed", false)
-		sprite.play("prepare_speed")
-		if not await _attendre_anim(): return
-	else:
-		if not await _attendre_timer(0.5): return
-
-	# 2. Déclenchement de la charge APRÈS prepare_speed
-	_direction_charge = (player.global_position - global_position).normalized()
-	_timer_charge     = duree_charge
-	_rebonds_restants = nombre_rebonds_max
-	_en_charge        = true
-
-	if sprite.sprite_frames.has_animation("speed"):
-		sprite.play("speed")
-
-	# 3. Attente de la fin de la charge (rebonds)
-	while _en_charge:
-		if not await _attendre_frame(): return
-
-	# 4. Fin de charge
-	if sprite.sprite_frames.has_animation("finish_speed"):
-		sprite.sprite_frames.set_animation_loop("finish_speed", false)
-		sprite.play("finish_speed")
-		if not await _attendre_anim(): return
-	else:
-		if not await _attendre_timer(0.3): return
-
-	if not _est_mort:
-		sprite.play("walk")
-	if not await _attendre_timer(0.3): return
-
-
-func _lancer_gonflement_explosif() -> void:
-	if _est_mort or not is_instance_valid(self): return
-	sprite.sprite_frames.set_animation_loop("explode", false)
-	sprite.play("explode")
-	if not await _attendre_anim(): return
-	_tirer_pics_en_cercle()
-
-	# Phase fumée : invulnérable et immobile dès maintenant
-	_en_fumee = true
-
-	# 1. prepare_fumee — transition AVANT le grossissement
-	if sprite.sprite_frames.has_animation("prepare_fumee"):
-		sprite.sprite_frames.set_animation_loop("prepare_fumee", false)
-		sprite.play("prepare_fumee")
-		if not await _attendre_anim():
-			_en_fumee = false
-			scale = _echelle_normale
-			return
-
-	# 2. fumee — c'est ICI qu'il grandit x3
-	scale = _echelle_normale * 3.0
-	sprite.play("fumee")
-	await _creer_nuage_poison()
-
-	# Fin de la phase fumée : on rétablit tout
-	scale = _echelle_normale
-	_en_fumee = false
-
-	if not _est_mort:
-		sprite.play("walk")
-	if not await _attendre_timer(0.4): return
-
-
-func _lancer_explosion_pics() -> void:
-	if _est_mort or not is_instance_valid(self): return
-	sprite.sprite_frames.set_animation_loop("explode", false)
-	sprite.play("explode")
-	if not await _attendre_timer(0.4): return
-	_tirer_pics_en_cercle()
-	if not _est_mort:
-		sprite.play("walk")
-	if not await _attendre_timer(0.3): return
-
-
 # ── Helpers ───────────────────────────────────────────────────────────
-
-func _tirer_pics_en_cercle() -> void:
-	if pic_scene == null:
-		push_warning("[Poisson] pic_scene non assignée !")
-		return
-	var angle_step = TAU / float(nombre_pics)
-	for i in range(nombre_pics):
-		var proj = pic_scene.instantiate()
-		var angle = i * angle_step
-		proj.global_position = global_position
-		if "vitesse" in proj:
-			proj.vitesse = vitesse_pics
-		if "degats" in proj:
-			proj.degats = degats_explosion_pics
-		get_parent().add_child(proj)
-		# direction APRÈS add_child pour que @onready soit prêt
-		if "direction" in proj:
-			proj.direction = Vector2(cos(angle), sin(angle))
-
-
-func _creer_nuage_poison() -> void:
-	var elapsed: float = 0.0
-	var tick_elapsed: float = 0.0
-	while elapsed < duree_nuage_poison:
-		if _est_mort or not is_instance_valid(self): return
-		var delta = get_process_delta_time()
-		elapsed      += delta
-		tick_elapsed += delta
-		if tick_elapsed >= tick_poison:
-			tick_elapsed = 0.0
-			if is_instance_valid(player) and global_position.distance_to(player.global_position) <= rayon_nuage_poison:
-				if player.has_method("take_damage"):
-					player.take_damage(degats_nuage_poison)
-				if player.has_method("apply_poison"):
-					player.apply_poison(poison_duree, poison_degats_tick, poison_intervalle, poison_ralenti)
-		if not await _attendre_frame(): return
-
 
 func _poids(attaque: BossAttack) -> float:
 	return attaque.poids if "poids" in attaque else 1.0
 
 
-# ── Awaits sécurisés ──────────────────────────────────────────────────
-# Retournent false si le boss a été libéré → l'appelant doit return immédiatement
+# ── Awaits sécurisés (appelés par les scripts BossAttack via boss._attendre_xxx) ──
 
 func _attendre_frame() -> bool:
 	if _est_mort or not is_instance_valid(self) or not is_inside_tree():

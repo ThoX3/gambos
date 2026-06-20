@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://n807foctu73u" path="res://ressources/enemy/pattern_enemy/shoot_coral_pink.tres" id="3_atk8j"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_dynlu"]
 [ext_resource type="SpriteFrames" uid="uid://dntjudlnykg81" path="res://assets/sprites/enemy/coral_pink.tres" id="4_1mstw"]
+[ext_resource type="SpriteFrames" uid="uid://bxnwymwoibche" path="res://assets/sprites/projectile/coral_pink_projectile.tres" id="4_atk8j"]
 
 [resource]
 script = ExtResource("3_dynlu")
@@ -17,5 +18,5 @@ xp_drop = 15
 pearl_drop_probability = 0.2
 cout = 15
 patterns = Array[ExtResource("2_tr0i6")]([ExtResource("3_atk8j")])
-projectile_sprite = ExtResource("4_1mstw")
+projectile_sprite = ExtResource("4_atk8j")
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

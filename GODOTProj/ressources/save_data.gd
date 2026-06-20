@@ -10,6 +10,7 @@ class_name SaveData
 
 # Tutorial
 @export var tutorial_completed: bool = false
+@export var celerity_tutorial_shown: bool = false
 
 # Pearls 
 @export var pearls: int = 0

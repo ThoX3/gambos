@@ -74,6 +74,37 @@ func setup_game_environment() -> void:
 	if not wm.monde_termine.is_connected(_on_monde_termine):
 		wm.monde_termine.connect(_on_monde_termine)
 
+	if SaveManager.current_save.upgrade_ingame_speed_level >= 1 and not SaveManager.current_save.celerity_tutorial_shown:
+		_show_celerity_tutorial()
+
+func _show_celerity_tutorial() -> void:
+	SaveManager.current_save.celerity_tutorial_shown = true
+	SaveManager.save_game()
+	
+	var overlay = ColorRect.new()
+	overlay.color = Color(0, 0, 0, 0.7)
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	
+	var hbox = HBoxContainer.new()
+	hbox.set_anchors_preset(Control.PRESET_CENTER)
+	overlay.add_child(hbox)
+	
+	# Placeholders for the textures
+	var tex1 = TextureRect.new()
+	tex1.custom_minimum_size = Vector2(100, 100)
+	var tex2 = TextureRect.new()
+	tex2.custom_minimum_size = Vector2(100, 100)
+	
+	hbox.add_child(tex1)
+	hbox.add_child(tex2)
+	
+	$UI.add_child(overlay)
+	
+	var tween = create_tween()
+	tween.tween_interval(4.0)
+	tween.tween_property(overlay, "modulate:a", 0.0, 1.0)
+	tween.tween_callback(overlay.queue_free)
+
 func start_game(map_to_load: PackedScene) -> void:
 	SaveManager.current_save.run_en_cours = false
 	SaveManager.current_save.run_player_stats = null

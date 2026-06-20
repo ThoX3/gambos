@@ -1,19 +1,20 @@
 [gd_resource type="Resource" script_class="BossData" format=3 uid="uid://kn2acjay3iik"]
 
-[ext_resource type="Script" uid="uid://c17mbgk4d6ngk" path="res://scene/enemy/boss/pufferfish/attacks/attack_charge.gd" id="1_5k332"]
-[ext_resource type="Script" uid="uid://c5hpslepvrfm1" path="res://scene/enemy/boss/pufferfish/attacks/attack_explosion_pics.gd" id="2_ytmmr"]
-[ext_resource type="Script" uid="uid://s6xkv3suiw5a" path="res://scene/enemy/boss/pufferfish/attacks/attack_gonflement_explosif.gd" id="3_teh44"]
+[ext_resource type="Script" uid="uid://da6xd0a0v14ty" path="res://scene/enemy/boss/poulpe/attacks/attack_bulles_encre.gd" id="1_ytmmr"]
+[ext_resource type="Script" uid="uid://dwsj75ns71osc" path="res://scene/enemy/boss/poulpe/attacks/attack_camouflage.gd" id="2_teh44"]
+[ext_resource type="Script" uid="uid://caq5pdievnnjb" path="res://scene/enemy/boss/poulpe/attacks/attack_tentacule.gd" id="3_hsoix"]
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="4_hsoix"]
+[ext_resource type="Script" uid="uid://cyfet5bdlnd2b" path="res://scene/enemy/boss/poulpe/attacks/attack_tremblement.gd" id="4_hwq8v"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="5_hwq8v"]
 [ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="6_vcd4f"]
 [ext_resource type="Script" uid="uid://dcfo1wuvd4tep" path="res://ressources/enemy/boss/BossData.gd" id="7_nq6tj"]
-[ext_resource type="SpriteFrames" uid="uid://cdoxdha6cufyv" path="res://assets/sprites/enemy/BossPufferfish.tres" id="8_s85a0"]
+[ext_resource type="SpriteFrames" uid="uid://i2w5pkp3r4io" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ytmmr"]
 
 [resource]
 script = ExtResource("7_nq6tj")
-attack_scripts = Array[Script]([ExtResource("1_5k332"), ExtResource("2_ytmmr"), ExtResource("3_teh44")])
-texture = ExtResource("8_s85a0")
-name = "Pufferfish"
+attack_scripts = Array[Script]([ExtResource("1_ytmmr"), ExtResource("2_teh44"), ExtResource("3_hsoix"), ExtResource("4_hwq8v")])
+texture = ExtResource("9_ytmmr")
+name = "Octopus"
 max_hp = 3000
 armor = 20
 movement_speed = 600.0

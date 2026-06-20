@@ -2,10 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_nt8pr"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_slb70"]
+[ext_resource type="Resource" path="res://ressources/enemy/Jellyfish.tres" id="2_soboy"]
+[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="3_2q4qg"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_o87as"]
 [ext_resource type="Resource" uid="uid://dbrswkrn1eb8q" path="res://ressources/enemy/pattern_enemy/shoot_coral_blue.tres" id="3_w0hj1"]
 [ext_resource type="SpriteFrames" uid="uid://blk82shyc77ms" path="res://assets/sprites/projectile/coral_blue_projectile.tres" id="4_w0hj1"]
 [ext_resource type="SpriteFrames" uid="uid://c2b32jfro6mmg" path="res://assets/sprites/enemy/coral_blue.tres" id="5_tc4vj"]
+
+[sub_resource type="Resource" id="Resource_0rynt"]
+script = ExtResource("1_nt8pr")
+scene = ExtResource("3_2q4qg")
+data = ExtResource("2_soboy")
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [resource]
 script = ExtResource("3_o87as")
@@ -14,7 +22,8 @@ name = "coral"
 max_hp = 50
 weight = 50000.0
 attack_damage = 10
-cout = 15
+cout = 20
+ennemis_a_spawner = Array[ExtResource("1_nt8pr")]([SubResource("Resource_0rynt")])
 patterns = Array[ExtResource("2_slb70")]([ExtResource("3_w0hj1")])
 projectile_sprite = ExtResource("4_w0hj1")
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

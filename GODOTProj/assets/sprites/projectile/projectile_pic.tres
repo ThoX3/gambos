@@ -1,6 +1,6 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://cvqvdfoshy6a7"]
 
-[ext_resource type="Texture2D" uid="uid://bnb8oscaqrcri" path="res://assets/sprites/projectile/projectile_pic.png" id="1_mdrq1"]
+[ext_resource type="Texture2D" uid="uid://btojoy0arl7e7" path="res://assets/sprites/projectile/pufferfishPic.png" id="1_mdrq1"]
 
 [resource]
 animations = [{

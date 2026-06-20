@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w415l5o746jc"
-path="res://.godot/imported/Boss1fumee.png-5cd07fc2c5bbcbab8abd737dcf6127f2.ctex"
+uid="uid://b2m51wcfcsrft"
+path="res://.godot/imported/frame_003.png-849a5a56accd38b1d38738a3284074d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/Boss1fumee.png"
-dest_files=["res://.godot/imported/Boss1fumee.png-5cd07fc2c5bbcbab8abd737dcf6127f2.ctex"]
+source_file="res://assets/sprites/enemy/poulpe_attack/frame_003.png"
+dest_files=["res://.godot/imported/frame_003.png-849a5a56accd38b1d38738a3284074d0.ctex"]
 
 [params]
 

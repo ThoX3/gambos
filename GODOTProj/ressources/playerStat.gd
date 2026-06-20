@@ -11,11 +11,11 @@ class_name PlayerStat
 
 # Character Stat
 @export var collectRadius : int = 200
-@export var max_health : float = 10.0
-@export var current_health : float = max_health
+@export var max_health : int = 10
+@export var current_health : int = max_health
 
 # Run specifics (moved from player.gd)
-@export var speed: float = 150.0
+@export var speed: int = 150
 @export var xp_multiplier: float = 1.0
 @export var regen_rate: float = 0.0
 @export var thorns_damage: int = 0
@@ -23,6 +23,6 @@ class_name PlayerStat
 
 @export var proj_damage: int = 2
 @export var proj_fire_rate: float = 1.0
-@export var proj_range: float = 400.0
+@export var proj_range: int = 400
 @export var proj_count: int = 1
 @export var proj_bounce: int = 0

@@ -61,6 +61,8 @@ func _on_body_entered(body: Node2D) -> void:
 			_current_added_range /= 2.0
 		else:
 			_destroy()
+	if body is TileMapLayer:
+		_destroy() 
 
 func _destroy() -> void:
 	_is_destroyed = true

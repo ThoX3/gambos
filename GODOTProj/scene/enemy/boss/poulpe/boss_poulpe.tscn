@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://biv5bqhlmrnet"]
+
+[ext_resource type="Script" uid="uid://dg8gwtoavv24a" path="res://scene/enemy/boss/poulpe/boss_poulpe.gd" id="1_ofeu8"]
+[ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="3_dsrgm"]
+[ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="4_ofeu8"]
+[ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_kh0aw"]
+[ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_rf02t"]
+[ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_hk1bg"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_sukh6"]
+[ext_resource type="SpriteFrames" uid="uid://bg7fb4wgybrmr" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
+radius = 60.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=730657589]
+scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_ofeu8")
+scene_transition = ExtResource("3_dsrgm")
+stats = ExtResource("4_ofeu8")
+SEAWEED_SCENE = ExtResource("5_kh0aw")
+PEARL_SCENE = ExtResource("6_rf02t")
+DAMAGE_TEXT_SCENE = ExtResource("7_hk1bg")
+SPLASH_EFFECT_SCENE = ExtResource("8_sukh6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1176694274]
+sprite_frames = ExtResource("9_ofeu8")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815742306]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CircleShape2D_nytjq")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=710470670]

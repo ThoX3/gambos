@@ -34,6 +34,9 @@ func _ready() -> void:
 	if spawn_config == null: push_error("WaveManager : aucun SpawnConfig assigné !")
 	if config == null:       push_error("WaveManager : aucun BalancingConfig assigné !")
 	if conteneur_ennemis == null: push_error("WaveManager : conteneur_ennemis non assigné.")
+	
+	if not vague_demarree.is_connected(AudioManager._on_vague_change):
+		vague_demarree.connect(AudioManager._on_vague_change)
 
 func start_waves(continuer: bool = false) -> void:
 	if not continuer:
@@ -64,8 +67,12 @@ func _process(delta: float) -> void:
 			_tick_vague(delta)
 		_Etat.ATTENTE_ENNEMIS_RESTANTS:
 			if get_tree().get_nodes_in_group("Enemy").size() == 0:
-				monde_termine.emit(_numero_vague)
-				_etat = _Etat.FINI
+				_timer_pause += delta
+				if _timer_pause >= 3.0:
+					monde_termine.emit(_numero_vague)
+					_etat = _Etat.FINI
+			else:
+				_timer_pause = 0.0
 		_Etat.FINI:
 			pass
 
@@ -78,6 +85,11 @@ func _tick_vague(delta: float) -> void:
 	and _timer_spawn >= _intervalle_spawn:
 		_timer_spawn = 0.0
 		_spawner_depuis_liste()
+
+	var tout_spawne = (_boss_courant != null) or (_ennemis_spawnes >= _liste_spawn.size())
+	if tout_spawne and get_tree().get_nodes_in_group("Enemy").size() == 0:
+		_terminer_vague()
+		return
 
 	if _timer_vague >= _duree_vague_courante:
 		_terminer_vague()
@@ -123,6 +135,7 @@ func _terminer_vague() -> void:
 	# Vérifie si c'est la fin d'un monde (vague boss franchie)
 	if _numero_vague > 0 and _numero_vague % vagues_par_monde == 0:
 		_etat = _Etat.ATTENTE_ENNEMIS_RESTANTS
+		_timer_pause = 0.0
 		return
 
 	if not mode_infini and spawn_config.get_ennemis_disponibles(_numero_vague + 1).is_empty() \
@@ -229,12 +242,23 @@ func _spawner_boss(boss_entry: EntreeBoss) -> void:
 		ennemi.scale = Vector2(multiplicateur_taille_boss, multiplicateur_taille_boss)
 		conteneur_ennemis.add_child(ennemi)
 
-func _calculer_position_spawn() -> Vector2:
+func _calculer_position_spawn(attempts_left: int = 10) -> Vector2:
+	var pos = Vector2.ZERO
 	match spawn_config.zone:
-		SpawnConfig.ZoneType.BORDS_ECRAN:          return _spawn_bords_ecran(spawn_config.marge_bords)
-		SpawnConfig.ZoneType.CERCLE_AUTOUR_JOUEUR: return _spawn_cercle(joueur.global_position, spawn_config.rayon_cercle)
+		SpawnConfig.ZoneType.BORDS_ECRAN:          pos = _spawn_bords_ecran(spawn_config.marge_bords)
+		SpawnConfig.ZoneType.CERCLE_AUTOUR_JOUEUR: pos = _spawn_cercle(joueur.global_position, spawn_config.rayon_cercle)
 		SpawnConfig.ZoneType.POINT_FIXE:           return spawn_config.position_fixe
-	return Vector2.ZERO
+
+	if attempts_left > 0:
+		var space_state = get_viewport().find_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = pos
+		var intersections = space_state.intersect_point(query)
+		for inter in intersections:
+			if inter.collider is TileMapLayer:
+				return _calculer_position_spawn(attempts_left - 1)
+			
+	return pos
 
 func _spawn_bords_ecran(marge: float) -> Vector2:
 	var cam    := get_viewport().get_camera_2d()

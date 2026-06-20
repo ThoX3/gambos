@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://dhj2fmw4l0pvl"]
 
-[ext_resource type="Script" uid="uid://issynrmahtc4" path="res://scene/projectile/projectile_pic.gd" id="1_qs3c0"]
+[ext_resource type="Script" path="res://scene/projectile/projectile_pic.gd" id="1_qs3c0"]
 [ext_resource type="SpriteFrames" uid="uid://cvqvdfoshy6a7" path="res://assets/sprites/projectile/projectile_pic.tres" id="2_qs3c0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_praqp"]
 radius = 25.0
 
 [node name="ProjectileSable" type="Area2D" unique_id=1473282758]
+collision_mask = 5
 script = ExtResource("1_qs3c0")
 vitesse = 1200.0
 degats = 10

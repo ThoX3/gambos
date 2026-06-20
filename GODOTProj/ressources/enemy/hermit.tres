@@ -18,6 +18,6 @@ attack_damage = 3
 attack_range = 60.0
 attack_cooldown = 2.0
 xp_drop = 2
-pearl_drop_probability = 0.05
+pearl_drop_probability = 0.1
 cout = 2
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

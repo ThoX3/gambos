@@ -51,8 +51,16 @@ func setup(data: upgradeData) -> void:
 		for effet in data.capacities_effects:
 			%Stats.append_text(STATS[effet.targetCapacity] + "\n")
 			var current_value = current_stats[STATS[effet.targetCapacity]]
+			var affichage_valeur = effet.value
+			if effet.targetCapacity != effet.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
+				affichage_valeur = int(effet.value)
 			var color = "green" if effet.value > 0 else "red"
-			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + effet.value) + "[/color]\n")
+			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + affichage_valeur) + "[/color]\n")
+			
+			if effet.targetCapacity == capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
+				var cur_hp = int(player.Stats.current_health)
+				%Stats.append_text("Vie actuelle : \n")
+				%Stats.append_text(str(cur_hp) + " -> [color=green]" + str(cur_hp + affichage_valeur) + "[/color]\n")
 	%Rarity.text = RARITY_NAME[data.rarity]
 	var texture_normal = BACKGROUNDS[data.rarity]
 	var texture_hover = HOVER[data.rarity]
@@ -60,8 +68,9 @@ func setup(data: upgradeData) -> void:
 	%TextureButton.texture_hover = texture_hover
 	%TextureButton.texture_focused = texture_hover
 	
-	%TextureButton.focus_entered.connect(_on_focus_entered)
-	%TextureButton.focus_exited.connect(_on_focus_exited)
+	if not %TextureButton.focus_entered.is_connected(_on_focus_entered):
+		%TextureButton.focus_entered.connect(_on_focus_entered)
+		%TextureButton.focus_exited.connect(_on_focus_exited)
 
 func _on_texture_button_pressed() -> void:
 	selected.emit(current_data)

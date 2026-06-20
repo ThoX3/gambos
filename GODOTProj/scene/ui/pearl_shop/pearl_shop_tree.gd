@@ -2,13 +2,13 @@ extends Control
 
 signal menu_button_pressed
 
-@onready var pearl_count_label: Label = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/PearlsCount
-@onready var tree: HBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer
-@onready var tree_mask: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask
+@onready var pearl_count_label: Label = %PearlsCount
+@onready var tree: HBoxContainer = %Tree
+@onready var tree_mask: TextureRect = %TreeMask
 @onready var menu_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/MenuButton
 @onready var play_button: Button = $MarginContainer/VBoxContainer/NavigationButtons/PlayButton
 @onready var reset_button: Button = $ResetPurchasesButton
-@onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/FadeMask/MarginContainer/TreeScroll/HBoxContainer/VBoxContainer/SpeedNode
+@onready var first_node = $MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer/SpeedNode
 @onready var node_infos_window = $NodeInfos
 
 @onready var list_button: Array[Variant] = [menu_button, play_button, reset_button]
@@ -17,7 +17,6 @@ signal menu_button_pressed
 const DIALOGUE_SCENE = preload("res://scene/tutorial/tutorial_dialogue.tscn")
 @onready var fade_rect: ColorRect = $FadeRect
 
-var hover_timer: Timer
 var currently_focused_node: Control = null
 
 func _ready() -> void:
@@ -29,11 +28,6 @@ func _ready() -> void:
 	menu_button.focus_entered.connect(_on_non_node_focus_entered)
 	play_button.focus_entered.connect(_on_non_node_focus_entered)
 	reset_button.focus_entered.connect(_on_non_node_focus_entered)
-	
-	hover_timer = Timer.new()
-	hover_timer.one_shot = true
-	hover_timer.timeout.connect(_show_node_infos_window)
-	add_child(hover_timer)
 	
 	tree_mask.clip_children = CLIP_CHILDREN_ONLY
 	tree.draw.connect(_on_tree_draw)
@@ -60,11 +54,25 @@ func _ready() -> void:
 		button.mouse_entered.connect(_on_navigation_menu)
 		button.pressed.connect(_on_validation_menu)
 		
+func _process(delta: float) -> void:
+	if currently_focused_node and node_infos_window.visible:
+		var pos := currently_focused_node.global_position
+		var node_size := currently_focused_node.size
+		var target_pos: Vector2
+		
+		if currently_focused_node.upgrade_id == "speed":
+			target_pos = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)	
+		elif pos.y <= 300:
+			target_pos = pos + Vector2(- node_infos_window.size.x - 20, node_size.y / 2 - node_infos_window.size.y / 2)
+		else:
+			target_pos = pos + Vector2(- node_infos_window.size.x - 20, node_size.y / 2 - node_infos_window.size.y / 2 - 16)
+
+		node_infos_window.global_position = node_infos_window.global_position.lerp(target_pos, 15.0 * delta)
+
 func _on_visibility_changed() -> void:
 	if visible:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
 	else:
-		hover_timer.stop()
 		if node_infos_window:
 			node_infos_window.visible = false
 
@@ -72,7 +80,6 @@ func _on_non_node_focus_entered() -> void:
 	if currently_focused_node:
 		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)
 		currently_focused_node = null
-	hover_timer.stop()
 	node_infos_window.visible = false
 
 func _on_node_focus_entered(node: Control) -> void:
@@ -84,8 +91,7 @@ func _on_node_focus_entered(node: Control) -> void:
 		currently_focused_node.get_node("TextureButton").self_modulate = Color(1.0, 1.0, 1.0)  # restore previous node
 	
 	currently_focused_node = node
-	node_infos_window.visible = false
-	hover_timer.start(1.0)
+	_update_node_infos_window()
 	
 	var scroll: ScrollContainer = tree.get_parent()
 	var node_center_in_tree_x := node.global_position.x + (node.size.x / 2.0) - tree.global_position.x
@@ -98,31 +104,24 @@ func _on_node_focus_entered(node: Control) -> void:
 	tween.tween_property(scroll, "scroll_horizontal", int(target_x), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(scroll, "scroll_vertical", int(target_y), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-func _show_node_infos_window() -> void:
+func _update_node_infos_window() -> void:
 	if currently_focused_node == null or not is_visible_in_tree():
 		return
 	
 	var title: String = currently_focused_node.upgrade_name
 	var description: String = currently_focused_node.upgrade_description
+	var locked_text: String = ""
 	
 	if not currently_focused_node.is_unlocked:
 		if currently_focused_node.locked_by_monde:
-			description = "[font_size=14]" + description + "\n[u]Bloqué[/u][/font_size]"
+			locked_text = "[u]Verrouillé[/u]"
 		elif currently_focused_node.parent_node != null:
 			var parent_name = currently_focused_node.parent_node.upgrade_name
 			var required_level = currently_focused_node.parent_node_unlock_level
-			description = "[font_size=14]" + description + "\n[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u][/font_size]"
+			locked_text = "[u]Débloqué quand " + parent_name + " sera au niveau " + str(required_level) + ".[/u]"
 	
-	node_infos_window.set_infos(title, description)
+	node_infos_window.set_infos(title, description, locked_text)
 	node_infos_window.visible = true
-	
-	var pos := currently_focused_node.global_position
-	var node_size := currently_focused_node.size
-	
-	if pos.y <= 390:
-		node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, node_size.y + 16)
-	else:
-		node_infos_window.global_position = pos + Vector2(node_size.x / 2.0 - node_infos_window.size.x / 2.0, -218)
 
 func refresh_shop(is_initial_load: bool = false) -> void:
 	var current_pearls = SaveManager.current_save.pearls
@@ -223,6 +222,7 @@ func _on_reset_button_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		SaveManager.current_save.pearls += 1000
 		SaveManager.current_save.upgrade_ingame_speed_level = 5
+		SaveManager.current_save.tutorial_completed = true
 		SaveManager.save_game()
 		refresh_shop()
 

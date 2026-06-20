@@ -21,7 +21,11 @@ func _process(delta: float) -> void:
 	if cible != null:
 		var direction = (cible.global_position - global_position).normalized()
 		
-		global_position += direction * vitesse_aspiration * delta
+		var current_speed = vitesse_aspiration
+		if "velocity" in cible:
+			current_speed += cible.velocity.length()
+			
+		global_position += direction * current_speed * delta
 		
 		if global_position.distance_to(cible.global_position) < 10 and !isCollected:
 			isCollected = true

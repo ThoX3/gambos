@@ -12,7 +12,7 @@ metadata/_custom_type_script = "uid://bcprergp4upjn"
 
 [resource]
 script = ExtResource("2_hfbqf")
-name = "Cœur d'océan"
+name = "Coeur d'océan"
 icon = ExtResource("2_0gigr")
 description = "L'océan t'offre plus de vie"
 capacities_effects = Array[ExtResource("1_xwsox")]([SubResource("Resource_4i6ur")])

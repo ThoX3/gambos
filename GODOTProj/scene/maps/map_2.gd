@@ -3,6 +3,7 @@ extends BaseMap
 
 func _ready() -> void:
 	super._ready()
+	AudioManager.play_music("map2")
 
 func _physics_process(_delta: float) -> void:
 	super._physics_process(_delta)

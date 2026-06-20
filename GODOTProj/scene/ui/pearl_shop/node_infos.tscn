@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bmd4rfgpqv57u" path="res://assets/sprites/pearl_shop/node_infos_background.png" id="1_mv1ej"]
 [ext_resource type="Script" uid="uid://dlipl2x7ueoe2" path="res://scene/ui/pearl_shop/node_infos.gd" id="1_r6ld7"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="2_r6ld7"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_54lvh"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_54lvh"]
+[ext_resource type="Texture2D" uid="uid://d1dgw08nof1nm" path="res://assets/sprites/pearl_shop/node_infos_background_low_top.png" id="5_pcl8n"]
+[ext_resource type="Texture2D" uid="uid://bu4lywb7fd8xg" path="res://assets/sprites/pearl_shop/node_infos_background_low.png" id="6_hps0a"]
 
 [node name="NodeInfos" type="Control" unique_id=977595567]
 custom_minimum_size = Vector2(98, 101)
@@ -49,6 +51,38 @@ theme_override_fonts/normal_font = ExtResource("3_54lvh")
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
 text = "Augmente la force de Gambos et les dégats de toutes ses attaques."
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=206208393]
+layout_mode = 0
+offset_top = 206.0
+offset_right = 197.0
+offset_bottom = 319.0
+theme_override_constants/separation = 0
+
+[node name="LockedBg" type="TextureRect" parent="VBoxContainer" unique_id=1684710010]
+layout_mode = 2
+texture = ExtResource("5_pcl8n")
+expand_mode = 5
+
+[node name="LockedBg2" type="TextureRect" parent="VBoxContainer" unique_id=680791751]
+layout_mode = 2
+texture = ExtResource("6_hps0a")
+expand_mode = 5
+
+[node name="LockedDesc" type="RichTextLabel" parent="." unique_id=1365564170]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 219.0
+offset_right = 178.0
+offset_bottom = 296.0
+theme_override_colors/default_color = Color(0.18, 0.09096001, 0.08460001, 1)
+theme_override_fonts/normal_font = ExtResource("3_54lvh")
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+text = "Débloqué quand Petites bulles sera au niveau 3"
 fit_content = true
 scroll_active = false
 vertical_alignment = 1

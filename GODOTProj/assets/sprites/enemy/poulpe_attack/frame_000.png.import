@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhvmo4o1x4nb"
-path="res://.godot/imported/Boss1Speed.png-2dfd0609de28f3d2f659863705a81272.ctex"
+uid="uid://bjo2rvvid5aen"
+path="res://.godot/imported/frame_000.png-9a458c6473d401e222a76d606fdbde5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/Boss1Speed.png"
-dest_files=["res://.godot/imported/Boss1Speed.png-2dfd0609de28f3d2f659863705a81272.ctex"]
+source_file="res://assets/sprites/enemy/poulpe_attack/frame_000.png"
+dest_files=["res://.godot/imported/frame_000.png-9a458c6473d401e222a76d606fdbde5a.ctex"]
 
 [params]
 

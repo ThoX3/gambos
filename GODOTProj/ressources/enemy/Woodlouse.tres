@@ -13,5 +13,5 @@ max_hp = 1
 movement_speed = 80.0
 attack_damage = 2
 xp_drop = 1
-pearl_drop_probability = 0.05
+pearl_drop_probability = 0.1
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

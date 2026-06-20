@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgb0fdlkcq16a"
-path="res://.godot/imported/boss2_silhouette.png-b4011eef7390a6e47429757199e27ba6.ctex"
+uid="uid://ctixrvf15g1rj"
+path="res://.godot/imported/bossPoulpeCamouflage.png-eff7176714c808d6b306f72a849210df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/boss2_silhouette.png"
-dest_files=["res://.godot/imported/boss2_silhouette.png-b4011eef7390a6e47429757199e27ba6.ctex"]
+source_file="res://assets/sprites/enemy/bossPoulpeCamouflage.png"
+dest_files=["res://.godot/imported/bossPoulpeCamouflage.png-eff7176714c808d6b306f72a849210df.ctex"]
 
 [params]
 

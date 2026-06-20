@@ -44,8 +44,7 @@ func setup(data: upgradeData) -> void:
 	var current_stats = player.get_player_stats()
 	current_data = data
 	%Title.text = data.name
-	%Icon.texture = data.icon
-	%Description.text = data.description
+	%Description.text = "\n" + data.description
 	%Stats.text = ""
 	if data.typeEffects == data.effectsType.CAPACITY:
 		for effet in data.capacities_effects:

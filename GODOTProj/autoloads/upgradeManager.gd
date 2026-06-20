@@ -111,7 +111,7 @@ func get_cost_thorns(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
-	return [5, 25, 50][level]
+	return [5, 25, 50, 100][level]
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:

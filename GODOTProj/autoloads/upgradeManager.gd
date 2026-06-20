@@ -133,11 +133,11 @@ func get_cost_collection_radius(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieus bulles.
 func get_cost_bubble_division(level: int) -> int:
-	return [50, 250, 700, 1200][level]
+	return [5, 250, 700, 1200][level]
 
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
-	return 25 + 2 * 6**level
+	return 3 + 2 * 6**level
 
 ## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
 func get_cost_projectile_sable_pierce(level: int) -> int:

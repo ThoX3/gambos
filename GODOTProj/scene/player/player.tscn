@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="2_5lop3"]
 [ext_resource type="Resource" uid="uid://4y7sf3ctnil1" path="res://ressources/projectile/default_projectile.tres" id="3_oen5c"]
 [ext_resource type="PackedScene" uid="uid://d0edwafabgfqd" path="res://scene/projectile/projectile.tscn" id="4_5g408"]
+[ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="5_fspl2"]
 [ext_resource type="Resource" uid="uid://dwg2m2lxcqgv5" path="res://ressources/projectile/ProjectileDataSable.tres" id="5_lrcci"]
 [ext_resource type="Texture2D" uid="uid://c8s67k7ce2nk8" path="res://assets/sprites/HUD/Level_up/Particle1.png" id="5_p3aiu"]
 [ext_resource type="Texture2D" uid="uid://b0y63fcaklrtf" path="res://assets/sprites/HUD/Level_up/Particle2.png" id="6_f5r2w"]
@@ -69,6 +70,7 @@ script = ExtResource("1_v7pse")
 Stats = ExtResource("2_5lop3")
 projectile_data = ExtResource("3_oen5c")
 projectile_scene = ExtResource("4_5g408")
+pics_scene = ExtResource("5_fspl2")
 projectile_sable_data = ExtResource("5_lrcci")
 projectile_sable_scene = ExtResource("6_fspl2")
 

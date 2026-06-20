@@ -12,13 +12,19 @@
 [ext_resource type="Resource" uid="uid://jhsrfe6k6ui1" path="res://ressources/enemy/Lobster.tres" id="4_xwoul"]
 [ext_resource type="Resource" uid="uid://gqqt6yw5g2wv" path="res://ressources/enemy/Clownfish.tres" id="5_1ykh5"]
 [ext_resource type="PackedScene" uid="uid://jw1arwmodi8o" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.tscn" id="5_ptvm1"]
+[ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="6_fdt8q"]
 [ext_resource type="Resource" uid="uid://frgewh2lsjpu" path="res://ressources/enemy/Surgeonfish.tres" id="6_updt2"]
 [ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="7_7u5fj"]
+[ext_resource type="PackedScene" uid="uid://biv5bqhlmrnet" path="res://scene/enemy/boss/poulpe/boss_poulpe.tscn" id="7_e0to0"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="8_8og5k"]
 [ext_resource type="Resource" uid="uid://y6o7oo6ddg3m" path="res://ressources/enemy/anemone.tres" id="15_y7e3n"]
 [ext_resource type="PackedScene" uid="uid://tycwnl1f5hv" path="res://scene/enemy/enemy_spawner.tscn" id="16_wru3l"]
 [ext_resource type="Resource" uid="uid://bs27xrdc8yngr" path="res://ressources/enemy/Coral_pink.tres" id="17_bjlhm"]
 [ext_resource type="PackedScene" uid="uid://djg3clk7v48g1" path="res://scene/enemy/enemy_shooter.tscn" id="18_cbfg2"]
+[ext_resource type="Resource" uid="uid://bxr0v7n05wsfa" path="res://ressources/enemy/Coral_blue.tres" id="21_hclwd"]
+[ext_resource type="Resource" path="res://ressources/enemy/Jellyfish.tres" id="22_uxs6c"]
+[ext_resource type="Resource" path="res://ressources/enemy/Vampire_squid.tres" id="23_05tjk"]
+[ext_resource type="Resource" uid="uid://bmqnb1ww37dx7" path="res://ressources/enemy/baudroie.tres" id="24_3qdxg"]
 
 [sub_resource type="Resource" id="Resource_ptvm1"]
 script = ExtResource("3_8og5k")
@@ -36,6 +42,13 @@ vague_exacte = 40
 duree = 30.0
 metadata/_custom_type_script = "uid://dj14x25prjjx0"
 
+[sub_resource type="Resource" id="Resource_g7h2u"]
+script = ExtResource("3_8og5k")
+scene = ExtResource("7_e0to0")
+data = ExtResource("6_fdt8q")
+vague_exacte = 60
+metadata/_custom_type_script = "uid://dj14x25prjjx0"
+
 [sub_resource type="Resource" id="Resource_y7e3n"]
 script = ExtResource("3_8og5k")
 scene = ExtResource("2_7u5fj")
@@ -46,6 +59,13 @@ metadata/_custom_type_script = "uid://dj14x25prjjx0"
 script = ExtResource("3_8og5k")
 scene = ExtResource("5_ptvm1")
 data = ExtResource("4_8og5k")
+metadata/_custom_type_script = "uid://dj14x25prjjx0"
+
+[sub_resource type="Resource" id="Resource_53mlo"]
+script = ExtResource("3_8og5k")
+scene = ExtResource("7_e0to0")
+data = ExtResource("6_fdt8q")
+vague_exacte = 60
 metadata/_custom_type_script = "uid://dj14x25prjjx0"
 
 [sub_resource type="Resource" id="Resource_updt2"]
@@ -110,9 +130,33 @@ data = ExtResource("7_7u5fj")
 vague_apparition = 34
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
+[sub_resource type="Resource" id="Resource_v0ki7"]
+script = ExtResource("3_6sx1e")
+data = ExtResource("21_hclwd")
+vague_apparition = 41
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_1hc0s"]
+script = ExtResource("3_6sx1e")
+data = ExtResource("22_uxs6c")
+vague_apparition = 41
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_l7nue"]
+script = ExtResource("3_6sx1e")
+data = ExtResource("23_05tjk")
+vague_apparition = 45
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_ndgx6"]
+script = ExtResource("3_6sx1e")
+data = ExtResource("24_3qdxg")
+vague_apparition = 50
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
 [resource]
 script = ExtResource("8_8og5k")
-ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_34r5y"), SubResource("Resource_0hiio"), SubResource("Resource_y3dq1"), SubResource("Resource_xbaqx"), SubResource("Resource_k4dty")])
-boss = Array[Resource]([SubResource("Resource_ptvm1"), SubResource("Resource_cew7t")])
-boss_comme_ennemis = Array[Resource]([SubResource("Resource_y7e3n"), SubResource("Resource_wru3l")])
+ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_34r5y"), SubResource("Resource_0hiio"), SubResource("Resource_y3dq1"), SubResource("Resource_xbaqx"), SubResource("Resource_k4dty"), SubResource("Resource_v0ki7"), SubResource("Resource_1hc0s"), SubResource("Resource_l7nue"), SubResource("Resource_ndgx6")])
+boss = Array[Resource]([SubResource("Resource_ptvm1"), SubResource("Resource_cew7t"), SubResource("Resource_g7h2u")])
+boss_comme_ennemis = Array[Resource]([SubResource("Resource_y7e3n"), SubResource("Resource_wru3l"), SubResource("Resource_53mlo")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

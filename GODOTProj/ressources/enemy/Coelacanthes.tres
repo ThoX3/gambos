@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://c6b2lntog3mfp"]
+
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_imnvq"]
+[ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_wn7o3"]
+[ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_y6b4w"]
+[ext_resource type="SpriteFrames" uid="uid://5oe7tggkdmrb" path="res://assets/sprites/enemy/Coelacanthes.tres" id="4_wn7o3"]
+
+[resource]
+script = ExtResource("3_y6b4w")
+texture = ExtResource("4_wn7o3")
+name = "Coelacanthes"
+max_hp = 1000
+movement_speed = 120.0
+attack_damage = 20
+xp_drop = 8
+pearl_drop_probability = 0.8
+cout = 20
+poids = 3
+metadata/_custom_type_script = "uid://41pu5w8i8y3b"

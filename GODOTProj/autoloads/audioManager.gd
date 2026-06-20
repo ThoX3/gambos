@@ -64,9 +64,9 @@ const MUSIQUES := {
 			"other":  "res://assets/sounds/map3/map3-other.mp3",
 		},
 		"deverouillage": {
-			61:  ["other"],
-			68:  ["drums"],
-			74: ["other"],
+			41:  ["other"],
+			48:  ["drums"],
+			54: ["other"],
 		}
 	},
 	

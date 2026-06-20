@@ -1,0 +1,121 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bg7fb4wgybrmr"]
+
+[ext_resource type="Texture2D" uid="uid://bjo2rvvid5aen" path="res://assets/sprites/enemy/poulpe_attack/frame_000.png" id="1_5efeh"]
+[ext_resource type="Texture2D" uid="uid://d4n33wcsnkslo" path="res://assets/sprites/enemy/poulpe_attack/frame_001.png" id="2_4dl7c"]
+[ext_resource type="Texture2D" uid="uid://dp1garybrppl5" path="res://assets/sprites/enemy/poulpe_attack/frame_002.png" id="3_k7gl7"]
+[ext_resource type="Texture2D" uid="uid://b2m51wcfcsrft" path="res://assets/sprites/enemy/poulpe_attack/frame_003.png" id="4_ycg86"]
+[ext_resource type="Texture2D" uid="uid://kae1gklne4hw" path="res://assets/sprites/enemy/poulpe_attack/frame_004.png" id="5_du0gn"]
+[ext_resource type="Texture2D" uid="uid://cjxotnv5fcjl5" path="res://assets/sprites/enemy/poulpe_walk/frame_000.png" id="6_4dl7c"]
+[ext_resource type="Texture2D" uid="uid://uyasvm0jqfu2" path="res://assets/sprites/enemy/poulpe_tremblement/frame_000.png" id="6_vfvtv"]
+[ext_resource type="Texture2D" uid="uid://ctixrvf15g1rj" path="res://assets/sprites/enemy/bossPoulpeCamouflage.png" id="7_k7gl7"]
+[ext_resource type="Texture2D" uid="uid://di76g8g55044k" path="res://assets/sprites/enemy/poulpe_tremblement/frame_001.png" id="7_whime"]
+[ext_resource type="Texture2D" uid="uid://baodcbpi23nvo" path="res://assets/sprites/enemy/poulpe_tremblement/frame_002.png" id="8_c4v7s"]
+[ext_resource type="Texture2D" uid="uid://dsyr7d5554idj" path="res://assets/sprites/enemy/poulpe_tremblement/frame_003.png" id="9_yjlgy"]
+[ext_resource type="Texture2D" uid="uid://dkrwamo5kioq8" path="res://assets/sprites/enemy/poulpe_tremblement/frame_004.png" id="10_q86y4"]
+[ext_resource type="Texture2D" uid="uid://dg3p1odqigffg" path="res://assets/sprites/enemy/poulpe_tremblement/frame_005.png" id="11_d88pk"]
+[ext_resource type="Texture2D" uid="uid://chywj63m0ieew" path="res://assets/sprites/enemy/poulpe_tremblement/frame_006.png" id="12_a312b"]
+[ext_resource type="Texture2D" uid="uid://d1qsrhyfeayoa" path="res://assets/sprites/enemy/poulpe_walk/frame_001.png" id="15_ycg86"]
+[ext_resource type="Texture2D" uid="uid://bk6823wi5l0b0" path="res://assets/sprites/enemy/poulpe_walk/frame_002.png" id="16_du0gn"]
+[ext_resource type="Texture2D" uid="uid://c08svkmg05gfh" path="res://assets/sprites/enemy/poulpe_walk/frame_003.png" id="17_vfvtv"]
+[ext_resource type="Texture2D" uid="uid://bbhauin3k1km4" path="res://assets/sprites/enemy/poulpe_walk/frame_004.png" id="18_whime"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4v7s"]
+atlas = ExtResource("7_k7gl7")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjlgy"]
+atlas = ExtResource("7_k7gl7")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q86y4"]
+atlas = ExtResource("7_k7gl7")
+region = Rect2(192, 0, 96, 96)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5efeh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4dl7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k7gl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ycg86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_du0gn")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4dl7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4dl7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4v7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjlgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q86y4")
+}],
+"loop": true,
+"name": &"camouflage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_vfvtv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_whime")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_c4v7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yjlgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q86y4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_d88pk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_a312b")
+}],
+"loop": true,
+"name": &"tremblement",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4dl7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ycg86")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_du0gn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vfvtv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_whime")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

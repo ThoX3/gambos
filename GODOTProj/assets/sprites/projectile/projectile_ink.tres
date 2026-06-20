@@ -1,0 +1,71 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://begucuj1tkjgp"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nj250"]
+load_path = "res://.godot/imported/bossPoulpeProjectile.png-ff3b1196ddcd3408e66e6ec04bf3004d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpmcs"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiwtp"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kaj2o"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr5de"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n0h5"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je7wc"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg6i1"]
+atlas = SubResource("CompressedTexture2D_nj250")
+region = Rect2(64, 64, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpmcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yiwtp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kaj2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr5de")
+}],
+"loop": true,
+"name": &"create",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n0h5")
+}],
+"loop": true,
+"name": &"destroy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je7wc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg6i1")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]

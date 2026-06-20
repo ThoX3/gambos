@@ -14,9 +14,6 @@ movement_speed = 150.0
 attack_damage = 20
 xp_drop = 8
 pearl_drop_probability = 0.8
-<<<<<<< Updated upstream
-=======
 cout = 15
->>>>>>> Stashed changes
 poids = 3
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

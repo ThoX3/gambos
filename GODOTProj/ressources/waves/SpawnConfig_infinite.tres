@@ -163,6 +163,7 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 script = ExtResource("3_6sx1e")
 scene = ExtResource("2_8onsx")
 data = ExtResource("25_e0to0")
+vague_apparition = 55
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [resource]

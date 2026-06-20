@@ -74,7 +74,12 @@ func _ready() -> void:
 	
 	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	
-
+	if has_node("DeepSeaLight"):
+		await get_tree().process_frame
+		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
+			$DeepSeaLight.show()
+		else:
+			$DeepSeaLight.hide()
 
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()

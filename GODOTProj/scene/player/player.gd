@@ -23,11 +23,9 @@ var _thorns_timer: float = 0.0
 @export var pics_scene: PackedScene          # la MÊME scène que le boss : pic_scene
 @export var pics_count: int = 16
 @export var pics_speed: float = 600.0
-@export var pics_damage: int = 30
 @export var pics_cooldown: float = 5.0
 @export var pics_touche: Key = KEY_ALT
 @export var pics_bouton_manette: JoyButton = JOY_BUTTON_Y
-var _attaque_pics_debloquee: bool = false
 var _pics_fire_timer: float = 0.0
 
 @export var projectile_sable_data: ProjectileDataSable
@@ -469,8 +467,6 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.collision_mask = 2    # détecte les ennemis (layer 2)
 
 func _on_boss_poisson_vaincu() -> void:
-	_attaque_pics_debloquee = true
-	SaveManager.current_save.attaque_pics_debloquee = true
 	SaveManager.save_game()
 	
 func _tirer_pics_en_cercle() -> void:
@@ -485,7 +481,7 @@ func _tirer_pics_en_cercle() -> void:
 		if "vitesse" in proj:
 			proj.vitesse = pics_speed
 		if "degats" in proj:
-			proj.degats = pics_damage
+			proj.degats = max(1, int(Stats.proj_damage * 2))
 
 		# ── Empêche le friendly fire : le pic appartient au joueur ──
 		if "appartient_au_joueur" in proj:

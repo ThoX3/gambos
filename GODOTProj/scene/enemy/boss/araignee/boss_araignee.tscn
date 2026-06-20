@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_scond"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_5isqy"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_26ku6"]
-[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_3cbsx"]
+[ext_resource type="PackedScene" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_3cbsx"]
 [ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="9_5isqy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
@@ -24,6 +24,7 @@ degats_broyage = 10
 degats_balayage_corps = 10
 degats_projectile = 10
 degats_embuscade = 3
+attack_cooldown = 5.0
 scene_transition = ExtResource("3_632vg")
 stats = ExtResource("3_ixp5x")
 SEAWEED_SCENE = ExtResource("5_scond")

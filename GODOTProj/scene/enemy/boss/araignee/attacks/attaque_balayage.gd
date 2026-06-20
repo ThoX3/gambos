@@ -85,7 +85,7 @@ func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 		var direction_centrale = boss.global_position.direction_to(cible)
 		
 		var nombre_projectiles = 3
-		var ecart_angulaire = deg_to_rad(15.0) # Angle entre chaque projectile (15 degrés ici)
+		var ecart_angulaire = deg_to_rad(45.0) # Angle entre chaque projectile (15 degrés ici)
 		
 		var angle_depart = - (nombre_projectiles - 1) * ecart_angulaire / 2.0
 		
@@ -106,5 +106,3 @@ func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 				proj.direction = direction_finale
 				
 			boss.get_parent().add_child(proj)
-	else:
-		push_error("❌ ERREUR : Tu as oublié de mettre la scène du projectile dans l'inspecteur du Boss !")

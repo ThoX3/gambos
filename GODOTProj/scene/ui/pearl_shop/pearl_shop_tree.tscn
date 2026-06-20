@@ -287,15 +287,15 @@ icon_texture = ExtResource("12_qpv24")
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
 parent_node_unlock_level = 2
 
-[node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "thorns"
-upgrade_name = "Épines"
-upgrade_description = "Fait pousser des épines sur la carapace de Gambos, infligeant des dégats à ceux qui s'en approchent trop."
-icon_texture = ExtResource("12_gipjf")
-max_level = 10
+upgrade_id = "projectile_bounce"
+upgrade_name = "Rebonds"
+upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers de nouveaux ennemis."
+icon_texture = ExtResource("17_ciura")
+max_level = 5
 parent_node = NodePath("../../VBoxContainer3/DamageNode")
-parent_node_unlock_level = 3
+parent_node_unlock_level = 2
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=1020847908]
 layout_mode = 2
@@ -310,26 +310,27 @@ upgrade_name = "Joker"
 upgrade_description = "Permet de relancer des cartes d'amélioration en jeu pour quelques perles."
 icon_texture = ExtResource("11_qpv24")
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
-parent_node_unlock_level = 5
+parent_node_unlock_level = 3
 
-[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=1145773156 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "collection_radius"
-upgrade_name = "Aimant"
-upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
-icon_texture = ExtResource("13_r1ves")
-max_level = 4
+upgrade_id = "luck"
+upgrade_name = "Chance"
+upgrade_description = "Attire la bienveillance des divinités marines pour de meilleures améliorations en jeu."
+icon_texture = ExtResource("11_4wpf8")
+max_level = 20
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
-
-[node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
-layout_mode = 2
-upgrade_id = "projectile_bounce"
-upgrade_name = "Rebonds"
-upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers de nouveaux ennemis."
-icon_texture = ExtResource("17_ciura")
-max_level = 5
-parent_node = NodePath("../../VBoxContainer4/Thorns")
 parent_node_unlock_level = 4
+
+[node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "thorns"
+upgrade_name = "Épines"
+upgrade_description = "Fait pousser des épines sur la carapace de Gambos, infligeant des dégats à ceux qui s'en approchent trop."
+icon_texture = ExtResource("12_gipjf")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer4/BubbleBounceNode")
+parent_node_unlock_level = 2
 
 [node name="BubbleDivisionNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=1428826433 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -337,20 +338,20 @@ upgrade_id = "bubble_division"
 upgrade_name = "Petites bulles"
 upgrade_description = "Fragmente l'attaque principale de Gambos en de multiples petites bulles."
 icon_texture = ExtResource("15_qpv24")
-parent_node = NodePath("../../VBoxContainer4/Thorns")
+parent_node = NodePath("../../VBoxContainer4/BubbleBounceNode")
 parent_node_unlock_level = 2
 
 [node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=217103235]
 layout_mode = 2
 theme_override_constants/separation = 54
 
-[node name="LuckNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer6" unique_id=1145773156 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer6" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "luck"
-upgrade_name = "Chance"
-upgrade_description = "Attire la bienveillance des divinités marines pour de meilleures améliorations en jeu."
-icon_texture = ExtResource("11_4wpf8")
-max_level = 20
+upgrade_id = "collection_radius"
+upgrade_name = "Aimant"
+upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
+icon_texture = ExtResource("13_r1ves")
+max_level = 4
 parent_node = NodePath("../../VBoxContainer5/RerollNode")
 
 [node name="SablePierceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer6" unique_id=1266658196 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -359,7 +360,7 @@ upgrade_id = "projectile_sable_pierce"
 upgrade_name = "Gravier"
 upgrade_description = "Permet au projectile de sable de transpercer les ennemis, infligeant des dégâts à ceux situés derrière."
 icon_texture = ExtResource("17_xe34p")
-parent_node = NodePath("../../VBoxContainer5/BubbleBounceNode")
+parent_node = NodePath("../../VBoxContainer5/Thorns")
 
 [node name="SableZone" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer6" unique_id=999669842 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -367,7 +368,7 @@ upgrade_id = "projectile_sable_zone_damage"
 upgrade_name = "Tempête de sable"
 upgrade_description = "Les projectiles de sable explosent à l'impact, infligeant des dégâts de zone."
 icon_texture = ExtResource("19_q40y7")
-parent_node = NodePath("../../VBoxContainer5/BubbleBounceNode")
+parent_node = NodePath("../../VBoxContainer5/Thorns")
 
 [node name="SableCount" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer6" unique_id=541011176 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2

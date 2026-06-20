@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://bneg851sregnl" path="res://ressources/enemy/Vampire_squid.tres" id="11_0x8xi"]
 [ext_resource type="Resource" uid="uid://bs27xrdc8yngr" path="res://ressources/enemy/Coral_pink.tres" id="11_j1xto"]
 [ext_resource type="PackedScene" uid="uid://djg3clk7v48g1" path="res://scene/enemy/enemy_shooter.tscn" id="12_f3c2m"]
-[ext_resource type="Resource" path="res://ressources/enemy/baudroie.tres" id="12_yemex"]
+[ext_resource type="Resource" uid="uid://bmqnb1ww37dx7" path="res://ressources/enemy/baudroie.tres" id="12_yemex"]
 [ext_resource type="Resource" uid="uid://0585j1evwitf" path="res://ressources/enemy/Woodlouse.tres" id="13_1hema"]
 [ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="13_ifyfo"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="14_gcq38"]

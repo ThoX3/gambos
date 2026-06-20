@@ -78,7 +78,6 @@ func _on_body_entered(body: Node2D) -> void:
 		GameManager.joy_vibration(0, 0.2, 0.5, 0.2)
 		if body.is_in_group("Player") or body is TileMap:
 			if body.is_in_group("Player"):
-				print("Sable dans les yeux ! Dégâts au joueur !")
 				body.take_damage(degats)
 				print(degats)
 			_destroy()

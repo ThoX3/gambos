@@ -26,6 +26,17 @@ func _ready():
 		add_to_group("Enemy")
 	else:
 		push_error("No stats assigned!")
+		
+	if has_node("DeepSeaLight"):
+		await get_tree().process_frame
+		if stats and stats.glowing_strength > 0.0 and get_tree().get_nodes_in_group("deep_sea").size() > 0:
+			var light = $DeepSeaLight
+			if light.has_method("update_base_energy"):
+				light.update_base_energy(stats.glowing_strength)
+			light.energy = stats.glowing_strength
+			light.show()
+		else:
+			$DeepSeaLight.hide()
 
 func setup_enemy():
 	if stats.texture:

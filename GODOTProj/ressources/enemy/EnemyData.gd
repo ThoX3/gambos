@@ -4,6 +4,7 @@ class_name EnemyData
 @export_group("Identity")
 @export var texture: SpriteFrames
 @export var name: String
+@export var glowing_strength: float = 0.0
 @export var size : float = 1
 
 @export_group("HP & Defense")

@@ -19,6 +19,15 @@ var prevent_death: bool = false
 var _regen_timer: float = 0.0
 var _thorns_timer: float = 0.0
 
+# ── Attaque pics (débloquée en battant le boss poisson) ──────────────
+@export var pics_scene: PackedScene          # la MÊME scène que le boss : pic_scene
+@export var pics_count: int = 16
+@export var pics_speed: float = 600.0
+@export var pics_cooldown: float = 5.0
+@export var pics_touche: Key = KEY_ALT
+@export var pics_bouton_manette: JoyButton = JOY_BUTTON_Y
+var _pics_fire_timer: float = 0.0
+
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
 var _attaque_sable_debloquee: bool = false
@@ -54,6 +63,15 @@ func _ready() -> void:
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	_on_initialize()
+	
+	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
+	
+	if has_node("DeepSeaLight"):
+		await get_tree().process_frame
+		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
+			$DeepSeaLight.show()
+		else:
+			$DeepSeaLight.hide()
 
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()
@@ -120,6 +138,14 @@ func _physics_process(delta):
 			_sable_fire_timer = projectile_sable_data.cooldown
 			_tirer_sable(stick.normalized())
 
+	# --- Attaque Pics (Touche Y) ---
+	if can_shoot and SaveManager.current_save.mondes_completes_total >= 2 and pics_scene:
+		_pics_fire_timer -= delta
+		var pics_presse = Input.is_physical_key_pressed(pics_touche) or Input.is_joy_button_pressed(0, pics_bouton_manette)
+		if pics_presse and _pics_fire_timer <= 0.0:
+			_pics_fire_timer = pics_cooldown
+			_tirer_pics_en_cercle()
+	
 	if is_invincible:
 		_handle_blinking(delta)
 		
@@ -343,6 +369,7 @@ func _on_initialize():
 
 	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	$DeepSeaLight.texture_scale = 2.0 * Stats.collectRadius / 200.0
 
 	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
 
@@ -447,6 +474,33 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur
 	proj.collision_mask = 2    # détecte les ennemis (layer 2)
 
+func _on_boss_poisson_vaincu() -> void:
+	SaveManager.save_game()
+	
+func _tirer_pics_en_cercle() -> void:
+	if pics_scene == null:
+		push_warning("[Joueur] pics_scene non assignée !")
+		return
+	var angle_step := TAU / float(pics_count)
+	for i in range(pics_count):
+		var proj = pics_scene.instantiate()
+		var angle := i * angle_step
+		proj.global_position = global_position
+		if "vitesse" in proj:
+			proj.vitesse = pics_speed
+		if "degats" in proj:
+			proj.degats = max(1, int(Stats.proj_damage * 2))
+
+		# ── Empêche le friendly fire : le pic appartient au joueur ──
+		if "appartient_au_joueur" in proj:
+			proj.appartient_au_joueur = true
+		proj.collision_layer = 4   # layer des projectiles du joueur
+		proj.collision_mask = 2    # ne détecte QUE les ennemis (layer 2)
+
+		get_parent().add_child(proj)
+		# direction APRÈS add_child pour que les @onready du projectile soient prêts
+		if "direction" in proj:
+			proj.direction = Vector2(cos(angle), sin(angle))
 
 # ════════════════════════════════════════════════════════════════════
 #  UPGRADES

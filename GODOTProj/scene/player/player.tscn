@@ -72,8 +72,7 @@ projectile_sable_scene = ExtResource("6_fspl2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
 sprite_frames = ExtResource("7_sc4n2")
-animation = &"death"
-frame_progress = 0.1469672
+animation = &"walk"
 
 [node name="PlayerHitBox" type="CollisionShape2D" parent="." unique_id=801343924]
 shape = SubResource("CircleShape2D_v7pse")

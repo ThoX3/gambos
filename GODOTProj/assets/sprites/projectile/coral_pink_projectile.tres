@@ -1,3 +1,14 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bxnwymwoibche"]
 
+[ext_resource type="Texture2D" uid="uid://cr7jnvsdx4x1h" path="res://assets/sprites/projectile/coral_pink_projectile.png" id="1_32nv5"]
+
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_32nv5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -12,7 +12,7 @@ class_name PlayerStat
 # Character Stat
 @export var collectRadius : int = 200
 @export var max_health : int = 10
-@export var current_health : int = max_health
+@export var current_health : float = max_health
 
 # Run specifics (moved from player.gd)
 @export var speed: int = 150

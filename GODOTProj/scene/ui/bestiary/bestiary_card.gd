@@ -10,7 +10,7 @@ signal card_selected
 @onready var button: Button = %CardButton
 @onready var kill_label: Label = %CardKillCount  # nouveau Label à ajouter dans la scène
 
-const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos_walk1.png")
+const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos1.png")
 
 var _data: EnemyData = null
 var _unlocked: bool = false

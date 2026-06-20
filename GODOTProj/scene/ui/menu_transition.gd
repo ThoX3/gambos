@@ -7,13 +7,13 @@ signal sauvegarder_pressed
 @export var new_world_messages: Array[String] = [
 	"Bravo d'avoir battu l'araignée des sables ! Tu peux maintenant utiliser son attaque de sable [img=24]res://assets/sprites/projectile/projectile_sable_icon.png[/img] avec [img=24]res://assets/sprites/tutorial/xbox_right.png[/img].",
 	"Bravo d'avoir battu le poisson globe !",
-	"Bravo, j'ai plus rien à dire"
+	"Gambos, tu as battu les enemis les plus dangereux des océans. Tu en es maintenant le roi, bravo !"
 ]
 
 @export var known_world_messages: Array[String] = [
 	"Bravo d'avoir battu l'araignée des sables !",
 	"Bravo d'avoir battu le poisson globe !",
-	"C'était facile !"
+	"Tu es déjà le roi des océans, petit champion ! Tu n'as pas besoin d'une deuxième couronne !"
 ]
 
 @onready var btn_continuer = %ContinueButton
@@ -32,7 +32,10 @@ func afficher(nom_monde_suivant: String, index_suivant: int) -> void:
 		
 	label_dialog.text = "[center]" + message + "\nVeux-tu sauvegarder et quitter ou continuer ?[/center]"
 	btn_continuer.text = " Continuer et passer au " + nom_monde_suivant
-		
+	
+	if index_suivant == 3:
+		SaveManager.current_save.gambos_is_king = true
+	
 	visible = true
 	get_tree().paused = true
 	btn_continuer.grab_focus()

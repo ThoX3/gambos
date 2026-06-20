@@ -26,7 +26,13 @@ func _ready():
 		add_to_group("Enemy")
 	else:
 		push_error("No stats assigned!")
-		
+
+func setup_enemy():
+	if stats.texture:
+		sprite.sprite_frames = stats.texture
+		sprite.play("walk")
+		start_breathing_animation()
+		self.scale = Vector2(stats.size, stats.size)
 	if has_node("DeepSeaLight"):
 		await get_tree().process_frame
 		if stats and stats.glowing_strength > 0.0 and get_tree().get_nodes_in_group("deep_sea").size() > 0:
@@ -37,13 +43,6 @@ func _ready():
 			light.show()
 		else:
 			$DeepSeaLight.hide()
-
-func setup_enemy():
-	if stats.texture:
-		sprite.sprite_frames = stats.texture
-		sprite.play("walk")
-		start_breathing_animation()
-		self.scale = Vector2(stats.size, stats.size)
 
 func _physics_process(delta):
 	if not stats:

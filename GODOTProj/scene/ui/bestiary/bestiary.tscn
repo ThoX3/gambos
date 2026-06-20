@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://caygsy8jueaqh" path="res://scene/ui/bestiary/bestiary.gd" id="1_best"]
 [ext_resource type="PackedScene" uid="uid://kmchqd4nvrct" path="res://scene/ui/bestiary/bestiary_card.tscn" id="2_card"]
 [ext_resource type="Resource" uid="uid://bai2sy5oxi5j5" path="res://ressources/waves/SpawnConfig_infinite.tres" id="2_hixew"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_dk0bv"]
+[ext_resource type="FontVariation" uid="uid://b5r14v10d3ad6" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_dk0bv"]
 [ext_resource type="FontVariation" uid="uid://cbvc6kusfq3it" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="5_qprn2"]
 [ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="6_wy5py"]
 

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_rf02t"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_hk1bg"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_sukh6"]
-[ext_resource type="SpriteFrames" uid="uid://bg7fb4wgybrmr" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
+[ext_resource type="SpriteFrames" uid="uid://i2w5pkp3r4io" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0
@@ -20,6 +20,7 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ofeu8")
 ink_bubble_scene = ExtResource("2_ofeu8")
+camouflage_reduction_degats = 0.1
 scene_transition = ExtResource("3_dsrgm")
 stats = ExtResource("4_ofeu8")
 SEAWEED_SCENE = ExtResource("5_kh0aw")

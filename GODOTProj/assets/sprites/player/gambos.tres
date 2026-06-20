@@ -2,7 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://cl774jjra1dow" path="res://assets/sprites/player/Gambos_death.png" id="1_sd3v6"]
 [ext_resource type="Texture2D" uid="uid://n2w27iecmhpi" path="res://assets/sprites/player/Gambos1.png" id="2_sd3v6"]
+[ext_resource type="Texture2D" uid="uid://cfjwpgsl3a84q" path="res://assets/sprites/player/Gambos_king1.png" id="2_uqtk5"]
 [ext_resource type="Texture2D" uid="uid://2r7psvlx4r45" path="res://assets/sprites/player/Gambos2.png" id="3_4nvid"]
+[ext_resource type="Texture2D" uid="uid://vx5nm06ucx6j" path="res://assets/sprites/player/Gambos_king2.png" id="3_8q4nf"]
+[ext_resource type="Texture2D" uid="uid://chb2wbvfp7oxv" path="res://assets/sprites/player/Gambos_tuto1.png" id="4_eowol"]
+[ext_resource type="Texture2D" uid="uid://f5jfkgatkrvj" path="res://assets/sprites/player/Gambos_tuto2.png" id="5_gxeqp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8wkb"]
 atlas = ExtResource("1_sd3v6")
@@ -52,6 +56,28 @@ animations = [{
 "loop": true,
 "name": &"death",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uqtk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8q4nf")
+}],
+"loop": true,
+"name": &"king_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_eowol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gxeqp")
+}],
+"loop": true,
+"name": &"tuto",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

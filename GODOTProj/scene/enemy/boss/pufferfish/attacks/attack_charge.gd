@@ -11,7 +11,7 @@ func _init() -> void:
 
 
 func executer(boss) -> void:
-	if boss._est_mort or not is_instance_valid(boss): return
+	if not is_instance_valid(boss) or boss._est_mort: return
 
 	# ── VERROU ANTI-RELANCE ───────────────────────────────────────────────
 	# Le système de combo de Boss_Base peut rappeler executer() à chaque frame.
@@ -37,7 +37,7 @@ func executer(boss) -> void:
 			_fin_charge(boss)
 			return
 
-	if boss._est_mort or not is_instance_valid(boss):
+	if not is_instance_valid(boss) or boss._est_mort:
 		_fin_charge(boss)
 		return
 
@@ -52,7 +52,9 @@ func executer(boss) -> void:
 	# 3. Boucle de charge — pilotée frame par frame
 	while timer_charge > 0.0 and rebonds_restants > 0:
 		await boss.get_tree().physics_frame
-		if boss._est_mort or not is_instance_valid(boss) or not boss.is_inside_tree():
+		# is_instance_valid AVANT toute lecture de propriété : si le boss a été libéré
+		# pendant le await, accéder à boss._est_mort planterait ("previously freed").
+		if not is_instance_valid(boss) or boss._est_mort or not boss.is_inside_tree():
 			_fin_charge(boss)
 			return
 
@@ -124,7 +126,7 @@ func executer(boss) -> void:
 	# 4. Fin de charge
 	_fin_charge(boss)
 
-	if boss._est_mort or not is_instance_valid(boss): return
+	if not is_instance_valid(boss) or boss._est_mort: return
 
 	if boss.sprite.sprite_frames.has_animation("finish_speed"):
 		boss.sprite.sprite_frames.set_animation_loop("finish_speed", false)

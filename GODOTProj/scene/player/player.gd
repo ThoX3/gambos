@@ -59,19 +59,22 @@ func get_weight() -> float:
 # ════════════════════════════════════════════════════════════════════
 func _ready() -> void:
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
-	$AnimatedSprite2D.play("walk")
+	if SaveManager.current_save:
+		if not SaveManager.current_save.tutorial_completed:
+			$AnimatedSprite2D.play("tuto")
+		elif SaveManager.current_save.gambos_is_king:
+			$AnimatedSprite2D.play("king_walk")
+		else:
+			$AnimatedSprite2D.play("walk")
+	else:
+		$AnimatedSprite2D.play("walk")
 	$LevelUpOver.hide()
 	$LevelUpUnder.hide()
 	_on_initialize()
 	
 	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	
-	if has_node("DeepSeaLight"):
-		await get_tree().process_frame
-		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
-			$DeepSeaLight.show()
-		else:
-			$DeepSeaLight.hide()
+
 
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()

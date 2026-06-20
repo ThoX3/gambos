@@ -72,13 +72,12 @@ func _set_wave_text(numero: int) -> void:
 	
 func show_bossBar(Name: String):
 	if Name == "Crab":
-		
 		bossBar_progressBar.texture_under = UnderCrab
-		bossBar_progressBar.texture_progress = UnderCrab
+		bossBar_progressBar.texture_progress = ProgressCrab
 		bossBar_progressBar.texture_progress_offset = Vector2(41, 26)
 	elif Name == "Puffer":
 		bossBar_progressBar.texture_under = UnderPuffer
-		bossBar_progressBar.texture_progress = UnderPuffer
+		bossBar_progressBar.texture_progress = ProgressPuffer
 		bossBar_progressBar.texture_progress_offset = Vector2(39, 26)
 	
 	bossBar_progressBar.show()

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://i2w5pkp3r4io"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bg7fb4wgybrmr"]
 
 [ext_resource type="Texture2D" uid="uid://bjo2rvvid5aen" path="res://assets/sprites/enemy/poulpe_attack/frame_000.png" id="1_5efeh"]
 [ext_resource type="Texture2D" uid="uid://d4n33wcsnkslo" path="res://assets/sprites/enemy/poulpe_attack/frame_001.png" id="2_4dl7c"]

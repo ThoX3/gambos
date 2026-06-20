@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="4_27n4c"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="5_2ragj"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="6_epgpp"]
-[ext_resource type="Texture2D" uid="uid://d3oee5a0xr0nt" path="res://assets/sprites/lights/soft_radial_gradient.png" id="100"]
+[ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="7_2ragj"]
 [ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="101"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
@@ -32,7 +32,6 @@ shape = SubResource("CircleShape2D_nytjq")
 [node name="DeepSeaLight" type="PointLight2D" parent="." unique_id=1550703278]
 color = Color(0.5, 0.8, 1, 1)
 energy = 0.5
-blend_mode = 2
-texture = ExtResource("100")
+texture = ExtResource("7_2ragj")
 texture_scale = 0.8
 script = ExtResource("101")

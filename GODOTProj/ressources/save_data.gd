@@ -39,6 +39,7 @@ class_name SaveData
 # In-game progress
 @export var max_wave_reached: int = 0
 @export var mondes_completes_total: int = 0 
+@export var gambos_is_king: bool = false
 
 # Bestiaire — statistiques persistantes
 @export var enemy_kill_counts: Dictionary = {}   # clé: resource_path de l'EnemyData, valeur: int

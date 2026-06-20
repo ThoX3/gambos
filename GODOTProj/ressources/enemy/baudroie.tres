@@ -3,19 +3,19 @@
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_pn3y3"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_3sudg"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_eih4v"]
-[ext_resource type="SpriteFrames" uid="uid://d3hqb7t8m7gdn" path="res://assets/sprites/enemy/Baudroie.tres" id="4_3sudg"]
+[ext_resource type="SpriteFrames" uid="uid://x0ypea41wim6" path="res://assets/sprites/enemy/Baudroie.tres" id="4_3sudg"]
 
 [resource]
 script = ExtResource("3_eih4v")
 texture = ExtResource("4_3sudg")
 name = "Baudroie"
-max_hp = 150
-movement_speed = 100.0
+max_hp = 400
+movement_speed = 200.0
 weight = 50.0
 attack_damage = 25
 xp_drop = 20
 pearl_drop_probability = 0.3
 pearl_drop_range = Vector2i(3, 1)
-cout = 20
+cout = 12
 poids = 3
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

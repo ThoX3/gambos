@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_iqugw"]
 [ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_irh2w"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_6ic84"]
-[ext_resource type="FontVariation" uid="uid://b5r14v10d3ad6" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="3_j1qqk"]
+[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="3_j1qqk"]
 [ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_w5y77"]
 [ext_resource type="PackedScene" uid="uid://tv7ir00li1e2" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
 [ext_resource type="Texture2D" uid="uid://dtfqrdo6uajr2" path="res://assets/sprites/pearl_shop/icons/speed.png" id="6_t1a07"]

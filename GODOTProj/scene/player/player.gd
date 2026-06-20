@@ -65,6 +65,13 @@ func _ready() -> void:
 	_on_initialize()
 	
 	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
+	
+	if has_node("DeepSeaLight"):
+		await get_tree().process_frame
+		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
+			$DeepSeaLight.show()
+		else:
+			$DeepSeaLight.hide()
 
 	if projectile_sable_data:
 		projectile_sable_data = projectile_sable_data.duplicate()
@@ -362,6 +369,7 @@ func _on_initialize():
 
 	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	$DeepSeaLight.texture_scale = 2.0 * Stats.collectRadius / 200.0
 
 	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
 

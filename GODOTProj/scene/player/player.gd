@@ -463,7 +463,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 			Stats.max_health += effect.value
-			Stats.current_health += max(effect.value, 0)
+			Stats.current_health += effect.value
 			GameManager.health_changed.emit()
 			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:

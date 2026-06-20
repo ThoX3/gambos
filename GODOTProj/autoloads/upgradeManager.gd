@@ -64,11 +64,14 @@ func calculate_dynamic_weights(luck_level: int) -> Dictionary:
 	var dyn_weights = {}
 	var level_clamped = clamp(luck_level, 0, 20)
 	var luck_factor: float = level_clamped / 20.0
-	dyn_weights[upgradeData.rarityType.COMMON] = max(50.0, BASE_RARITY_WEIGHTS[upgradeData.rarityType.COMMON] - (luck_factor * 50.0))
-	dyn_weights[upgradeData.rarityType.UNCOMMUN] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.UNCOMMUN] * (1.0 + luck_factor * 1.0)
-	dyn_weights[upgradeData.rarityType.RARE] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.RARE] * (1.0 + luck_factor * 2.0)
-	dyn_weights[upgradeData.rarityType.LEGENDARY] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.LEGENDARY] * (1.0 + luck_factor * 4.0)
-	dyn_weights[upgradeData.rarityType.MYTHIC] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.MYTHIC] * (1.0 + luck_factor * 8.0)
+	dyn_weights[upgradeData.rarityType.COMMON] = lerp(BASE_RARITY_WEIGHTS[upgradeData.rarityType.COMMON], 1.0, pow(luck_factor, 1.5))
+	dyn_weights[upgradeData.rarityType.UNCOMMUN] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.UNCOMMUN] * (1.0 + luck_factor * 1.5)
+	dyn_weights[upgradeData.rarityType.RARE] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.RARE] + (luck_factor * 65.0)
+	dyn_weights[upgradeData.rarityType.LEGENDARY] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.LEGENDARY] * pow(luck_factor, 2.0) * 15.0
+	dyn_weights[upgradeData.rarityType.MYTHIC] = BASE_RARITY_WEIGHTS[upgradeData.rarityType.MYTHIC] * pow(luck_factor, 3.0) * 60.0
+	if level_clamped == 0:
+		dyn_weights[upgradeData.rarityType.LEGENDARY] = 0.0
+		dyn_weights[upgradeData.rarityType.MYTHIC] = 0.0
 	return dyn_weights
 
 # --- Logique de coût de base ---

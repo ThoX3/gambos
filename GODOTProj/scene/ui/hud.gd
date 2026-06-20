@@ -29,6 +29,8 @@ func _ready() -> void:
 			FontManager.font_mode_changed.connect(_on_font_mode_changed)
 		_on_font_mode_changed(FontManager.is_modern_active)
 
+var _celerity_tuto_shown_this_run: bool = false
+
 func _on_start():
 	_time_scale_index = 0
 	Engine.time_scale = 1.0
@@ -44,11 +46,20 @@ func _on_start():
 		wm.vague_demarree.connect(_on_vague_demarree)
 	
 	_init_time_scales()
+	
+	if not _celerity_tuto_shown_this_run and SaveManager.current_save.upgrade_ingame_speed_level >= 1 and not SaveManager.current_save.celerity_tutorial_shown:
+		_celerity_tuto_shown_this_run = true
+		var timer = get_tree().create_timer(5.0)
+		timer.timeout.connect(show_celerity_tutorial)
 
 func _on_vague_demarree(numero: int) -> void:
 	_set_wave_text(numero)
 	if numero == 20:
 		show_bossBar()
+		
+	if numero >= 3 and _celerity_tuto_shown_this_run and not SaveManager.current_save.celerity_tutorial_shown:
+		SaveManager.current_save.celerity_tutorial_shown = true
+		SaveManager.save_game()
 		
 func _set_wave_text(numero: int) -> void:
 	var base_text = "Vague " + str(numero)
@@ -131,7 +142,7 @@ func _init_time_scales() -> void:
 		%SpeedLabel.hide()
 	else:
 		%SpeedLabel.show()
-		%SpeedLabel.text = "x1"
+		%SpeedLabel.text = " x1"
 
 func _input(event: InputEvent) -> void:
 	if not GameManager.in_game:
@@ -148,7 +159,7 @@ func _input(event: InputEvent) -> void:
 
 func _apply_time_scale() -> void:
 	Engine.time_scale = time_scales[_time_scale_index]
-	%SpeedLabel.text = "x" + str(time_scales[_time_scale_index]).replace(".0", "")
+	%SpeedLabel.text = " x" + str(time_scales[_time_scale_index]).replace(".0", "")
 
 func _on_font_mode_changed(is_modern: bool) -> void:
 	var margins = ["margin_left", "margin_top", "margin_right", "margin_bottom"]
@@ -172,3 +183,39 @@ func _apply_margin_overrides(node: Node, margins: Array, is_modern: bool) -> voi
 				
 	for child in node.get_children():
 		_apply_margin_overrides(child, margins, is_modern)
+
+func show_celerity_tutorial() -> void:
+	var time_control = %SpeedLabel.get_parent()
+	var tex1 = time_control.get_node("TextureRect")
+	var tex2 = time_control.get_node("TextureRect2")
+	
+	time_control.pivot_offset = time_control.size / 2.0
+	var original_scale = time_control.scale
+	var original_pos = time_control.position
+		
+	var tween = create_tween().bind_node(self).set_ignore_time_scale(true)
+	
+	var color_full = Color(1, 1, 1, 1)
+	var color_dim = Color(1, 1, 1, 0.3)
+	var color_hidden = Color(1, 1, 1, 0)
+		
+	tween.tween_property(time_control, "scale", original_scale * 1.5, 0.5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(time_control, "position", Vector2(25, 20), 0.5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(tex1, "modulate", color_full, 0.5)
+	tween.parallel().tween_property(tex2, "modulate", color_full, 0.5)
+		
+	# Slower, alternating blink (3 loops of 1 second each = 3 seconds total)
+	for i in range(3):
+		tween.tween_property(tex1, "modulate", color_dim, 0.5)
+		tween.parallel().tween_property(tex2, "modulate", color_full, 0.5)
+		
+		tween.tween_property(tex1, "modulate", color_full, 0.5)
+		tween.parallel().tween_property(tex2, "modulate", color_dim, 0.5)
+		
+	tween.tween_callback(func(): print(">> TWEEN: Blink loop finished, shrinking back"))
+		
+	tween.tween_property(time_control, "scale", original_scale, 0.5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(time_control, "position", original_pos, 0.5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(tex1, "modulate", color_hidden, 0.5)
+	tween.parallel().tween_property(tex2, "modulate", color_hidden, 0.5)
+	

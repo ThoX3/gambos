@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://benyh3kinntkt"]
+
+[ext_resource type="Texture2D" uid="uid://cepalanih12b4" path="res://assets/sprites/tutorial/XBOXButtonLT.png" id="1_1ne8n"]
+[ext_resource type="Texture2D" uid="uid://ivhsmqg4t7tb" path="res://assets/sprites/tutorial/XBOXButtonRT.png" id="2_5rcso"]
+
+[node name="TimeControlTuto" type="Control" unique_id=115382990]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1328207313]
+layout_mode = 0
+offset_right = 34.0
+offset_bottom = 10.0
+theme_override_constants/separation = 14
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1342721030]
+layout_mode = 2
+texture = ExtResource("1_1ne8n")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=2097539045]
+layout_mode = 2
+texture = ExtResource("2_5rcso")
+expand_mode = 3
+stretch_mode = 4

@@ -22,7 +22,6 @@ func _ready() -> void:
 	GameManager.start_game.connect(_on_start)
 	GameManager.pearls_changed.connect(_on_pearls_changed)
 	GameManager.boss_health_changed.connect(_on_boss_health_changed)
-	GameManager.boss_araignee_vaincu.connect(_on_boss_death)
 	_update_progres_bar()
 	%HP_Bar.max_value = Stats.max_health
 	_update_health_bar()
@@ -106,6 +105,8 @@ func _update_progres_bar():
 func _on_boss_health_changed(maxHp : int, hp):
 	bossBar_progressBar.max_value = maxHp
 	bossBar_progressBar.value = hp
+	if hp <= 0:
+		_on_boss_death()
 
 func _update_health_bar():
 	%HP_Bar.max_value = Stats.max_health

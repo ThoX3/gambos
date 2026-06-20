@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bw5hibxehqelx"]
+
+[ext_resource type="Texture2D" uid="uid://t57ww3g6bc2g" path="res://assets/sprites/enemy/vampire_squid.png" id="1_e2b8m"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_e2b8m")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

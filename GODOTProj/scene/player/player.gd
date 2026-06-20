@@ -31,6 +31,8 @@ var sable_bounce: int = 0
 
 var can_shoot: bool = true
 
+const BUBBLE_SPEED_FACTOR: float = 1.5  # la bulle est toujours au moins 1,5× plus rapide que le joueur
+
 # ── Poison ───────────────────────────────────────────────────────────
 var _poison_actif: bool = false
 var _poison_timer_total: float = 0.0     
@@ -407,7 +409,8 @@ func _shoot_multiple(targets: Array) -> void:
 
 		var p_data := projectile_data.duplicate()
 		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
-
+		p_data.speed = max(projectile_data.speed, Stats.speed * BUBBLE_SPEED_FACTOR)
+		
 		var current_dir := dir
 		if i >= targets.size():
 			current_dir = dir.rotated(randf_range(-0.15, 0.15))

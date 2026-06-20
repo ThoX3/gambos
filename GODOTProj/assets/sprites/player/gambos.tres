@@ -1,8 +1,8 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://be16k2l8cy1kh"]
 
 [ext_resource type="Texture2D" uid="uid://cl774jjra1dow" path="res://assets/sprites/player/Gambos_death.png" id="1_sd3v6"]
-[ext_resource type="Texture2D" uid="uid://ccsps854k8dns" path="res://assets/sprites/player/Gambos_walk1.png" id="2_4nvid"]
-[ext_resource type="Texture2D" uid="uid://hxb5slup1ax3" path="res://assets/sprites/player/Gambos_walk2.png" id="3_tepd1"]
+[ext_resource type="Texture2D" uid="uid://n2w27iecmhpi" path="res://assets/sprites/player/Gambos1.png" id="2_sd3v6"]
+[ext_resource type="Texture2D" uid="uid://2r7psvlx4r45" path="res://assets/sprites/player/Gambos2.png" id="3_4nvid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8wkb"]
 atlas = ExtResource("1_sd3v6")
@@ -55,10 +55,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_4nvid")
+"texture": ExtResource("2_sd3v6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_tepd1")
+"texture": ExtResource("3_4nvid")
 }],
 "loop": true,
 "name": &"walk",

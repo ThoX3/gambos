@@ -22,7 +22,7 @@ signal back_button_pressed
 
 const GAMBOS_KEY := "gambos_player"
 
-const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos_walk1.png")
+const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos1.png")
 const BASE_PLAYER_STATS: PlayerStat = preload("res://ressources/playerStat.tres")
 
 var _max_wave: int = 0

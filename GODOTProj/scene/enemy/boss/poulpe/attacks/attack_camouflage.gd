@@ -15,12 +15,12 @@ func executer(boss) -> void:
 
 	boss._en_camouflage = true
 
-	var tween := boss.create_tween()
+	var tween = boss.create_tween()
 	tween.tween_property(boss.sprite, "modulate:a", boss.camouflage_alpha, 0.4)
 
 	if not await boss._attendre_timer(boss.camouflage_duree): return
 
-	var tween_out := boss.create_tween()
+	var tween_out = boss.create_tween()
 	tween_out.tween_property(boss.sprite, "modulate:a", 1.0, 0.4)
 	if not await boss._attendre_timer(0.4): return
 

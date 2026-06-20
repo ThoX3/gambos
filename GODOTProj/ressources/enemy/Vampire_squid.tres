@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_rck7i"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_m2sok"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_fygdb"]
-[ext_resource type="SpriteFrames" path="res://assets/sprites/enemy/vampire_squid.tres" id="4_m2sok"]
+[ext_resource type="SpriteFrames" uid="uid://bw5hibxehqelx" path="res://assets/sprites/enemy/vampire_squid.tres" id="4_m2sok"]
 
 [resource]
 script = ExtResource("3_fygdb")

@@ -25,7 +25,6 @@
 [ext_resource type="Resource" uid="uid://bhsnwc22dhkii" path="res://ressources/enemy/Jellyfish.tres" id="22_uxs6c"]
 [ext_resource type="Resource" uid="uid://bneg851sregnl" path="res://ressources/enemy/Vampire_squid.tres" id="23_05tjk"]
 [ext_resource type="Resource" uid="uid://bmqnb1ww37dx7" path="res://ressources/enemy/baudroie.tres" id="24_3qdxg"]
-[ext_resource type="Resource" uid="uid://dh12nya5mt1cy" path="res://ressources/enemy/Coelacanthes.tres" id="25_e0to0"]
 
 [sub_resource type="Resource" id="Resource_ptvm1"]
 script = ExtResource("3_8og5k")
@@ -133,41 +132,31 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_v0ki7"]
 script = ExtResource("3_6sx1e")
-scene = ExtResource("16_wru3l")
 data = ExtResource("21_hclwd")
 vague_apparition = 41
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_1hc0s"]
 script = ExtResource("3_6sx1e")
-scene = ExtResource("2_8onsx")
 data = ExtResource("22_uxs6c")
 vague_apparition = 41
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_l7nue"]
 script = ExtResource("3_6sx1e")
-scene = ExtResource("2_8onsx")
 data = ExtResource("23_05tjk")
 vague_apparition = 45
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [sub_resource type="Resource" id="Resource_ndgx6"]
 script = ExtResource("3_6sx1e")
-scene = ExtResource("2_8onsx")
 data = ExtResource("24_3qdxg")
 vague_apparition = 50
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
-[sub_resource type="Resource" id="Resource_hclwd"]
-script = ExtResource("3_6sx1e")
-scene = ExtResource("2_8onsx")
-data = ExtResource("25_e0to0")
-metadata/_custom_type_script = "uid://dt8adtnpm1fog"
-
 [resource]
 script = ExtResource("8_8og5k")
-ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_34r5y"), SubResource("Resource_0hiio"), SubResource("Resource_y3dq1"), SubResource("Resource_xbaqx"), SubResource("Resource_k4dty"), SubResource("Resource_v0ki7"), SubResource("Resource_1hc0s"), SubResource("Resource_l7nue"), SubResource("Resource_ndgx6"), SubResource("Resource_hclwd")])
+ennemis = Array[Resource]([SubResource("Resource_updt2"), SubResource("Resource_7u5fj"), SubResource("Resource_qt35s"), SubResource("Resource_bu5s6"), SubResource("Resource_34r5y"), SubResource("Resource_0hiio"), SubResource("Resource_y3dq1"), SubResource("Resource_xbaqx"), SubResource("Resource_k4dty"), SubResource("Resource_v0ki7"), SubResource("Resource_1hc0s"), SubResource("Resource_l7nue"), SubResource("Resource_ndgx6")])
 boss = Array[Resource]([SubResource("Resource_ptvm1"), SubResource("Resource_cew7t"), SubResource("Resource_g7h2u")])
 boss_comme_ennemis = Array[Resource]([SubResource("Resource_y7e3n"), SubResource("Resource_wru3l"), SubResource("Resource_53mlo")])
 metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

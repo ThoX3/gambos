@@ -5,14 +5,16 @@
 [ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="3_t0n4l"]
 [ext_resource type="Texture2D" uid="uid://dln7r0kne5tet" path="res://assets/sprites/HUD/Xp_bar/Progress.png" id="4_3wbyd"]
 [ext_resource type="Script" uid="uid://crpsddy5mn04d" path="res://scene/ui/hud.gd" id="4_73u6w"]
+[ext_resource type="Texture2D" uid="uid://de33ptylb0mp7" path="res://assets/sprites/boss/HealthBar_under_Pufferfish.png" id="5_6fek2"]
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="5_qxikp"]
+[ext_resource type="Texture2D" uid="uid://1cm4bu0um4pg" path="res://assets/sprites/boss/HealthBar_progress_Pufferfish.png" id="6_3tp2r"]
 [ext_resource type="FontVariation" uid="uid://bf6kmleh4uyyr" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="6_g5rf0"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
 [ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
 [ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
-[ext_resource type="Shader" uid="uid://cuvaebm2d4tux" path="res://scene/ui/metallic_sweep.gdshader" id="13_sweep"]
+[ext_resource type="Shader" path="res://scene/ui/metallic_sweep.gdshader" id="13_sweep"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sweep"]
 shader = ExtResource("13_sweep")
@@ -36,6 +38,10 @@ grow_vertical = 2
 scale = Vector2(2, 2)
 script = ExtResource("4_73u6w")
 Stats = ExtResource("5_qxikp")
+UnderCrab = ExtResource("11_onxnr")
+ProgressCrab = ExtResource("12_llivb")
+UnderPuffer = ExtResource("5_6fek2")
+ProgressPuffer = ExtResource("6_3tp2r")
 
 [node name="SpeedLabel" type="Label" parent="." unique_id=1247512332]
 unique_name_in_owner = true

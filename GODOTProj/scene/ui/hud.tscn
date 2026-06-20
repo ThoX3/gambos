@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
 [ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
 [ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
-[ext_resource type="Shader" path="res://scene/ui/metallic_sweep.gdshader" id="13_sweep"]
+[ext_resource type="Shader" uid="uid://cuvaebm2d4tux" path="res://scene/ui/metallic_sweep.gdshader" id="13_sweep"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sweep"]
 shader = ExtResource("13_sweep")

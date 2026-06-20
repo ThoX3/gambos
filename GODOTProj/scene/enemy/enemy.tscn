@@ -29,9 +29,10 @@ SPLASH_EFFECT_SCENE = ExtResource("6_epgpp")
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_nytjq")
 
-[node name="DeepSeaLight" type="PointLight2D" parent="."]
+[node name="DeepSeaLight" type="PointLight2D" parent="." unique_id=1550703278]
 color = Color(0.5, 0.8, 1, 1)
 energy = 0.5
+blend_mode = 2
 texture = ExtResource("100")
 texture_scale = 0.8
 script = ExtResource("101")

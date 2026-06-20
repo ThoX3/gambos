@@ -71,13 +71,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Icon" type="TextureRect" parent="TextureButton/VBoxContainer" unique_id=1901432286]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(5, 5)
-layout_mode = 2
-size_flags_vertical = 3
-expand_mode = 1
-
 [node name="Description" type="Label" parent="TextureButton/VBoxContainer" unique_id=77085915]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(5, 5)
@@ -98,9 +91,10 @@ autowrap_mode = 2
 
 [node name="Rarity" type="Label" parent="TextureButton/VBoxContainer" unique_id=865929680]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(5, 5)
+custom_minimum_size = Vector2(4, 10)
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
 theme_override_fonts/font = ExtResource("2_ulku6")
 vertical_alignment = 1
 autowrap_mode = 2

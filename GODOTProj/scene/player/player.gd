@@ -435,7 +435,7 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.direction = dir
 	proj.appartient_au_joueur = true
 	proj.vitesse = projectile_sable_data.speed
-	proj.degats = int(projectile_sable_data.damage * damage_multiplier)
+	proj.degats = max(1, int(Stats.proj_damage * damage_multiplier * 3))
 	proj.scale = Vector2(scale_multiplier, scale_multiplier)
 
 	proj.pierce_hp = sable_pierce
@@ -463,7 +463,7 @@ func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 			Stats.max_health += effect.value
-			Stats.current_health += max(effect.value, 0)
+			Stats.current_health += effect.value
 			GameManager.health_changed.emit()
 			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
 			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:

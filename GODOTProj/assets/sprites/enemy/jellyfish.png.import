@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x6kfup06vd2s"
-path="res://.godot/imported/baudroie_strong.png-0521367efa247e31ce9c49da9cdfa29d.ctex"
+uid="uid://1laxe3cbbjfw"
+path="res://.godot/imported/jellyfish.png-e810765bbb6e792a80ec8c3393bcba35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/baudroie_strong.png"
-dest_files=["res://.godot/imported/baudroie_strong.png-0521367efa247e31ce9c49da9cdfa29d.ctex"]
+source_file="res://assets/sprites/enemy/jellyfish.png"
+dest_files=["res://.godot/imported/jellyfish.png-e810765bbb6e792a80ec8c3393bcba35.ctex"]
 
 [params]
 

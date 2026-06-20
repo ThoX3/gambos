@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b3alyhtjistld"]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/enemy/baudroie_strong.png" id="1_gquh1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1cer"]
+atlas = ExtResource("1_gquh1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgagh"]
+atlas = ExtResource("1_gquh1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv3fs"]
+atlas = ExtResource("1_gquh1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5werm"]
+atlas = ExtResource("1_gquh1")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1cer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgagh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv3fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5werm")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

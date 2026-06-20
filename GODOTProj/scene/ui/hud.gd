@@ -1,6 +1,8 @@
 extends Control
 
 @export var Stats = Resource
+
+@export_group("Boss Healthbar Sprites")
 @export var UnderCrab = CompressedTexture2D
 @export var ProgressCrab = CompressedTexture2D
 @export var UnderPuffer = CompressedTexture2D

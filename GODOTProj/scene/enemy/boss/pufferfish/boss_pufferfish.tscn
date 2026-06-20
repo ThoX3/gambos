@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="12_4osb5"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_08vll"]
-load_path = "res://.godot/imported/boss1.png-52f9642acc91fac31bcd8e0fad6d3aeb.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61v65"]
 atlas = SubResource("CompressedTexture2D_08vll")

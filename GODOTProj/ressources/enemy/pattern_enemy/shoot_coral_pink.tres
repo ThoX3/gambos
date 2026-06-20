@@ -1,14 +1,13 @@
 [gd_resource type="Resource" script_class="ShootingPattern" format=3 uid="uid://n807foctu73u"]
 
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="1_olt6e"]
-[ext_resource type="PackedScene" uid="uid://bem8erjrse6pm" path="res://scene/projectile/enemy_Projectile.tscn" id="1_tvowi"]
+[ext_resource type="PackedScene" uid="uid://lko1k3mem6pw" path="res://scene/projectile/enemy_Projectile.tscn" id="1_tvowi"]
 
 [resource]
 script = ExtResource("1_olt6e")
-type = 3
 scene_projectile = ExtResource("1_tvowi")
 vitesse = 300.0
 duree_vie = 4.0
-nb_projectiles = 2
+nb_projectiles = 1
 angle_eventail = 70.0
 metadata/_custom_type_script = "uid://coog8bv3la8ch"

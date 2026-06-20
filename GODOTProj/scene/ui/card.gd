@@ -55,11 +55,11 @@ func setup(data: upgradeData) -> void:
 				affichage_valeur = int(effet.value)
 			var color = "green" if effet.value > 0 else "red"
 			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + affichage_valeur) + "[/color]\n")
-			
 			if effet.targetCapacity == capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
 				var cur_hp = int(player.Stats.current_health)
+				color = "green" if cur_hp + affichage_valeur >= cur_hp else "red"
 				%Stats.append_text("Vie actuelle : \n")
-				%Stats.append_text(str(cur_hp) + " -> [color=green]" + str(cur_hp + affichage_valeur) + "[/color]\n")
+				%Stats.append_text(str(cur_hp) + " -> [color=" + color + "]" + str(cur_hp + affichage_valeur) + "[/color]\n")
 	%Rarity.text = RARITY_NAME[data.rarity]
 	var texture_normal = BACKGROUNDS[data.rarity]
 	var texture_hover = HOVER[data.rarity]

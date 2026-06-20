@@ -52,6 +52,11 @@ func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgrade
 	for upgrade in list:
 		current_sum += weights[upgrade.rarity]
 		if random_value < current_sum:
+			for data in upgrade.capacities_effects :
+				if data.targetCapacity == data.TargetCapacityEffect.PLAYER_HEALTH:
+					var player = get_tree().get_first_node_in_group("Player")
+					if player.Stats.current_health + data.value <= 0:
+						pick_one_weighted(list, weights)
 			return upgrade
 	return null
 	
@@ -165,7 +170,7 @@ func get_effect_luck(level: int) -> float:
 
 ## Calcule le taux de régénération de vie par seconde en fonction du niveau.
 func get_effect_regen(level: int) -> float:
-	return level * 0.1
+	return level * 0.05
 
 ## Retourne les paramètres des épines (dégâts et intervalle de tick) en fonction du niveau.
 func get_effect_thorns(level: int) -> Dictionary:

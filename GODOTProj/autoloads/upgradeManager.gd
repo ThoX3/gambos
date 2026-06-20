@@ -154,7 +154,7 @@ func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:
-	return 1.0 + (level * 1.0)
+	return 1.0 + (level * 2.0)
 
 ## Calcule le bonus de cadence de tir en fonction du niveau.
 func get_effect_attack_speed(level: int) -> float:

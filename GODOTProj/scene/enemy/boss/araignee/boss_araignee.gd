@@ -82,7 +82,7 @@ func _start_attack() -> void:
 		
 		if attaque_choisie != null:
 			_derniere_attaque_id = attaque_choisie.id
-			attaque_choisie._prochain_lancement_possible = temps_actuel + int(attaque_choisie.cooldown_attaque * 1000.0)
+			attaque_choisie._prochain_lancement_possible = temps_actuel + int(attaque_choisie.cooldown_attaque * 1.0)
 			
 			await attaque_choisie.executer(self) 
 			
@@ -106,7 +106,7 @@ func _start_attack() -> void:
 	_en_train_de_combo = false
 	_attaque_forcee = null 
 	
-	_attack_timer = 0.15 
+	_attack_timer = 3
 	_end_attack()
 
 func autocomplete_poids(attaque: BossAttack) -> float:

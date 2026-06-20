@@ -27,7 +27,7 @@ class_name EnemyData
 
 @export_group("Spawn")
 ## Coût en budget de difficulté
-@export_range(1, 20) var cout: int = 1
+@export_range(1, 999) var cout: int = 1
 ## Poids de tirage aléatoire (plus élevé = apparaît plus souvent)
 @export_range(1, 100) var poids: int = 10
 

@@ -1,0 +1,60 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c1ypkonewsc6"]
+
+[ext_resource type="Texture2D" uid="uid://1laxe3cbbjfw" path="res://assets/sprites/enemy/jellyfish.png" id="1_xgnbn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnwyj"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qox1m"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_145bf"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x3sq"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkurq"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmq7o"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v8ea"]
+atlas = ExtResource("1_xgnbn")
+region = Rect2(128, 64, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnwyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qox1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_145bf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x3sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkurq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmq7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v8ea")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]

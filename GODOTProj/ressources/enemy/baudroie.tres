@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cqgwauq57dc1d"]
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bmqnb1ww37dx7"]
 
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_pn3y3"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_3sudg"]
@@ -9,13 +9,13 @@
 script = ExtResource("3_eih4v")
 texture = ExtResource("4_3sudg")
 name = "Baudroie"
-max_hp = 120
-movement_speed = 100.0
+max_hp = 400
+movement_speed = 200.0
 weight = 50.0
-attack_damage = 40
+attack_damage = 25
 xp_drop = 20
 pearl_drop_probability = 0.3
 pearl_drop_range = Vector2i(3, 1)
-cout = 20
+cout = 12
 poids = 3
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

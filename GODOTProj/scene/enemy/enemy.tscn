@@ -4,13 +4,13 @@
 [ext_resource type="Resource" uid="uid://cpcw4jetkxuqo" path="res://ressources/enemy/Crab.tres" id="2_msiye"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="3_u8b2j"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="4_27n4c"]
-[ext_resource type="PackedScene" uid="uid://b0ni17q05s5ii" path="res://scene/ui/enemy/Damage_text.tscn" id="5_2ragj"]
-[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="6_epgpp"]
+[ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="5_2ragj"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="6_epgpp"]
 [ext_resource type="Texture2D" uid="uid://d3oee5a0xr0nt" path="res://assets/sprites/lights/soft_radial_gradient.png" id="100"]
 [ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="101"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
-radius = 60.0
+radius = 64.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=730657589]
 collision_layer = 2

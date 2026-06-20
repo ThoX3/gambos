@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://cbhmurwsft0yp"]
+
+[ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="1_mrf3v"]
+[ext_resource type="PackedScene" uid="uid://biv5bqhlmrnet" path="res://scene/enemy/boss/poulpe/boss_poulpe.tscn" id="2_67vj7"]
+[ext_resource type="Script" uid="uid://dj14x25prjjx0" path="res://ressources/waves/EntreeBoss.gd" id="3_7j4dk"]
+[ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="5_yemex"]
+[ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="6_1hema"]
+[ext_resource type="Resource" uid="uid://bxr0v7n05wsfa" path="res://ressources/enemy/Coral_blue.tres" id="9_7j4dk"]
+[ext_resource type="PackedScene" uid="uid://tycwnl1f5hv" path="res://scene/enemy/enemy_spawner.tscn" id="10_st6ua"]
+[ext_resource type="Resource" uid="uid://bgx38fynn1q2" path="res://ressources/enemy/Vampire_squid.tres" id="11_0x8xi"]
+[ext_resource type="Resource" uid="uid://bs27xrdc8yngr" path="res://ressources/enemy/Coral_pink.tres" id="11_j1xto"]
+[ext_resource type="PackedScene" uid="uid://djg3clk7v48g1" path="res://scene/enemy/enemy_shooter.tscn" id="12_f3c2m"]
+[ext_resource type="Resource" uid="uid://bmqnb1ww37dx7" path="res://ressources/enemy/baudroie.tres" id="12_yemex"]
+[ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="13_ifyfo"]
+[ext_resource type="Resource" path="res://ressources/enemy/Coelacanthes.tres" id="13_mrf3v"]
+[ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="14_gcq38"]
+
+[sub_resource type="Resource" id="Resource_8k8r3"]
+script = ExtResource("3_7j4dk")
+scene = ExtResource("2_67vj7")
+data = ExtResource("1_mrf3v")
+vague_exacte = 60
+metadata/_custom_type_script = "uid://dj14x25prjjx0"
+
+[sub_resource type="Resource" id="Resource_88mwo"]
+script = ExtResource("6_1hema")
+scene = ExtResource("12_f3c2m")
+data = ExtResource("11_j1xto")
+vague_apparition = 30
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_3klid"]
+script = ExtResource("6_1hema")
+scene = ExtResource("5_yemex")
+data = ExtResource("13_ifyfo")
+vague_apparition = 35
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_st6ua"]
+script = ExtResource("6_1hema")
+scene = ExtResource("10_st6ua")
+data = ExtResource("9_7j4dk")
+vague_apparition = 41
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_j1xto"]
+script = ExtResource("6_1hema")
+scene = ExtResource("5_yemex")
+data = ExtResource("11_0x8xi")
+vague_apparition = 45
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_f3c2m"]
+script = ExtResource("6_1hema")
+scene = ExtResource("5_yemex")
+data = ExtResource("12_yemex")
+vague_apparition = 50
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[sub_resource type="Resource" id="Resource_ifyfo"]
+script = ExtResource("6_1hema")
+scene = ExtResource("5_yemex")
+data = ExtResource("13_mrf3v")
+vague_apparition = 55
+metadata/_custom_type_script = "uid://dt8adtnpm1fog"
+
+[resource]
+script = ExtResource("14_gcq38")
+ennemis = Array[Resource]([SubResource("Resource_88mwo"), SubResource("Resource_3klid"), SubResource("Resource_st6ua"), SubResource("Resource_j1xto"), SubResource("Resource_f3c2m"), SubResource("Resource_ifyfo")])
+boss = Array[Resource]([SubResource("Resource_8k8r3")])
+metadata/_custom_type_script = "uid://dq5mh4ubldwd3"

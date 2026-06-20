@@ -31,7 +31,7 @@ var sable_bounce: int = 0
 
 var can_shoot: bool = true
 
-const BUBBLE_SPEED_FACTOR: float = 1.5  # la bulle est toujours au moins 1,5× plus rapide que le joueur
+const BUBBLE_SPEED_FACTOR: float = 1.2  # la bulle est toujours au moins 1,5× plus rapide que le joueur
 
 # ── Poison ───────────────────────────────────────────────────────────
 var _poison_actif: bool = false

@@ -44,21 +44,27 @@ func get_random_upgrades(count: int) -> Array[upgradeData]:
 	return selected_upgrades
 	
 func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgradeData:
-	var total_weight = 0
-	for upgrade in list:
-		total_weight += BASE_RARITY_WEIGHTS[upgrade.rarity]
+	if list.is_empty(): 
+		return null
+	var shuffled_list = list.duplicate()
+	shuffled_list.shuffle()
+	var total_weight: float = 0.0
+	for upgrade in shuffled_list:
+		total_weight += weights[upgrade.rarity]
+	if total_weight <= 0.0:
+		return null
 	var random_value = randf() * total_weight
-	var current_sum = 0
-	for upgrade in list:
+	var current_sum: float = 0.0
+	for upgrade in shuffled_list:
 		current_sum += weights[upgrade.rarity]
 		if random_value < current_sum:
-			for data in upgrade.capacities_effects :
+			for data in upgrade.capacities_effects:
 				if data.targetCapacity == data.TargetCapacityEffect.PLAYER_HEALTH:
 					var player = get_tree().get_first_node_in_group("Player")
-					if player.Stats.current_health + data.value <= 0:
-						pick_one_weighted(list, weights)
+					if player and player.Stats.current_health + data.value <= 0:
+						return pick_one_weighted(list, weights)
 			return upgrade
-	return null
+	return shuffled_list.pick_random()
 	
 func calculate_dynamic_weights(luck_level: int) -> Dictionary:
 	var dyn_weights = {}

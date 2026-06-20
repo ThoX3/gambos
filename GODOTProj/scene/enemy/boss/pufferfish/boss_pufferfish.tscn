@@ -72,7 +72,6 @@ atlas = SubResource("CompressedTexture2D_08vll")
 region = Rect2(128, 64, 64, 64)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3qyhk"]
-load_path = "res://.godot/imported/Boss1fumee.png-5cd07fc2c5bbcbab8abd737dcf6127f2.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3chqe"]
 atlas = SubResource("CompressedTexture2D_3qyhk")
@@ -127,7 +126,6 @@ atlas = SubResource("CompressedTexture2D_08vll")
 region = Rect2(192, 128, 64, 64)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q3vn2"]
-load_path = "res://.godot/imported/Boss1Speed.png-2dfd0609de28f3d2f659863705a81272.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m22mt"]
 atlas = SubResource("CompressedTexture2D_q3vn2")
@@ -318,8 +316,9 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("10_q3vn2")
 pic_scene = ExtResource("2_3qyhk")
-vitesse_charge = 1000.0
+vitesse_charge = 2000.0
 duree_charge = 5.0
+rayon_nuage_poison = 1000.0
 scene_transition = ExtResource("11_1mii0")
 stats = ExtResource("12_4osb5")
 SEAWEED_SCENE = ExtResource("5_eyvxo")

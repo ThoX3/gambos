@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://xuguebfaw0xu"]
+
+[ext_resource type="Texture2D" uid="uid://ot5ljxibm2x8" path="res://assets/sprites/enemy/Coelacanthes.png" id="1_ufgbj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyehb"]
+atlas = ExtResource("1_ufgbj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srfko"]
+atlas = ExtResource("1_ufgbj")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0721v"]
+atlas = ExtResource("1_ufgbj")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2015"]
+atlas = ExtResource("1_ufgbj")
+region = Rect2(192, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyehb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srfko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0721v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2015")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

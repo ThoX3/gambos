@@ -161,9 +161,14 @@ func _calculer_duree(numero: int) -> float:
 
 func _tirer_ratio_intensite(numero: int) -> float:
 	var ratio_brut := randf_range(config.intensite_min, config.intensite_max)
-	var biais      := clampf(float(numero) / config.biais_vague_max, 0.0, 1.0) * config.biais_amplitude
-	return clampf(ratio_brut + (1.0 - ratio_brut) * biais, 0.0, 1.0)
 
+	var biais := 0.0
+	if numero >= config.biais_vague_debut:
+		var etendue    = max(config.biais_vague_max - config.biais_vague_debut, 1.0)
+		var progression = float(numero - config.biais_vague_debut) / etendue
+		biais = clampf(progression, 0.0, 1.0) * config.biais_amplitude
+
+	return clampf(ratio_brut + (1.0 - ratio_brut) * biais, 0.0, 1.0)
 # ── Génération de la liste de spawn ───────────
 
 func _generer_liste_spawn(disponibles: Array, numero: int) -> Array:

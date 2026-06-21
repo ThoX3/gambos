@@ -266,12 +266,18 @@ func _appliquer_teinte_poison() -> void:
 # ════════════════════════════════════════════════════════════════════
 #  PROGRESSION
 # ════════════════════════════════════════════════════════════════════
+var can_level_up: bool = true
+
 func gainXP(value: int):
 	Stats.currentXp += int(value * Stats.xp_multiplier)
-	if Stats.currentXp >= Stats.requiredXp:
+	if Stats.currentXp >= Stats.requiredXp and can_level_up:
 		levelUp()
-	GameManager.xp_changed.emit()
+	else:
+		GameManager.xp_changed.emit()
 
+func check_level_up():
+	if Stats.currentXp >= Stats.requiredXp and can_level_up:
+		levelUp()
 
 func levelUp():
 	Stats.level += 1
@@ -608,6 +614,7 @@ func get_player_stats() -> Dictionary:
 
 
 func death():
+	can_level_up = false
 	# ── Désactive tout comportement ──────────────────
 	set_process(false)
 	set_physics_process(false)

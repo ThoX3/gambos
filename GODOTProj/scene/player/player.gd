@@ -46,7 +46,7 @@ const BUBBLE_SPEED_FACTOR: float = 1.2  # la bulle est toujours au moins 1,5× p
 var _poison_actif: bool = false
 var _poison_timer_total: float = 0.0     
 var _poison_tick_timer: float = 0.0     
-var _poison_degats_tick: int = 1         
+var _poison_degats_tick: int = 2         
 var _poison_intervalle: float = 1.0     
 var _poison_speed_mult: float = 1.0      
 
@@ -206,7 +206,7 @@ func _move_with_push(delta: float) -> void:
 # ════════════════════════════════════════════════════════════════════
 
 # Appelée par le nuage de fumée du boss poisson
-func apply_poison(duree: float = 20.0, degats_tick: int = 1, intervalle: float = 1.0, ralenti_pct: float = 0.20) -> void:
+func apply_poison(duree: float = 10.0, degats_tick: int = 2, intervalle: float = 1.0, ralenti_pct: float = 0.20) -> void:
 	# Ralentissement via multiplicateur (robuste face aux upgrades de vitesse)
 	_poison_speed_mult = 1.0 - ralenti_pct
 
@@ -232,6 +232,7 @@ func _tick_poison(delta: float) -> void:
 		_poison_tick_timer -= _poison_intervalle
 		Stats.current_health -= _poison_degats_tick
 		GameManager.health_changed.emit()
+		GameManager.joy_vibration(0, 0.15, 0.3, 0.25)
 		if Stats.current_health <= 0.0:
 			if prevent_death:
 				Stats.current_health = 0.1

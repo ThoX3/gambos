@@ -41,6 +41,11 @@ func _ready() -> void:
 	super._ready()
 	for script in stats.attack_scripts:
 		_attaques_instanciees.append(script.new())
+	# LOG : liste des attaques chargées au démarrage
+	var ids: Array = []
+	for a in _attaques_instanciees:
+		ids.append(a.id)
+	print("[POULPE] attaques chargées : ", ids)
 	_echelle_normale = scale
 	sprite.play("walk")
 
@@ -83,6 +88,7 @@ func _start_attack() -> void:
 		if _attaque_forcee != null:
 			if temps_actuel >= _attaque_forcee._prochain_lancement_possible:
 				attaque_choisie = _attaque_forcee
+				print("[POULPE] attaque FORCÉE (combo) : ", _attaque_forcee.id)
 			else:
 				_attaque_forcee = null
 
@@ -95,7 +101,14 @@ func _start_attack() -> void:
 					attaques_possibles.append(attaque)
 					somme_des_poids += _poids(attaque)
 
+			# LOG : quelles attaques sont éligibles ce tour-ci ?
+			var ids_possibles: Array = []
+			for a in attaques_possibles:
+				ids_possibles.append(a.id)
+			print("[POULPE] distance=", int(distance), " | éligibles=", ids_possibles)
+
 			if attaques_possibles.is_empty():
+				print("[POULPE] aucune attaque éligible → fin du combo")
 				break
 
 			var tirage = randf_range(0.0, somme_des_poids)
@@ -107,9 +120,11 @@ func _start_attack() -> void:
 					break
 
 		if attaque_choisie != null:
+			print("[POULPE] >>> LANCE : ", attaque_choisie.id)
 			_derniere_attaque_id = attaque_choisie.id
 			attaque_choisie._prochain_lancement_possible = temps_actuel + int(attaque_choisie.cooldown_attaque * 1000.0)
 			await attaque_choisie.executer(self)
+			print("[POULPE] <<< TERMINÉ : ", attaque_choisie.id)
 			if _est_mort or not is_instance_valid(self) or not is_inside_tree():
 				return
 			_attaque_forcee = null

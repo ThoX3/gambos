@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://biv5bqhlmrnet"]
 
 [ext_resource type="Script" uid="uid://dg8gwtoavv24a" path="res://scene/enemy/boss/poulpe/boss_poulpe.gd" id="1_ofeu8"]
-[ext_resource type="PackedScene" uid="uid://bb2ps2qkju043" path="res://scene/projectile/projectile_ink.tscn" id="2_ofeu8"]
+[ext_resource type="PackedScene" uid="uid://ddkkn0banrjr7" path="res://scene/projectile/projectile_ink_boss.tscn" id="2_ofeu8"]
 [ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="3_dsrgm"]
 [ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="4_ofeu8"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_kh0aw"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_rf02t"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_hk1bg"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_sukh6"]
-[ext_resource type="SpriteFrames" uid="uid://i2w5pkp3r4io" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
+[ext_resource type="SpriteFrames" uid="uid://bg7fb4wgybrmr" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0

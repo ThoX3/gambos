@@ -11,36 +11,29 @@ func _init() -> void:
 
 
 func executer(boss) -> void:
-	if boss._est_mort or not is_instance_valid(boss): return
+	if not is_instance_valid(boss) or boss._est_mort: return
 	if boss.ink_bubble_scene == null:
 		push_warning("[Poulpe] ink_bubble_scene non assignée !")
 		return
 
-	if boss.sprite.sprite_frames.has_animation("prepare_encre"):
-		boss.sprite.sprite_frames.set_animation_loop("prepare_encre", false)
-		boss.sprite.play("prepare_encre")
-		if not await boss._attendre_anim(): return
-	else:
-		if not await boss._attendre_timer(0.4): return
-
+	# Pas d'animation dédiée aux bulles sur le poulpe → on tire directement.
 	boss._bulles_actives.clear()
 	for i in range(boss.nombre_bulles):
 		_tirer_une_bulle(boss)
 		if not await boss._attendre_timer(0.25): return
 
+	# Le boss repasse en walk IMMÉDIATEMENT et rend la main au combo.
+	# Les bulles continuent leur vie en arrière-plan (toucher le joueur, expirer,
+	# assombrir l'écran, se relancer) sans bloquer le boss.
 	if not boss._est_mort:
 		boss.sprite.play("walk")
 
-	# Attend que toutes les bulles tirées dans cette salve soient résolues
-	# (touchées, expirées + délai, ou pop silencieux) avant de rendre la main au combo
-	while not boss._bulles_actives.is_empty():
-		if not await boss._attendre_frame(): return
-
 
 func _tirer_une_bulle(boss) -> void:
-	if boss._est_mort or not is_instance_valid(boss) or not is_instance_valid(boss.player):
+	if not is_instance_valid(boss) or boss._est_mort or not is_instance_valid(boss.player):
 		return
-	var bulle: BossInkBubble = boss.ink_bubble_scene.instantiate()
+
+	var bulle = boss.ink_bubble_scene.instantiate()
 	bulle.global_position = boss.global_position
 	boss.get_parent().add_child(bulle)
 
@@ -53,10 +46,12 @@ func _tirer_une_bulle(boss) -> void:
 	boss._bulles_actives.append(bulle)
 
 
-func _on_bulle_hit_player(bulle: BossInkBubble, boss) -> void:
+func _on_bulle_hit_player(bulle, boss) -> void:
+	if not is_instance_valid(boss):
+		return
 	boss._bulles_actives.erase(bulle)
 
-	if boss._bulle_en_attente_relance or boss._est_mort or not is_instance_valid(boss):
+	if boss._bulle_en_attente_relance or boss._est_mort:
 		return
 	boss._bulle_en_attente_relance = true
 
@@ -70,15 +65,18 @@ func _on_bulle_hit_player(bulle: BossInkBubble, boss) -> void:
 	await bulle.screen_cleared
 
 	boss._bulle_en_attente_relance = false
-	if not (boss._est_mort or not is_instance_valid(boss) or not boss.is_inside_tree()):
+	if is_instance_valid(boss) and not boss._est_mort and boss.is_inside_tree():
 		_tirer_une_bulle(boss)
 
 
-func _on_bulle_expired(bulle: BossInkBubble, boss) -> void:
+func _on_bulle_expired(bulle, boss) -> void:
+	if not is_instance_valid(boss):
+		return
 	boss._bulles_actives.erase(bulle)
 
-	if boss._est_mort or not is_instance_valid(boss):
+	if boss._est_mort:
 		return
 
 	if not await boss._attendre_timer(boss.delai_relance_apres_expiration): return
-	_tirer_une_bulle(boss)
+	if is_instance_valid(boss) and not boss._est_mort and boss.is_inside_tree():
+		_tirer_une_bulle(boss)

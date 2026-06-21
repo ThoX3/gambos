@@ -65,6 +65,12 @@ func executer(boss) -> void:
 		boss.velocity = velocity_charge
 		boss.move_and_slide()
 
+		# Oriente le sprite à gauche/droite selon la direction horizontale de la charge
+		# (on ignore le vertical : seul le flip_h compte). Seuil pour éviter le clignotement
+		# quand la charge est quasi verticale.
+		if absf(velocity_charge.x) > 1.0:
+			boss.sprite.flip_h = velocity_charge.x > 0
+
 		var rebond := false
 		var normal := Vector2.ZERO
 

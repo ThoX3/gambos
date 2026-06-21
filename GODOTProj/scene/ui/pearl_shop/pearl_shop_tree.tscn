@@ -268,15 +268,14 @@ layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "xp_gain"
-upgrade_name = "Sagesse"
-upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
-icon_texture = ExtResource("10_r1ves")
+upgrade_id = "collection_radius"
+upgrade_name = "Aimant"
+upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
+icon_texture = ExtResource("13_r1ves")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer3/RegenNode")
-parent_node_unlock_level = 3
 
 [node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=312900538 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -309,17 +308,18 @@ upgrade_id = "reroll"
 upgrade_name = "Joker"
 upgrade_description = "Permet de relancer des cartes d'amélioration en jeu pour quelques perles."
 icon_texture = ExtResource("11_qpv24")
-parent_node = NodePath("../../VBoxContainer4/XPGainNode")
+parent_node = NodePath("../XPGainNode")
 parent_node_unlock_level = 5
 
-[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "collection_radius"
-upgrade_name = "Aimant"
-upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
-icon_texture = ExtResource("13_r1ves")
-max_level = 4
-parent_node = NodePath("../../VBoxContainer4/XPGainNode")
+upgrade_id = "xp_gain"
+upgrade_name = "Sagesse"
+upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
+icon_texture = ExtResource("10_r1ves")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer4/CollectionRadiusNode")
+parent_node_unlock_level = 3
 
 [node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2

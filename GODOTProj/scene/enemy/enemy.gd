@@ -36,6 +36,7 @@ func setup_enemy():
 	if has_node("DeepSeaLight"):
 		await get_tree().process_frame
 		if stats and stats.glowing_strength > 0.0 and get_tree().get_nodes_in_group("deep_sea").size() > 0:
+			$DeepSeaLight.show()
 			var light = $DeepSeaLight
 			if light.has_method("update_base_energy"):
 				light.update_base_energy(stats.glowing_strength)

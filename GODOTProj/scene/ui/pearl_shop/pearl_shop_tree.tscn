@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ccn3xc0ykma72" path="res://assets/sprites/pearl_shop/background.png" id="2_iqugw"]
 [ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="2_irh2w"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_6ic84"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="3_j1qqk"]
+[ext_resource type="FontVariation" uid="uid://b5r14v10d3ad6" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="3_j1qqk"]
 [ext_resource type="Texture2D" uid="uid://d3sny8dvaqkn1" path="res://assets/sprites/goddess/Naiades_idle.png" id="4_w5y77"]
 [ext_resource type="PackedScene" uid="uid://tv7ir00li1e2" path="res://scene/ui/pearl_shop/pearl_tree_node.tscn" id="5_w5y77"]
 [ext_resource type="Texture2D" uid="uid://dtfqrdo6uajr2" path="res://assets/sprites/pearl_shop/icons/speed.png" id="6_t1a07"]
@@ -215,7 +215,7 @@ upgrade_id = "speed"
 upgrade_name = "Vitesse"
 upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
 icon_texture = ExtResource("6_t1a07")
-max_level = 10
+max_level = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=566447561]
 layout_mode = 2
@@ -226,7 +226,7 @@ alignment = 1
 layout_mode = 2
 upgrade_description = "Améliorer la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
 icon_texture = ExtResource("7_jn2eo")
-max_level = 10
+max_level = 20
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
 [node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer2" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -235,7 +235,7 @@ upgrade_id = "attack_speed"
 upgrade_name = "Vigueur"
 upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
 icon_texture = ExtResource("8_gipjf")
-max_level = 10
+max_level = 20
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=2082736016]
@@ -259,7 +259,7 @@ upgrade_id = "damage"
 upgrade_name = "Attaque"
 upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
 icon_texture = ExtResource("8_ciura")
-max_level = 10
+max_level = 20
 parent_node = NodePath("../../VBoxContainer2/AttackSpeedNode")
 parent_node_unlock_level = 3
 
@@ -268,15 +268,14 @@ layout_mode = 2
 theme_override_constants/separation = 54
 alignment = 1
 
-[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+[node name="CollectionRadiusNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=1730846081 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_id = "xp_gain"
-upgrade_name = "Sagesse"
-upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
-icon_texture = ExtResource("10_r1ves")
+upgrade_id = "collection_radius"
+upgrade_name = "Aimant"
+upgrade_description = "Agrandit le champ de perception de Gambos pour aspirer les ressources plus loin."
+icon_texture = ExtResource("13_r1ves")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer3/RegenNode")
-parent_node_unlock_level = 3
 
 [node name="SkipMapNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer4" unique_id=312900538 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -321,6 +320,26 @@ icon_texture = ExtResource("11_4wpf8")
 max_level = 20
 parent_node = NodePath("../../VBoxContainer4/XPGainNode")
 parent_node_unlock_level = 4
+
+[node name="XPGainNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=685741460 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "xp_gain"
+upgrade_name = "Sagesse"
+upgrade_description = "Améliore l'assimilation des algues, permettant d'obtenir plus d'expérience à chaque collecte."
+icon_texture = ExtResource("10_r1ves")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer4/CollectionRadiusNode")
+parent_node_unlock_level = 3
+
+[node name="BubbleBounceNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=2026783937 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_bounce"
+upgrade_name = "Rebonds"
+upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers de nouveaux ennemis."
+icon_texture = ExtResource("17_ciura")
+max_level = 5
+parent_node = NodePath("../../VBoxContainer4/Thorns")
+parent_node_unlock_level = 2
 
 [node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2

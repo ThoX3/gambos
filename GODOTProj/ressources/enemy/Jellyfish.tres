@@ -9,11 +9,12 @@
 script = ExtResource("3_0m0x7")
 texture = ExtResource("4_vuee4")
 name = "Méduse"
-max_hp = 500
+max_hp = 100
 movement_speed = 150.0
 weight = 3.0
 attack_damage = 15
-xp_drop = 15
+xp_drop = 10
+pearl_drop_probability = 0.15
 cout = 8
 poids = 8
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

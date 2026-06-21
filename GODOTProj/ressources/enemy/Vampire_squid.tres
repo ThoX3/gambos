@@ -9,10 +9,10 @@
 script = ExtResource("3_fygdb")
 texture = ExtResource("4_m2sok")
 name = "Vampire des Abysses"
-max_hp = 500
+max_hp = 200
 movement_speed = 300.0
 attack_damage = 20
-xp_drop = 5
-pearl_drop_probability = 0.5
+xp_drop = 20
+pearl_drop_probability = 0.25
 cout = 15
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

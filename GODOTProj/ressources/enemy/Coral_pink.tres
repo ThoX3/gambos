@@ -11,11 +11,11 @@
 script = ExtResource("3_dynlu")
 texture = ExtResource("4_1mstw")
 name = "Coraux"
-max_hp = 100
+max_hp = 50
 weight = 50000.0
 attack_damage = 5
 xp_drop = 15
-pearl_drop_probability = 0.2
+pearl_drop_probability = 0.15
 cout = 15
 patterns = Array[ExtResource("2_tr0i6")]([ExtResource("3_atk8j")])
 projectile_sprite = ExtResource("4_atk8j")

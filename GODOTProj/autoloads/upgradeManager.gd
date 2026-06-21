@@ -137,7 +137,7 @@ func get_cost_bubble_division(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
-	return [15, 50, 100, 500][level]
+	return [15, 50, 100, 500, 1000, 0][level]
 
 ## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
 func get_cost_projectile_sable_pierce(level: int) -> int:

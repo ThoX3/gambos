@@ -57,9 +57,13 @@ extends Resource
 ## Borne haute du ratio — une vague ne sera jamais au-dessus de ça
 @export_range(0.0, 1.0, 0.05) var intensite_max: float = 1.0
 
-## À partir de quelle vague le biais vers "élite" atteint son maximum
-## (ex: 20 = pleinement biaisé à partir de la vague 20)
-@export_range(5.0, 50.0, 1.0) var biais_vague_max: float = 20.0
+## Vague à partir de laquelle le biais commence à monter (0 = dès le début).
+## Mets 61 pour ne l'activer qu'en mode infini (après les 3 premiers mondes).
+@export_range(0.0, 300.0, 1.0) var biais_vague_debut: float = 61.0
+
+## Vague à laquelle le biais atteint son maximum.
+## Doit être > biais_vague_debut.
+@export_range(5.0, 300.0, 1.0) var biais_vague_max: float = 120.0
 
 ## Intensité maximale du biais (ex: 0.6 = le ratio est poussé de 60% vers le haut)
 @export_range(0.0, 1.0, 0.05) var biais_amplitude: float = 0.6

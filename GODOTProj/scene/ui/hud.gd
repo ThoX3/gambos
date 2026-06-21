@@ -20,7 +20,6 @@ func _ready() -> void:
 	GameManager.level_up.connect(_update_level)
 	GameManager.health_changed.connect(_update_health_bar)
 	GameManager.start_game.connect(_on_start)
-	GameManager.resume_game.connect(_on_start)
 	GameManager.pearls_changed.connect(_on_pearls_changed)
 	GameManager.boss_health_changed.connect(_on_boss_health_changed)
 	_update_progres_bar()
@@ -43,12 +42,7 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
-	
-	var start_wave = 1
-	if SaveManager.current_save:
-		start_wave = 20 * SaveManager.current_save.monde_actuel_index + 1
-	_set_wave_text(start_wave)
-	
+	_set_wave_text(1)
 	bossBar_progressBar.hide()
 	
 	# Connecte le signal du WaveManager

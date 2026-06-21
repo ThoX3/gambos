@@ -94,8 +94,6 @@ func _on_resume() -> void:
 	$World/WorldManager.demarrer_depuis_sauvegarde()
 
 func _on_monde_termine(_vague: int) -> void:
-	if current_player:
-		current_player.can_level_up = false
 	var wm = $World/WorldManager
 	var monde_suivant = wm.get_nom_monde_suivant()
 	var index_suivant = wm._index_monde_courant + 1
@@ -234,9 +232,6 @@ func _on_continuer() -> void:
 	SaveManager.current_save.run_en_cours = true
 	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
 	$World/WorldManager.passer_monde_suivant()
-	if current_player:
-		current_player.can_level_up = true
-		current_player.check_level_up()
 
 func _on_sauvegarder() -> void:
 	SaveManager.current_save.run_en_cours = true

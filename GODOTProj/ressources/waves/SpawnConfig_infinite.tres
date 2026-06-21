@@ -25,7 +25,7 @@
 [ext_resource type="Resource" uid="uid://btsca6vmgrp2u" path="res://ressources/enemy/Jellyfish.tres" id="22_uxs6c"]
 [ext_resource type="Resource" uid="uid://bneg851sregnl" path="res://ressources/enemy/Vampire_squid.tres" id="23_05tjk"]
 [ext_resource type="Resource" uid="uid://bk386pgtg2ia3" path="res://ressources/enemy/baudroie.tres" id="24_3qdxg"]
-[ext_resource type="Resource" uid="uid://dh12nya5mt1cy" path="res://ressources/enemy/Coelacanthes.tres" id="25_e0to0"]
+[ext_resource type="Resource" path="res://ressources/enemy/Coelacanthes.tres" id="25_e0to0"]
 
 [sub_resource type="Resource" id="Resource_ptvm1"]
 script = ExtResource("3_8og5k")
@@ -163,7 +163,6 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 script = ExtResource("3_6sx1e")
 scene = ExtResource("2_8onsx")
 data = ExtResource("25_e0to0")
-vague_apparition = 55
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 
 [resource]

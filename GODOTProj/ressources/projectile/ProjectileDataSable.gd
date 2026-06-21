@@ -6,5 +6,4 @@ class_name ProjectileDataSable
 @export var damage: int = 2
 @export var speed: float = 600.0
 @export var range: float = 700.0
-#@export var cooldown: float = 0.8
-@export var cadence_ratio: float = 2
+@export var cooldown: float = 0.8  # secondes entre chaque tir

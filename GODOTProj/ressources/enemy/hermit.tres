@@ -9,7 +9,7 @@
 script = ExtResource("1_57rjx")
 texture = ExtResource("2_lwf1n")
 name = "Pagure"
-max_hp = 4
+max_hp = 6
 armor = 15
 movement_speed = 120.0
 patrol_distance = 200.0

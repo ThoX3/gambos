@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://cavq3ap68dbu2"]
+[gd_resource type="Resource" script_class="SpawnConfig" format=3 uid="uid://cbhmurwsft0yp"]
 
 [ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="1_mrf3v"]
 [ext_resource type="PackedScene" uid="uid://biv5bqhlmrnet" path="res://scene/enemy/boss/poulpe/boss_poulpe.tscn" id="2_67vj7"]
@@ -11,8 +11,8 @@
 [ext_resource type="Resource" uid="uid://bs27xrdc8yngr" path="res://ressources/enemy/Coral_pink.tres" id="11_j1xto"]
 [ext_resource type="PackedScene" uid="uid://djg3clk7v48g1" path="res://scene/enemy/enemy_shooter.tscn" id="12_f3c2m"]
 [ext_resource type="Resource" uid="uid://bk386pgtg2ia3" path="res://ressources/enemy/baudroie.tres" id="12_yemex"]
+[ext_resource type="Resource" uid="uid://0585j1evwitf" path="res://ressources/enemy/Woodlouse.tres" id="13_1hema"]
 [ext_resource type="Resource" uid="uid://brqdciyr4jc72" path="res://ressources/enemy/Oldfish.tres" id="13_ifyfo"]
-[ext_resource type="Resource" uid="uid://dh12nya5mt1cy" path="res://ressources/enemy/Coelacanthes.tres" id="13_mrf3v"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="14_gcq38"]
 
 [sub_resource type="Resource" id="Resource_8k8r3"]
@@ -60,7 +60,7 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 [sub_resource type="Resource" id="Resource_ifyfo"]
 script = ExtResource("6_1hema")
 scene = ExtResource("5_yemex")
-data = ExtResource("13_mrf3v")
+data = ExtResource("13_1hema")
 vague_apparition = 55
 metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 

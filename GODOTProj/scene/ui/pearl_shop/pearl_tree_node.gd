@@ -73,13 +73,10 @@ func update_node(anim_delay: float = 0.0, is_initial_load: bool = false) -> void
 		push_error("Pearl shop: Can't find " + upgrade_id + " in save")
 		current_level = 0 
 	
-	if current_level >= max_level:
-		current_cost = 0 # Maxed out, no cost
+	if UpgradeManager.has_method("get_cost_" + upgrade_id):
+		current_cost = UpgradeManager.call("get_cost_" + upgrade_id, current_level)
 	else:
-		if UpgradeManager.has_method("get_cost_" + upgrade_id):
-			current_cost = UpgradeManager.call("get_cost_" + upgrade_id, current_level)
-		else:
-			current_cost = UpgradeManager.get_default_cost(current_level)
+		current_cost = UpgradeManager.get_default_cost(current_level)
 		
 	level_label.text = str(current_level) + "/" + str(max_level)
 	if price_label:

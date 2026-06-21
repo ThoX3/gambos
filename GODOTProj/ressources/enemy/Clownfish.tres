@@ -9,10 +9,10 @@
 script = ExtResource("1_de8au")
 texture = ExtResource("2_de8au")
 name = "Poisson clown"
-max_hp = 30
+max_hp = 75
 movement_speed = 175.0
 attack_damage = 10
-xp_drop = 5
+xp_drop = 8
 pearl_drop_probability = 0.1
 cout = 4
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

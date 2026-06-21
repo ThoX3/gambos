@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 script = ExtResource("3_o87as")
 texture = ExtResource("5_tc4vj")
 name = "coral"
+size = 1.5
 max_hp = 200
 weight = 50000.0
 attack_damage = 10

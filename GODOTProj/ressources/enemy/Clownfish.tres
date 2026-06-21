@@ -9,6 +9,7 @@
 script = ExtResource("1_de8au")
 texture = ExtResource("2_de8au")
 name = "Poisson clown"
+size = 0.8
 max_hp = 30
 movement_speed = 175.0
 attack_damage = 10

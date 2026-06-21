@@ -20,6 +20,9 @@ extends Boss_Base
 @export var camouflage_alpha: float = 0.25
 @export var camouflage_duree: float = 3.0
 @export var camouflage_reduction_degats: float = 0.5
+@export var camouflage_vitesse_ruee: float = 350.0   
+@export var camouflage_degats_contact: int = 20      
+@export var camouflage_distance_contact: float = 50.0
 
 var _attaques_instanciees: Array[BossAttack] = []
 var _attaque_forcee: BossAttack = null
@@ -36,6 +39,8 @@ var _bulle_en_attente_relance: bool = false
 # --- Camouflage (lu/écrit par AttackCamouflage) ---
 var _en_camouflage: bool = false
 
+var _etat_special_actif: bool = false
+var _physics_process_special: Callable = Callable()
 
 func _ready() -> void:
 	super._ready()
@@ -54,9 +59,18 @@ func _physics_process(delta: float) -> void:
 	if _est_mort or not is_inside_tree():
 		return
 
+	if _etat_special_actif:
+		# Une attaque a pris la main sur le mouvement (charge, camouflage, etc.)
+		if _physics_process_special.is_valid():
+			var continue_special: bool = _physics_process_special.call(delta)
+			if not continue_special:
+				_etat_special_actif = false
+				_physics_process_special = Callable()
+		return
+
 	super._physics_process(delta)
 
-	# Le boss regarde toujours le joueur — APRÈS super pour écraser le flip d'Enemy_Base
+	# Le boss regarde toujours le joueur — APRÈS super
 	if is_instance_valid(player):
 		var dir_x = player.global_position.x - global_position.x
 		if abs(dir_x) > 1.0:

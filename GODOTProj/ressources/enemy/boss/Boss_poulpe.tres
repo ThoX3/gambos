@@ -1,6 +1,5 @@
 [gd_resource type="Resource" script_class="BossData" format=3 uid="uid://kn2acjay3iik"]
 
-[ext_resource type="Script" uid="uid://da6xd0a0v14ty" path="res://scene/enemy/boss/poulpe/attacks/attack_bulles_encre.gd" id="1_ytmmr"]
 [ext_resource type="Script" uid="uid://dwsj75ns71osc" path="res://scene/enemy/boss/poulpe/attacks/attack_camouflage.gd" id="2_teh44"]
 [ext_resource type="Script" uid="uid://caq5pdievnnjb" path="res://scene/enemy/boss/poulpe/attacks/attack_tentacule.gd" id="3_hsoix"]
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="4_hsoix"]
@@ -12,7 +11,7 @@
 
 [resource]
 script = ExtResource("7_nq6tj")
-attack_scripts = Array[Script]([ExtResource("1_ytmmr"), ExtResource("2_teh44"), ExtResource("3_hsoix"), ExtResource("4_hwq8v")])
+attack_scripts = Array[Script]([ExtResource("2_teh44"), ExtResource("3_hsoix"), ExtResource("4_hwq8v")])
 texture = ExtResource("9_ytmmr")
 name = "Octopus"
 max_hp = 50000

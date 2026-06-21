@@ -11,9 +11,9 @@
 [ext_resource type="Resource" uid="uid://y6o7oo6ddg3m" path="res://ressources/enemy/anemone.tres" id="9_bo8sp"]
 [ext_resource type="Resource" uid="uid://jhsrfe6k6ui1" path="res://ressources/enemy/Lobster.tres" id="9_ki6j3"]
 [ext_resource type="Script" uid="uid://dq5mh4ubldwd3" path="res://ressources/waves/SpawnConfig.gd" id="10_atd43"]
-[ext_resource type="PackedScene" path="res://scene/enemy/enemy_spawner.tscn" id="10_kk2my"]
+[ext_resource type="PackedScene" uid="uid://tycwnl1f5hv" path="res://scene/enemy/enemy_spawner.tscn" id="10_kk2my"]
 [ext_resource type="Resource" uid="uid://bs27xrdc8yngr" path="res://ressources/enemy/Coral_pink.tres" id="11_vut01"]
-[ext_resource type="PackedScene" path="res://scene/enemy/enemy_shooter.tscn" id="12_lupo7"]
+[ext_resource type="PackedScene" uid="uid://djg3clk7v48g1" path="res://scene/enemy/enemy_shooter.tscn" id="12_lupo7"]
 
 [sub_resource type="Resource" id="Resource_bo8sp"]
 script = ExtResource("3_j4siw")

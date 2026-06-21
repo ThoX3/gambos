@@ -7,4 +7,4 @@ class_name ProjectileDataSable
 @export var speed: float = 600.0
 @export var range: float = 700.0
 #@export var cooldown: float = 0.8
-@export var cadence_ratio: float = 0.5
+@export var cadence_ratio: float = 2

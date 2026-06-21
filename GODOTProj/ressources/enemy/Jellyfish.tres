@@ -9,7 +9,7 @@
 script = ExtResource("3_0m0x7")
 texture = ExtResource("4_vuee4")
 name = "Méduse"
-max_hp = 500
+max_hp = 100
 movement_speed = 150.0
 weight = 3.0
 attack_damage = 15

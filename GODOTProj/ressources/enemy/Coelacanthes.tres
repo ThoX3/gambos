@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_imnvq"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_wn7o3"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_y6b4w"]
-[ext_resource type="SpriteFrames" uid="uid://xuguebfaw0xu" path="res://assets/sprites/enemy/Coelacanthes.tres" id="4_wn7o3"]
+[ext_resource type="SpriteFrames" uid="uid://daja3dgque0py" path="res://assets/sprites/enemy/Coelacanthes.tres" id="4_wn7o3"]
 
 [resource]
 script = ExtResource("3_y6b4w")
 texture = ExtResource("4_wn7o3")
 name = "Coelacanthes"
-max_hp = 3000
+max_hp = 1000
 movement_speed = 150.0
 attack_damage = 20
 xp_drop = 8

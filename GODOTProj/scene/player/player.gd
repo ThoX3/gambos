@@ -143,7 +143,7 @@ func _physics_process(delta):
 		_sable_fire_timer -= delta
 		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
 		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
-			_sable_fire_timer = projectile_sable_data.cooldown
+			_sable_fire_timer = (1.0 / max(0.01, Stats.proj_fire_rate)) * projectile_sable_data.cadence_ratio
 			_tirer_sable(stick.normalized())
 
 	# --- Attaque Pics (Touche Y) ---

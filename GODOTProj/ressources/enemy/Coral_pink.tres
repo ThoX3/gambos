@@ -11,6 +11,7 @@
 script = ExtResource("3_dynlu")
 texture = ExtResource("4_1mstw")
 name = "Coraux"
+size = 1.2
 max_hp = 50
 weight = 50000.0
 attack_damage = 5

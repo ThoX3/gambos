@@ -117,7 +117,7 @@ func get_cost_regen(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
 func get_cost_ingame_speed(level: int) -> int:
-	return [20, 75, 500, 0][level] 
+	return [20, 75, 500, 1000, 2000, 0][level]
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:

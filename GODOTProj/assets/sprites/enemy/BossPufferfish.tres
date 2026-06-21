@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://e8uup14qaysi"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bw40ekk8po0wk"]
 
 [ext_resource type="Texture2D" uid="uid://v00p0n4yrig4" path="res://assets/sprites/enemy/pufferfishPrepPic.png" id="1_8wxv5"]
 [ext_resource type="Texture2D" uid="uid://c4jw23awa03vq" path="res://assets/sprites/enemy/pufferfishSpeed.png" id="1_26ym6"]

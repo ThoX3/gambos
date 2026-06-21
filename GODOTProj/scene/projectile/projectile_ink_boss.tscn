@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ddkkn0banrjr7"]
+
+[ext_resource type="Script" uid="uid://cku73sw6cwgem" path="res://scene/projectile/projectile_ink_boss.gd" id="1_5jsyf"]
+[ext_resource type="AudioStream" uid="uid://bl4g8xmnarjfv" path="res://assets/sounds/effect/pop.mp3" id="2_bsd37"]
+[ext_resource type="SpriteFrames" uid="uid://begucuj1tkjgp" path="res://assets/sprites/projectile/projectile_ink.tres" id="3_sdyep"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mudio"]
+
+[node name="Area2D" type="Area2D" unique_id=1901111718]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_5jsyf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499238672]
+shape = SubResource("CircleShape2D_mudio")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1424802975]
+stream = ExtResource("2_bsd37")
+volume_db = -15.0
+attenuation = 2.0000002
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=179488071]
+sprite_frames = ExtResource("3_sdyep")
+animation = &"move"

@@ -26,7 +26,9 @@ var _is_destroyed: bool = false
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio = $AudioStreamPlayer2D
-@onready var _lifetime_timer: Timer = $LifetimeTimer
+
+# Le Timer est créé par code → plus besoin de l'ajouter dans la scène.
+var _lifetime_timer: Timer
 
 
 func _ready() -> void:
@@ -36,8 +38,11 @@ func _ready() -> void:
 
 	_base_speed = speed
 
+	# Création du Timer de durée de vie par code
+	_lifetime_timer = Timer.new()
 	_lifetime_timer.wait_time = _lifetime
 	_lifetime_timer.one_shot = true
+	add_child(_lifetime_timer)
 	_lifetime_timer.timeout.connect(_on_lifetime_timeout)
 	_lifetime_timer.start()
 
@@ -45,10 +50,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if _is_destroyed:
 		return
-
 	# Décélération progressive : la bulle "traîne" à cause de son poids
 	speed = max(speed - _deceleration * delta, _base_speed * _min_speed_ratio)
-
 	var movement := direction * speed * delta
 	global_position += movement
 
@@ -63,7 +66,6 @@ func setup(start_direction: Vector2, bubble_speed: float, bubble_damage: int) ->
 func _on_body_entered(body: Node2D) -> void:
 	if _is_destroyed:
 		return
-
 	if body.is_in_group("Player"):
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
@@ -71,7 +73,6 @@ func _on_body_entered(body: Node2D) -> void:
 		_destroy()
 		_darken_screen()
 		hit_player.emit(self)
-
 	elif body is TileMapLayer:
 		_destroy()
 
@@ -92,7 +93,8 @@ func pop_silently() -> void:
 
 func _destroy() -> void:
 	_is_destroyed = true
-	_lifetime_timer.stop()
+	if is_instance_valid(_lifetime_timer):
+		_lifetime_timer.stop()
 	$CollisionShape2D.set_deferred("disabled", true)
 	_sprite.play("destroy")
 

@@ -11,27 +11,26 @@ func _init() -> void:
 
 
 func executer(boss) -> void:
-	if boss._est_mort or not is_instance_valid(boss): return
+	if not is_instance_valid(boss) or boss._est_mort: return
 
-	if boss.sprite.sprite_frames.has_animation("prepare_tentacule"):
-		boss.sprite.sprite_frames.set_animation_loop("prepare_tentacule", false)
-		boss.sprite.play("prepare_tentacule")
-		if not await boss._attendre_anim(): return
+	# Animation d'attaque corps à corps
+	if boss.sprite.sprite_frames.has_animation("attack"):
+		boss.sprite.sprite_frames.set_animation_loop("attack", false)
+		boss.sprite.play("attack")
+		# Laisse l'anim avancer jusqu'au moment de l'impact (mi-animation)
+		if not await boss._attendre_timer(0.2): return
 	else:
 		if not await boss._attendre_timer(0.4): return
 
-	if boss.sprite.sprite_frames.has_animation("tentacule"):
-		boss.sprite.sprite_frames.set_animation_loop("tentacule", false)
-		boss.sprite.play("tentacule")
-		if not await boss._attendre_timer(0.2): return  # frappe à mi-animation
-
-	# Frappe au corps à corps : dégâts si le joueur est à portée au moment de l'impact
+	# Frappe : dégâts si le joueur est à portée au moment de l'impact
 	if is_instance_valid(boss.player) and boss.global_position.distance_to(boss.player.global_position) <= boss.portee_tentacule:
 		if boss.player.has_method("take_damage"):
 			boss.player.take_damage(boss.degats_tentacule)
 		AudioManager.play_sound_2d("tentacule_impact", boss.global_position)
 
-	if not await boss._attendre_anim(): return
+	# Attend la fin de l'animation d'attaque
+	if boss.sprite.sprite_frames.has_animation("attack"):
+		if not await boss._attendre_anim(): return
 
 	if not boss._est_mort:
 		boss.sprite.play("walk")

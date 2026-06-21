@@ -129,7 +129,7 @@ func get_cost_reroll(level: int) -> int:
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
-	return get_default_cost(level) * (level +10)
+	return [2, 4, 6, 12, 20, 35, 50, 65, 80, 100, 0][level]
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieurs bulles.
 func get_cost_bubble_division(level: int) -> int:

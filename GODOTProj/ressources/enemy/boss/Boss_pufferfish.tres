@@ -25,4 +25,5 @@ xp_drop = 100
 pearl_drop_probability = 1.0
 pearl_drop_range = Vector2i(15, 15)
 cout = 400
+poids = 2
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

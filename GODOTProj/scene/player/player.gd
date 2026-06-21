@@ -74,17 +74,20 @@ func _ready() -> void:
 	
 	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	
+	update_deep_sea_light()
+
+	if projectile_sable_data:
+		projectile_sable_data = projectile_sable_data.duplicate()
+	if projectile_data:
+		projectile_data = projectile_data.duplicate()
+
+func update_deep_sea_light() -> void:
 	if has_node("DeepSeaLight"):
 		await get_tree().process_frame
 		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
 			$DeepSeaLight.show()
 		else:
 			$DeepSeaLight.hide()
-
-	if projectile_sable_data:
-		projectile_sable_data = projectile_sable_data.duplicate()
-	if projectile_data:
-		projectile_data = projectile_data.duplicate()
 	call_deferred("enable_camera_smoothing")
 
 

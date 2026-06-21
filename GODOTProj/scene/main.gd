@@ -127,6 +127,8 @@ func change_level(new_map_scene: PackedScene) -> void:
 	if new_map_scene:
 		current_map = new_map_scene.instantiate()
 		game_world.add_child(current_map)
+		if current_player and current_player.has_method("update_deep_sea_light"):
+			current_player.update_deep_sea_light()
 
 func _clear_world() -> void:
 	if current_player:

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dt8adtnpm1fog" path="res://ressources/waves/EntreeEnnemi.gd" id="1_nt8pr"]
 [ext_resource type="Script" uid="uid://coog8bv3la8ch" path="res://ressources/enemy/pattern_enemy/Shooting_pattern.gd" id="2_slb70"]
-[ext_resource type="Resource" uid="uid://btsca6vmgrp2u" path="res://ressources/enemy/Jellyfish.tres" id="2_soboy"]
+[ext_resource type="Resource" uid="uid://dhewfs2m7c0bb" path="res://ressources/enemy/Jellyfish.tres" id="2_soboy"]
 [ext_resource type="PackedScene" uid="uid://dld1vcm0rrril" path="res://scene/enemy/enemy.tscn" id="3_2q4qg"]
 [ext_resource type="Script" uid="uid://41pu5w8i8y3b" path="res://ressources/enemy/EnemyData.gd" id="3_o87as"]
 [ext_resource type="Resource" uid="uid://dbrswkrn1eb8q" path="res://ressources/enemy/pattern_enemy/shoot_coral_blue.tres" id="3_w0hj1"]
-[ext_resource type="SpriteFrames" uid="uid://bxnwymwoibche" path="res://assets/sprites/projectile/coral_pink_projectile.tres" id="4_a8qqx"]
-[ext_resource type="SpriteFrames" uid="uid://c2b32jfro6mmg" path="res://assets/sprites/enemy/coral_blue.tres" id="5_tc4vj"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/projectile/coral_pink_projectile.tres" id="4_a8qqx"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/enemy/coral_blue.tres" id="5_tc4vj"]
 
 [sub_resource type="Resource" id="Resource_0rynt"]
 script = ExtResource("1_nt8pr")

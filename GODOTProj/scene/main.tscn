@@ -20,8 +20,10 @@
 [ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="16_tv8i1"]
 [ext_resource type="Resource" uid="uid://dbgxfn1nf1pqg" path="res://ressources/worlds/World_1.tres" id="17_0vlqb"]
 [ext_resource type="Resource" uid="uid://cmt7vxtkm1cqf" path="res://ressources/worlds/World_2.tres" id="19_0vlqb"]
-[ext_resource type="Resource" uid="uid://can5ygg520p8d" path="res://ressources/worlds/World_infinite.tres" id="19_gjnwh"]
 [ext_resource type="Resource" uid="uid://yek633op4kh8" path="res://ressources/worlds/World_3.tres" id="21_0d4pv"]
+[ext_resource type="Resource" uid="uid://can5ygg520p8d" path="res://ressources/worlds/World_infinite(1).tres" id="22_gn2wi"]
+[ext_resource type="Resource" uid="uid://667pc4lf7mm1" path="res://ressources/worlds/World_infinite(2).tres" id="23_p8adh"]
+[ext_resource type="Resource" uid="uid://cp6he8miithu7" path="res://ressources/worlds/World_infinite(3).tres" id="24_oldxj"]
 
 [node name="Main" type="Node2D" unique_id=1767589913 groups=["Main"]]
 texture_filter = 1
@@ -79,4 +81,4 @@ z_index = 1
 [node name="WorldManager" type="Node2D" parent="World" unique_id=611213918]
 script = ExtResource("15_smf0o")
 mondes = Array[ExtResource("16_tv8i1")]([ExtResource("17_0vlqb"), ExtResource("19_0vlqb"), ExtResource("21_0d4pv")])
-mode_infini_config = ExtResource("19_gjnwh")
+mode_infini_config = Array[ExtResource("16_tv8i1")]([ExtResource("22_gn2wi"), ExtResource("23_p8adh"), ExtResource("24_oldxj")])

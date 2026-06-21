@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WorldConfig" format=3 uid="uid://cp6he8miithu7"]
+
+[ext_resource type="PackedScene" uid="uid://glhk0bephsqj" path="res://scene/maps/map_3.tscn" id="1_i3vat"]
+[ext_resource type="Script" uid="uid://cdgruyanl6eb1" path="res://ressources/worlds/WorldConfig.gd" id="2_owg7u"]
+[ext_resource type="Resource" uid="uid://bai2sy5oxi5j5" path="res://ressources/waves/SpawnConfig_infinite.tres" id="3_dcom1"]
+
+[resource]
+script = ExtResource("2_owg7u")
+nom = "Monde infini"
+map_scene = ExtResource("1_i3vat")
+spawn_config = ExtResource("3_dcom1")
+musique_id = "map3"
+metadata/_custom_type_script = "uid://cdgruyanl6eb1"

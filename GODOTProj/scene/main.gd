@@ -38,6 +38,7 @@ func _ready() -> void:
 	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
 	$UI/MenuTransition.sauvegarder_pressed.connect(_on_sauvegarder)
 	$World/WorldManager.monde_change.connect(_on_monde_change)
+	$World/WorldManager.segment_infini_change.connect(_on_segment_infini_change)
 	
 	if GameManager.skip_menu:
 		GameManager.skip_menu = false
@@ -266,10 +267,12 @@ func _on_sauvegarder() -> void:
 func _on_monde_change(config: WorldConfig) -> void:
 	change_level(config.map_scene)
 	$World/WaveManager.spawn_config = config.spawn_config
-	if config.vagues_par_monde > 0:
+	if $World/WorldManager._mode_infini_actif:
+		$World/WaveManager.vagues_par_monde = 999999          # ← garde-fou infini
+	elif config.vagues_par_monde > 0:
 		$World/WaveManager.vagues_par_monde = config.vagues_par_monde
 	else:
-		$World/WaveManager.vagues_par_monde = 999999  # infini
+		$World/WaveManager.vagues_par_monde = 999999
 	$World/WaveManager.start_waves(true)
 	AudioManager.play_music(config.musique_id)
 
@@ -281,3 +284,10 @@ func open_main_menu_from_pause() -> void:
 	SaveManager.save_game()
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _on_segment_infini_change(config: WorldConfig) -> void:
+	if config.map_scene:
+		change_level(config.map_scene)
+	if config.spawn_config:
+		$World/WaveManager.spawn_config = config.spawn_config
+	AudioManager.play_music(config.musique_id)

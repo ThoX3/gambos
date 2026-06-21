@@ -54,6 +54,7 @@ const MUSIQUES := {
 			21:  ["bass"],
 			28:  ["drums"],
 			35: ["other"],
+			81: ["bass", "drums", "other"],
 		}
 	},
 	
@@ -66,7 +67,8 @@ const MUSIQUES := {
 		"deverouillage": {
 			41:  ["other"],
 			48:  ["drums"],
-			54: ["other"],
+			54: ["bass"],
+			101: ["bass", "drums", "other"],
 		}
 	},
 	

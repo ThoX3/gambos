@@ -96,6 +96,7 @@ func _tick_vague(delta: float) -> void:
 
 func _demarrer_vague() -> void:
 	_numero_vague   += 1
+	_verifier_segment_infini()
 	_ennemis_spawnes = 0
 	_timer_vague     = 0.0
 	_timer_spawn     = 0.0
@@ -326,3 +327,8 @@ func _lancer_dialogue_boss() -> void:
 	get_tree().paused = true
 	var dialogue = scene_dialogue.instantiate()
 	get_tree().current_scene.add_child(dialogue)
+
+func _verifier_segment_infini() -> void:
+	var main_node = get_tree().get_first_node_in_group("Main")
+	if main_node and main_node.has_node("World/WorldManager"):
+		main_node.get_node("World/WorldManager").verifier_segment_infini(_numero_vague)

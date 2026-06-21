@@ -7,6 +7,8 @@ extends Control
 @export var ProgressCrab = CompressedTexture2D
 @export var UnderPuffer = CompressedTexture2D
 @export var ProgressPuffer = CompressedTexture2D
+@export var UnderOcto = CompressedTexture2D
+@export var ProgressOcto = CompressedTexture2D
 
 @onready var pearl_box = $Pearls
 @onready var pearl_label = $Pearls/MarginContainer/Count
@@ -69,6 +71,8 @@ func _on_vague_demarree(numero: int) -> void:
 		show_bossBar("Crab")
 	if numero == 40:
 		show_bossBar("Puffer")
+	if numero == 60:
+		show_bossBar("Octo")
 		
 	if numero >= 3 and _celerity_tuto_shown_this_run and not SaveManager.current_save.celerity_tutorial_shown:
 		SaveManager.current_save.celerity_tutorial_shown = true
@@ -97,6 +101,11 @@ func show_bossBar(Name: String):
 		bossBar_progressBar.texture_under = UnderPuffer
 		bossBar_progressBar.texture_progress = ProgressPuffer
 		bossBar_progressBar.texture_progress_offset = Vector2(39, 26)
+	elif Name == "Octo":
+		bossBar_progressBar.texture_under = UnderOcto
+		bossBar_progressBar.texture_progress = ProgressOcto
+		bossBar_progressBar.texture_progress_offset = Vector2(42, 24)
+	
 	
 	bossBar_progressBar.show()
 	_on_boss_health_changed(100, 100)

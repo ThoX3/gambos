@@ -13,6 +13,8 @@
 [ext_resource type="FontVariation" uid="uid://bf6kmleh4uyyr" path="res://assets/fonts/dynamic/DePixelIllegible.tres" id="6_g5rf0"]
 [ext_resource type="Texture2D" uid="uid://ba3og3ufgntt6" path="res://assets/sprites/HUD/Hp_bar/Under.png" id="6_vgic2"]
 [ext_resource type="Texture2D" uid="uid://brabu67lkbfkq" path="res://assets/sprites/HUD/Hp_bar/Progress.png" id="7_nja0l"]
+[ext_resource type="Texture2D" uid="uid://qtipxhlimxm1" path="res://assets/sprites/boss/HealthBar_under_Octopus.png" id="7_vvp4v"]
+[ext_resource type="Texture2D" uid="uid://bkcerm8joncsj" path="res://assets/sprites/boss/HealthBar_progress_Octopus.png" id="8_1wedf"]
 [ext_resource type="Texture2D" uid="uid://cnlo3mmjuy7e1" path="res://assets/sprites/collectibles/pearl_icon.png" id="8_gll67"]
 [ext_resource type="Texture2D" uid="uid://5ia6cki36m5c" path="res://assets/sprites/boss/HealthBar_under_Crab.png" id="11_onxnr"]
 [ext_resource type="Texture2D" uid="uid://ccmcug222abqr" path="res://assets/sprites/boss/HealthBar_progress_Crab.png" id="12_llivb"]
@@ -44,6 +46,8 @@ UnderCrab = ExtResource("11_onxnr")
 ProgressCrab = ExtResource("12_llivb")
 UnderPuffer = ExtResource("5_6fek2")
 ProgressPuffer = ExtResource("6_3tp2r")
+UnderOcto = ExtResource("7_vvp4v")
+ProgressOcto = ExtResource("8_1wedf")
 
 [node name="TimeControl" type="HBoxContainer" parent="." unique_id=1103131506]
 layout_mode = 0

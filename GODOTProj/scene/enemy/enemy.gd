@@ -31,7 +31,6 @@ func setup_enemy():
 	if stats.texture:
 		sprite.sprite_frames = stats.texture
 		sprite.play("walk")
-		start_breathing_animation()
 		self.scale = Vector2(stats.size, stats.size)
 	if has_node("DeepSeaLight"):
 		await get_tree().process_frame
@@ -174,6 +173,9 @@ func _creer_splash_mort() -> void:
 	
 	get_parent().call_deferred("add_child", splash)
 
+
+## Animation de respiration pour les ennemy
+## [br] Actuellement Innutilisé, a appeler dans setup_enemy
 func start_breathing_animation() -> void:
 	var tween = create_tween().set_loops()
 	

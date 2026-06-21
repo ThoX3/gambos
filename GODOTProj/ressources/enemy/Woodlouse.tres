@@ -9,7 +9,7 @@
 script = ExtResource("1_fppg3")
 texture = ExtResource("2_6xvqb")
 name = "Ligie"
-size = 0.8
+size = 0.6
 max_hp = 1
 movement_speed = 80.0
 attack_damage = 2

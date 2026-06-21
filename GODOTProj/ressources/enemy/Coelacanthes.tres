@@ -9,6 +9,7 @@
 script = ExtResource("3_y6b4w")
 texture = ExtResource("4_wn7o3")
 name = "Coelacanthes"
+size = 2.0
 max_hp = 1000
 movement_speed = 150.0
 attack_damage = 20

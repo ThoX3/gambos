@@ -10,6 +10,10 @@ extends Node
 @onready var ui_layer: CanvasLayer = $UI
 @onready var fade_rect: ColorRect = $UI/FadeRect
 
+@export var duree_fondu_map: float = 0.6
+
+var _map_en_sortie: Node2D = null
+
 # --- STATE TRACKING ---
 var current_player: CharacterBody2D = null
 var current_map: Node2D = null
@@ -123,13 +127,43 @@ func _on_vague_terminee(numero: int) -> void:
 		print("Nouveau record de vague : ", numero)
 
 func change_level(new_map_scene: PackedScene) -> void:
-	if current_map:
-		current_map.queue_free()
-	if new_map_scene:
-		current_map = new_map_scene.instantiate()
-		game_world.add_child(current_map)
-		if current_player and current_player.has_method("update_deep_sea_light"):
-			current_player.update_deep_sea_light()
+	if new_map_scene == null:
+		return
+
+	var ancienne := current_map
+
+	# Solde un fondu précédent encore en cours (évite d'empiler 3 maps).
+	if is_instance_valid(_map_en_sortie):
+		_map_en_sortie.queue_free()
+		_map_en_sortie = null
+
+	current_map = new_map_scene.instantiate()
+	current_map.modulate.a = 0.0
+	game_world.add_child(current_map)
+
+	# (1) Réévaluation IMMÉDIATE : si la nouvelle map est une zone deep_sea,
+	#     la bulle s'allume dès le début du fondu.
+	_rafraichir_deep_sea_light()
+
+	if ancienne == null:
+		# Démarrage : pas d'ancienne map à faire fondre.
+		var t_simple := create_tween()
+		t_simple.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
+		return
+
+	_map_en_sortie = ancienne
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
+	tween.tween_property(ancienne, "modulate:a", 0.0, duree_fondu_map)
+	tween.chain().tween_callback(func():
+		if is_instance_valid(ancienne):
+			ancienne.queue_free()
+		if _map_en_sortie == ancienne:
+			_map_en_sortie = null
+		# (2) Réévaluation APRÈS nettoyage : l'ancienne map a quitté le groupe
+		#     deep_sea, donc en sortant du monde 3 la bulle s'éteint au bon moment.
+		_rafraichir_deep_sea_light()
+	)
 
 func _clear_world() -> void:
 	if current_player:
@@ -291,3 +325,7 @@ func _on_segment_infini_change(config: WorldConfig) -> void:
 	if config.spawn_config:
 		$World/WaveManager.spawn_config = config.spawn_config
 	AudioManager.play_music(config.musique_id)
+	
+func _rafraichir_deep_sea_light() -> void:
+	if current_player and current_player.has_method("update_deep_sea_light"):
+		current_player.update_deep_sea_light()

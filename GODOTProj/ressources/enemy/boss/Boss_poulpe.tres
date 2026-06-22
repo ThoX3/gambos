@@ -24,6 +24,6 @@ projectile_type = ExtResource("6_vcd4f")
 xp_drop = 300
 pearl_drop_probability = 1.0
 pearl_drop_range = Vector2i(15, 15)
-cout = 600
+cout = 200
 poids = 1
 metadata/_custom_type_script = "uid://41pu5w8i8y3b"

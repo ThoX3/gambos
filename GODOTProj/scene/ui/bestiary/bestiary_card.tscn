@@ -68,13 +68,15 @@ stretch_mode = 5
 
 [node name="CardName" type="Label" parent="CardButton/VBox" unique_id=1054339963]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_odwsm")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 12
 text = "Bête"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 clip_text = true
 
 [node name="CardKillCount" type="Label" parent="CardButton/VBox" unique_id=1601965370]

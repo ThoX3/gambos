@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_hk1bg"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_sukh6"]
 [ext_resource type="SpriteFrames" uid="uid://bg7fb4wgybrmr" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
+[ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="10_s2vsj"]
+[ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="11_g7yjg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0
@@ -39,3 +41,11 @@ shape = SubResource("CircleShape2D_nytjq")
 [node name="Node" type="Node" parent="." unique_id=962992184]
 script = ExtResource("4_kfpce")
 ink_bubble_scene = ExtResource("2_ofeu8")
+
+[node name="DeepSeaLight" type="PointLight2D" parent="." unique_id=1668781185]
+visible = false
+color = Color(0.5, 0.8, 1, 1)
+energy = 0.5
+texture = ExtResource("10_s2vsj")
+texture_scale = 0.8
+script = ExtResource("11_g7yjg")

@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_26ku6"]
 [ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_3cbsx"]
 [ext_resource type="SpriteFrames" uid="uid://clt0r38c6ll0h" path="res://assets/sprites/enemy/Boss2.tres" id="9_5isqy"]
+[ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="10_3cbsx"]
+[ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="11_s0hc1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nytjq"]
 radius = 60.0
@@ -40,3 +42,11 @@ scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_nytjq")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=710470670]
+
+[node name="DeepSeaLight" type="PointLight2D" parent="." unique_id=44264763]
+visible = false
+color = Color(0.5, 0.8, 1, 1)
+energy = 0.5
+texture = ExtResource("10_3cbsx")
+texture_scale = 0.8
+script = ExtResource("11_s0hc1")

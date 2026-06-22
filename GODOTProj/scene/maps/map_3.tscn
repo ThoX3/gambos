@@ -55,7 +55,7 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_n4i7g")
 
-[node name="Map3" groups=["deep_sea"] unique_id=432367283 instance=ExtResource("1_ir8qj")]
+[node name="Map3" unique_id=432367283 groups=["deep_sea"] instance=ExtResource("1_ir8qj")]
 script = ExtResource("2_2835u")
 
 [node name="Terrain" parent="." index="1" unique_id=400006671]
@@ -67,4 +67,4 @@ tile_map_data = PackedByteArray("AAAEAA0AAAAAAAEAAAAgAAUAAAAAAAEAAAAgABMAAAAAAAE
 tile_set = SubResource("TileSet_xvs2w")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="7" unique_id=1279870678]
-color = Color(0, 0.13030124, 0.2352621, 1)
+color = Color(1.0528602e-08, 0.03966363, 0.093369015, 1)

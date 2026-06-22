@@ -1,12 +1,12 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://c2b32jfro6mmg"]
 
-[ext_resource type="Texture2D" uid="uid://3csq445v3815" path="res://assets/sprites/enemy/Coral_blue.png" id="1_yopwf"]
+[ext_resource type="Texture2D" uid="uid://cyr0xd1tk0ify" path="res://assets/sprites/enemy/Coral_darkblue.png" id="1_5olnc"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_yopwf")
+"texture": ExtResource("1_5olnc")
 }],
 "loop": true,
 "name": &"walk",

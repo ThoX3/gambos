@@ -10,12 +10,15 @@ extends Node
 @onready var ui_layer: CanvasLayer = $UI
 @onready var fade_rect: ColorRect = $UI/FadeRect
 
+@export var duree_fondu_map: float = 0.6
+
 # --- STATE TRACKING ---
 var current_player: CharacterBody2D = null
 var current_map: Node2D = null
 
 var center: Vector2 = Vector2(1312.0, 736.0)
 var _settings_opened_from_pause: bool = false
+var _map_en_sortie: Node2D = null
 
 func _ready() -> void:
 	if not (starting_map and player_scene):
@@ -123,13 +126,39 @@ func _on_vague_terminee(numero: int) -> void:
 		print("Nouveau record de vague : ", numero)
 
 func change_level(new_map_scene: PackedScene) -> void:
-	if current_map:
-		current_map.queue_free()
-	if new_map_scene:
-		current_map = new_map_scene.instantiate()
-		game_world.add_child(current_map)
-		if current_player and current_player.has_method("update_deep_sea_light"):
-			current_player.update_deep_sea_light()
+	if new_map_scene == null:
+		return
+
+	var ancienne := current_map
+
+	# Si un fondu précédent n'est pas terminé, on solde l'ancienne d'un coup
+	# pour éviter d'empiler trois maps à l'écran.
+	if is_instance_valid(_map_en_sortie):
+		_map_en_sortie.queue_free()
+		_map_en_sortie = null
+
+	# Nouvelle map : on l'instancie transparente, puis on la fait monter.
+	current_map = new_map_scene.instantiate()
+	current_map.modulate.a = 0.0
+	game_world.add_child(current_map)
+
+	# Pas d'ancienne map (ex. démarrage) → simple apparition.
+	if ancienne == null:
+		var t_simple := create_tween()
+		t_simple.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
+		return
+
+	# Fondu enchaîné : la nouvelle monte pendant que l'ancienne descend.
+	_map_en_sortie = ancienne
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
+	tween.tween_property(ancienne, "modulate:a", 0.0, duree_fondu_map)
+	tween.chain().tween_callback(func():
+		if is_instance_valid(ancienne):
+			ancienne.queue_free()
+		if _map_en_sortie == ancienne:
+			_map_en_sortie = null
+	)
 
 func _clear_world() -> void:
 	if current_player:

@@ -78,7 +78,7 @@ extends Resource
 @export_group("⏱️ Durée des vagues")
 
 ## Durée de base d'une vague normale (secondes)
-@export_range(10.0, 300.0, 5.0) var duree_base: float = 15.0
+@export_range(10.0, 300.0, 1.0) var duree_base: float = 15.0
 
 ## Réduction de durée par achat effectué en boutique (secondes)
 ## Ex: 1.0 → 5 achats = -5s sur la durée de chaque vague

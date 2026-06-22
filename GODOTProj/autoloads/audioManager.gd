@@ -40,7 +40,6 @@ const MUSIQUES := {
 			0:  ["bass"],
 			7:  ["guitar", "piano", "other", "vocals"],
 			15: ["drums"],
-			61: ["bass","guitar", "piano", "other", "vocals","drums"],
 		}
 	},
 	
@@ -54,7 +53,6 @@ const MUSIQUES := {
 			21:  ["bass"],
 			28:  ["drums"],
 			35: ["other"],
-			81: ["bass", "drums", "other"],
 		}
 	},
 	
@@ -68,7 +66,6 @@ const MUSIQUES := {
 			41:  ["other"],
 			48:  ["drums"],
 			54: ["bass"],
-			101: ["bass", "drums", "other"],
 		}
 	},
 	
@@ -140,6 +137,7 @@ const MUSIQUES := {
 var _sons_charges: Dictionary  = {}  # "clé" → AudioStream
 var _players_actifs: Dictionary = {}  # "piste" → AudioStreamPlayer
 var _musique_courante: String   = ""
+var _derniere_vague: int = 0
 
 
 func _ready() -> void:
@@ -232,7 +230,7 @@ func _charger_musique(id: String) -> void:
 		p.finished.connect(p.play)  # boucle automatique
 		_players_actifs[nom] = p
 
-	_activer_couches(0)
+	_activer_couches_jusqua(_derniere_vague)
 
 
 func _activer_couches(numero_vague: int) -> void:
@@ -255,4 +253,14 @@ func _fade_in(nom: String) -> void:
 # ── Connexions signaux ───────────────────────────────────────────
 
 func _on_vague_change(numero: int) -> void:
+	_derniere_vague = numero
 	_activer_couches(numero)
+
+func _activer_couches_jusqua(numero_vague: int) -> void:
+	if _musique_courante.is_empty():
+		return
+	var deverouillage: Dictionary = MUSIQUES[_musique_courante]["deverouillage"]
+	for vague_cle in deverouillage:
+		if int(vague_cle) <= numero_vague:
+			for nom in deverouillage[vague_cle]:
+				_fade_in(nom)

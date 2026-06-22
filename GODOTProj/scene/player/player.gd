@@ -26,6 +26,7 @@ var _thorns_timer: float = 0.0
 @export var pics_cooldown: float = 5.0
 @export var pics_touche: Key = KEY_ALT
 @export var pics_bouton_manette: JoyButton = JOY_BUTTON_Y
+@export var pics_bouton_manette_alt: JoyButton = JOY_BUTTON_RIGHT_STICK
 var _pics_fire_timer: float = 0.0
 
 @export var projectile_sable_data: ProjectileDataSable
@@ -162,7 +163,7 @@ func _physics_process(delta):
 	# --- Attaque Pics (Touche Y) ---
 	if can_shoot and SaveManager.current_save.mondes_completes_total >= 2 and pics_scene:
 		_pics_fire_timer -= delta
-		var pics_presse = Input.is_physical_key_pressed(pics_touche) or Input.is_joy_button_pressed(0, pics_bouton_manette)
+		var pics_presse = Input.is_physical_key_pressed(pics_touche) or Input.is_joy_button_pressed(0, pics_bouton_manette) or Input.is_joy_button_pressed(0, pics_bouton_manette_alt)
 		if pics_presse and _pics_fire_timer <= 0.0:
 			_pics_fire_timer = pics_cooldown
 			_tirer_pics_en_cercle()

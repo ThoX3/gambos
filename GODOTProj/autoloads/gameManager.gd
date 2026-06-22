@@ -15,6 +15,7 @@ signal Retry()
 signal boss_health_changed(maxHp : int, currentHp : int)
 signal boss_araignee_vaincu()
 signal boss_poisson_vaincu()
+signal gambos_devenu_roi()
 
 signal kill_registered(enemy_path: String)
 

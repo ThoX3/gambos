@@ -33,8 +33,10 @@ func afficher(nom_monde_suivant: String, index_suivant: int) -> void:
 	label_dialog.text = "[center]" + message + "\nVeux-tu sauvegarder et quitter ou continuer ?[/center]"
 	btn_continuer.text = " Continuer et passer au " + nom_monde_suivant
 	
-	if index_suivant == 3:
+	if index_suivant == 3 and not SaveManager.current_save.gambos_is_king:
 		SaveManager.current_save.gambos_is_king = true
+		SaveManager.save_game()
+		GameManager.gambos_devenu_roi.emit()
 	
 	visible = true
 	get_tree().paused = true

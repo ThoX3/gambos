@@ -73,6 +73,9 @@ func _ready() -> void:
 	_on_initialize()
 	
 	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
+	GameManager.gambos_devenu_roi.connect(_on_gambos_devenu_roi)
+	
+	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	
 	update_deep_sea_light()
 
@@ -651,3 +654,19 @@ func death():
 
 func _maj_taille_halo() -> void:
 	$DeepSeaLight.texture_scale =  2.5 #* Stats.collectRadius / 330.0
+
+func _maj_apparence() -> void:
+	if SaveManager.current_save:
+		if not SaveManager.current_save.tutorial_completed:
+			animated_sprite_2d.play("tuto")
+		elif SaveManager.current_save.gambos_is_king:
+			animated_sprite_2d.play("king_walk")
+		else:
+			animated_sprite_2d.play("walk")
+	else:
+		animated_sprite_2d.play("walk")
+		
+# Bascule en temps réel sur le sprite couronné dès la fin du monde 3
+func _on_gambos_devenu_roi() -> void:
+	if animated_sprite_2d.animation != "king_walk":
+		animated_sprite_2d.play("king_walk")

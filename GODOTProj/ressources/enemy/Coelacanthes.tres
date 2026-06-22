@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("3_y6b4w")
 texture = ExtResource("4_wn7o3")
-name = "Coelacanthes"
-size = 2.0
+name = "Coelacanthe"
+size = 2.2
 max_hp = 1000
 movement_speed = 150.0
-attack_damage = 20
+attack_damage = 30
 xp_drop = 30
 pearl_drop_probability = 0.8
 cout = 15

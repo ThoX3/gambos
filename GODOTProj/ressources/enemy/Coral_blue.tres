@@ -18,14 +18,14 @@ metadata/_custom_type_script = "uid://dt8adtnpm1fog"
 [resource]
 script = ExtResource("3_o87as")
 texture = ExtResource("5_tc4vj")
-name = "coral"
+name = "Corail abyssal"
 glowing_strength = 0.5
 size = 1.5
-max_hp = 200
+max_hp = 750
 weight = 50000.0
 attack_damage = 10
 xp_drop = 20
-pearl_drop_probability = 0.2
+pearl_drop_probability = 0.35
 cout = 20
 ennemis_a_spawner = Array[ExtResource("1_nt8pr")]([SubResource("Resource_0rynt")])
 patterns = Array[ExtResource("2_slb70")]([ExtResource("3_w0hj1")])

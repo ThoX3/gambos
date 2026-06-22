@@ -42,6 +42,7 @@ func _ready() -> void:
 	$UI/MenuTransition.continuer_pressed.connect(_on_continuer)
 	$UI/MenuTransition.sauvegarder_pressed.connect(_on_sauvegarder)
 	$World/WorldManager.monde_change.connect(_on_monde_change)
+	$World/WaveManager.vague_demarree.connect(_maj_record_vague)
 	$World/WorldManager.segment_infini_change.connect(_on_segment_infini_change)
 	
 	if GameManager.skip_menu:
@@ -74,8 +75,6 @@ func setup_game_environment() -> void:
 	$UI/Hud.visible = true
 	
 	var wm: Node = $World/WaveManager
-	if not wm.vague_demarree.connect(_maj_record_vague):
-		wm.vague_demarree.connect(_maj_record_vague)
 	if not wm.monde_termine.is_connected(_on_monde_termine):
 		wm.monde_termine.connect(_on_monde_termine)
 

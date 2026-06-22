@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_olt6e")
 scene_projectile = ExtResource("1_tvowi")
+degats = 10
 vitesse = 300.0
 duree_vie = 4.0
 nb_projectiles = 1

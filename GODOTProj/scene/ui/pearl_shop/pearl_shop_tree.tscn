@@ -328,7 +328,6 @@ upgrade_description = "Permet aux bulles pas encore éclatées de rebondir vers 
 icon_texture = ExtResource("17_ciura")
 max_level = 5
 parent_node = NodePath("../../VBoxContainer4/BubbleDivisionNode")
-parent_node_unlock_level = 2
 
 [node name="Thorns" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer5" unique_id=22033777 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
@@ -375,6 +374,7 @@ upgrade_description = "Tire des projectiles de sable supplémentaires sur les c�
 icon_texture = ExtResource("21_s3x1b")
 max_level = 2
 parent_node = NodePath("../../VBoxContainer5/Thorns")
+parent_node_unlock_level = 5
 
 [node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=608050801]
 layout_mode = 2

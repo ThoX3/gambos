@@ -27,7 +27,6 @@ degats_balayage_corps = 5
 degats_projectile = 3
 vitesse_embuscade = 500
 degats_embuscade = 3
-attack_cooldown = 5.0
 scene_transition = ExtResource("3_632vg")
 stats = ExtResource("3_ixp5x")
 SEAWEED_SCENE = ExtResource("5_scond")

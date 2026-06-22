@@ -89,15 +89,15 @@ func get_default_cost(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de vie maximum.
 func get_cost_health(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 28, 35, 50, 65, 80, 100, 120, 140, 160, 180, 200, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de vitesse de déplacement.
 func get_cost_speed(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 28, 35, 50, 65, 80, 100, 120, 140, 160, 180, 200, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de dégâts.
 func get_cost_damage(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 28, 35, 50, 65, 80, 100, 120, 140, 160, 180, 200, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de vitesse d'attaque.
 func get_cost_attack_speed(level: int) -> int:
@@ -113,7 +113,7 @@ func get_cost_luck(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de régénération de vie.
 func get_cost_regen(level: int) -> int:
-	return 3 + 5 * level
+	return [5, 15, 25, 50, 75, 100, 200, 500, 1000, 3000, 0][level]
 
 ## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
 func get_cost_ingame_speed(level: int) -> int:
@@ -121,11 +121,11 @@ func get_cost_ingame_speed(level: int) -> int:
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
-	return [5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 0][level]
+	return [5, 10, 20, 30, 50, 75, 100, 150, 200, 300, 0][level]
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
-	return [10, 25, 50, 100][level]
+	return [10, 100, 500, 1000][level]
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
@@ -133,23 +133,23 @@ func get_cost_collection_radius(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieurs bulles.
 func get_cost_bubble_division(level: int) -> int:
-	return [10, 150, 500, 1500][level]
+	return [10, 200, 700, 2000][level]
 
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
-	return [15, 50, 100, 500, 1000, 0][level]
+	return [100, 200, 300, 500, 1000, 0][level]
 
 ## Retourne le coût de l'amélioration permettant au projectile de sable de transpercer.
 func get_cost_projectile_sable_pierce(level: int) -> int:
-	return [30, 150, 500, 1200][level]
+	return [100, 250, 1000, 0][level]
 
 ## Retourne le coût de l'amélioration permettant au projectile de sable de faire des dégâts de zone.
 func get_cost_projectile_sable_zone_damage(level: int) -> int:
-	return [30, 150, 500, 1200][level]
+	return [100, 250, 1000, 0][level]
 
 ## Retourne le coût de l'amélioration ajoutant des projectiles de sable.
 func get_cost_projectile_sable_count(level: int) -> int:
-	return [50, 300, 1000][level]
+	return [300, 3000, 0][level]
 	
 	
 # --- Logique des effets spécifiques aux améliorations ---

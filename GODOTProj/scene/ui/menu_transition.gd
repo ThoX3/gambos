@@ -6,7 +6,7 @@ signal sauvegarder_pressed
 
 @export var new_world_messages: Array[String] = [
 	"Bravo d'avoir battu l'araignée des sables ! Tu peux maintenant utiliser son attaque de sable [img=24]res://assets/sprites/projectile/projectile_sable_icon.png[/img] avec [img=24]res://assets/sprites/tutorial/xbox_right.png[/img].",
-	"Bravo d'avoir battu le poisson globe !",
+	"Bravo d'avoir battu le poisson globe ! Tu peux maintenant envoyer ses pics [img=24]res://assets/sprites/projectile/pic_attack.png[/img] avec [img=24]res://assets/sprites/pearl_shop/buttons/xbox-y.png[/img] ou en appuyant [img=24]res://assets/sprites/tutorial/xbox_left.png[/img].",
 	"Gambos, tu as battu les enemis les plus dangereux des océans. Tu en es maintenant le roi, bravo !"
 ]
 

@@ -86,6 +86,13 @@ func update_deep_sea_light() -> void:
 		await get_tree().process_frame
 		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
 			$DeepSeaLight.show()
+			var l = $DeepSeaLight
+			print("[Light] base_scale=", l.base_scale, " scale=", l.scale,
+	  " energy=", l.energy, " base_energy=", l.base_energy,
+	  " texture_scale=", l.texture_scale,
+	  " global_scale=", l.global_scale,
+	  " player_scale=", scale,
+	  " cam_zoom=", $Camera.zoom)
 		else:
 			$DeepSeaLight.hide()
 	call_deferred("enable_camera_smoothing")
@@ -351,6 +358,7 @@ func _on_initialize():
 			projectile_data.bounce_count = Stats.proj_bounce
 
 		$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+		_maj_taille_halo()
 		_sync_hud()
 		return
 
@@ -639,3 +647,7 @@ func death():
 
 	await tween.finished
 	GameManager.GameOver.emit()
+
+
+func _maj_taille_halo() -> void:
+	$DeepSeaLight.texture_scale = 2.0 * Stats.collectRadius / 200.0

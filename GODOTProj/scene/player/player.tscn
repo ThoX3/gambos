@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://mci5x4xob34n" path="res://assets/sprites/HUD/Level_up/background.png" id="13_gt2ev"]
 [ext_resource type="AudioStream" uid="uid://bha2f7rtpg77x" path="res://assets/sounds/effect/Gambos_hurt.mp3" id="16_5g408"]
 [ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="18_fspl2"]
-[ext_resource type="Script" path="res://scene/maps/deep_sea_light.gd" id="101"]
+[ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="101"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7pse"]
 radius = 5.0

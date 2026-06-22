@@ -170,9 +170,8 @@ func _attendre_frame() -> bool:
 func _attendre_timer(duree: float) -> bool:
 	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
 		return false
-	await get_tree().create_timer(duree).timeout
+	await get_tree().create_timer(duree, false).timeout  # false = ne pas ignorer la pause
 	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
-
 
 func _attendre_anim() -> bool:
 	if _est_mort or not is_instance_valid(self) or not is_inside_tree():

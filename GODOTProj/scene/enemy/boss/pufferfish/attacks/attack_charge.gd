@@ -52,11 +52,18 @@ func executer(boss) -> void:
 	# 3. Boucle de charge — pilotée frame par frame
 	while timer_charge > 0.0 and rebonds_restants > 0:
 		await boss.get_tree().physics_frame
-		# is_instance_valid AVANT toute lecture de propriété : si le boss a été libéré
-		# pendant le await, accéder à boss._est_mort planterait ("previously freed").
+		# is_instance_valid AVANT toute lecture de propriété...
 		if not is_instance_valid(boss) or boss._est_mort or not boss.is_inside_tree():
 			_fin_charge(boss)
 			return
+
+		# ── GARDE DE PAUSE ────────────────────────────────────────────────
+		# physics_frame est émis même quand l'arbre est en pause (montée de niveau,
+		# menu pause...). Sans ce garde, la charge avancerait et infligerait des
+		# dégâts pendant la pause. On gèle tout (timer, mouvement, dégâts) tant
+		# que le jeu est en pause.
+		if boss.get_tree().paused:
+			continue
 
 		var delta: float = boss.get_physics_process_delta_time()
 		timer_charge -= delta

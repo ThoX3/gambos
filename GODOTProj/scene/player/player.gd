@@ -395,7 +395,7 @@ func _on_initialize():
 
 	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
 	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
-	$DeepSeaLight.texture_scale = 2.0 * Stats.collectRadius / 200.0
+	$DeepSeaLight.texture_scale = 2.5 #* Stats.collectRadius / 330.0
 
 	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
 
@@ -650,4 +650,4 @@ func death():
 
 
 func _maj_taille_halo() -> void:
-	$DeepSeaLight.texture_scale = 2.0 * Stats.collectRadius / 200.0
+	$DeepSeaLight.texture_scale =  2.5 #* Stats.collectRadius / 330.0

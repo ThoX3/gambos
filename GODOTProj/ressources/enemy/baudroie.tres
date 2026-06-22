@@ -9,6 +9,7 @@
 script = ExtResource("3_eih4v")
 texture = ExtResource("4_3sudg")
 name = "Baudroie"
+glowing_strength = 1.5
 size = 1.5
 max_hp = 500
 movement_speed = 200.0

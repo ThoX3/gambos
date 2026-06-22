@@ -74,8 +74,8 @@ func setup_game_environment() -> void:
 	$UI/Hud.visible = true
 	
 	var wm: Node = $World/WaveManager
-	if not wm.vague_terminee.is_connected(_on_vague_terminee):
-		wm.vague_terminee.connect(_on_vague_terminee)
+	if not wm.vague_demarree.connect(_maj_record_vague):
+		wm.vague_demarree.connect(_maj_record_vague)
 	if not wm.monde_termine.is_connected(_on_monde_termine):
 		wm.monde_termine.connect(_on_monde_termine)
 
@@ -119,8 +119,10 @@ func _on_monde_termine(_vague: int) -> void:
 		fade_rect.visible = false
 	)
 
-func _on_vague_terminee(numero: int) -> void:
-	# Met à jour la vague max si on bat le record
+func _maj_record_vague(numero: int) -> void:
+	# Met à jour la vague max ATTEINTE dès l'entrée dans la vague.
+	# Couvre les vagues de boss (ex: vague 20), qui n'étaient pas comptées
+	# tant qu'on se basait sur la fin de vague.
 	if numero > SaveManager.current_save.max_wave_reached:
 		SaveManager.current_save.max_wave_reached = numero
 		SaveManager.save_game()

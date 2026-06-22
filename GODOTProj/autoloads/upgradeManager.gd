@@ -101,11 +101,11 @@ func get_cost_damage(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de vitesse d'attaque.
 func get_cost_attack_speed(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 28, 35, 50, 65, 80, 100, 120, 140, 160, 180, 200, 0][level]
+	return [1, 3, 5, 10, 15, 30, 50, 75, 100, 130, 160, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 0][level]
 
 ## Retourne le coût de l'amélioration de gain d'expérience.
 func get_cost_xp_gain(level: int) -> int:
-	return 5 + level**2 - level
+	return [7, 15, 30, 50, 75, 100, 150, 250, 500, 750, 0][level]
 
 ## Retourne le coût de l'amélioration de chance.
 func get_cost_luck(level: int) -> int:
@@ -117,11 +117,11 @@ func get_cost_regen(level: int) -> int:
 
 ## Retourne le coût de l'amélioration permettant de modifier la vitesse du jeu en combat.
 func get_cost_ingame_speed(level: int) -> int:
-	return [20, 75, 500, 1000, 2000, 0][level]
+	return [20, 100, 500, 0, 0, 0, 0][level]
 
 ## Retourne le coût de l'amélioration des épines défensives.
 func get_cost_thorns(level: int) -> int:
-	return 5 + level**2 - level
+	return [5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 0][level]
 
 ## Retourne le coût de l'amélioration permettant de reroll les cartes d'upgrades.
 func get_cost_reroll(level: int) -> int:
@@ -129,11 +129,11 @@ func get_cost_reroll(level: int) -> int:
 	
 ## Retourne le coût de l'amélioration permettant d'agrandir la zone de collection.
 func get_cost_collection_radius(level: int) -> int:
-	return [2, 4, 6, 12, 20, 35, 50, 65, 80, 100, 0][level]
+	return [2, 5, 10, 15, 25, 50, 75, 100, 300, 500, 0][level]
 
 ## Retourne le coût de l'amélioration permettant de tirer plusieurs bulles.
 func get_cost_bubble_division(level: int) -> int:
-	return [5, 250, 700, 1200][level]
+	return [10, 150, 500, 1500][level]
 
 ## Retourne le coût de l'amélioration permettant les ricochets de projectiles.
 func get_cost_projectile_bounce(level: int) -> int:
@@ -184,7 +184,7 @@ func get_effect_regen(level: int) -> float:
 ## Retourne les paramètres des épines (dégâts et intervalle de tick) en fonction du niveau.
 func get_effect_thorns(level: int) -> Dictionary:
 	return {
-		"damage": level * 2.0,
+		"damage": level * 10.0,
 		"interval": max(0.2, 1.0 - (level * 0.15))
 	}
 

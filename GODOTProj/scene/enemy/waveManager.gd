@@ -155,9 +155,12 @@ func _calculer_budget(numero: int) -> float:
 
 func _calculer_duree(numero: int) -> float:
 	var base := config.duree_base
-	var reduction = (SaveManager.current_save.total_purchases * config.reduction_duree_par_achat) * (max((60-float(numero)),0)/60)
+	# La réduction se répartit désormais jusqu'au minimum entre 60 et la vague max atteinte.
+	# Le max(..., 1) évite la division par zéro sur une sauvegarde vierge (record = 0).
+	var seuil := float(max(min(60, SaveManager.current_save.max_wave_reached), 1))
+	var reduction = (SaveManager.current_save.total_purchases * config.reduction_duree_par_achat) * (max((seuil - float(numero)), 0.0) / seuil)
 	var duree = max(base - reduction, config.duree_minimale)
-	print("WaveManager durée : %fs" %duree)
+	print("WaveManager durée : %fs" % duree)
 	return duree
 
 func _tirer_ratio_intensite(numero: int) -> float:

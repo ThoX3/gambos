@@ -55,15 +55,26 @@ func _on_body_entered(body: Node2D) -> void:
 			pierce_hp -= body.stats.max_hp if body.stats else 10
 			if pierce_hp <= 0:
 				_destroy()
-		elif body is TileMap:
-			_destroy()
+		elif body is TileMapLayer:
+			if not _is_near_map_border():
+				_destroy()
 	else:
 		if body.is_in_group("Player"):
 			body.take_damage(degats)
 			_destroy()
-		elif body is TileMap:
-			_destroy()
+		elif body is TileMapLayer:
+			if not _is_near_map_border():
+				_destroy()
 
+func _is_near_map_border() -> bool:
+	var main = get_tree().current_scene
+	if main and "current_map" in main and main.current_map and "map_size" in main.current_map:
+		var map_size = main.current_map.map_size
+		var margin = 120.0
+		if global_position.x <= margin or global_position.x >= map_size.x - margin or \
+		   global_position.y <= margin or global_position.y >= map_size.y - margin:
+			return true
+	return false
 func _destroy() -> void:
 	if not est_actif:
 		return

@@ -63,6 +63,8 @@ func _setup_hard_borders() -> void:
 
 	# --- 2. GENERATE PHYSICS WALLS ---
 	var border_body = StaticBody2D.new()
+	border_body.collision_layer = 128
+	border_body.collision_mask = 0
 	border_body.name = "GeneratedBorders"
 	
 	# Keep the Scene Tree clean by putting it in the Entities node if you made one

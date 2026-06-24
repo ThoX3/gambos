@@ -79,9 +79,9 @@ func setup_game_environment() -> void:
 		wm.monde_termine.connect(_on_monde_termine)
 
 
-
 func start_game(map_to_load: PackedScene) -> void:
 	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.monde_actuel_index = 0
 	SaveManager.current_save.run_player_stats = null
 	
 	setup_game_environment()
@@ -174,6 +174,7 @@ func _clear_world() -> void:
 		
 func _on_GameOver():
 	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.monde_actuel_index = 0
 	SaveManager.current_save.run_player_stats = null
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.current_save.player_death_count += 1
@@ -314,6 +315,7 @@ func _on_monde_change(config: WorldConfig) -> void:
 func open_main_menu_from_pause() -> void:
 	GameManager.in_game = false
 	SaveManager.current_save.run_en_cours = false
+	SaveManager.current_save.monde_actuel_index = 0
 	SaveManager.current_save.run_player_stats = null
 	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
 	SaveManager.save_game()

@@ -502,7 +502,7 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.zone_radius = sable_zone
 
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur
-	proj.collision_mask = 2    # détecte les ennemis (layer 2)
+	proj.collision_mask = 7    # détecte les ennemis (layer 2) et obstacles (layer 1)
 
 func _on_boss_poisson_vaincu() -> void:
 	SaveManager.save_game()
@@ -525,7 +525,7 @@ func _tirer_pics_en_cercle() -> void:
 		if "appartient_au_joueur" in proj:
 			proj.appartient_au_joueur = true
 		proj.collision_layer = 4   # layer des projectiles du joueur
-		proj.collision_mask = 2    # ne détecte QUE les ennemis (layer 2)
+		proj.collision_mask = 7    # détecte les ennemis et obstacles
 
 		get_parent().add_child(proj)
 		# direction APRÈS add_child pour que les @onready du projectile soient prêts

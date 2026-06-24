@@ -8,7 +8,7 @@
 
 [node name="Area2D" type="Area2D" unique_id=1901111718]
 collision_layer = 4
-collision_mask = 6
+collision_mask = 7
 script = ExtResource("1_h6pdv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499238672]

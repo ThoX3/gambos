@@ -72,16 +72,19 @@ func _on_body_entered(body: Node2D) -> void:
 				pass
 			else:
 				_destroy()
-		elif body is TileMap:
-			_destroy()
+		elif body is TileMapLayer:
+			if not _is_near_map_border():
+				_destroy()
 	else:
 		GameManager.joy_vibration(0, 0.2, 0.5, 0.2)
-		if body.is_in_group("Player") or body is TileMap:
+		if body.is_in_group("Player") or body is TileMapLayer:
 			if body.is_in_group("Player"):
 				print("Sable dans les yeux ! Dégâts au joueur !")
 				body.take_damage(degats)
 				print(degats)
-			_destroy()
+				_destroy()
+			elif not _is_near_map_border():
+				_destroy()
 
 func _destroy() -> void:
 	if not est_actif:
@@ -113,3 +116,13 @@ func _apply_zone_damage(center_body: Node2D) -> void:
 	
 	if not hit_center and is_instance_valid(center_body) and center_body.has_method("take_damage"):
 		center_body.take_damage(degats)
+
+func _is_near_map_border() -> bool:
+	var main = get_tree().current_scene
+	if main and "current_map" in main and main.current_map and "map_size" in main.current_map:
+		var map_size = main.current_map.map_size
+		var margin = 120.0
+		if global_position.x <= margin or global_position.x >= map_size.x - margin or \
+		   global_position.y <= margin or global_position.y >= map_size.y - margin:
+			return true
+	return false

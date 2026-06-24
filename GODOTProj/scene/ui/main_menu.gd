@@ -56,6 +56,7 @@ func play():
 		# L'utilisateur a cliqué sur jouer alors qu'une sauvegarde existe.
 		# On écrase la sauvegarde existante.
 		SaveManager.current_save.run_en_cours = false
+		SaveManager.current_save.monde_actuel_index = 0
 		SaveManager.current_save.run_player_stats = null
 		SaveManager.save_game()
 	

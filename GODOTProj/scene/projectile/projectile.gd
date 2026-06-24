@@ -62,7 +62,8 @@ func _on_body_entered(body: Node2D) -> void:
 		else:
 			_destroy()
 	if body is TileMapLayer:
-		_destroy() 
+		if not _is_near_map_border():
+			_destroy()
 
 func _destroy() -> void:
 	_is_destroyed = true
@@ -102,3 +103,13 @@ func update_direction():
 	var target = _get_nearest_enemy()
 	if target:
 		direction = global_position.direction_to(target.global_position).normalized()
+
+func _is_near_map_border() -> bool:
+	var main = get_tree().current_scene
+	if main and "current_map" in main and main.current_map and "map_size" in main.current_map:
+		var map_size = main.current_map.map_size
+		var margin = 120.0
+		if global_position.x <= margin or global_position.x >= map_size.x - margin or \
+		   global_position.y <= margin or global_position.y >= map_size.y - margin:
+			return true
+	return false

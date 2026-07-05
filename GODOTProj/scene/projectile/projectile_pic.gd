@@ -75,6 +75,7 @@ func _is_near_map_border() -> bool:
 		   global_position.y <= margin or global_position.y >= map_size.y - margin:
 			return true
 	return false
+	
 func _destroy() -> void:
 	if not est_actif:
 		return

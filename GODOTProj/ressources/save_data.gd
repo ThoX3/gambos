@@ -18,9 +18,13 @@ class_name SaveData
 
 # Pearl basic upgrades
 @export var upgrade_health_level: int = 0
+@export var upgrade_health_2_level: int = 0
 @export var upgrade_speed_level: int = 0
+@export var upgrade_speed_2_level: int = 0
 @export var upgrade_damage_level: int = 0
+@export var upgrade_damage_2_level: int = 0
 @export var upgrade_attack_speed_level: int = 0
+@export var upgrade_attack_speed_2_level: int = 0
 @export var upgrade_xp_gain_level: int = 0
 @export var upgrade_luck_level: int = 0
 @export var upgrade_regen_level: int = 0
@@ -35,6 +39,8 @@ class_name SaveData
 @export var upgrade_projectile_sable_pierce_level: int = 0
 @export var upgrade_projectile_sable_zone_damage_level: int = 0
 @export var upgrade_projectile_sable_count_level: int = 0
+@export var upgrade_projectile_pic_push_level: int = 0
+@export var upgrade_projectile_pic_division_level: int = 0
 
 # In-game progress
 @export var max_wave_reached: int = 0

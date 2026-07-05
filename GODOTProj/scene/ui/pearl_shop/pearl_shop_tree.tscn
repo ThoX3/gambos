@@ -224,7 +224,7 @@ alignment = 1
 
 [node name="HealthNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer2" unique_id=563677094 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
-upgrade_description = "Améliorer la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
+upgrade_description = "Améliore la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
 icon_texture = ExtResource("7_jn2eo")
 max_level = 20
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
@@ -376,9 +376,70 @@ max_level = 2
 parent_node = NodePath("../../VBoxContainer5/Thorns")
 parent_node_unlock_level = 5
 
-[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=608050801]
+[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=619918468]
 layout_mode = 2
 theme_override_constants/separation = 54
+alignment = 1
+
+[node name="Speed2Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer7" unique_id=429802631 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "speed_2"
+upgrade_name = "Vitesse II"
+upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
+icon_texture = ExtResource("17_xe34p")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer6/RerollNode")
+
+[node name="Damage2Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer7" unique_id=1856104131 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "damage_2"
+upgrade_name = "Attaque II"
+upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+icon_texture = ExtResource("19_q40y7")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer6/SableZone")
+
+[node name="AttackSpeed2Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer7" unique_id=23915391 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "attack_speed_2"
+upgrade_name = "Vigueur II"
+upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
+icon_texture = ExtResource("21_s3x1b")
+max_level = 10
+parent_node = NodePath("../../VBoxContainer6/SableCount")
+
+[node name="VBoxContainer8" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=2097863175]
+layout_mode = 2
+theme_override_constants/separation = 54
+alignment = 1
+
+[node name="Health2Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer8" unique_id=1786457120 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "health_2"
+upgrade_name = "Vie II"
+upgrade_description = "Améliore la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
+icon_texture = ExtResource("11_qpv24")
+parent_node = NodePath("../../VBoxContainer7/Speed2Node")
+parent_node_unlock_level = 3
+
+[node name="PicPushNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer8" unique_id=1180912193 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_pic_push"
+upgrade_name = "Poussée"
+upgrade_description = "-"
+icon_texture = ExtResource("17_xe34p")
+max_level = 5
+parent_node = NodePath("../../VBoxContainer7/Damage2Node")
+parent_node_unlock_level = 3
+
+[node name="PicDivisionNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer8" unique_id=792386237 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
+layout_mode = 2
+upgrade_id = "projectile_pic_division"
+upgrade_name = "Petits pics"
+upgrade_description = "-"
+icon_texture = ExtResource("19_q40y7")
+parent_node = NodePath("../../VBoxContainer7/AttackSpeed2Node")
+parent_node_unlock_level = 3
 
 [node name="NavigationButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1316592912]
 layout_mode = 2

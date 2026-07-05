@@ -89,19 +89,31 @@ func get_default_cost(level: int) -> int:
 
 ## Retourne le coût de l'amélioration de vie maximum.
 func get_cost_health(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 0][level]
+	
+func get_costs_health_2(level: int) -> int:
+	return [45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de vitesse de déplacement.
 func get_cost_speed(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 0][level]
+
+func get_cost_speed_2(level: int) -> int:
+	return [45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de dégâts.
 func get_cost_damage(level: int) -> int:
-	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
+	return [1, 2, 4, 6, 9, 12, 15, 19, 23, 30, 0][level]
+	
+func get_cost_damage_2(level: int) -> int:
+	return [45, 75, 100, 150, 200, 350, 500, 750, 1000, 1500, 0][level]
 
 ## Retourne le coût de l'amélioration de vitesse d'attaque.
 func get_cost_attack_speed(level: int) -> int:
-	return [1, 3, 5, 10, 15, 30, 50, 75, 100, 130, 160, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 0][level]
+	return [1, 3, 5, 10, 15, 30, 50, 75, 100, 130, 0][level]
+	
+func get_cost_attack_speed_2(level: int) -> int:
+	return [160, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 0][level]
 
 ## Retourne le coût de l'amélioration de gain d'expérience.
 func get_cost_xp_gain(level: int) -> int:
@@ -156,18 +168,30 @@ func get_cost_projectile_sable_count(level: int) -> int:
 ## Calcule le bonus de vie maximum en fonction du niveau.
 func get_effect_health(level: int) -> float:
 	return 10.0 + (level * 5.0)
-
+	
+func get_effect_health_2(level: int) -> float:
+	return level * 5.0
+	
 ## Calcule le bonus de vitesse de déplacement en fonction du niveau.
 func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
 	return base_speed + (level * 20.0)
+	
+func get_effect_speed_2(level: int) -> float:
+	return level * 25.0
 
 ## Calcule le bonus de dégâts bruts en fonction du niveau.
 func get_effect_damage(level: int) -> float:
 	return 1.0 + (level * 2.0)
+	
+func get_effect_damage_2(level: int) -> float:
+	return level * 2.5
 
 ## Calcule le bonus de cadence de tir en fonction du niveau.
 func get_effect_attack_speed(level: int) -> float:
 	return 0.5 + (level * 0.1)
+	
+func get_effect_attack_speed_2(level: int) -> float:
+	return level * 0.15
 
 ## Calcule le multiplicateur de gain d'expérience en fonction du niveau.
 func get_effect_xp_gain(level: int) -> float:
@@ -223,4 +247,12 @@ func get_effect_projectile_sable_zone_damage(level: int) -> float:
 
 ## Calcule le nombre de paires de projectiles de sable supplémentaires.
 func get_effect_projectile_sable_count(level: int) -> int:
+	return level * 1
+	
+## Calcule la force de poussée du projectile pic
+func get_effect_projectile_pic_push(level: int) -> float:
+	return level * 0.2
+
+## Calcule le niveau de division du projectile pic
+func get_effect_projectile_pic_division(level: int) -> int:
 	return level * 1

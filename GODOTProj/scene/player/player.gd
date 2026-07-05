@@ -28,7 +28,10 @@ var _thorns_timer: float = 0.0
 @export var pics_bouton_manette: JoyButton = JOY_BUTTON_Y
 @export var pics_bouton_manette_alt: JoyButton = JOY_BUTTON_RIGHT_STICK
 var _pics_fire_timer: float = 0.0
+var pic_push: float = 0.0
+var pic_division: int = 0
 
+# —— Attaque sable ——
 @export var projectile_sable_data: ProjectileDataSable
 @export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
 var _attaque_sable_debloquee: bool = false
@@ -367,14 +370,18 @@ func _on_initialize():
 		return
 
 	var lvl_health = save.upgrade_health_level
+	var lvl_health_2 = save.upgrade_health_2_level
 	var lvl_speed = save.upgrade_speed_level
+	var lvl_speed_2 = save.upgrade_speed_2_level
 	var lvl_xp = save.upgrade_xp_gain_level
 	var lvl_regen = save.upgrade_regen_level
 	var lvl_collect = save.upgrade_collection_radius_level
 	var lvl_bubble = save.upgrade_bubble_division_level
 	var lvl_thorns = save.upgrade_thorns_level
 	var lvl_damage = save.upgrade_damage_level
+	var lvl_damage_2 = save.upgrade_damage_2_level
 	var lvl_atk_spd = save.upgrade_attack_speed_level
+	var lvl_atk_spd_2 = save.upgrade_attack_speed_2_level
 	var lvl_bounce = save.upgrade_projectile_bounce_level
 
 	var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
@@ -385,15 +392,21 @@ func _on_initialize():
 	sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
 	sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
 	sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+	
+	var lvl_pic_push = save.upgrade_projectile_pic_push_level
+	var lvl_pic_division = save.upgrade_projectile_pic_division_level
+	
+	pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
+	pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
 
-	Stats.max_health = UpgradeManager.get_effect_health(lvl_health)
+	Stats.max_health = UpgradeManager.get_effect_health(lvl_health) + UpgradeManager.get_effect_health_2(lvl_health_2)
 	Stats.current_health = Stats.max_health
 	Stats.level = 1
 	Stats.requiredXp = 10
 	Stats.currentXp = 0
 	Stats.collected_pearls = 0
 
-	Stats.speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED)
+	Stats.speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED) + UpgradeManager.get_effect_speed_2(lvl_speed_2)
 	Stats.xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
 	Stats.regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
 
@@ -408,8 +421,8 @@ func _on_initialize():
 	Stats.thorns_interval = thorns_effects["interval"]
 
 	if projectile_data:
-		Stats.proj_damage = int(UpgradeManager.get_effect_damage(lvl_damage))
-		Stats.proj_fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd)
+		Stats.proj_damage = int(UpgradeManager.get_effect_damage(lvl_damage) + UpgradeManager.get_effect_damage_2(lvl_damage_2))
+		Stats.proj_fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd) + UpgradeManager.get_effect_attack_speed_2(lvl_atk_spd_2)
 		Stats.proj_count = bubble_count
 		Stats.proj_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
 		projectile_data.damage = Stats.proj_damage
@@ -516,10 +529,9 @@ func _tirer_pics_en_cercle() -> void:
 		var proj = pics_scene.instantiate()
 		var angle := i * angle_step
 		proj.global_position = global_position
-		if "vitesse" in proj:
-			proj.vitesse = pics_speed
-		if "degats" in proj:
-			proj.degats = max(1, int(Stats.proj_damage * 2))
+		proj.vitesse = pics_speed
+		proj.degats = max(1, int(Stats.proj_damage * 1.5))
+		proj.pierce_hp = proj.degats
 
 		# ── Empêche le friendly fire : le pic appartient au joueur ──
 		if "appartient_au_joueur" in proj:

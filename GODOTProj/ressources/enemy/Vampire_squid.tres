@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_fygdb")
 texture = ExtResource("4_m2sok")
-name = "Vampire des Abysses"
+name = "Vampire des abysses"
 glowing_strength = 0.2
 size = 1.2
 max_hp = 200

@@ -17,6 +17,7 @@ signal back_button_pressed
 @onready var detail_panel: Control = %DetailPanel
 @onready var detail_name: Label = %DetailName
 @onready var detail_stats: Label = %DetailStats
+@onready var detail_description: Label = %DetailDescription
 @onready var detail_sprite: TextureRect = %DetailSprite
 @onready var back_button: Button = %BackButton
 
@@ -69,6 +70,9 @@ func _focus_first_card() -> void:
 			return
 	# Fallback sur le bouton retour
 	back_button.grab_focus()
+	
+func _on_card_focus_entered(card: Control):
+	pass
 
 func _input(event: InputEvent) -> void:
 	if not visible:
@@ -138,6 +142,7 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 		return
 
 	detail_name.text = data.name
+	detail_description.text = data.description
 
 	if data.texture is SpriteFrames:
 		var sf: SpriteFrames = data.texture

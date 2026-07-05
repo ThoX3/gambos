@@ -39,7 +39,7 @@ func setup(data: EnemyData, unlocked: bool, is_boss: bool, kill_count: int = 0) 
 		if kill_label:
 			kill_label.visible = false
 
-	button.pressed.connect(func(): card_selected.emit())
+	button.focus_entered.connect(func(): card_selected.emit())
 
 func setup_player() -> void:
 	_data = null
@@ -50,4 +50,4 @@ func setup_player() -> void:
 	if kill_label:
 		kill_label.text = "💀 %d" % SaveManager.current_save.player_death_count
 		kill_label.visible = true
-	button.pressed.connect(func(): card_selected.emit())
+	button.focus_entered.connect(func(): card_selected.emit())

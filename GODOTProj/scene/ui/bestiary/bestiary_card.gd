@@ -8,7 +8,6 @@ signal card_selected
 @onready var sprite: TextureRect = %CardSprite
 @onready var name_label: Label = %CardName
 @onready var button: Button = %CardButton
-@onready var kill_label: Label = %CardKillCount  # nouveau Label à ajouter dans la scène
 
 const GAMBOS_TEXTURE := preload("res://assets/sprites/player/Gambos1.png")
 
@@ -30,14 +29,9 @@ func setup(data: EnemyData, unlocked: bool, is_boss: bool, kill_count: int = 0) 
 	if unlocked:
 		sprite.modulate = Color.WHITE
 		name_label.text = data.name if data.name != "" else data.resource_path.get_file().get_basename()
-		if kill_label:
-			kill_label.text = "💀 %d" % kill_count
-			kill_label.visible = true
 	else:
 		sprite.modulate = Color(0, 0, 0, 1)
 		name_label.text = "???"
-		if kill_label:
-			kill_label.visible = false
 
 	button.focus_entered.connect(func(): card_selected.emit())
 
@@ -47,7 +41,4 @@ func setup_player() -> void:
 	sprite.texture = GAMBOS_TEXTURE
 	sprite.modulate = Color.WHITE
 	name_label.text = "Gambos"
-	if kill_label:
-		kill_label.text = "💀 %d" % SaveManager.current_save.player_death_count
-		kill_label.visible = true
 	button.focus_entered.connect(func(): card_selected.emit())

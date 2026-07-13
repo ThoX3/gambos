@@ -10,11 +10,10 @@ extends Control
 @export var UnderOcto = CompressedTexture2D
 @export var ProgressOcto = CompressedTexture2D
 
-@onready var pearl_box = $Pearls
-@onready var pearl_label = $Pearls/MarginContainer/Count
-@onready var wave_label = $Wave/Count
-@onready var bossBar_progressBar = $HP_BossBar
-
+@onready var wave_label = %WaveCount
+@onready var bossBar_progressBar: TextureProgressBar = %HP_BossBar
+@onready var pearl_count_box = %PearlCountBox
+@onready var pearl_count_label = %PearlCountLabel
 var pearl_tween: Tween
 
 func _ready() -> void:
@@ -29,9 +28,9 @@ func _ready() -> void:
 	%HP_Bar.max_value = Stats.max_health
 	_update_health_bar()
 	_update_level()
-	pearl_box.modulate.a = 0
-	pearl_box.visible = false
-	
+	%PearlCountBox.visible = false
+	%PearlCountBox.modulate.a = 0
+
 	if FontManager:
 		if not FontManager.font_mode_changed.is_connected(_on_font_mode_changed):
 			FontManager.font_mode_changed.connect(_on_font_mode_changed)
@@ -45,6 +44,12 @@ func _on_start():
 	_update_health_bar()
 	_update_progres_bar()
 	_update_level()
+	
+	var lvl_reroll = SaveManager.current_save.upgrade_reroll_level
+	if lvl_reroll > 0:
+		$MarginContainer/PearlLayer.layer = 5
+	else:
+		$MarginContainer/PearlLayer.layer = 0
 	
 	var start_wave = 1
 	if SaveManager.current_save:
@@ -132,27 +137,40 @@ func _update_level():
 	%Level.text = str(Stats.level)	
 
 func _on_pearls_changed():
-	pearl_label.text = str(SaveManager.current_save.pearls + Stats.collected_pearls)
+	var p_count = SaveManager.current_save.pearls + Stats.collected_pearls
+	pearl_count_label.text = str(p_count)
 	
 	if pearl_tween and pearl_tween.is_valid():
 		pearl_tween.kill()
 		
 	pearl_tween = create_tween()
 	
-	pearl_box.visible = true
-	pearl_box.scale = Vector2(1.2, 1.2) 
+	pearl_count_box.visible = true
+	pearl_count_box.scale = Vector2(1.2, 1.2) 
 		
 	pearl_tween.set_parallel(true)
-	pearl_tween.tween_property(pearl_box, "modulate:a", 1.0, 0.1)
-	pearl_tween.tween_property(pearl_box, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BOUNCE)
+	pearl_tween.tween_property(pearl_count_box, "modulate:a", 1.0, 0.1)
+	pearl_tween.tween_property(pearl_count_box, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BOUNCE)
 	pearl_tween.set_parallel(false) 
 	
 	pearl_tween.tween_interval(2.0)
 	
-	pearl_tween.tween_property(pearl_box, "modulate:a", 0.0, 0.5)
+	pearl_tween.tween_property(pearl_count_box, "modulate:a", 0.0, 0.5)
 	
-	pearl_tween.tween_callback(func(): pearl_box.visible = false)
+	pearl_tween.tween_callback(func(): pearl_count_box.visible = false)
 
+func pearl_count_show_permanent(is_visible: bool, count: int = 0):
+	if pearl_tween and pearl_tween.is_valid():
+		pearl_tween.kill()
+		
+	if is_visible:
+		pearl_count_label.text = str(count)
+		pearl_count_box.visible = true
+		pearl_count_box.modulate.a = 1.0
+		pearl_count_box.scale = Vector2(1.0, 1.0)
+	else:
+		pearl_count_box.visible = false
+		pearl_count_box.modulate.a = 0.0
 # --- Time scale ---
 var time_scales: Array[float] = [1.0]
 var _time_scale_index: int = 0

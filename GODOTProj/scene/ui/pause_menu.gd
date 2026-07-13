@@ -29,11 +29,25 @@ func _input(event: InputEvent) -> void:
 		toggle_pause()
 
 func toggle_pause():
-	if GameManager.in_game == true:
-		var new_pause_state = !get_tree().paused
-		get_tree().paused = new_pause_state
-		%LayerPause.visible = new_pause_state
-		if new_pause_state:
+	var level_up = get_node_or_null("../LevelUp")
+	var is_upgrade_open = false
+	if level_up and level_up.visible:
+		is_upgrade_open = true
+
+	if GameManager.in_game == true or is_upgrade_open:
+		var is_pause_visible = visible
+		
+		if is_pause_visible:
+			visible = false
+			if is_upgrade_open:
+				get_tree().paused = true
+				if level_up.has_method("_focus_card"):
+					level_up._focus_card(level_up._focused_card_index)
+			else:
+				get_tree().paused = false
+		else:
+			visible = true
+			get_tree().paused = true
 			update_stats_display()
 			%Resume.grab_focus()
 
@@ -54,26 +68,32 @@ func _on_resume_pressed():
 
 func _on_quit_pressed() -> void:
 	AudioManager.play_music("main_menu")
-	%LayerPause.visible = false
+	visible = false
 	menu_button_pressed.emit()
 
 func _on_bestiary_pressed() -> void:
 	_bestiary_open = true
-	%LayerPause.visible = false  # Cache le menu pause visuellement
+	visible = false  # Cache le menu pause visuellement
 	bestiary_button_pressed.emit()
 	
 func _on_settings_pressed():
-	%LayerPause.visible = false
+	visible = false
 	settings_button_pressed.emit()
 
 func notify_settings_closed() -> void:
-	%LayerPause.visible = true
+	visible = true
 	%Resume.grab_focus()
 
 func notify_bestiary_closed() -> void:
-	GameManager.in_game = true
+	var level_up = get_node_or_null("../LevelUp")
+	var is_upgrade_open = false
+	if level_up and level_up.visible:
+		is_upgrade_open = true
+
+	if not is_upgrade_open:
+		GameManager.in_game = true
 	_bestiary_open = false
-	%LayerPause.visible = true   # Réaffiche le menu pause
+	visible = true   # Réaffiche le menu pause
 	%Resume.grab_focus()
 	
 func _display_quit_info() -> void:

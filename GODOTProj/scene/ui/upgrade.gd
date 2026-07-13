@@ -14,7 +14,7 @@ func _ready() -> void:
 	GameManager.level_up.connect(_on_level_update)
 
 func _input(event: InputEvent) -> void:
-	if not %CanvasLayer.visible:
+	if not visible:
 		return
 	if event.is_action_pressed("select_right"):
 		_focused_card_index = (_focused_card_index + 1) % _cards.size()
@@ -30,7 +30,7 @@ func _focus_card(index: int) -> void:
 func _on_level_update():
 	GameManager.in_game = false
 	get_tree().paused = true
-	%CanvasLayer.visible = true
+	visible = true
 	_focused_card_index = 0
 	var random_cards = UpgradeManager.get_random_upgrades(3)
 	display_upgrades(random_cards)
@@ -61,7 +61,10 @@ func display_upgrades(cards: Array[upgradeData]):
 func _on_card_selected(data: upgradeData):
 	if player:
 		player.apply_upgrade(data)
-	%CanvasLayer.visible = false
+	visible = false
+	var hud = get_node_or_null("../Hud")
+	if hud and hud.has_method("pearl_count_show_permanent"):
+		hud.pearl_count_show_permanent(false)
 	get_tree().paused = false
 	GameManager.in_game = true
 	
@@ -76,11 +79,16 @@ func manage_reroll():
 	lvl_reroll = SaveManager.current_save.upgrade_reroll_level
 	if lvl_reroll > 0:
 		%Reroll.visible = true
-		%TotalPearl.visible = true
+		var hud = get_node_or_null("../Hud")
+		if hud and hud.has_method("show_permanent"):
+			var current_pearls = SaveManager.current_save.pearls
+			if player and player.Stats:
+				current_pearls += player.Stats.collected_pearls
+			hud.show_permanent(true, current_pearls)
+		
 		base_price_reroll = 10 -  2 * (lvl_reroll - 1)
 		price_reroll = int(base_price_reroll * exp(nb_reroll) / 10)
-		%CostLabel.text = str(price_reroll)
-		%AmountPearl.text = str(SaveManager.current_save.pearls + player.Stats.collected_pearls)
+		%CostLabel.text = "Relancer\n%d [img=24]res://assets/sprites/collectibles/pearl_icon.png[/img]" % [price_reroll]
 		set_reroll_disable()
 
 func _on_reroll_pressed() -> void:

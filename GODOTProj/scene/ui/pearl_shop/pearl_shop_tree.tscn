@@ -28,6 +28,8 @@
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="22_6jm8l"]
 [ext_resource type="Texture2D" uid="uid://b0oxhimygfwc8" path="res://assets/sprites/pearl_shop/buttons/xbox-y.png" id="23_iebwt"]
 [ext_resource type="Texture2D" uid="uid://dh1nb3exsjgek" path="res://assets/sprites/pearl_shop/buttons/xbox-a.png" id="24_q40y7"]
+[ext_resource type="Texture2D" uid="uid://4nfiei6bue7a" path="res://assets/sprites/pearl_shop/icons/pic_push.png" id="24_xs2t6"]
+[ext_resource type="Texture2D" uid="uid://dxoie0j6dq11s" path="res://assets/sprites/pearl_shop/icons/pic_division.png" id="25_tgoq1"]
 
 [sub_resource type="Gradient" id="Gradient_s20yb"]
 offsets = PackedFloat32Array(0, 0.7758285, 1)
@@ -215,7 +217,7 @@ upgrade_id = "speed"
 upgrade_name = "Vitesse"
 upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
 icon_texture = ExtResource("6_t1a07")
-max_level = 20
+max_level = 10
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=566447561]
 layout_mode = 2
@@ -226,7 +228,7 @@ alignment = 1
 layout_mode = 2
 upgrade_description = "Améliore la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
 icon_texture = ExtResource("7_jn2eo")
-max_level = 20
+max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
 [node name="AttackSpeedNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer2" unique_id=1968068040 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
@@ -235,7 +237,7 @@ upgrade_id = "attack_speed"
 upgrade_name = "Vigueur"
 upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
 icon_texture = ExtResource("8_gipjf")
-max_level = 20
+max_level = 10
 parent_node = NodePath("../../VBoxContainer/SpeedNode")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree" unique_id=2082736016]
@@ -259,7 +261,7 @@ upgrade_id = "damage"
 upgrade_name = "Attaque"
 upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
 icon_texture = ExtResource("8_ciura")
-max_level = 20
+max_level = 10
 parent_node = NodePath("../../VBoxContainer2/AttackSpeedNode")
 parent_node_unlock_level = 3
 
@@ -385,8 +387,8 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "speed_2"
 upgrade_name = "Vitesse II"
-upgrade_description = "Augmente la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
-icon_texture = ExtResource("17_xe34p")
+upgrade_description = "Augmente encore plus la puissance des pléopodes de Gambos pour lui permettre de nager encore plus vite."
+icon_texture = ExtResource("6_t1a07")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer6/RerollNode")
 
@@ -394,8 +396,8 @@ parent_node = NodePath("../../VBoxContainer6/RerollNode")
 layout_mode = 2
 upgrade_id = "damage_2"
 upgrade_name = "Attaque II"
-upgrade_description = "Aiguise les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
-icon_texture = ExtResource("19_q40y7")
+upgrade_description = "Aiguise encore plus les attaques de Gambos pour infliger plus de dégâts aux vilains ennemis."
+icon_texture = ExtResource("8_ciura")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer6/SableZone")
 
@@ -403,8 +405,8 @@ parent_node = NodePath("../../VBoxContainer6/SableZone")
 layout_mode = 2
 upgrade_id = "attack_speed_2"
 upgrade_name = "Vigueur II"
-upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse fulgurante tel un véritable prédateur."
-icon_texture = ExtResource("21_s3x1b")
+upgrade_description = "Permet à Gambos d'enchaîner les coups à une vitesse encore plus fulgurante tel un véritable prédateur."
+icon_texture = ExtResource("8_gipjf")
 max_level = 10
 parent_node = NodePath("../../VBoxContainer6/SableCount")
 
@@ -417,8 +419,8 @@ alignment = 1
 layout_mode = 2
 upgrade_id = "health_2"
 upgrade_name = "Vie II"
-upgrade_description = "Améliore la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
-icon_texture = ExtResource("11_qpv24")
+upgrade_description = "Améliore encore plus la résistance de la carapace de Gambos pour qu'il se batte plus sereinement."
+icon_texture = ExtResource("7_jn2eo")
 parent_node = NodePath("../../VBoxContainer7/Speed2Node")
 parent_node_unlock_level = 3
 
@@ -426,8 +428,8 @@ parent_node_unlock_level = 3
 layout_mode = 2
 upgrade_id = "projectile_pic_push"
 upgrade_name = "Poussée"
-upgrade_description = "-"
-icon_texture = ExtResource("17_xe34p")
+upgrade_description = "Améliore l'attaque pic pour générer une onde de choc qui repousse les ennemis proches de Gambos."
+icon_texture = ExtResource("24_xs2t6")
 max_level = 5
 parent_node = NodePath("../../VBoxContainer7/Damage2Node")
 parent_node_unlock_level = 3
@@ -436,8 +438,8 @@ parent_node_unlock_level = 3
 layout_mode = 2
 upgrade_id = "projectile_pic_division"
 upgrade_name = "Petits pics"
-upgrade_description = "-"
-icon_texture = ExtResource("19_q40y7")
+upgrade_description = "Permet aux pics de se subdiviser pour toucher encore plus d'ennemis !"
+icon_texture = ExtResource("25_tgoq1")
 parent_node = NodePath("../../VBoxContainer7/AttackSpeed2Node")
 parent_node_unlock_level = 3
 

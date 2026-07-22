@@ -163,6 +163,13 @@ func get_cost_projectile_sable_zone_damage(level: int) -> int:
 func get_cost_projectile_sable_count(level: int) -> int:
 	return [300, 3000, 0][level]
 	
+## Calcule la force de poussée du projectile pic (multiplicateur de la vitesse des ennemis)
+func get_cost_projectile_pic_push(level: int) -> float:
+	return [100, 300, 1000, 2000, 4000, 0][level]
+
+## Calcule le niveau de division du projectile pic
+func get_cost_projectile_pic_division(level: int) -> int:
+	return [500, 2500, 6000, 0][level]
 	
 # --- Logique des effets spécifiques aux améliorations ---
 ## Calcule le bonus de vie maximum en fonction du niveau.
@@ -251,7 +258,7 @@ func get_effect_projectile_sable_count(level: int) -> int:
 	
 ## Calcule la force de poussée du projectile pic (multiplicateur de la vitesse des ennemis)
 func get_effect_projectile_pic_push(level: int) -> float:
-	return [0.7, 0.2, -0.2, -0.7, -1.2, 0][level]
+	return [0, 0.7, -0.2, -0.7, -1.2, -2.0][level]
 
 ## Calcule le niveau de division du projectile pic
 func get_effect_projectile_pic_division(level: int) -> int:

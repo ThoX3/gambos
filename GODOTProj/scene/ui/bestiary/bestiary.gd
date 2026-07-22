@@ -16,7 +16,7 @@ signal back_button_pressed
 @onready var player_container: GridContainer = %PlayerContainer
 @onready var detail_panel: Control = %DetailPanel
 @onready var detail_name: Label = %DetailName
-@onready var detail_stats: Label = %DetailStats
+@onready var detail_stats: RichTextLabel = %DetailStats
 @onready var detail_description: Label = %DetailDescription
 @onready var detail_sprite: TextureRect = %DetailSprite
 @onready var back_button: Button = %BackButton
@@ -129,11 +129,12 @@ func _on_player_card_selected() -> void:
 	detail_sprite.texture = GAMBOS_TEXTURE
 
 	var save = SaveManager.current_save
-	var stats_text := ""
-	stats_text += "❤️  PV : %d\n" % int(BASE_PLAYER_STATS.max_health)
-	stats_text += "⚔️  Dégâts : %d\n" % BASE_PLAYER_STATS.proj_damage
-	stats_text += "💨  Vitesse : %.0f\n" % BASE_PLAYER_STATS.speed
-	stats_text += "💀  Morts : %d\n" % save.player_death_count
+	var stats_text := "[center]"
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/health.png[/img] PV : %d\n" % int(BASE_PLAYER_STATS.max_health)
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/damage.png[/img] Dégâts : %d\n" % BASE_PLAYER_STATS.proj_damage
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/speed.png[/img] Vitesse : %.0f\n" % BASE_PLAYER_STATS.speed
+	stats_text += "[img=24]res://assets/sprites/bestiary/death_icon.png[/img] Morts : %d\n" % save.player_death_count
+	stats_text += "[/center]"
 
 	detail_stats.text = stats_text
 
@@ -152,13 +153,20 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 	else:
 		detail_sprite.texture = null
 
-	var stats_text := ""
-	stats_text += "❤️  PV : %d\n" % data.max_hp
-	stats_text += "⚔️  Dégâts : %d\n" % data.attack_damage
-	stats_text += "💨  Vitesse : %.0f\n" % data.movement_speed
-	stats_text += "✨  XP lâché : %d\n" % data.xp_drop
+	var stats_text := "[center]"
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/health.png[/img] PV : %d\n" % data.max_hp
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/damage.png[/img] Dégâts : %d\n" % data.attack_damage
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/speed.png[/img] Vitesse : %.0f\n" % data.movement_speed
+	stats_text += "[img=24]res://assets/sprites/collectibles/SeaweedXP_Idle1.png[/img] XP lâché : %d\n" % data.xp_drop
 	if data.pearl_drop_probability > 0.0:
-		stats_text += "🦪  Perles : %.0f%%\n" % (data.pearl_drop_probability * 100)
-	stats_text += "☠️  Tués : %d\n" % GameManager.get_total_kill_count(data)
+		if data.pearl_drop_range.y > 1 or data.pearl_drop_range.x > 1:
+			if data.pearl_drop_range.x == data.pearl_drop_range.y:
+				stats_text += "[img=24]res://assets/sprites/collectibles/pearl_icon.png[/img] Perles : %d\n" % data.pearl_drop_range.x
+			else:
+				stats_text += "[img=24]res://assets/sprites/collectibles/pearl_icon.png[/img] Perles : %d - %d\n" % [data.pearl_drop_range.x, data.pearl_drop_range.y]
+		else:
+			stats_text += "[img=24]res://assets/sprites/collectibles/pearl_icon.png[/img] Perles : %.0f%%\n" % (data.pearl_drop_probability * 100)
+	stats_text += "[img=24]res://assets/sprites/bestiary/death_icon.png[/img] Tués : %d\n" % GameManager.get_total_kill_count(data)
+	stats_text += "[/center]"
 
 	detail_stats.text = stats_text

@@ -123,12 +123,13 @@ theme_override_fonts/font = ExtResource("5_qprn2")
 theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 
-[node name="DetailStats" type="Label" parent="Layout/DetailPanel" unique_id=1851013844]
+[node name="DetailStats" type="RichTextLabel" parent="Layout/DetailPanel" unique_id=1851013844]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_dk0bv")
-theme_override_font_sizes/font_size = 18
-horizontal_alignment = 1
+theme_override_fonts/normal_font = ExtResource("4_dk0bv")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+fit_content = true
 
 [node name="DetailDescription" type="Label" parent="Layout/DetailPanel" unique_id=1164282321]
 unique_name_in_owner = true

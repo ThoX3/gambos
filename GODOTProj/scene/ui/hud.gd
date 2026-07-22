@@ -134,7 +134,8 @@ func _update_health_bar():
 	%HP.text = str(max(int(ceil(Stats.current_health)), 0)) + " / " + str(int(Stats.max_health))
 	
 func _update_level():
-	%Level.text = str(Stats.level)	
+	%Level.text = str(Stats.level)
+	_update_progres_bar()	
 
 func _on_pearls_changed():
 	var p_count = SaveManager.current_save.pearls + Stats.collected_pearls
@@ -159,11 +160,11 @@ func _on_pearls_changed():
 	
 	pearl_tween.tween_callback(func(): pearl_count_box.visible = false)
 
-func pearl_count_show_permanent(is_visible: bool, count: int = 0):
+func pearl_count_show_permanent(_is_visible: bool, count: int = 0):
 	if pearl_tween and pearl_tween.is_valid():
 		pearl_tween.kill()
 		
-	if is_visible:
+	if _is_visible:
 		pearl_count_label.text = str(count)
 		pearl_count_box.visible = true
 		pearl_count_box.modulate.a = 1.0
@@ -171,6 +172,7 @@ func pearl_count_show_permanent(is_visible: bool, count: int = 0):
 	else:
 		pearl_count_box.visible = false
 		pearl_count_box.modulate.a = 0.0
+		
 # --- Time scale ---
 var time_scales: Array[float] = [1.0]
 var _time_scale_index: int = 0

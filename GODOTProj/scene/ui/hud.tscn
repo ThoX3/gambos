@@ -244,14 +244,17 @@ theme_override_fonts/font = ExtResource("6_g5rf0")
 theme_override_font_sizes/font_size = 36
 text = "1"
 
-[node name="HP_BossBar" type="TextureProgressBar" parent="MarginContainer" unique_id=1904707128]
-unique_name_in_owner = true
+[node name="BossBarWrapper" type="Control" parent="MarginContainer"]
 custom_minimum_size = Vector2(510, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 size_flags_stretch_ratio = 4.1
-nine_patch_stretch = true
+
+[node name="HP_BossBar" type="TextureProgressBar" parent="MarginContainer/BossBarWrapper"]
+unique_name_in_owner = true
+layout_mode = 1
+scale = Vector2(2, 2)
 texture_under = ExtResource("11_onxnr")
 texture_progress = ExtResource("12_llivb")
 texture_progress_offset = Vector2(41, 26)

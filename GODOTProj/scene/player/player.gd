@@ -356,6 +356,12 @@ func _on_initialize():
 		sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
 		sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
 		sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+		
+		var lvl_pic_push = save.upgrade_projectile_pic_push_level
+		var lvl_pic_division = save.upgrade_projectile_pic_division_level
+		
+		pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
+		pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
 
 		if projectile_data:
 			projectile_data.damage = Stats.proj_damage
@@ -531,7 +537,14 @@ func _tirer_pics_en_cercle() -> void:
 		proj.global_position = global_position
 		proj.vitesse = pics_speed
 		proj.degats = max(1, int(Stats.proj_damage * 1.5))
-		proj.pierce_hp = proj.degats
+
+		if "divisions_remaining" in proj:
+			proj.divisions_remaining = pic_division
+		if "max_range" in proj:
+			if pic_division > 0:
+				proj.max_range = 300.0
+			else:
+				proj.max_range = 600.0
 
 		# ── Empêche le friendly fire : le pic appartient au joueur ──
 		if "appartient_au_joueur" in proj:
@@ -543,6 +556,11 @@ func _tirer_pics_en_cercle() -> void:
 		# direction APRÈS add_child pour que les @onready du projectile soient prêts
 		if "direction" in proj:
 			proj.direction = Vector2(cos(angle), sin(angle))
+			
+	# Repousser les ennemis
+	var overlapping_mobs: Array[Node2D] = %PicPushBox.get_overlapping_bodies()
+	for body in overlapping_mobs:
+		body.velocity_factor = pic_push
 
 # ════════════════════════════════════════════════════════════════════
 #  UPGRADES

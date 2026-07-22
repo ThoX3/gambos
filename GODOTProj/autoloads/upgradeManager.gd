@@ -249,9 +249,9 @@ func get_effect_projectile_sable_zone_damage(level: int) -> float:
 func get_effect_projectile_sable_count(level: int) -> int:
 	return level * 1
 	
-## Calcule la force de poussée du projectile pic
+## Calcule la force de poussée du projectile pic (multiplicateur de la vitesse des ennemis)
 func get_effect_projectile_pic_push(level: int) -> float:
-	return level * 0.2
+	return [0.7, 0.2, -0.2, -0.7, -1.2, 0][level]
 
 ## Calcule le niveau de division du projectile pic
 func get_effect_projectile_pic_division(level: int) -> int:

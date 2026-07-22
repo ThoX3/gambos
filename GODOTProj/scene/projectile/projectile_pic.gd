@@ -9,6 +9,7 @@ var appartient_au_joueur: bool = false
 var _last_hit_enemy: Node2D = null
 var max_range: float = 600.0
 var _distance_traveled: float = 0.0
+var divisions_remaining: int = 0
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -77,4 +78,25 @@ func _destroy() -> void:
 		return
 	est_actif = false
 	set_deferred("monitoring", false)
+	
+	if divisions_remaining > 0:
+		_spawn_division(PI / 6.0)
+		_spawn_division(-PI / 6.0)
+		
 	queue_free()
+
+func _spawn_division(angle_offset: float) -> void:
+	var proj = load("res://scene/projectile/projectile_pic.tscn").instantiate()
+	proj.global_position = global_position
+	proj.direction = direction.rotated(angle_offset)
+	proj.vitesse = vitesse
+	proj.degats = max(1, int(degats * 0.75))
+	proj.max_range = max_range * 0.5
+	proj.divisions_remaining = divisions_remaining - 1
+	proj.appartient_au_joueur = appartient_au_joueur
+	proj.collision_layer = collision_layer
+	proj.collision_mask = collision_mask
+	proj.scale = scale * 0.5
+	
+	get_parent().call_deferred("add_child", proj)
+

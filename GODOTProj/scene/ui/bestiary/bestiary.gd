@@ -130,10 +130,63 @@ func _on_player_card_selected() -> void:
 
 	var save = SaveManager.current_save
 	var stats_text := "[center]"
-	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/health.png[/img] PV : %d\n" % int(BASE_PLAYER_STATS.max_health)
-	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/damage.png[/img] Dégâts : %d\n" % BASE_PLAYER_STATS.proj_damage
-	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/speed.png[/img] Vitesse : %.0f\n" % BASE_PLAYER_STATS.speed
+	
 	stats_text += "[img=24]res://assets/sprites/bestiary/death_icon.png[/img] Morts : %d\n" % save.player_death_count
+	stats_text += "⋅\n"
+	
+	var basic_stats = [
+		{"name": "Vie", "level": save.upgrade_health_level + save.upgrade_health_2_level, "icon": "health.png", "effect": UpgradeManager.get_effect_health(save.upgrade_health_level) + UpgradeManager.get_effect_health_2(save.upgrade_health_2_level), "format": "%d"},
+		{"name": "Attaque", "level": save.upgrade_damage_level + save.upgrade_damage_2_level, "icon": "damage.png", "effect": int(UpgradeManager.get_effect_damage(save.upgrade_damage_level) + UpgradeManager.get_effect_damage_2(save.upgrade_damage_2_level)), "format": "%d"},
+		{"name": "Vitesse", "level": save.upgrade_speed_level + save.upgrade_speed_2_level, "icon": "speed.png", "effect": UpgradeManager.get_effect_speed(save.upgrade_speed_level) + UpgradeManager.get_effect_speed_2(save.upgrade_speed_2_level), "format": "%.0f"},
+		{"name": "Vigueur", "level": save.upgrade_attack_speed_level + save.upgrade_attack_speed_2_level, "icon": "attack_speed.png", "effect": UpgradeManager.get_effect_attack_speed(save.upgrade_attack_speed_level) + UpgradeManager.get_effect_attack_speed_2(save.upgrade_attack_speed_2_level), "format": "%.2f/s"},
+		{"name": "Sagesse", "level": save.upgrade_xp_gain_level, "icon": "xp_gain.png", "effect": UpgradeManager.get_effect_xp_gain(save.upgrade_xp_gain_level), "format": "x%.1f"},
+		{"name": "Chance", "level": save.upgrade_luck_level, "icon": "luck.png", "effect": null},
+		{"name": "Soins", "level": save.upgrade_regen_level, "icon": "regen.png", "effect": UpgradeManager.get_effect_regen(save.upgrade_regen_level), "format": "%.2f/s"},
+		{"name": "Célérité", "level": save.upgrade_ingame_speed_level, "icon": "ingame_speed.png", "effect": null},
+		{"name": "Épines", "level": save.upgrade_thorns_level, "icon": "thorns.png", "effect": UpgradeManager.get_effect_thorns(save.upgrade_thorns_level)["damage"], "format": "%d"},
+		{"name": "Joker", "level": save.upgrade_reroll_level, "icon": "reroll.png", "effect": null},
+		{"name": "Aimant", "level": save.upgrade_collection_radius_level, "icon": "collection_zone.png", "effect": UpgradeManager.get_effect_collection_radius(save.upgrade_collection_radius_level), "format": "%.0f"}
+	]
+	
+	var added_basic = false
+	for stat in basic_stats:
+		if stat.level > 0:
+			if stat.effect != null:
+				var line_format = "[img=24]res://assets/sprites/pearl_shop/icons/%s[/img] %s : " + stat.format + "\n"
+				stats_text += line_format % [stat.icon, stat.name, stat.effect]
+			else:
+				stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/%s[/img] %s : Nv. %d\n" % [stat.icon, stat.name, stat.level]
+			added_basic = true
+			
+	if added_basic:
+		stats_text += "⋅\n"
+		
+	var bubble_stats = [
+		{"name": "Petites bulles", "level": save.upgrade_bubble_division_level, "icon": "bubble_division.png"},
+		{"name": "Rebonds", "level": save.upgrade_projectile_bounce_level, "icon": "bubble_bounce.png"}
+	]
+	for stat in bubble_stats:
+		stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/%s[/img] %s : Nv. %d\n" % [stat.icon, stat.name, stat.level]
+		
+	if save.mondes_completes_total >= 1:
+		stats_text += "⋅\n"
+		var sable_stats = [
+			{"name": "Gravier", "level": save.upgrade_projectile_sable_pierce_level, "icon": "sable_pierce.png"},
+			{"name": "Tempête de sable", "level": save.upgrade_projectile_sable_zone_damage_level, "icon": "sable_zone.png"},
+			{"name": "Jet de sable", "level": save.upgrade_projectile_sable_count_level, "icon": "sable_count.png"}
+		]
+		for stat in sable_stats:
+			stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/%s[/img] %s : Nv. %d\n" % [stat.icon, stat.name, stat.level]
+			
+	if save.mondes_completes_total >= 2:
+		stats_text += "⋅\n"
+		var pic_stats = [
+			{"name": "Poussée", "level": save.upgrade_projectile_pic_push_level, "icon": "sable_pierce.png"},
+			{"name": "Petits pics", "level": save.upgrade_projectile_pic_division_level, "icon": "sable_zone.png"}
+		]
+		for stat in pic_stats:
+			stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/%s[/img] %s : Nv. %d\n" % [stat.icon, stat.name, stat.level]
+			
 	stats_text += "[/center]"
 
 	detail_stats.text = stats_text
@@ -154,10 +207,10 @@ func _on_card_selected(data: EnemyData, unlocked: bool, is_boss: bool) -> void:
 		detail_sprite.texture = null
 
 	var stats_text := "[center]"
-	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/health.png[/img] PV : %d\n" % data.max_hp
+	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/health.png[/img] Vie : %d\n" % data.max_hp
 	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/damage.png[/img] Dégâts : %d\n" % data.attack_damage
 	stats_text += "[img=24]res://assets/sprites/pearl_shop/icons/speed.png[/img] Vitesse : %.0f\n" % data.movement_speed
-	stats_text += "[img=24]res://assets/sprites/collectibles/SeaweedXP_Idle1.png[/img] XP lâché : %d\n" % data.xp_drop
+	stats_text += "[img=24]res://assets/sprites/collectibles/SeaweedXP_Idle1.png[/img] Algues : %d\n" % data.xp_drop
 	if data.pearl_drop_probability > 0.0:
 		if data.pearl_drop_range.y > 1 or data.pearl_drop_range.x > 1:
 			if data.pearl_drop_range.x == data.pearl_drop_range.y:

@@ -6,7 +6,6 @@ var direction: Vector2 = Vector2.ZERO : set = _set_direction
 
 var est_actif: bool = true
 var appartient_au_joueur: bool = false
-var pierce_hp: int = 0
 var _last_hit_enemy: Node2D = null
 var max_range: float = 600.0
 var _distance_traveled: float = 0.0
@@ -52,9 +51,6 @@ func _on_body_entered(body: Node2D) -> void:
 				return
 			_last_hit_enemy = body
 			body.take_damage(degats)
-			pierce_hp -= body.stats.max_hp if body.stats else 10
-			if pierce_hp <= 0:
-				_destroy()
 		elif body is TileMapLayer:
 			if not _is_near_map_border():
 				_destroy()

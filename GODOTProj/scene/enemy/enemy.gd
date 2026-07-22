@@ -12,6 +12,9 @@ var tutorial_mode: bool = false
 
 func get_weight() -> float:
 	return stats.weight if stats else 1.0
+	
+# Pour le push de l'attaque pic
+var velocity_factor: float = 1.0  
 
 @export var SEAWEED_SCENE: PackedScene
 @export var PEARL_SCENE: PackedScene
@@ -63,9 +66,18 @@ func _physics_process(delta):
 		sprite.flip_h = direction.x < 0
 	
 	# Application de la vitesse brute sur le vecteur directionnel
-	velocity = direction * stats.movement_speed
+	velocity = direction * stats.movement_speed * velocity_factor
 
 	_move_with_push(delta)
+	
+	upgrade_velocity_factor(delta)
+	
+	
+func upgrade_velocity_factor(delta):
+	if velocity_factor != 1.0:
+		velocity_factor += (1 - velocity_factor) * delta
+		velocity_factor = roundf(velocity_factor * 1000) / 1000
+
 
 func _move_with_push(delta: float) -> void:
 	var motion = velocity * delta

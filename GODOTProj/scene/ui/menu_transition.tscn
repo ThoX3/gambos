@@ -117,7 +117,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("4_rkcgs")
 theme_override_font_sizes/font_size = 18
-text = " Continuer"
+text = " Continuer le combat"
 flat = true
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/NavigationButtons" unique_id=45182000]

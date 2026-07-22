@@ -30,7 +30,7 @@ func afficher(nom_monde_suivant: String, index_suivant: int) -> void:
 		var msg_idx = min(index_suivant - 1, known_world_messages.size() - 1)
 		message = known_world_messages[msg_idx]
 		
-	label_dialog.text = "[center]" + message + "\nVeux-tu sauvegarder et quitter ou continuer ?[/center]"
+	label_dialog.text = "[center]" + message + "\nVeux-tu continuer le combat ou sauvegarder et te reposer ?[/center]"
 	btn_continuer.text = " Continuer et passer au " + nom_monde_suivant
 	
 	if index_suivant == 3 and not SaveManager.current_save.gambos_is_king:

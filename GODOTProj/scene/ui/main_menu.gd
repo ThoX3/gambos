@@ -30,9 +30,11 @@ func _ready() -> void:
 	check_for_save()
 	if is_save_available:
 		resume_button.grab_focus.call_deferred()
-		play_button.text = "Commencer une nouvelle partie"
+		play_button.text = "Se sacrifier et rejouer"
+		pearl_shop_button.text = "Se sacrifier et aller au temple"
 	else:
 		play_button.grab_focus.call_deferred()
+		pearl_shop_button.text = "Aller au temple"
 	
 	# ── Musique et son ─────────────────────────
 	if not GameManager.gotoshop:
@@ -68,6 +70,12 @@ func resume_run():
 	GameManager.resume_game.emit()
 	
 func open_pearl_shop():
+	if is_save_available:
+		SaveManager.current_save.run_en_cours = false
+		SaveManager.current_save.monde_actuel_index = 0
+		SaveManager.current_save.run_player_stats = null
+		SaveManager.save_game()
+
 	AudioManager.play_music("shop")
 	pearl_shop_button_pressed.emit(false)
 

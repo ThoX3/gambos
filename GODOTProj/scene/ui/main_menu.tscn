@@ -73,7 +73,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("4_k3dtv")
 theme_override_font_sizes/font_size = 27
-text = "Reprendre la sauvegarde
+text = "Reprendre le combat
  "
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ResumeSaveButton" unique_id=254101988]

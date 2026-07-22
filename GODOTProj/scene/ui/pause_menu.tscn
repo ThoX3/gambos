@@ -132,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 tooltip_text = "Retourne au menu principal tout en gardant les perles accumulées pendant la partie."
 theme_override_fonts/font = ExtResource("1_v5dk4")
-text = "Retour menu"
+text = "Se sacrifier et retourner au menu"
 
 [node name="QuitDescription" type="Label" parent="LayerPause/ColorRect" unique_id=2037318992]
 unique_name_in_owner = true

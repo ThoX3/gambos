@@ -303,8 +303,8 @@ func start_phase2() -> void:
 			GameManager.joy_vibration(0, 0.5, 0.5, 0.3)
 	)
 	
-	current_player.Stats.current_health = current_player.Stats.max_health
-	current_player.Stats.speed = 150
+	current_player.stats.current_health = current_player.stats.max_health
+	current_player.stats.speed = 150
 	
 	var collect_shape = current_player.get_node_or_null("Area2D/PlayerCollectRadius")
 	if collect_shape and collect_shape.shape is CircleShape2D:
@@ -340,10 +340,10 @@ func _process(delta: float) -> void:
 			start_phase1()
 	
 	if current_state == State.PHASE2:
-		if is_instance_valid(current_player) and current_player.Stats.current_health <= 2.0:
+		if is_instance_valid(current_player) and current_player.stats.current_health <= 2.0:
 			if not is_healing:
 				is_healing = true
-				current_player.Stats.current_health = current_player.Stats.max_health
+				current_player.stats.current_health = current_player.stats.max_health
 				current_player.start_invincibility()
 				AudioManager.play_sound_2d("health_refill", current_player.global_position)
 				var tween = create_tween()

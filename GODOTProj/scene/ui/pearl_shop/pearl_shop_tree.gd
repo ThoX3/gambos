@@ -14,7 +14,7 @@ signal menu_button_pressed
 @onready var list_button: Array[Variant] = [menu_button, play_button, reset_button]
 
 @export var max_items_per_group: int = 5
-const DIALOGUE_SCENE = preload("res://scene/tutorial/tutorial_dialogue.tscn")
+const DIALOGUE_SCENE: PackedScene = preload("res://scene/tutorial/tutorial_dialogue.tscn")
 @onready var fade_rect: ColorRect = $FadeRect
 
 var currently_focused_node: Control = null
@@ -219,6 +219,9 @@ func reset_save():
 	refresh_shop()
 
 func _on_reset_button_gui_input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return 
+		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 		SaveManager.current_save.pearls += 1000
 		SaveManager.current_save.upgrade_ingame_speed_level = 5

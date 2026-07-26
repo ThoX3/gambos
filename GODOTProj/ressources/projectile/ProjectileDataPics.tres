@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ProjectileDataPics" format=3 uid="uid://ble7yiuqtxd27"]
+
+[ext_resource type="Script" uid="uid://prj1e05lyva6" path="res://ressources/projectile/ProjectileDataPics.gd" id="1_ueph6"]
+
+[resource]
+script = ExtResource("1_ueph6")

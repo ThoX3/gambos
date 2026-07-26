@@ -82,8 +82,8 @@ func manage_reroll():
 		var hud = get_node_or_null("../Hud")
 		if hud and hud.has_method("show_permanent"):
 			var current_pearls = SaveManager.current_save.pearls
-			if player and player.Stats:
-				current_pearls += player.Stats.collected_pearls
+			if player and player.stats:
+				current_pearls += player.stats.collected_pearls
 			hud.show_permanent(true, current_pearls)
 		
 		base_price_reroll = 10 -  2 * (lvl_reroll - 1)
@@ -97,7 +97,7 @@ func _on_reroll_pressed() -> void:
 	display_upgrades(UpgradeManager.get_random_upgrades(3))
 	
 func set_reroll_disable():
-	if price_reroll <= SaveManager.current_save.pearls + player.Stats.collected_pearls:
+	if price_reroll <= SaveManager.current_save.pearls + player.stats.collected_pearls:
 		%Reroll.disabled = false
 		%Reroll.modulate = Color.WHITE
 	else :
@@ -105,8 +105,8 @@ func set_reroll_disable():
 		%Reroll.modulate = Color(0.4, 0.4, 0.4, 1.0)
 
 func update_pearl():
-	if price_reroll <= player.Stats.collected_pearls:
-		player.Stats.collected_pearls -= price_reroll
+	if price_reroll <= player.stats.collected_pearls:
+		player.stats.collected_pearls -= price_reroll
 	else:
-		SaveManager.current_save.pearls -= price_reroll + player.Stats.collected_pearls
-		player.Stats.collected_pearls = 0
+		SaveManager.current_save.pearls -= price_reroll + player.stats.collected_pearls
+		player.stats.collected_pearls = 0

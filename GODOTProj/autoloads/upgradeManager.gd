@@ -61,7 +61,7 @@ func pick_one_weighted(list: Array[upgradeData], weights: Dictionary) -> upgrade
 			for data in upgrade.capacities_effects:
 				if data.targetCapacity == data.TargetCapacityEffect.PLAYER_HEALTH:
 					var player = get_tree().get_first_node_in_group("Player")
-					if player and player.Stats.current_health + data.value <= 0:
+					if player and player.stats.current_health + data.value <= 0:
 						return pick_one_weighted(list, weights)
 			return upgrade
 	return shuffled_list.pick_random()
@@ -180,8 +180,8 @@ func get_effect_health_2(level: int) -> float:
 	return level * 5.0
 	
 ## Calcule le bonus de vitesse de déplacement en fonction du niveau.
-func get_effect_speed(level: int, base_speed: float = 100.0) -> float:
-	return base_speed + (level * 20.0)
+func get_effect_speed(level: int) -> float:
+	return 100.0 + (level * 20.0)
 	
 func get_effect_speed_2(level: int) -> float:
 	return level * 25.0

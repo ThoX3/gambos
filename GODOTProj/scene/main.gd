@@ -176,7 +176,7 @@ func _on_GameOver():
 	SaveManager.current_save.run_en_cours = false
 	SaveManager.current_save.monde_actuel_index = 0
 	SaveManager.current_save.run_player_stats = null
-	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.current_save.pearls += current_player.stats.collected_pearls
 	SaveManager.current_save.player_death_count += 1
 	GameManager.flush_kill_counts_to_save()
 	SaveManager.save_game()
@@ -271,7 +271,7 @@ func _on_bestiary_back() -> void:
 
 func _on_continuer() -> void:
 	SaveManager.current_save.run_en_cours = true
-	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
+	SaveManager.current_save.run_player_stats = current_player.stats.duplicate(true)
 	$World/WorldManager.passer_monde_suivant()
 	if current_player:
 		current_player.can_level_up = true
@@ -279,7 +279,7 @@ func _on_continuer() -> void:
 
 func _on_sauvegarder() -> void:
 	SaveManager.current_save.run_en_cours = true
-	SaveManager.current_save.run_player_stats = current_player.Stats.duplicate(true)
+	SaveManager.current_save.run_player_stats = current_player.stats.duplicate(true)
 	
 	# Increment the world progress manually to simulate passing to the next world
 	var wm = $World/WorldManager
@@ -292,7 +292,7 @@ func _on_sauvegarder() -> void:
 	SaveManager.current_save.monde_actuel_index = prochain_index
 	
 	# Add the collected pearls from this run to the total
-	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.current_save.pearls += current_player.stats.collected_pearls
 	SaveManager.save_game()
 	
 	# Return to the main menu
@@ -317,7 +317,7 @@ func open_main_menu_from_pause() -> void:
 	SaveManager.current_save.run_en_cours = false
 	SaveManager.current_save.monde_actuel_index = 0
 	SaveManager.current_save.run_player_stats = null
-	SaveManager.current_save.pearls += current_player.Stats.collected_pearls
+	SaveManager.current_save.pearls += current_player.stats.collected_pearls
 	SaveManager.save_game()
 	get_tree().paused = false
 	get_tree().reload_current_scene()

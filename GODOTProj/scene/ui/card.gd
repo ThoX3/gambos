@@ -56,7 +56,7 @@ func setup(data: upgradeData) -> void:
 			var color = "green" if effet.value > 0 else "red"
 			%Stats.append_text(str(current_value) + " -> [color=" + color + "]" + str(current_value + affichage_valeur) + "[/color]\n")
 			if effet.targetCapacity == capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
-				var cur_hp = int(player.Stats.current_health)
+				var cur_hp = int(player.stats.current_health)
 				color = "green" if cur_hp + affichage_valeur >= cur_hp else "red"
 				%Stats.append_text("Vie actuelle : \n")
 				%Stats.append_text(str(cur_hp) + " -> [color=" + color + "]" + str(cur_hp + affichage_valeur) + "[/color]\n")

@@ -437,7 +437,7 @@ parent_node_unlock_level = 3
 [node name="PicDivisionNode" parent="MarginContainer/VBoxContainer/HBoxContainer/TreeMask/MarginContainer/TreeScroll/Tree/VBoxContainer8" unique_id=792386237 node_paths=PackedStringArray("parent_node") instance=ExtResource("5_w5y77")]
 layout_mode = 2
 upgrade_id = "projectile_pic_division"
-upgrade_name = "Petits pics"
+upgrade_name = "Fragments"
 upgrade_description = "Permet aux pics de se subdiviser pour toucher encore plus d'ennemis !"
 icon_texture = ExtResource("25_tgoq1")
 parent_node = NodePath("../../VBoxContainer7/AttackSpeed2Node")

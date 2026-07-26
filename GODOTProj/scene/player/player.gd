@@ -1,52 +1,42 @@
 extends CharacterBody2D
 
+# Propriétés de base
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@export var Stats: Resource
-const BASE_SPEED: int = 100.0
-@export var projectile_data: ProjectileData
-@export var projectile_scene: PackedScene
+@export var stats: Resource
+@export var weight: float = 10.0
 @export var knockback_force: float = 300.0
 var _knockback_velocity: Vector2 = Vector2.ZERO
-
-@export var weight: float = 10.0
-
 @export var invincibility_duration: float = 1.5
-var is_invincible: bool = false
+var is_invincible: bool = false  # ne peut recevoir aucun dégat
+var prevent_death: bool = false  # minore les hp à 0.1
+var can_shoot: bool = true  # tire plus aucun projectile
+var can_level_up: bool = true  # accumule l'xp sans level up
 var blink_timer: float = 0.0
-var _fire_timer: float = 0.0
-var prevent_death: bool = false
-
 var _regen_timer: float = 0.0
 var _thorns_timer: float = 0.0
 
-# ── Attaque pics (débloquée en battant le boss poisson) ──────────────
-@export var pics_scene: PackedScene          # la MÊME scène que le boss : pic_scene
-@export var pics_count: int = 16
-@export var pics_speed: float = 600.0
-@export var pics_cooldown: float = 5.0
-@export var pics_touche: Key = KEY_ALT
-@export var pics_bouton_manette: JoyButton = JOY_BUTTON_Y
-@export var pics_bouton_manette_alt: JoyButton = JOY_BUTTON_RIGHT_STICK
+# Stats des armes
+# Bulles
+@export var projectile_data: ProjectileData
+@export var projectile_scene: PackedScene
+var _fire_timer: float = 0.0
+const BUBBLE_SPEED_FACTOR: float = 1.2 
+# Sable
+@export var projectile_sable_data: ProjectileDataSable
+@export var projectile_sable_scene: PackedScene  
+var _sable_fire_timer: float = 0.0
+var sable_pierce: int = 0
+var sable_zone: float = 0.0
+var sable_count: int = 0
+# Pics
+@export var projectile_pics_data: ProjectileDataPics
+@export var pics_scene: PackedScene
 var _pics_fire_timer: float = 0.0
 var pic_push: float = 0.0
 var pic_division: int = 0
 
-# —— Attaque sable ——
-@export var projectile_sable_data: ProjectileDataSable
-@export var projectile_sable_scene: PackedScene  # la même scène que le boss : projectile_sable.tscn
-var _attaque_sable_debloquee: bool = false
-var _sable_fire_timer: float = 0.0
-
-var sable_pierce: int = 0
-var sable_zone: float = 0.0
-var sable_count: int = 0
-var sable_bounce: int = 0
-
-var can_shoot: bool = true
-
-const BUBBLE_SPEED_FACTOR: float = 1.2  # la bulle est toujours au moins 1,2× plus rapide que le joueur
-
-# ── Poison ───────────────────────────────────────────────────────────
+# Effets
+# Poison
 var _poison_actif: bool = false
 var _poison_timer_total: float = 0.0     
 var _poison_tick_timer: float = 0.0     
@@ -59,10 +49,10 @@ func get_weight() -> float:
 
 
 # ════════════════════════════════════════════════════════════════════
-#  CYCLE DE VIE
+#  INITIALISATION
 # ════════════════════════════════════════════════════════════════════
 func _ready() -> void:
-	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+	$Area2D/PlayerCollectRadius.shape.radius = stats.collectRadius
 	if SaveManager.current_save:
 		if not SaveManager.current_save.tutorial_completed:
 			$AnimatedSprite2D.play("tuto")
@@ -76,48 +66,148 @@ func _ready() -> void:
 	$LevelUpUnder.hide()
 	_on_initialize()
 	
-	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	GameManager.gambos_devenu_roi.connect(_on_gambos_devenu_roi)
-	
-	GameManager.boss_poisson_vaincu.connect(_on_boss_poisson_vaincu)
 	
 	update_deep_sea_light()
 
-	if projectile_sable_data:
-		projectile_sable_data = projectile_sable_data.duplicate()
 	if projectile_data:
 		projectile_data = projectile_data.duplicate()
+	if projectile_sable_data:
+		projectile_sable_data = projectile_sable_data.duplicate()
+	if projectile_pics_data:
+		projectile_pics_data = projectile_pics_data.duplicate()
 
 func update_deep_sea_light() -> void:
 	if has_node("DeepSeaLight"):
 		await get_tree().process_frame
 		if get_tree().get_nodes_in_group("deep_sea").size() > 0:
 			$DeepSeaLight.show()
-			var l = $DeepSeaLight
-			print("[Light] base_scale=", l.base_scale, " scale=", l.scale,
-	  " energy=", l.energy, " base_energy=", l.base_energy,
-	  " texture_scale=", l.texture_scale,
-	  " global_scale=", l.global_scale,
-	  " player_scale=", scale,
-	  " cam_zoom=", $Camera.zoom)
 		else:
 			$DeepSeaLight.hide()
 	call_deferred("enable_camera_smoothing")
+	
+func enable_camera_smoothing():
+	$Camera.position_smoothing_enabled = true
 
+func _on_initialize():
+	var save = SaveManager.current_save
 
+	if save.run_en_cours and save.run_player_stats != null:
+		initialize_stats_from_saved_run(save)
+	else:
+		initialize_stats_from_scratch(save)
+		
+	# Sync HUD
+	var main_node = get_tree().get_first_node_in_group("Main")
+	if main_node and main_node.has_node("UI/Hud"):
+		var hud = main_node.get_node("UI/Hud")
+		hud.Stats = stats
+		hud._update_health_bar()
+		hud._update_progres_bar()
+		hud._update_level()
+
+func initialize_stats_from_saved_run(save):
+	stats = save.run_player_stats.duplicate(true)
+
+	var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
+	var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
+	var lvl_sable_count = save.upgrade_projectile_sable_count_level
+
+	sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
+	sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
+	sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
+	
+	var lvl_pic_push = save.upgrade_projectile_pic_push_level
+	var lvl_pic_division = save.upgrade_projectile_pic_division_level
+	
+	pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
+	pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
+
+	if projectile_data:
+		projectile_data.damage = stats.proj_damage
+		projectile_data.fire_rate = stats.proj_fire_rate
+		projectile_data.range = stats.proj_range
+		projectile_data.projectile_count = stats.proj_count
+		projectile_data.bounce_count = stats.proj_bounce
+
+	$Area2D/PlayerCollectRadius.shape.radius = stats.collectRadius
+	
+func initialize_stats_from_scratch(save):
+	var lvl_health = save.upgrade_health_level
+	var lvl_health_2 = save.upgrade_health_2_level
+	var lvl_speed = save.upgrade_speed_level
+	var lvl_speed_2 = save.upgrade_speed_2_level
+	var lvl_xp = save.upgrade_xp_gain_level
+	var lvl_regen = save.upgrade_regen_level
+	var lvl_collect = save.upgrade_collection_radius_level
+	var lvl_bubble = save.upgrade_bubble_division_level
+	var lvl_thorns = save.upgrade_thorns_level
+	var lvl_damage = save.upgrade_damage_level
+	var lvl_damage_2 = save.upgrade_damage_2_level
+	var lvl_atk_spd = save.upgrade_attack_speed_level
+	var lvl_atk_spd_2 = save.upgrade_attack_speed_2_level
+	var lvl_bounce = save.upgrade_projectile_bounce_level
+
+	var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
+	var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
+	var lvl_sable_count = save.upgrade_projectile_sable_count_level
+
+	sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
+	sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
+	sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
+	
+	var lvl_pic_push = save.upgrade_projectile_pic_push_level
+	var lvl_pic_division = save.upgrade_projectile_pic_division_level
+	
+	pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
+	pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
+
+	stats.max_health = UpgradeManager.get_effect_health(lvl_health) + UpgradeManager.get_effect_health_2(lvl_health_2)
+	stats.current_health = stats.max_health
+	stats.level = 1
+	stats.requiredXp = 10
+	stats.currentXp = 0
+	stats.collected_pearls = 0
+
+	stats.speed = UpgradeManager.get_effect_speed(lvl_speed) + UpgradeManager.get_effect_speed_2(lvl_speed_2)
+	stats.xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
+	stats.regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
+
+	stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
+	$Area2D/PlayerCollectRadius.shape.radius = stats.collectRadius
+
+	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
+
+	var thorns_effects = UpgradeManager.get_effect_thorns(lvl_thorns)
+	stats.thorns_damage = int(thorns_effects["damage"])
+	stats.thorns_interval = thorns_effects["interval"]
+
+	if projectile_data:
+		stats.proj_damage = int(UpgradeManager.get_effect_damage(lvl_damage) + UpgradeManager.get_effect_damage_2(lvl_damage_2))
+		stats.proj_fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd) + UpgradeManager.get_effect_attack_speed_2(lvl_atk_spd_2)
+		stats.proj_count = bubble_count
+		stats.proj_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
+		projectile_data.damage = stats.proj_damage
+		projectile_data.fire_rate = stats.proj_fire_rate
+		projectile_data.projectile_count = stats.proj_count
+		projectile_data.bounce_count = stats.proj_bounce	
+		
+# ════════════════════════════════════════════════════════════════════
+#  CYCLE DE VIE
+# ════════════════════════════════════════════════════════════════════
 func _process(delta: float) -> void:
 	_tick_poison(delta)
 
-	if Stats.regen_rate > 0 and Stats.current_health < Stats.max_health and Stats.current_health > 0:
+	if stats.regen_rate > 0 and stats.current_health < stats.max_health and stats.current_health > 0:
 		_regen_timer += delta
 		if _regen_timer >= 1.0:
 			_regen_timer -= 1.0
-			Stats.current_health += Stats.regen_rate
-			if Stats.current_health > Stats.max_health:
-				Stats.current_health = Stats.max_health
+			stats.current_health += stats.regen_rate
+			if stats.current_health > stats.max_health:
+				stats.current_health = stats.max_health
 			GameManager.health_changed.emit()
 
-	if Stats.thorns_damage > 0:
+	if stats.thorns_damage > 0:
 		_thorns_timer -= delta
 		if _thorns_timer <= 0.0:
 			if %HurtBox.monitoring:
@@ -125,8 +215,8 @@ func _process(delta: float) -> void:
 				if overlapping_mobs.size() > 0:
 					for mob in overlapping_mobs:
 						if mob.has_method("take_damage"):
-							mob.take_damage(Stats.thorns_damage)
-				_thorns_timer = Stats.thorns_interval
+							mob.take_damage(stats.thorns_damage)
+				_thorns_timer = stats.thorns_interval
 
 
 func _physics_process(delta):
@@ -135,7 +225,7 @@ func _physics_process(delta):
 	# Velocity de mouvement normal (avec multiplicateur de poison)
 	var move_velocity = Vector2.ZERO
 	if direction:
-		move_velocity = direction * Stats.speed * _poison_speed_mult
+		move_velocity = direction * stats.speed * _poison_speed_mult
 		animated_sprite_2d.flip_h = direction.x > 0
 
 	# Amortissement du knockback (indépendant de la velocity de déplacement)
@@ -158,17 +248,17 @@ func _physics_process(delta):
 	# --- Attaque sable (stick droit) ---
 	if can_shoot and SaveManager.current_save.mondes_completes_total >= 1 and projectile_sable_data and projectile_sable_scene:
 		_sable_fire_timer -= delta
-		var stick = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+		var stick: Vector2 = Input.get_vector("shoot_left", "shoot_right", "shoot_up", "shoot_down")
 		if stick.length() > 0.2 and _sable_fire_timer <= 0.0:
-			_sable_fire_timer = (1.0 / max(0.01, Stats.proj_fire_rate)) * projectile_sable_data.cadence_ratio
+			_sable_fire_timer = (1.0 / max(0.01, stats.proj_fire_rate)) * projectile_sable_data.cadence_ratio
 			_tirer_sable(stick.normalized())
 
-	# --- Attaque Pics (Touche Y) ---
+	# --- Attaque Pics (touche Y / clic stick droit) ---
 	if can_shoot and SaveManager.current_save.mondes_completes_total >= 2 and pics_scene:
 		_pics_fire_timer -= delta
-		var pics_presse = Input.is_physical_key_pressed(pics_touche) or Input.is_joy_button_pressed(0, pics_bouton_manette) or Input.is_joy_button_pressed(0, pics_bouton_manette_alt)
+		var pics_presse: bool = Input.is_action_pressed("shoot_center")
 		if pics_presse and _pics_fire_timer <= 0.0:
-			_pics_fire_timer = pics_cooldown
+			_pics_fire_timer = (1.0 / max(0.01, stats.proj_fire_rate)) * projectile_pics_data.cadence_ratio
 			_tirer_pics_en_cercle()
 	
 	if is_invincible:
@@ -178,26 +268,25 @@ func _physics_process(delta):
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 		
 		if overlapping_mobs.size() > 0 and not is_invincible:
-			Stats.current_health -= overlapping_mobs[0].attack_damage
+			stats.current_health -= overlapping_mobs[0].attack_damage
 			# Thorns damage
-			if Stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
-				overlapping_mobs[0].take_damage(Stats.thorns_damage)
+			if stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
+				overlapping_mobs[0].take_damage(stats.thorns_damage)
 				
 			# Calcul de la direction opposée à l'ennemi
 			var knockback_dir = overlapping_mobs[0].global_position.direction_to(global_position)
 			_knockback_velocity = knockback_dir * knockback_force  
 			GameManager.health_changed.emit()
 			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
-			if Stats.current_health <= 0.0:
+			if stats.current_health <= 0.0:
 				if prevent_death:
-					Stats.current_health = 0.1
+					stats.current_health = 0.1
 					AudioManager.play_sound_2d("gambos_hurt", global_position)
 					start_invincibility()
 				else:
 					%HurtBox.monitoring = false
 					death()
 			else:
-				
 				AudioManager.play_sound_2d("gambos_hurt", global_position)
 				start_invincibility()
 
@@ -247,12 +336,12 @@ func _tick_poison(delta: float) -> void:
 	# Dégâts périodiques (le poison ignore l'invincibilité / i-frames)
 	if _poison_tick_timer >= _poison_intervalle:
 		_poison_tick_timer -= _poison_intervalle
-		Stats.current_health -= _poison_degats_tick
+		stats.current_health -= _poison_degats_tick
 		GameManager.health_changed.emit()
 		GameManager.joy_vibration(0, 0.15, 0.3, 0.25)
-		if Stats.current_health <= 0.0:
+		if stats.current_health <= 0.0:
 			if prevent_death:
-				Stats.current_health = 0.1
+				stats.current_health = 0.1
 			else:
 				_fin_poison()
 				%HurtBox.monitoring = false
@@ -283,32 +372,30 @@ func _appliquer_teinte_poison() -> void:
 # ════════════════════════════════════════════════════════════════════
 #  PROGRESSION
 # ════════════════════════════════════════════════════════════════════
-var can_level_up: bool = true
-
 func gainXP(value: int):
-	Stats.currentXp += int(value * Stats.xp_multiplier)
-	if Stats.currentXp >= Stats.requiredXp and can_level_up:
+	stats.currentXp += int(value * stats.xp_multiplier)
+	if stats.currentXp >= stats.requiredXp and can_level_up:
 		levelUp()
 	else:
 		GameManager.xp_changed.emit()
 
 func check_level_up():
-	if Stats.currentXp >= Stats.requiredXp and can_level_up:
+	if stats.currentXp >= stats.requiredXp and can_level_up:
 		levelUp()
 
 func levelUp():
-	Stats.level += 1
+	stats.level += 1
 	$LevelUpOver.show()
 	$LevelUpOver.play("Level up")
 	$LevelUpUnder.show()
 	GameManager.joy_vibration(0, 0.8, 0.2, 0.1)
-	Stats.currentXp -= Stats.requiredXp
-	Stats.requiredXp = 10 + (Stats.level ** 2) * 2
+	stats.currentXp -= stats.requiredXp
+	stats.requiredXp = 10 + (stats.level ** 2) * 2
 	GameManager.level_up.emit()
 
 
 func gainPearl(amount: int):
-	Stats.collected_pearls += amount
+	stats.collected_pearls += amount
 	GameManager.pearls_changed.emit()
 
 
@@ -336,117 +423,7 @@ func _handle_blinking(delta):
 	if blink_timer >= 0.1:
 		animated_sprite_2d.visible = not animated_sprite_2d.visible
 		blink_timer = 0.0
-
-
-# ════════════════════════════════════════════════════════════════════
-#  INITIALISATION
-# ════════════════════════════════════════════════════════════════════
-func _on_initialize():
-	var save = SaveManager.current_save
-
-	if save.run_en_cours and save.run_player_stats != null:
-		Stats = save.run_player_stats.duplicate(true)
-
-		var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
-		var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
-		var lvl_sable_count = save.upgrade_projectile_sable_count_level
-		var lvl_bounce = save.upgrade_projectile_bounce_level
-
-		sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
-		sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
-		sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
-		sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
 		
-		var lvl_pic_push = save.upgrade_projectile_pic_push_level
-		var lvl_pic_division = save.upgrade_projectile_pic_division_level
-		
-		pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
-		pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
-
-		if projectile_data:
-			projectile_data.damage = Stats.proj_damage
-			projectile_data.fire_rate = Stats.proj_fire_rate
-			projectile_data.range = Stats.proj_range
-			projectile_data.projectile_count = Stats.proj_count
-			projectile_data.bounce_count = Stats.proj_bounce
-
-		$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
-		_maj_taille_halo()
-		_sync_hud()
-		return
-
-	var lvl_health = save.upgrade_health_level
-	var lvl_health_2 = save.upgrade_health_2_level
-	var lvl_speed = save.upgrade_speed_level
-	var lvl_speed_2 = save.upgrade_speed_2_level
-	var lvl_xp = save.upgrade_xp_gain_level
-	var lvl_regen = save.upgrade_regen_level
-	var lvl_collect = save.upgrade_collection_radius_level
-	var lvl_bubble = save.upgrade_bubble_division_level
-	var lvl_thorns = save.upgrade_thorns_level
-	var lvl_damage = save.upgrade_damage_level
-	var lvl_damage_2 = save.upgrade_damage_2_level
-	var lvl_atk_spd = save.upgrade_attack_speed_level
-	var lvl_atk_spd_2 = save.upgrade_attack_speed_2_level
-	var lvl_bounce = save.upgrade_projectile_bounce_level
-
-	var lvl_sable_pierce = save.upgrade_projectile_sable_pierce_level
-	var lvl_sable_zone = save.upgrade_projectile_sable_zone_damage_level
-	var lvl_sable_count = save.upgrade_projectile_sable_count_level
-
-	sable_pierce = UpgradeManager.get_effect_projectile_sable_pierce(lvl_sable_pierce)
-	sable_zone = UpgradeManager.get_effect_projectile_sable_zone_damage(lvl_sable_zone)
-	sable_count = UpgradeManager.get_effect_projectile_sable_count(lvl_sable_count)
-	sable_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
-	
-	var lvl_pic_push = save.upgrade_projectile_pic_push_level
-	var lvl_pic_division = save.upgrade_projectile_pic_division_level
-	
-	pic_push = UpgradeManager.get_effect_projectile_pic_push(lvl_pic_push)
-	pic_division = UpgradeManager.get_effect_projectile_pic_division(lvl_pic_division)
-
-	Stats.max_health = UpgradeManager.get_effect_health(lvl_health) + UpgradeManager.get_effect_health_2(lvl_health_2)
-	Stats.current_health = Stats.max_health
-	Stats.level = 1
-	Stats.requiredXp = 10
-	Stats.currentXp = 0
-	Stats.collected_pearls = 0
-
-	Stats.speed = UpgradeManager.get_effect_speed(lvl_speed, BASE_SPEED) + UpgradeManager.get_effect_speed_2(lvl_speed_2)
-	Stats.xp_multiplier = UpgradeManager.get_effect_xp_gain(lvl_xp)
-	Stats.regen_rate = UpgradeManager.get_effect_regen(lvl_regen)
-
-	Stats.collectRadius = UpgradeManager.get_effect_collection_radius(lvl_collect)
-	$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
-	$DeepSeaLight.texture_scale = 2.5 #* Stats.collectRadius / 330.0
-
-	var bubble_count = UpgradeManager.get_effect_bubble_division(lvl_bubble)
-
-	var thorns_effects = UpgradeManager.get_effect_thorns(lvl_thorns)
-	Stats.thorns_damage = int(thorns_effects["damage"])
-	Stats.thorns_interval = thorns_effects["interval"]
-
-	if projectile_data:
-		Stats.proj_damage = int(UpgradeManager.get_effect_damage(lvl_damage) + UpgradeManager.get_effect_damage_2(lvl_damage_2))
-		Stats.proj_fire_rate = UpgradeManager.get_effect_attack_speed(lvl_atk_spd) + UpgradeManager.get_effect_attack_speed_2(lvl_atk_spd_2)
-		Stats.proj_count = bubble_count
-		Stats.proj_bounce = UpgradeManager.get_effect_projectile_bounce(lvl_bounce)
-		projectile_data.damage = Stats.proj_damage
-		projectile_data.fire_rate = Stats.proj_fire_rate
-		projectile_data.projectile_count = Stats.proj_count
-		projectile_data.bounce_count = Stats.proj_bounce
-	_sync_hud()
-
-
-func _sync_hud():
-	var main_node = get_tree().get_first_node_in_group("Main")
-	if main_node and main_node.has_node("UI/Hud"):
-		var hud = main_node.get_node("UI/Hud")
-		hud.Stats = Stats
-		hud._update_health_bar()
-		hud._update_progres_bar()
-		hud._update_level()
-
 
 func _on_level_up_over_animation_finished() -> void:
 	$LevelUpOver.hide()
@@ -485,7 +462,7 @@ func _shoot_multiple(targets: Array) -> void:
 
 		var p_data := projectile_data.duplicate()
 		p_data.damage = max(1, int(projectile_data.damage * pow(0.5, i)))
-		p_data.speed = max(projectile_data.speed, Stats.speed * BUBBLE_SPEED_FACTOR)
+		p_data.speed = max(projectile_data.speed, stats.speed * BUBBLE_SPEED_FACTOR)
 		
 		var current_dir := dir
 		if i >= targets.size():
@@ -514,7 +491,7 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	proj.direction = dir
 	proj.appartient_au_joueur = true
 	proj.vitesse = projectile_sable_data.speed
-	proj.degats = max(1, int(Stats.proj_damage * damage_multiplier * 3))
+	proj.degats = max(1, int(stats.proj_damage * damage_multiplier * 3))
 	proj.scale = Vector2(scale_multiplier, scale_multiplier)
 
 	proj.pierce_hp = sable_pierce
@@ -522,29 +499,27 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 
 	proj.collision_layer = 4   # même layer que le projectile normal du joueur
 	proj.collision_mask = 7    # détecte les ennemis (layer 2) et obstacles (layer 1)
-
-func _on_boss_poisson_vaincu() -> void:
-	SaveManager.save_game()
+	
 	
 func _tirer_pics_en_cercle() -> void:
 	if pics_scene == null:
 		push_warning("[Joueur] pics_scene non assignée !")
 		return
-	var angle_step := TAU / float(pics_count)
-	for i in range(pics_count):
+	var angle_step := TAU / float(projectile_pics_data.count)
+	for i in range(projectile_pics_data.count):
 		var proj = pics_scene.instantiate()
 		var angle := i * angle_step
 		proj.global_position = global_position
-		proj.vitesse = pics_speed
-		proj.degats = max(1, int(Stats.proj_damage * 1.5))
+		proj.vitesse = projectile_pics_data.speed
+		proj.degats = max(1, int(stats.proj_damage * 1.5))
 
 		if "divisions_remaining" in proj:
 			proj.divisions_remaining = pic_division
 		if "max_range" in proj:
 			if pic_division > 0:
-				proj.max_range = 300.0
+				proj.max_range = projectile_pics_data.range * 0.5
 			else:
-				proj.max_range = 600.0
+				proj.max_range = projectile_pics_data.range
 
 		# ── Empêche le friendly fire : le pic appartient au joueur ──
 		if "appartient_au_joueur" in proj:
@@ -579,44 +554,40 @@ func apply_upgrade(data: upgradeData) -> void:
 func _apply_capacity_effect(effect: capacityEffectData) -> void:
 	match effect.targetCapacity:
 		capacityEffectData.TargetCapacityEffect.PLAYER_HEALTH:
-			Stats.max_health += effect.value
-			Stats.current_health += effect.value
+			stats.max_health += effect.value
+			stats.current_health += effect.value
 			GameManager.health_changed.emit()
 			GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
-			if Stats.current_health <= 0.0 or Stats.max_health <= 0.0:
+			if stats.current_health <= 0.0 or stats.max_health <= 0.0:
 				%HurtBox.monitoring = false
 				death()
 		capacityEffectData.TargetCapacityEffect.PLAYER_SPEED:
-			Stats.speed += effect.value
+			stats.speed += effect.value
 		capacityEffectData.TargetCapacityEffect.PLAYER_COLLECT_RANGE:
-			Stats.collectRadius += effect.value
-			$Area2D/PlayerCollectRadius.shape.radius = Stats.collectRadius
+			stats.collectRadius += effect.value
+			$Area2D/PlayerCollectRadius.shape.radius = stats.collectRadius
 		capacityEffectData.TargetCapacityEffect.PLAYER_DAMAGE:
-			Stats.proj_damage += effect.value
-			projectile_data.damage = Stats.proj_damage
+			stats.proj_damage += effect.value
+			projectile_data.damage = stats.proj_damage
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_SPEED:
-			Stats.proj_fire_rate += effect.value
-			if Stats.proj_fire_rate <= 0.0:
-				Stats.proj_fire_rate = 0.5
-			projectile_data.fire_rate = Stats.proj_fire_rate
+			stats.proj_fire_rate += effect.value
+			if stats.proj_fire_rate <= 0.0:
+				stats.proj_fire_rate = 0.5
+			projectile_data.fire_rate = stats.proj_fire_rate
 		capacityEffectData.TargetCapacityEffect.PLAYER_ATTACK_RANGE:
-			Stats.proj_range += effect.value
-			projectile_data.range = Stats.proj_range
+			stats.proj_range += effect.value
+			projectile_data.range = stats.proj_range
 
 
 func _add_new_skill(skill: upgradeData.available_skill) -> void:
 	match skill:
 		upgradeData.available_skill.MORE_PROJECTILE:
-			Stats.proj_count += 1
-			projectile_data.projectile_count = Stats.proj_count
+			stats.proj_count += 1
+			projectile_data.projectile_count = stats.proj_count
 
 
 func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: skillEffectData) -> void:
 	print("En cours")
-
-
-func enable_camera_smoothing():
-	$Camera.position_smoothing_enabled = true
 
 
 # ════════════════════════════════════════════════════════════════════
@@ -628,12 +599,12 @@ func take_damage(degats: float) -> void:
 
 	GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
 
-	Stats.current_health -= degats
+	stats.current_health -= degats
 	GameManager.health_changed.emit()
 
-	if Stats.current_health <= 0.0:
+	if stats.current_health <= 0.0:
 		if prevent_death:
-			Stats.current_health = 0.1
+			stats.current_health = 0.1
 			AudioManager.play_sound_2d("gambos_hurt", global_position)
 			start_invincibility()
 		else:
@@ -645,17 +616,15 @@ func take_damage(degats: float) -> void:
 
 
 func get_player_stats() -> Dictionary:
-	var stats: Dictionary = {}
-	stats = {
-		"Niveau : " : Stats.level,
-		"Vie max : " : Stats.max_health,
-		"Vitesse de déplacement : " : Stats.speed,
-		"Portée de collect : " : Stats.collectRadius,
-		"Dégâts : " : Stats.proj_damage,
-		"Vitesse d'attaque : " : Stats.proj_fire_rate,
-		"Portée d'attaque : " : Stats.proj_range
-	}
-	return stats
+	return {
+				"Niveau : " : stats.level,
+				"Vie max : " : stats.max_health,
+				"Vitesse de déplacement : " : stats.speed,
+				"Portée de collect : " : stats.collectRadius,
+				"Dégâts : " : stats.proj_damage,
+				"Vitesse d'attaque : " : stats.proj_fire_rate,
+				"Portée d'attaque : " : stats.proj_range
+			}
 
 
 func death():
@@ -681,10 +650,6 @@ func death():
 
 	await tween.finished
 	GameManager.GameOver.emit()
-
-
-func _maj_taille_halo() -> void:
-	$DeepSeaLight.texture_scale =  2.5 #* Stats.collectRadius / 330.0
 
 func _maj_apparence() -> void:
 	if SaveManager.current_save:

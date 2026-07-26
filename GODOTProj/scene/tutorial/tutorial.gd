@@ -55,7 +55,7 @@ func spawn_hud() -> void:
 	canvas.add_child(current_hud)
 	add_child(canvas)
 	
-	current_hud.Stats = current_player.Stats
+	current_hud.Stats = current_player.stats
 	current_hud._update_health_bar()
 
 func start_init_walk() -> void:

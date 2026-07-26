@@ -47,7 +47,7 @@ func setup_enemy():
 		else:
 			$DeepSeaLight.hide()
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	if not stats:
 		return
 		

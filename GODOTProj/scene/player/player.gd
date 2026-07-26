@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 # Propriétés de base
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@export var corpse_scene: PackedScene
 @export var stats: Resource
 @export var weight: float = 10.0
 @export var knockback_force: float = 300.0
@@ -628,8 +629,8 @@ func get_player_stats() -> Dictionary:
 
 
 func death():
+	# Désactive tout comportement`
 	can_level_up = false
-	# ── Désactive tout comportement ──────────────────
 	set_process(false)
 	set_physics_process(false)
 	collision_layer = 0
@@ -638,7 +639,10 @@ func death():
 	$HurtBox.monitorable = false
 	z_index = 10
 
-	# ── Lance l'animation ────────────────────────────
+	# Lance l'animation et affiche le cadavre
+	var corpse: Node = corpse_scene.instantiate()
+	get_parent().add_child(corpse)
+	corpse.global_transform = global_transform
 	$AnimatedSprite2D.play("death")
 	var tween := create_tween().set_parallel(true)
 	tween.tween_property(self, "position:y", position.y - 200.0, 2.0)\

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ra1pm354mm7t"]
+
+[ext_resource type="Texture2D" uid="uid://7tyerpkuwbhm" path="res://assets/sprites/player/Gambos_skeletton.png" id="1_gifjm"]
+[ext_resource type="Script" uid="uid://ngjlq2k6blsw" path="res://scene/player/player_corpse.gd" id="1_kfxpo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_okmih"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gifjm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PlayerAngel" type="Node2D" unique_id=925501428]
+script = ExtResource("1_kfxpo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1742143717]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_okmih")

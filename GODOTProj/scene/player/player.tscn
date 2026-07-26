@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqjaeec73uadf" path="res://scene/player/player.gd" id="1_v7pse"]
 [ext_resource type="Resource" uid="uid://bkc20cc1wudcu" path="res://ressources/playerStat.tres" id="2_5lop3"]
+[ext_resource type="PackedScene" uid="uid://ra1pm354mm7t" path="res://scene/player/player_corpse.tscn" id="2_aoq8s"]
 [ext_resource type="Resource" uid="uid://4y7sf3ctnil1" path="res://ressources/projectile/default_projectile.tres" id="3_oen5c"]
 [ext_resource type="PackedScene" uid="uid://d0edwafabgfqd" path="res://scene/projectile/projectile.tscn" id="4_5g408"]
 [ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="5_fspl2"]
@@ -71,6 +72,7 @@ z_index = 1
 collision_mask = 135
 motion_mode = 1
 script = ExtResource("1_v7pse")
+corpse_scene = ExtResource("2_aoq8s")
 stats = ExtResource("2_5lop3")
 projectile_data = ExtResource("3_oen5c")
 projectile_scene = ExtResource("4_5g408")
@@ -81,7 +83,7 @@ pics_scene = ExtResource("5_fspl2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1464538352]
 sprite_frames = ExtResource("7_sc4n2")
-animation = &"king_walk"
+animation = &"skeletton"
 
 [node name="PlayerHitBox" type="CollisionShape2D" parent="." unique_id=801343924]
 shape = SubResource("CircleShape2D_v7pse")

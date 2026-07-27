@@ -307,7 +307,16 @@ func _move_with_push(delta: float) -> void:
 
 		motion = collision.get_remainder().slide(collision.get_normal())
 
-
+func _input(event: InputEvent) -> void:
+	# Tirer projectile sable à la souris
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if _sable_fire_timer <= 0.0:
+			var viewport_size := get_viewport().get_visible_rect().size
+			var rel_pos: Vector2 = event.position - viewport_size / 2
+			var norm_dir := rel_pos.normalized()
+			_tirer_sable(norm_dir)
+			_sable_fire_timer = (1.0 / max(0.01, stats.proj_fire_rate)) * projectile_sable_data.cadence_ratio
+		
 # ════════════════════════════════════════════════════════════════════
 #  POISON
 # ════════════════════════════════════════════════════════════════════

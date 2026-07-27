@@ -10,6 +10,7 @@ var _knockback_velocity: Vector2 = Vector2.ZERO
 @export var invincibility_duration: float = 1.5
 var is_invincible: bool = false  # ne peut recevoir aucun dégat
 var prevent_death: bool = false  # minore les hp à 0.1
+var is_dead: bool = false
 var can_shoot: bool = true  # tire plus aucun projectile
 var can_level_up: bool = true  # accumule l'xp sans level up
 var blink_timer: float = 0.0
@@ -264,11 +265,10 @@ func _physics_process(delta):
 	
 	if is_invincible:
 		_handle_blinking(delta)
-		
-	if %HurtBox.monitoring:
+	elif %HurtBox.monitoring:
 		var overlapping_mobs = %HurtBox.get_overlapping_bodies()
 		
-		if overlapping_mobs.size() > 0 and not is_invincible:
+		if overlapping_mobs.size() > 0:
 			stats.current_health -= overlapping_mobs[0].attack_damage
 			# Thorns damage
 			if stats.thorns_damage > 0 and overlapping_mobs[0].has_method("take_damage"):
@@ -603,7 +603,7 @@ func _upgrade_existing_skill(skill_type: upgradeData.available_skill, effect: sk
 #  DÉGÂTS & MORT
 # ════════════════════════════════════════════════════════════════════
 func take_damage(degats: float) -> void:
-	if is_invincible:
+	if is_invincible or is_dead:
 		return
 
 	GameManager.joy_vibration(0, 0.2, 0.5, 0.4)
@@ -637,8 +637,9 @@ func get_player_stats() -> Dictionary:
 
 
 func death():
-	# Désactive tout comportement`
+	# Désactive tout comportement
 	can_level_up = false
+	is_dead = true
 	set_process(false)
 	set_physics_process(false)
 	collision_layer = 0

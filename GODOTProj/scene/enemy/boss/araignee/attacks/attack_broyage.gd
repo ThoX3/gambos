@@ -29,8 +29,6 @@ func executer(boss) -> void:
 				if distance_joueur <= rayon_attaque:
 					if boss.player.has_method("take_damage"):
 						boss.player.take_damage(boss.stats.attack_damage)
-					elif boss.player.has_method("recevoir_degats"):
-						boss.player.recevoir_degats(boss.stats.attack_damage)
 						
 					a_inflige_degats = true
 				

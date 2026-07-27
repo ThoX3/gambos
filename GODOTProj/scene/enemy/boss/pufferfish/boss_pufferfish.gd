@@ -26,10 +26,15 @@ extends Boss_Base
 @export var nombre_pics: int = 16
 @export var vitesse_pics: float = 600.0
 
-var _attaques_instanciees: Array[BossAttack] = []
-var _attaque_forcee: BossAttack = null
-var _en_train_de_combo: bool = false
-var _derniere_attaque_id: String = ""
+@export_category("Timings (Secondes)")
+@export var temps_pre_explosion_pics: float = 0.4
+@export var temps_post_explosion_pics: float = 0.3
+@export var temps_pre_gonflement: float = 0.4
+@export var temps_pre_charge: float = 0.5
+@export var temps_fin_charge: float = 0.3
+@export var temps_post_charge: float = 0.3
+
+
 
 var _est_mort: bool = false
 var _en_fumee: bool = false
@@ -46,8 +51,6 @@ var _physics_process_special: Callable = Callable()
 
 func _ready() -> void:
 	super._ready()
-	for script in stats.attack_scripts:
-		_attaques_instanciees.append(script.new())
 	_echelle_normale = scale
 	sprite.play("walk")
 
@@ -81,103 +84,8 @@ func _peut_attaquer() -> bool:
 	return not _etat_special_actif
 
 
-func _start_attack() -> void:
-	if _en_train_de_combo:
-		return
-	super._start_attack()
-	is_attacking = false
-	_en_train_de_combo = true
-
-	var distance = global_position.distance_to(player.global_position)
-	var temps_actuel = Time.get_ticks_msec()
-	var attaque_choisie: BossAttack = null
-
-	while _en_train_de_combo:
-		if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-			return
-		distance = global_position.distance_to(player.global_position)
-		temps_actuel = Time.get_ticks_msec()
-		attaque_choisie = null
-
-		if _attaque_forcee != null:
-			if temps_actuel >= _attaque_forcee._prochain_lancement_possible:
-				attaque_choisie = _attaque_forcee
-			else:
-				_attaque_forcee = null
-
-		if attaque_choisie == null:
-			var attaques_possibles: Array[BossAttack] = []
-			var somme_des_poids: float = 0.0
-			for attaque in _attaques_instanciees:
-				var pas_rep = attaque.id != _derniere_attaque_id
-				if pas_rep and attaque.peut_attaquer(distance, temps_actuel):
-					attaques_possibles.append(attaque)
-					somme_des_poids += _poids(attaque)
-
-			if attaques_possibles.is_empty():
-				break
-
-			var tirage = randf_range(0.0, somme_des_poids)
-			var cumul: float = 0.0
-			for attaque in attaques_possibles:
-				cumul += _poids(attaque)
-				if tirage <= cumul:
-					attaque_choisie = attaque
-					break
-
-		if attaque_choisie != null:
-			_derniere_attaque_id = attaque_choisie.id
-			attaque_choisie._prochain_lancement_possible = temps_actuel + int(attaque_choisie.cooldown_attaque * 1000.0)
-			await attaque_choisie.executer(self)
-			if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-				return
-			_attaque_forcee = null
-			if attaque_choisie.combo_suivant_id != "":
-				for attaque in _attaques_instanciees:
-					if attaque.id == attaque_choisie.combo_suivant_id:
-						_attaque_forcee = attaque
-						break
-			if _attaque_forcee != null:
-				if not await _attendre_timer(0.05): return
-			else:
-				break
-		else:
-			break
-
-	_en_train_de_combo = false
-	_attaque_forcee = null
-	_attack_timer = 0.15
-	_end_attack()
-	if not _est_mort:
-		sprite.play("walk")
 
 
-# ── Helpers ───────────────────────────────────────────────────────────
-
-func _poids(attaque: BossAttack) -> float:
-	return attaque.poids if "poids" in attaque else 1.0
-
-
-# ── Awaits sécurisés (appelés par les scripts BossAttack via boss._attendre_xxx) ──
-
-func _attendre_frame() -> bool:
-	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-		return false
-	await get_tree().process_frame
-	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
-
-
-func _attendre_timer(duree: float) -> bool:
-	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-		return false
-	await get_tree().create_timer(duree, false).timeout  # false = ne pas ignorer la pause
-	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
-
-func _attendre_anim() -> bool:
-	if _est_mort or not is_instance_valid(self) or not is_inside_tree():
-		return false
-	await sprite.animation_finished
-	return _est_mort == false and is_instance_valid(self) and is_inside_tree()
 
 
 # ── Mort ──────────────────────────────────────────────────────────────

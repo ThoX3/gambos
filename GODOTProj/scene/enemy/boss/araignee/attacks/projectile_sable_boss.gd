@@ -1,6 +1,6 @@
 extends Area2D
 
-var direction: Vector2 = Vector2.ZERO : set = _set_direction # Utilisez un setter pour changer l'angle dès que la direction change
+var direction: Vector2 = Vector2.ZERO : set = _set_direction
 @export var vitesse: float = 600.0
 @export var degats: int = 10
 var est_actif: bool = true
@@ -11,7 +11,7 @@ var _last_hit_enemy: Node2D = null
 var max_range: float = 1000.0
 var _distance_traveled: float = 0.0
 
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 const ANGLE_CORRECTION : float = 3 * PI / 4 
 
@@ -46,31 +46,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if not est_actif:
 		return
 	
-	if body is Enemy_Base:
-		if body == _last_hit_enemy:
-			return
-		_last_hit_enemy = body
-		
-		if zone_radius > 0.0:
-			_apply_zone_damage(body)
-		else:
+	GameManager.joy_vibration(0, 0.2, 0.5, 0.2)
+	if body.is_in_group("Player") or body is TileMapLayer:
+		if body.is_in_group("Player"):
 			body.take_damage(degats)
-		
-		if pierce_hp > 0:
-			if body.stats:
-				pierce_hp -= body.stats.max_hp
-			else:
-				pierce_hp -= 10 # Fallback
-		else:
-			pierce_hp -= 1
-			
-		if pierce_hp > 0:
-			# Pierce: continue flying
-			pass
-		else:
 			_destroy()
-	elif body is TileMapLayer:
-		if not _is_near_map_border():
+		elif not _is_near_map_border():
 			_destroy()
 
 func _destroy() -> void:

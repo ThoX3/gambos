@@ -490,7 +490,6 @@ func _spawn_single_sable(dir: Vector2, damage_multiplier: float, scale_multiplie
 	get_parent().add_child(proj)
 	proj.global_position = global_position
 	proj.direction = dir
-	proj.appartient_au_joueur = true
 	proj.vitesse = projectile_sable_data.speed
 	proj.degats = max(1, int(stats.proj_damage * damage_multiplier * 3))
 	proj.scale = Vector2(scale_multiplier, scale_multiplier)

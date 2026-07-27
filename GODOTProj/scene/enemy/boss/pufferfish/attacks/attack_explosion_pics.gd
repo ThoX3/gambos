@@ -21,7 +21,7 @@ func executer(boss) -> void:
 
 	if not boss._est_mort:
 		boss.sprite.play("walk")
-	if not await boss._attendre_timer(0.3): return
+	if not await boss._attendre_timer(boss.temps_post_explosion_pics): return
 
 
 func _tirer_pics_en_cercle(boss) -> void:

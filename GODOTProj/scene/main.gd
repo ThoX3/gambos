@@ -100,6 +100,9 @@ func _on_resume() -> void:
 func _on_monde_termine(_vague: int) -> void:
 	if current_player:
 		current_player.can_level_up = false
+	$UI/pause_menu._disable_pause = true
+	$UI/Hud/MarginContainer/PearlLayer.layer = 0
+	
 	var wm = $World/WorldManager
 	var monde_suivant = wm.get_nom_monde_suivant()
 	var index_suivant = wm._index_monde_courant + 1
@@ -117,6 +120,11 @@ func _on_monde_termine(_vague: int) -> void:
 	tween.tween_callback(func():
 		fade_rect.visible = false
 	)
+	
+	await tween.finished
+	
+	$UI/pause_menu._disable_pause = false
+	$UI/Hud/MarginContainer/PearlLayer.layer = 5
 
 func _maj_record_vague(numero: int) -> void:
 	# Met à jour la vague max ATTEINTE dès l'entrée dans la vague.
@@ -133,7 +141,6 @@ func change_level(new_map_scene: PackedScene) -> void:
 
 	var ancienne := current_map
 
-	# Solde un fondu précédent encore en cours (évite d'empiler 3 maps).
 	if is_instance_valid(_map_en_sortie):
 		_map_en_sortie.queue_free()
 		_map_en_sortie = null
@@ -142,12 +149,9 @@ func change_level(new_map_scene: PackedScene) -> void:
 	current_map.modulate.a = 0.0
 	game_world.add_child(current_map)
 
-	# (1) Réévaluation IMMÉDIATE : si la nouvelle map est une zone deep_sea,
-	#     la bulle s'allume dès le début du fondu.
 	_rafraichir_deep_sea_light()
 
 	if ancienne == null:
-		# Démarrage : pas d'ancienne map à faire fondre.
 		var t_simple := create_tween()
 		t_simple.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
 		return

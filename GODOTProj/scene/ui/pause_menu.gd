@@ -8,6 +8,7 @@ signal settings_button_pressed
 
 ## Empêche le toggle pause quand le bestiaire est ouvert par-dessus
 var _bestiary_open: bool = false
+var _disable_pause: bool = false
 
 func _ready() -> void:
 	hide()
@@ -45,7 +46,7 @@ func toggle_pause():
 					level_up._focus_card(level_up._focused_card_index)
 			else:
 				get_tree().paused = false
-		else:
+		elif not _disable_pause:
 			visible = true
 			get_tree().paused = true
 			update_stats_display()
@@ -73,7 +74,7 @@ func _on_quit_pressed() -> void:
 
 func _on_bestiary_pressed() -> void:
 	_bestiary_open = true
-	visible = false  # Cache le menu pause visuellement
+	visible = false  
 	bestiary_button_pressed.emit()
 	
 func _on_settings_pressed():

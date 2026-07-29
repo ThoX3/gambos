@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://credits_uid"]
+[gd_scene format=3 uid="uid://dj7ly38ul4kim"]
 
-[ext_resource type="Script" path="res://scene/ui/credits.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://drgr26ehew23j" path="res://scene/ui/credits.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://crxk1fnfcd5ip" path="res://assets/sprites/background/settings/settings_background.jpg" id="2_bg"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="3_font_title"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="4_font_text"]
+[ext_resource type="FontVariation" uid="uid://cbvc6kusfq3it" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="3_font_title"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="4_font_text"]
 [ext_resource type="Texture2D" uid="uid://46golgpvnm6d" path="res://assets/sprites/pearl_shop/buttons/xbox-b.png" id="5_icon"]
 
 [sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_35imh"]
@@ -13,7 +13,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_bc2px"]
 events = [SubResource("InputEventJoypadButton_35imh")]
 
-[node name="Credits" type="Control"]
+[node name="Credits" type="Control" unique_id=229483851]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=251689304]
 modulate = Color(0.2516, 0.33448, 0.37, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -34,7 +34,7 @@ grow_vertical = 2
 texture = ExtResource("2_bg")
 stretch_mode = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2050502085]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,58 +44,59 @@ grow_vertical = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1912048503]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_font_title")
 theme_override_font_sizes/font_size = 27
 text = "Crédits"
 horizontal_alignment = 1
 
-[node name="CreditsList" type="VBoxContainer" parent="VBoxContainer"]
+[node name="CreditsList" type="VBoxContainer" parent="VBoxContainer" unique_id=959444003]
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Name1" type="Label" parent="VBoxContainer/CreditsList"]
+[node name="Name1" type="Label" parent="VBoxContainer/CreditsList" unique_id=726640113]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 text = "Hippolyte Cosserat"
 horizontal_alignment = 1
 
-[node name="Name2" type="Label" parent="VBoxContainer/CreditsList"]
+[node name="Name2" type="Label" parent="VBoxContainer/CreditsList" unique_id=1445738571]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 text = "Valentin Dronne"
 horizontal_alignment = 1
 
-[node name="Name3" type="Label" parent="VBoxContainer/CreditsList"]
+[node name="Name3" type="Label" parent="VBoxContainer/CreditsList" unique_id=1808010727]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 text = "Émeline Gehanno"
 horizontal_alignment = 1
 
-[node name="Name4" type="Label" parent="VBoxContainer/CreditsList"]
+[node name="Name4" type="Label" parent="VBoxContainer/CreditsList" unique_id=1629275590]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 text = "Florian Heme"
 horizontal_alignment = 1
 
-[node name="Name5" type="Label" parent="VBoxContainer/CreditsList"]
+[node name="Name5" type="Label" parent="VBoxContainer/CreditsList" unique_id=1969775982]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 text = "Antony Huyhn"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1726408574]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_font_text")
 theme_override_font_sizes/font_size = 18
 shortcut = SubResource("Shortcut_bc2px")
+shortcut_in_tooltip = false
 text = " Retour"
 icon = ExtResource("5_icon")

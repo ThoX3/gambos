@@ -50,7 +50,8 @@ func toggle_pause():
 			visible = true
 			get_tree().paused = true
 			update_stats_display()
-			%Resume.grab_focus()
+			if GameManager.game_played_with_controller:
+				%Resume.grab_focus()
 
 func update_stats_display():
 	for child in %PlayerStats.get_children():
@@ -83,7 +84,8 @@ func _on_settings_pressed():
 
 func notify_settings_closed() -> void:
 	visible = true
-	%Resume.grab_focus()
+	if GameManager.game_played_with_controller:
+		%Resume.grab_focus()
 
 func notify_bestiary_closed() -> void:
 	var level_up = get_node_or_null("../LevelUp")
@@ -95,7 +97,8 @@ func notify_bestiary_closed() -> void:
 		GameManager.in_game = true
 	_bestiary_open = false
 	visible = true   # Réaffiche le menu pause
-	%Resume.grab_focus()
+	if GameManager.game_played_with_controller:
+		%Resume.grab_focus()
 	
 func _display_quit_info() -> void:
 	%QuitDescription.text = "Retourne au menu principal tout en gardant les perles accumulées pendant la partie."

@@ -37,15 +37,17 @@ func _ready() -> void:
 		if node.has_signal("buy_requested"):
 			node.buy_requested.connect(_on_node_buy_requested)
 		if node.has_node("TextureButton"):
-			node.get_node("TextureButton").focus_entered.connect(_on_node_focus_entered.bind(node))
-	
+			var node_button: TextureButton = node.get_node("TextureButton")
+			node_button.focus_entered.connect(_on_node_focus_entered.bind(node))
+			node_button.mouse_entered.connect(node_button.grab_focus)
+				
 	visibility_changed.connect(_on_visibility_changed)
 
 	node_infos_window.visible = false
 
 	refresh_shop(true)
 	
-	if visible:
+	if visible and GameManager.game_played_with_controller:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
 		
 	# ── Musique et son ─────────────────────────
@@ -53,6 +55,18 @@ func _ready() -> void:
 		button.focus_entered.connect(_on_navigation_menu)
 		button.mouse_entered.connect(_on_navigation_menu)
 		button.pressed.connect(_on_validation_menu)
+		
+	# Toggle l'icon des boutons selon le mode d'input
+	if GameManager.game_played_with_controller and menu_button.has_meta("icon") and play_button.has_meta("icon"):
+		menu_button.icon = menu_button.get_meta("icon")
+		play_button.icon = play_button.get_meta("icon")
+		$MarginContainer/VBoxContainer/NavigationButtons/BuyButton.visible = true
+	else:
+		menu_button.set_meta("icon", menu_button.icon)
+		menu_button.icon = null
+		play_button.set_meta("icon", play_button.icon)
+		play_button.icon = null
+		$MarginContainer/VBoxContainer/NavigationButtons/BuyButton.visible = false
 		
 func _process(delta: float) -> void:
 	if currently_focused_node and node_infos_window.visible:
@@ -70,7 +84,7 @@ func _process(delta: float) -> void:
 		node_infos_window.global_position = node_infos_window.global_position.lerp(target_pos, 15.0 * delta)
 
 func _on_visibility_changed() -> void:
-	if visible:
+	if visible and GameManager.game_played_with_controller:
 		first_node.get_node("TextureButton").grab_focus.call_deferred()
 	else:
 		if node_infos_window:

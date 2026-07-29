@@ -35,6 +35,13 @@ func _ready() -> void:
 	haptic_slider.value_changed.connect(_on_haptic_changed)
 	font_checkbox.toggled.connect(_on_font_toggled)
 	back_button.pressed.connect(_on_back_pressed)
+	
+	# Toggle l'icon du bouton de retour selon le mode d'input
+	if GameManager.game_played_with_controller and back_button.has_meta("icon"):
+		back_button.icon = back_button.get_meta("icon")
+	else:
+		back_button.set_meta("icon", back_button.icon)
+		back_button.icon = null
 
 
 func _on_music_volume_changed(value: float) -> void:

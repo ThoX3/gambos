@@ -171,5 +171,6 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("6_wy5py")
 theme_override_font_sizes/font_size = 18
 shortcut = SubResource("Shortcut_wy5py")
+shortcut_in_tooltip = false
 text = "Retour"
 icon = ExtResource("7_qprn2")

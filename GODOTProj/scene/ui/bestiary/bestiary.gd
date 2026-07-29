@@ -34,6 +34,13 @@ func _ready() -> void:
 	# Fonctionne même quand le jeu est en pause
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	back_button.pressed.connect(_on_back)
+	
+	# Toggle l'icon du bouton de retour selon le mode d'input
+	if GameManager.game_played_with_controller and back_button.has_meta("icon"):
+		back_button.icon = back_button.get_meta("icon")
+	else:
+		back_button.set_meta("icon", back_button.icon)
+		back_button.icon = null
 
 ## Ouvre le bestiaire depuis le menu principal
 func setup(max_wave_reached: int) -> void:
@@ -56,6 +63,9 @@ func _refresh() -> void:
 	_focus_first_card()
 
 func _focus_first_card() -> void:
+	if not GameManager.game_played_with_controller:
+		return
+		
 	# Cherche le premier CardButton dans les cartes ennemies
 	for card in enemy_container.get_children():
 		var btn = card.get_node_or_null("%CardButton")

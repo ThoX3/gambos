@@ -29,11 +29,13 @@ func _ready() -> void:
 	
 	check_for_save()
 	if is_save_available:
-		resume_button.grab_focus.call_deferred()
+		if GameManager.game_played_with_controller:
+			resume_button.grab_focus.call_deferred()
 		play_button.text = "Se sacrifier et rejouer"
 		pearl_shop_button.text = "Se sacrifier et aller au temple"
 	else:
-		play_button.grab_focus.call_deferred()
+		if GameManager.game_played_with_controller:
+			play_button.grab_focus.call_deferred()
 		pearl_shop_button.text = "Aller au temple"
 	
 	# ── Musique et son ─────────────────────────
@@ -111,5 +113,5 @@ func _on_validation_menu() -> void:
 	AudioManager.play_sound_2d("menu_press", Vector2.ZERO)
 	
 func setup_focus():
-	if play_button:
+	if play_button and GameManager.game_played_with_controller:
 		play_button.grab_focus()

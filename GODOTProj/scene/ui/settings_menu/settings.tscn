@@ -153,5 +153,6 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_35imh")
 theme_override_font_sizes/font_size = 18
 shortcut = SubResource("Shortcut_bc2px")
+shortcut_in_tooltip = false
 text = " Retour"
 icon = ExtResource("2_q6tgv")

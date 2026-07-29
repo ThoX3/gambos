@@ -228,18 +228,21 @@ func open_bestiary() -> void:
 func open_settings_from_main_menu() -> void:
 	_settings_opened_from_pause = false
 	show_menu($UI/Settings)
-	$UI/Settings.back_button.grab_focus()
+	if GameManager.game_played_with_controller:
+		$UI/Settings.back_button.grab_focus()
 
 func open_credits() -> void:
 	show_menu($UI/Credits)
-	$UI/Credits.back_button.grab_focus()
+	if GameManager.game_played_with_controller:
+		$UI/Credits.back_button.grab_focus()
 	
 func open_settings_from_pause() -> void:
 	_settings_opened_from_pause = true
 	var settings = $UI/Settings
 	$UI.move_child(settings, $UI.get_child_count() - 1)
 	settings.visible = true
-	settings.back_button.grab_focus()
+	if GameManager.game_played_with_controller:
+		settings.back_button.grab_focus()
 
 func _on_settings_back() -> void:
 	$UI/Settings.visible = false

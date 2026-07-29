@@ -40,7 +40,8 @@ func afficher(nom_monde_suivant: String, index_suivant: int) -> void:
 	
 	visible = true
 	get_tree().paused = true
-	btn_continuer.grab_focus()
+	if GameManager.game_played_with_controller:
+		btn_continuer.grab_focus()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

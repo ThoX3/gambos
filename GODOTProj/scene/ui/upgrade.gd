@@ -24,7 +24,7 @@ func _input(event: InputEvent) -> void:
 		_focus_card(_focused_card_index)
 
 func _focus_card(index: int) -> void:
-	if index < _cards.size():
+	if index < _cards.size() and GameManager.game_played_with_controller:
 		_cards[index].get_node("TextureButton").grab_focus()
 
 func _on_level_update():
@@ -34,7 +34,9 @@ func _on_level_update():
 	_focused_card_index = 0
 	var random_cards = UpgradeManager.get_random_upgrades(3)
 	display_upgrades(random_cards)
-	%Card.get_node("TextureButton").grab_focus()
+	
+	if GameManager.game_played_with_controller:
+		%Card.get_node("TextureButton").grab_focus()
 	
 
 func display_upgrades(cards: Array[upgradeData]):

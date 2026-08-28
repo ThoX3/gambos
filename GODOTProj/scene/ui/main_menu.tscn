@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cp0apbhuwm2kb" path="res://scene/ui/main_menu.gd" id="1_s6uko"]
 [ext_resource type="Texture2D" uid="uid://dac1i4n7sccgj" path="res://assets/sprites/main_menu/background.png" id="2_vww0c"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelHalbfett.tres" id="3_k3dtv"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_k3dtv"]
-[ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="5_e5dty"]
+[ext_resource type="FontVariation" uid="uid://b5r14v10d3ad6" path="res://assets/fonts/dynamic/DePixelBreit.tres" id="4_k3dtv"]
+[ext_resource type="FontVariation" uid="uid://ciavy8f1ibl1t" path="res://assets/fonts/dynamic/DePixelKlein.tres" id="5_e5dty"]
 
 [node name="MainMenu" type="Control" unique_id=1274161686]
 layout_mode = 3
@@ -52,7 +52,7 @@ theme_override_colors/font_outline_color = Color(0.039215688, 0.32156864, 0.4784
 theme_override_constants/outline_size = 18
 theme_override_fonts/font = ExtResource("3_k3dtv")
 theme_override_font_sizes/font_size = 54
-text = "The Choosen"
+text = "The Chosen"
 horizontal_alignment = 1
 vertical_alignment = 1
 

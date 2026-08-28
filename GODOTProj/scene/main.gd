@@ -222,6 +222,7 @@ func open_main_menu() -> void:
 	# On force le moteur à oublier l'ancien focus du jeu (ex: bouton de pause ou upgrade)
 	get_viewport().gui_release_focus()
 	$UI/MainMenu.setup_focus()
+	$UI/MainMenu.check_for_save()
 
 func open_bestiary() -> void:
 	GameManager.in_game = false

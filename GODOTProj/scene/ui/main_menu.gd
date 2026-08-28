@@ -28,15 +28,6 @@ func _ready() -> void:
 	credits_button.pressed.connect(open_credits)
 	
 	check_for_save()
-	if is_save_available:
-		if GameManager.game_played_with_controller:
-			resume_button.grab_focus.call_deferred()
-		play_button.text = "Se sacrifier et rejouer"
-		pearl_shop_button.text = "Se sacrifier et aller au temple"
-	else:
-		if GameManager.game_played_with_controller:
-			play_button.grab_focus.call_deferred()
-		pearl_shop_button.text = "Aller au temple"
 	
 	# ── Musique et son ─────────────────────────
 	if not GameManager.gotoshop:
@@ -105,6 +96,17 @@ func check_for_save():
 		pearl_shop_button.visible = false
 		bestiary_button.visible = false
 		credits_button.visible = false
+
+	if is_save_available:
+		if GameManager.game_played_with_controller:
+			resume_button.grab_focus.call_deferred()
+		play_button.text = "Se sacrifier et rejouer"
+		pearl_shop_button.text = "Se sacrifier et aller au temple"
+	else:
+		if GameManager.game_played_with_controller:
+			play_button.grab_focus.call_deferred()
+		play_button.text = "Jouer"
+		pearl_shop_button.text = "Aller au temple"
 
 func _on_navigation_menu() -> void:
 	AudioManager.play_sound_2d("menu_selection", Vector2.ZERO)

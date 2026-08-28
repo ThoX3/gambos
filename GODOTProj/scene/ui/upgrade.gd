@@ -59,6 +59,7 @@ func display_upgrades(cards: Array[upgradeData]):
 	if not %Card3.selected.is_connected(_on_card_selected):
 		%Card3.selected.connect(_on_card_selected)
 	manage_reroll()
+	GameManager.enable_menu_cursor()
 
 func _on_card_selected(data: upgradeData):
 	if player:
@@ -69,6 +70,7 @@ func _on_card_selected(data: upgradeData):
 		hud.pearl_count_show_permanent(false)
 	get_tree().paused = false
 	GameManager.in_game = true
+	GameManager.enable_in_game_cursor()
 	
 	# Ralenti en sortie d'amélioration (désactivé — la vitesse du joueur est conservée)
 	#Engine.time_scale = 0.1

@@ -7,6 +7,7 @@ class_name SaveData
 @export var setting_haptic_strength: float = 1.0
 @export var setting_use_pixel_font: bool = true
 @export var setting_show_damage_numbers: bool = true
+@export var use_custom_cursors: bool = true
 
 # Tutorial
 @export var tutorial_completed: bool = false

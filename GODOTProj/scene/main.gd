@@ -64,6 +64,8 @@ func setup_game_environment() -> void:
 	
 	if not GameManager.GameOver.is_connected(_on_GameOver):
 		GameManager.GameOver.connect(_on_GameOver)
+		
+	GameManager.enable_in_game_cursor()
 	
 	# Hide any left menu
 	for child in ui_layer.get_children():
@@ -205,6 +207,7 @@ func show_menu(menu_to_show: Control) -> void:
 		if child is Control:
 			child.visible = false 
 	menu_to_show.visible = true
+	GameManager.enable_menu_cursor()
 
 func open_pearl_shop(is_from_game_over : bool) -> void:
 	GameManager.in_game = false

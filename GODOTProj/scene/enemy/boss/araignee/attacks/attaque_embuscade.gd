@@ -21,7 +21,8 @@ func executer(boss) -> void:
 	
 	while is_instance_valid(boss) and boss.is_inside_tree() and boss.global_position.distance_to(boss.player.global_position) > 80.0:		
 		var delta = boss.get_process_delta_time()
-		boss.global_position = boss.global_position.move_toward(boss.player.global_position, vitesse_souterraine * delta)
+		var velocity = boss.global_position.direction_to(boss.player.global_position) * vitesse_souterraine
+		boss.move_and_collide(velocity * delta)
 		
 		if boss.global_position.x > boss.player.global_position.x:
 			boss.sprite.flip_h = true
@@ -31,7 +32,7 @@ func executer(boss) -> void:
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return
 			
-		await boss.get_tree().process_frame
+		if not await boss._attendre_frame(): return
 	
 	if not is_instance_valid(boss) or not boss.is_inside_tree():
 		return
@@ -77,7 +78,7 @@ func executer(boss) -> void:
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return
 			
-		await boss.get_tree().process_frame
+		if not await boss._attendre_frame(): return
 		
 	# --- NETTOYAGE FINAL ---
 	if is_instance_valid(boss) and boss.is_inside_tree():

@@ -6,7 +6,6 @@ var direction: Vector2 = Vector2.ZERO : set = _set_direction
 var est_actif: bool = true
 var pierce_hp: int = 0
 var zone_radius: float = 0.0
-var _last_hit_enemy: Node2D = null
 
 var max_range: float = 1000.0
 var _distance_traveled: float = 0.0
@@ -46,9 +45,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if not est_actif:
 		return
 	
-	GameManager.joy_vibration(0, 0.2, 0.5, 0.2)
 	if body.is_in_group("Player") or body is TileMapLayer:
 		if body.is_in_group("Player"):
+			GameManager.joy_vibration(0, 0.2, 0.5, 0.2)
 			body.take_damage(degats)
 			_destroy()
 		elif not _is_near_map_border():

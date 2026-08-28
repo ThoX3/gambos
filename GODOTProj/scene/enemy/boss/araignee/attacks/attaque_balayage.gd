@@ -30,7 +30,10 @@ func executer(boss) -> void:
 		if frame_actuelle == 8:
 			var vitesse_dash = 2500.0
 			var delta = boss.get_process_delta_time()
-			boss.global_position = boss.global_position.move_toward(boss.player.global_position, vitesse_dash * delta)
+			# Stopper le dash si on est très proche pour ne pas superposer et éjecter le joueur
+			if boss.global_position.distance_to(boss.player.global_position) > 100.0:
+				var velocity = boss.global_position.direction_to(boss.player.global_position) * vitesse_dash
+				boss.move_and_collide(velocity * delta)
 			
 		if frame_actuelle == 9:
 			if position_joueur_frame_9 == Vector2.ZERO:
@@ -72,7 +75,7 @@ func executer(boss) -> void:
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return
 			
-		await boss.get_tree().process_frame
+		if not await boss._attendre_frame(): return
 		
 	if is_instance_valid(boss) and boss.is_inside_tree():
 		boss.sprite.flip_h = direction_originale
@@ -104,7 +107,5 @@ func _lancer_plusieurs_projectiles(boss, cible: Vector2) -> void:
 			
 			if "direction" in proj:
 				proj.direction = direction_finale
-				
-			boss.get_parent().add_child(proj)
 	else:
 		push_error("❌ ERREUR : Tu as oublié de mettre la scène du projectile dans l'inspecteur du Boss !")

@@ -42,7 +42,7 @@ func executer(boss) -> void:
 		if not is_instance_valid(boss) or not boss.is_inside_tree():
 			return	
 				
-		await boss.get_tree().process_frame
+		if not await boss._attendre_frame(): return
 		
 	# --- NETTOYAGE FINAL ---
 	if is_instance_valid(boss) and boss.is_inside_tree():

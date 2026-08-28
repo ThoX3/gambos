@@ -61,6 +61,9 @@ func _start_attack() -> void:
 	while _en_train_de_combo:
 		if not is_instance_valid(self) or not is_inside_tree():
 			return
+		if not is_instance_valid(player) or ("is_dead" in player and player.is_dead):
+			break
+			
 		distance = global_position.distance_to(player.global_position)
 		temps_actuel = Time.get_ticks_msec()
 		attaque_choisie = null
@@ -141,6 +144,8 @@ func _attendre_frame() -> bool:
 	if not is_instance_valid(self) or not is_inside_tree():
 		return false
 	await get_tree().process_frame
+	while is_instance_valid(self) and is_inside_tree() and get_tree().paused:
+		await get_tree().process_frame
 	return is_instance_valid(self) and is_inside_tree()
 
 func _attendre_timer(duree: float) -> bool:

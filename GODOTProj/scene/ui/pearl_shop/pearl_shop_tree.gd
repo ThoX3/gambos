@@ -57,14 +57,17 @@ func _ready() -> void:
 		button.pressed.connect(_on_validation_menu)
 		
 	# Toggle l'icon des boutons selon le mode d'input
-	if GameManager.game_played_with_controller and menu_button.has_meta("icon") and play_button.has_meta("icon"):
+	if not menu_button.has_meta("icon"):
+		menu_button.set_meta("icon", menu_button.icon)
+	if not play_button.has_meta("icon"):
+		play_button.set_meta("icon", play_button.icon)
+		
+	if GameManager.game_played_with_controller:
 		menu_button.icon = menu_button.get_meta("icon")
 		play_button.icon = play_button.get_meta("icon")
 		$MarginContainer/VBoxContainer/NavigationButtons/BuyButton.visible = true
 	else:
-		menu_button.set_meta("icon", menu_button.icon)
 		menu_button.icon = null
-		play_button.set_meta("icon", play_button.icon)
 		play_button.icon = null
 		$MarginContainer/VBoxContainer/NavigationButtons/BuyButton.visible = false
 		

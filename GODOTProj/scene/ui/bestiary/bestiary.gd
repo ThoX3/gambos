@@ -36,10 +36,12 @@ func _ready() -> void:
 	back_button.pressed.connect(_on_back)
 	
 	# Toggle l'icon du bouton de retour selon le mode d'input
-	if GameManager.game_played_with_controller and back_button.has_meta("icon"):
+	if not back_button.has_meta("icon"):
+		back_button.set_meta("icon", back_button.icon)
+		
+	if GameManager.game_played_with_controller:
 		back_button.icon = back_button.get_meta("icon")
 	else:
-		back_button.set_meta("icon", back_button.icon)
 		back_button.icon = null
 
 ## Ouvre le bestiaire depuis le menu principal

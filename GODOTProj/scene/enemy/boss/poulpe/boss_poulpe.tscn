@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dg8gwtoavv24a" path="res://scene/enemy/boss/poulpe/boss_poulpe.gd" id="1_ofeu8"]
 [ext_resource type="PackedScene" uid="uid://ddkkn0banrjr7" path="res://scene/projectile/projectile_ink_boss.tscn" id="2_ofeu8"]
+[ext_resource type="Texture2D" uid="uid://cr2kc17q3lfem" path="res://assets/sprites/enemy/boss_poulpe_silhouette.png" id="3_g7yjg"]
 [ext_resource type="Script" uid="uid://doerg6y5cbmd3" path="res://scene/enemy/boss/poulpe/attacks/attack_bubble.gd" id="4_kfpce"]
 [ext_resource type="Resource" uid="uid://kn2acjay3iik" path="res://ressources/enemy/boss/Boss_poulpe.tres" id="4_ofeu8"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_kh0aw"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_rf02t"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_hk1bg"]
-[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_sukh6"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="8_sukh6"]
 [ext_resource type="SpriteFrames" uid="uid://bg7fb4wgybrmr" path="res://assets/sprites/enemy/bossPoulpe.tres" id="9_ofeu8"]
 [ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="10_s2vsj"]
 [ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="11_g7yjg"]
@@ -27,6 +28,7 @@ degats_bulle_encre = 40
 degats_tremblement = 20
 vitesse_bulle_encre = 350.0
 portee_tentacule = 100.0
+transition_texture = ExtResource("3_g7yjg")
 stats = ExtResource("4_ofeu8")
 SEAWEED_SCENE = ExtResource("5_kh0aw")
 PEARL_SCENE = ExtResource("6_rf02t")

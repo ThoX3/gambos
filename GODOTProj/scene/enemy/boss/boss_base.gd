@@ -2,7 +2,10 @@ class_name Boss_Base
 extends Enemy_Base
 
 @export var attack_cooldown: float = 3.0
-@export var scene_transition: PackedScene
+@export var transition_texture: Texture2D
+@export var transition_text: String = "UN BOSS EST APPARU !"
+
+const TRANSITION_BOSS_SCENE = preload("res://scene/ui/enemy/boss/transition_boss.tscn")
 
 var _attack_timer: float = 0.0
 var is_attacking: bool = false
@@ -171,23 +174,14 @@ func _end_attack() -> void:
 func _lancer_transition_boss() -> void:
 	get_tree().paused = true
 
-	if scene_transition != null:
-		var transition_instance = scene_transition.instantiate()
-		get_tree().root.add_child(transition_instance)
-		
-		transition_instance.process_mode = Node.PROCESS_MODE_ALWAYS
-
-		if transition_instance.has_signal("transition_terminee"):
-			await transition_instance.transition_terminee
-		elif transition_instance.has_node("AnimationPlayer"):
-			var anim_player = transition_instance.get_node("AnimationPlayer") as AnimationPlayer
-			anim_player.play("intro") 
-			await anim_player.animation_finished
-		else:
-			await get_tree().create_timer(3.0).timeout
-		
-		transition_instance.queue_free()
-
+	var transition_instance = TRANSITION_BOSS_SCENE.instantiate()
+	get_tree().root.add_child(transition_instance)
+	
+	transition_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	transition_instance.setup(transition_text, transition_texture)
+	
+	await transition_instance.play_transition()
+	
 	get_tree().paused = false
 
 	await get_tree().create_timer(2.0).timeout

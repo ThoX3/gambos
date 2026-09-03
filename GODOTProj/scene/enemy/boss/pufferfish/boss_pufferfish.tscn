@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://jw1arwmodi8o"]
 
 [ext_resource type="PackedScene" uid="uid://dhj2fmw4l0pvl" path="res://scene/projectile/projectile_pic.tscn" id="2_3qyhk"]
+[ext_resource type="Texture2D" uid="uid://bgb0fdlkcq16a" path="res://assets/sprites/enemy/bossPufferfishSilhouette.png" id="3_q3vn2"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_eyvxo"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_8wkub"]
 [ext_resource type="PackedScene" uid="uid://bsgt3ou6bgvwg" path="res://scene/ui/enemy/Damage_text.tscn" id="7_3dcn1"]
-[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/DeathSplash.tscn" id="8_emkko"]
+[ext_resource type="PackedScene" uid="uid://d2dwwikk38b7i" path="res://scene/ui/enemy/deathSplash.tscn" id="8_emkko"]
 [ext_resource type="Texture2D" uid="uid://ubtnjq74u5de" path="res://assets/sprites/lights/2d_lights_and_shadows_neutral_point_light.webp" id="9_q3vn2"]
 [ext_resource type="Script" uid="uid://cn8ndn6p2scte" path="res://scene/maps/deep_sea_light.gd" id="10_1bixk"]
 [ext_resource type="Script" uid="uid://3pfiyienny43" path="res://scene/enemy/boss/pufferfish/boss_pufferfish.gd" id="10_q3vn2"]
-[ext_resource type="PackedScene" uid="uid://jbnrfg3eeax5" path="res://scene/ui/enemy/boss/TransitionBossPufferfish.tscn" id="11_1mii0"]
 [ext_resource type="Resource" uid="uid://ckc7t4f7hk56r" path="res://ressources/enemy/boss/Boss_pufferfish.tres" id="12_4osb5"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_08vll"]
@@ -321,7 +321,7 @@ pic_scene = ExtResource("2_3qyhk")
 vitesse_charge = 1500.0
 duree_charge = 5.0
 rayon_nuage_poison = 400.0
-scene_transition = ExtResource("11_1mii0")
+transition_texture = ExtResource("3_q3vn2")
 stats = ExtResource("12_4osb5")
 SEAWEED_SCENE = ExtResource("5_eyvxo")
 PEARL_SCENE = ExtResource("6_8wkub")

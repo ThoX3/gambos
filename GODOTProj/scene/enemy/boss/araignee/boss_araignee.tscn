@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c53w7eej1fjlq"]
 
 [ext_resource type="Script" uid="uid://cm4r681rprknf" path="res://scene/enemy/boss/araignee/boss_araignee.gd" id="1_52uca"]
-[ext_resource type="PackedScene" path="res://scene/enemy/boss/araignee/attacks/projectile_sable_boss.tscn" id="2_3cbsx"]
-[ext_resource type="PackedScene" uid="uid://bmk387cyux6hd" path="res://scene/ui/enemy/boss/TransitionBossAraignee.tscn" id="3_632vg"]
+[ext_resource type="PackedScene" uid="uid://deiidb5nn14gw" path="res://scene/enemy/boss/araignee/attacks/projectile_sable_boss.tscn" id="2_3cbsx"]
+[ext_resource type="Texture2D" uid="uid://deqjkral6ors6" path="res://assets/sprites/enemy/araignee_transition.png" id="3_3cbsx"]
 [ext_resource type="Resource" uid="uid://cqb5hsm2bn2v" path="res://ressources/enemy/boss/Boss_araignee.tres" id="3_ixp5x"]
 [ext_resource type="PackedScene" uid="uid://csw7httmtku5k" path="res://scene/drops/seaweed.tscn" id="5_scond"]
 [ext_resource type="PackedScene" uid="uid://bdqwjtcn8s213" path="res://scene/drops/pearl.tscn" id="6_5isqy"]
@@ -27,7 +27,7 @@ degats_balayage_corps = 5
 degats_projectile = 3
 vitesse_embuscade = 500
 degats_embuscade = 3
-scene_transition = ExtResource("3_632vg")
+transition_texture = ExtResource("3_3cbsx")
 stats = ExtResource("3_ixp5x")
 SEAWEED_SCENE = ExtResource("5_scond")
 PEARL_SCENE = ExtResource("6_5isqy")

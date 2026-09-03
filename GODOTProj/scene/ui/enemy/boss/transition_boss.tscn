@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://deqjkral6ors6" path="res://assets/sprites/enemy/araignee_transition.png" id="1_baq6g"]
 [ext_resource type="FontVariation" path="res://assets/fonts/dynamic/DePixelSchmal.tres" id="1_ud0p2"]
+[ext_resource type="Script" path="res://scene/ui/enemy/boss/transition_boss.gd" id="1_script"]
 
 [sub_resource type="Gradient" id="Gradient_baq6g"]
 offsets = PackedFloat32Array(0.5397351, 0.6258278)
@@ -147,7 +148,8 @@ _data = {
 &"intro": SubResource("Animation_ud0p2")
 }
 
-[node name="TransitionBossAraignee" type="Control" unique_id=1744949199]
+[node name="TransitionBoss" type="Control" unique_id=1744949199]
+script = ExtResource("1_script")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

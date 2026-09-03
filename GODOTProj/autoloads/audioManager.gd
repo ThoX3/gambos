@@ -171,6 +171,7 @@ func stop_music() -> void:
 		(p as AudioStreamPlayer).queue_free()
 	_players_actifs.clear()
 	_musique_courante = ""
+	_derniere_vague = 0
 
 
 ## Remet la musique courante à son état initial (vague 0) sans la couper.
@@ -179,6 +180,7 @@ func reset_music() -> void:
 		var player := p as AudioStreamPlayer
 		player.volume_db = VOL_MIN
 		player.play()
+	_derniere_vague = 0
 	_activer_couches(0)
 
 

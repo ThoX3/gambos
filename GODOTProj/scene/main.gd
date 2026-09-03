@@ -148,29 +148,16 @@ func change_level(new_map_scene: PackedScene) -> void:
 		_map_en_sortie = null
 
 	current_map = new_map_scene.instantiate()
-	current_map.modulate.a = 0.0
 	game_world.add_child(current_map)
+	
+	get_tree().call_group("Loot", "queue_free")
 
 	_rafraichir_deep_sea_light()
 
-	if ancienne == null:
-		var t_simple := create_tween()
-		t_simple.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
-		return
-
-	_map_en_sortie = ancienne
-	var tween := create_tween().set_parallel(true)
-	tween.tween_property(current_map, "modulate:a", 1.0, duree_fondu_map)
-	tween.tween_property(ancienne, "modulate:a", 0.0, duree_fondu_map)
-	tween.chain().tween_callback(func():
+	if ancienne != null:
 		if is_instance_valid(ancienne):
 			ancienne.queue_free()
-		if _map_en_sortie == ancienne:
-			_map_en_sortie = null
-		# (2) Réévaluation APRÈS nettoyage : l'ancienne map a quitté le groupe
-		#     deep_sea, donc en sortant du monde 3 la bulle s'éteint au bon moment.
 		_rafraichir_deep_sea_light()
-	)
 
 func _clear_world() -> void:
 	if current_player:

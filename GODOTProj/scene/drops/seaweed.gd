@@ -11,6 +11,7 @@ var friction := 8.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("Loot")
 	$AnimatedSprite2D.play("Idle")
 	var final_scale : float = clamp(xp_amount / 20.0 + 0.5, 0.5, 1.5)
 	scale = Vector2(final_scale, final_scale)
